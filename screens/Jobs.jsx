@@ -1,9 +1,40 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { db } from "./FirebaseLink";
+import React, { setState, useState, useEffect } from "react";
+export default function Jobs() {
+  const [Jobs, setJobs] = useState([]);
+  const fetchJobs = async () => {
+    var Jobs = "";
+    const response = db.collection("PLEnerserv");
+    const data = await response.get();
 
-export default function App() {
-  return (
-    <View style={styles.container}>
+    Jobs = data.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+      baseId: doc.id,
+    }));
+    console.log("jobs002", Jobs);
+    data.docs.forEach((item) => {
+      setJobs([...Jobs, item.data()]);
+    });
+    console.log("jobs003", Jobs);
+    return Jobs;
+  };
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+  console.log("de", Jobs);
+
+  return Jobs.map((job) => {
+    return (
+      <View style={styles.search}>
+        <Text style={styles.searchText}>Search</Text>
+      </View>
+    );
+  });
+
+  /*<View style={styles.container}>
       <View style={styles.search}>
         <Text style={styles.searchText}>Search</Text>
       </View>
@@ -11,88 +42,10 @@ export default function App() {
         <View style={styles.existingJob}>
           <Text style={styles.Text}>Job 001</Text>
         </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 002</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 003</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 004</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 005</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 006</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 007</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 008</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 009</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 010</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 011</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 012</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 013</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 014</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 015</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 016</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 017</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 018</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 019</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 020</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 021</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 022</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 023</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 024</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 025</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 026</Text>
-        </View>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 027</Text>
-        </View>
       </ScrollView>
-    </View>
-  );
+    </View>*/
 }
+
 const styles = StyleSheet.create({
   container: {
     width: "100%",
