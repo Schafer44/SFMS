@@ -5,31 +5,26 @@ import React, { setState, useState, useEffect } from "react";
 export default function Jobs() {
   const [Jobs, setJobs] = useState([]);
   const fetchJobs = async () => {
-    var Jobs = "";
+    var Jobs = [];
     const response = db.collection("PLEnerserv");
     const data = await response.get();
-
     Jobs = data.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
       baseId: doc.id,
     }));
-    console.log("jobs002", Jobs);
     data.docs.forEach((item) => {
-      setJobs([...Jobs, item.data()]);
+      setJobs([...Jobs]);
     });
-    console.log("jobs003", Jobs);
-    return Jobs;
   };
   useEffect(() => {
     fetchJobs();
   }, []);
   console.log("de", Jobs);
-
   return Jobs.map((job) => {
     return (
-      <View style={styles.search}>
-        <Text style={styles.searchText}>Search</Text>
+      <View style={styles.existingJob}>
+        <Text style={styles.Text}>{job.JSANum}</Text>
       </View>
     );
   });
