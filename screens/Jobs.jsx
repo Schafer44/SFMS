@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
-export default function Jobs() {
+export default function Jobs(props) {
   const [Jobs, setJobs] = useState([]);
   const fetchJobs = async () => {
     var Jobs = [];
@@ -20,13 +20,15 @@ export default function Jobs() {
   useEffect(() => {
     fetchJobs();
   }, []);
-  console.log("de", Jobs);
   return Jobs.map((job) => {
-    return (
-      <View style={styles.existingJob}>
-        <Text style={styles.Text}>{job.JSANum}</Text>
-      </View>
-    );
+    if (job.JobNum.toLowerCase().includes(props.searchPhrase.toLowerCase()))
+      return (
+        <ScrollView style={styles.container}>
+          <View style={styles.existingJob}>
+            <Text style={styles.Text}>{job.JobNum}</Text>
+          </View>
+        </ScrollView>
+      );
   });
 
   /*<View style={styles.container}>
@@ -46,18 +48,6 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 1,
     backgroundColor: "white",
-  },
-  search: {
-    width: "95%",
-    height: 70,
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    borderColor: "black",
-    borderStyle: "solid",
-    borderWidth: 4,
-    borderRadius: 20,
-    margin: "2.5%",
   },
   existingJob: {
     width: "100%",
