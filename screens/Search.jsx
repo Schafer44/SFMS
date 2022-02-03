@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   Search: {
-    width: "95%",
+    width: "100%",
     height: 70,
     backgroundColor: "white",
     alignItems: "center",
@@ -75,7 +75,9 @@ const styles = StyleSheet.create({
     width: "90%",
   },
   searchBar__unclicked: {
+    marginTop: 15,
     padding: 10,
+    paddingLeft: 1,
     flexDirection: "row",
     width: "95%",
     backgroundColor: "#d9dbda",
@@ -83,9 +85,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   searchBar__clicked: {
+    marginTop: 15,
     padding: 10,
     flexDirection: "row",
-    width: "80%",
+    width: "90%",
     backgroundColor: "#d9dbda",
     borderRadius: 15,
     alignItems: "center",
@@ -93,7 +96,9 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: 20,
+    padding: 5,
     marginLeft: 10,
-    width: "90%",
+    width: "100%",
+    height: "100%",
   },
 });

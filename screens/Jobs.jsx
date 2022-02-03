@@ -23,11 +23,9 @@ export default function Jobs(props) {
   return Jobs.map((job) => {
     if (job.JobNum.toLowerCase().includes(props.searchPhrase.toLowerCase()))
       return (
-        <ScrollView style={styles.container}>
-          <View style={styles.existingJob}>
-            <Text style={styles.Text}>{job.JobNum}</Text>
-          </View>
-        </ScrollView>
+        <View style={styles.existingJob}>
+          <Text style={styles.Text}>{job.JobNum}</Text>
+        </View>
       );
   });
 
@@ -44,11 +42,6 @@ export default function Jobs(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    flex: 1,
-    backgroundColor: "white",
-  },
   existingJob: {
     width: "100%",
     height: 70,

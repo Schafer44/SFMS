@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import Jobs from "./Jobs";
 import NewJob from "./NewJobButton";
 import Search from "./Search";
@@ -16,7 +16,9 @@ export default function App() {
         clicked={clicked}
         setClicked={setClicked}
       />
-      <Jobs searchPhrase={searchPhrase} />
+      <ScrollView style={styles.Container}>
+        <Jobs searchPhrase={searchPhrase} />
+      </ScrollView>
       <NewJob />
     </View>
   );
@@ -28,5 +30,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     alignItems: "center",
     justifyContent: "flex-end",
+  },
+  Container: {
+    width: "100%",
+    flex: 1,
+    backgroundColor: "white",
   },
 });
