@@ -10,9 +10,9 @@ export default function TimesheetLine(props) {
         <View style={styles.bGridColumns}>
           <TextInput
             style={styles.textInputTest}
-            placeholder=" "
-            value={props.searchPhrase}
-            onChangeText={props.setSearchPhrase}
+            placeholder=""
+            value={props.formTestBox}
+            onChangeText={props.setformTestBox}
           />
         </View>
       </View>
@@ -20,9 +20,9 @@ export default function TimesheetLine(props) {
         <View style={styles.bGridColumns}>
           <TextInput
             style={styles.textInputTest}
-            placeholder=" "
-            value={props.searchPhrase}
-            onChangeText={props.setSearchPhrase}
+            placeholder=""
+            value={props.formTestBox}
+            onChangeText={props.setformTestBox}
           />
         </View>
       </View>
@@ -30,9 +30,9 @@ export default function TimesheetLine(props) {
         <View style={styles.bGridColumns}>
           <TextInput
             style={styles.textInputTest}
-            placeholder=" "
-            value={props.searchPhrase}
-            onChangeText={props.setSearchPhrase}
+            placeholder=""
+            value={props.formTestBox}
+            onChangeText={props.setformTestBox}
           />
         </View>
       </View>
@@ -40,9 +40,9 @@ export default function TimesheetLine(props) {
         <View style={styles.bGridColumns}>
           <TextInput
             style={styles.textInputTest}
-            placeholder=" "
-            value={props.searchPhrase}
-            onChangeText={props.setSearchPhrase}
+            placeholder=""
+            value={props.formTestBox}
+            onChangeText={props.setformTestBox}
           />
         </View>
       </View>
@@ -50,9 +50,9 @@ export default function TimesheetLine(props) {
         <View style={styles.bGridColumns}>
           <TextInput
             style={styles.textInputTest}
-            placeholder=" "
-            value={props.searchPhrase}
-            onChangeText={props.setSearchPhrase}
+            placeholder=""
+            value={props.formTestBox}
+            onChangeText={props.setformTestBox}
           />
         </View>
       </View>
@@ -60,9 +60,9 @@ export default function TimesheetLine(props) {
         <View style={styles.bGridColumns}>
           <TextInput
             style={styles.textInputTest}
-            placeholder=" "
-            value={props.searchPhrase}
-            onChangeText={props.setSearchPhrase}
+            placeholder=""
+            value={props.formTestBox}
+            onChangeText={props.setformTestBox}
           />
         </View>
       </View>
@@ -70,9 +70,9 @@ export default function TimesheetLine(props) {
         <View style={styles.bGridColumns}>
           <TextInput
             style={styles.textInputTest}
-            placeholder=" "
-            value={props.searchPhrase}
-            onChangeText={props.setSearchPhrase}
+            placeholder=""
+            value={props.formTestBox}
+            onChangeText={props.setformTestBox}
           />
         </View>
       </View>
@@ -80,9 +80,9 @@ export default function TimesheetLine(props) {
         <View style={styles.bGridColumns}>
           <TextInput
             style={styles.textInputTest}
-            placeholder=" "
-            value={props.searchPhrase}
-            onChangeText={props.setSearchPhrase}
+            placeholder=""
+            value={props.formTestBox}
+            onChangeText={props.setformTestBox}
           />
         </View>
       </View>
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   bGridMedium: {
     height: "100%",
     flex: 4,
-    backgroundColor: "white",
+    backgroundColor: "black",
     flexWrap: "wrap",
     borderColor: "black",
     borderWidth: 4,
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   Text: {
-    color: "white",
+    color: "black",
   },
   textInputTest: {
     fontSize: 15,
@@ -141,6 +141,6 @@ const styles = StyleSheet.create({
     paddingRight: 1000,
     width: "100%",
     height: "100%",
-    color: "white",
+    color: "black",
   },
 });

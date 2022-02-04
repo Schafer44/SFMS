@@ -3,8 +3,11 @@ import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { db } from "../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import TimesheetLine from "./TimesheetLine";
+import { SignatureCapture } from "./SignatureCapture";
+import TimesheetLineComment from "./TimesheetComment";
 export default function Timesheet() {
-  const [searchPhrase, setSearchPhrase] = useState("");
+  const [formTestBox, setformTestBox] = useState("");
+  const [comment, setComment] = useState("");
   return (
     <View style={styles.globalContainer}>
       <View style={styles.header}>
@@ -25,81 +28,89 @@ export default function Timesheet() {
       <View style={styles.body}>
         <ScrollView style={styles.bodyScroll}>
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
           <TimesheetLine
-            searchPhrase={searchPhrase}
-            setSearchPhrase={setSearchPhrase}
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
+          />
+          <TimesheetLine
+            formTestBox={formTestBox}
+            setformTestBox={setformTestBox}
           />
         </ScrollView>
       </View>
-      <View style={styles.footerDoc}></View>
-      <View style={styles.footerPage}></View>
+      <View style={styles.footerDoc}>
+        <TimesheetLineComment comment={comment} setComment={setComment} />
+      </View>
+      <View style={styles.footerPage}>
+        <SignatureCapture />
+      </View>
     </View>
   );
 }
@@ -162,6 +173,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   Text: {
-    color: "white",
+    color: "black",
   },
 });
