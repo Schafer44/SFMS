@@ -1,13 +1,45 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
 import { db } from "../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import TimesheetLine from "./TimesheetLine";
 import { SignatureCapture } from "./SignatureCapture";
 import TimesheetLineComment from "./TimesheetComment";
+
 export default function Timesheet() {
   const [formTestBox, setformTestBox] = useState("");
   const [comment, setComment] = useState("");
+  var Name;
+  var baseId;
+  var id;
+  const [Job, setJob] = useState([]);
+  const fetchJob = async () => {
+    var Job = [];
+    const response = db.collection("TestJob101");
+    const data = await response.get();
+    Job = data.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+      baseId: doc.id,
+    }));
+    data.docs.forEach((item) => {
+      setJob([...Job]);
+    });
+  };
+  useEffect(() => {
+    fetchJob();
+  }, []);
+  console.log(Job);
+
+  const createTimesheet = async (Timesheet) => {
+    var TempJob = [];
+
+    console.log("1", Timesheet);
+    TempJob = Job + Timesheet;
+    console.log("2", TempJob);
+    //setJob([...TempJob]);
+  };
+  console.log(Job);
   return (
     <View style={styles.globalContainer}>
       <View style={styles.header}>
@@ -26,6 +58,16 @@ export default function Timesheet() {
       </View>
 
       <View style={styles.body}>
+        <Button
+          title="test"
+          onPress={() => {
+            createTimesheet([
+              (Name = "TestTimesheet"),
+              (baseId = "001"),
+              (id = "1"),
+            ]);
+          }}
+        />
         <ScrollView style={styles.bodyScroll}>
           <TimesheetLine
             formTestBox={formTestBox}
@@ -108,9 +150,7 @@ export default function Timesheet() {
       <View style={styles.footerDoc}>
         <TimesheetLineComment comment={comment} setComment={setComment} />
       </View>
-      <View style={styles.footerPage}>
-        <SignatureCapture />
-      </View>
+      <View style={styles.footerPage}></View>
     </View>
   );
 }

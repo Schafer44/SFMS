@@ -4,7 +4,6 @@ import Signature from "react-native-signature-canvas";
 
 export const SignatureCapture = () => {
   const [signature, setSign] = useState(null);
-
   const handleOK = (signature) => {
     console.log(signature);
     setSign(signature);
@@ -18,14 +17,15 @@ export const SignatureCapture = () => {
     .button {
       background-color: red;
       color: #FFF;
+      width:30%;
     }`;
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ width: "90%", height: "100%" }}>
       <View style={styles.preview}>
         {signature ? (
           <Image
             resizeMode={"contain"}
-            style={{ width: 335, height: 114 }}
+            style={{ left: 0, width: "100%", height: "20%" }}
             source={{ uri: signature }}
           />
         ) : null}
@@ -44,8 +44,8 @@ export const SignatureCapture = () => {
 
 const styles = StyleSheet.create({
   preview: {
-    width: 335,
-    height: 114,
+    width: "100%",
+    height: "40%",
     backgroundColor: "#F8F8F8",
     justifyContent: "center",
     alignItems: "center",
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   previewText: {
     color: "#FFF",
-    fontSize: 14,
+    fontSize: 25,
     height: 40,
     lineHeight: 40,
     paddingLeft: 10,
