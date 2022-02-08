@@ -4,6 +4,15 @@ import { db } from "../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
 export default function TimesheetLine(props) {
+  const [Name, setName] = useState("");
+  const [Occ, setOcc] = useState("");
+  const [Hrs, setHrs] = useState("");
+  const [PU, setPU] = useState("");
+  const [Rig, setRig] = useState("");
+  const [PD, setPD] = useState("");
+  const [EquipNum, setEquipNum] = useState("");
+  const [EquipDesc, setEquipDesc] = useState("");
+
   return (
     <View style={styles.body}>
       <View style={styles.bGridLarge}>
@@ -11,8 +20,8 @@ export default function TimesheetLine(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={props.formTestBox}
-            onChangeText={props.setformTestBox}
+            value={props.Name}
+            onChangeText={props.setName}
           />
         </View>
       </View>
@@ -21,8 +30,8 @@ export default function TimesheetLine(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={props.formTestBox}
-            onChangeText={props.setformTestBox}
+            value={props.Occ}
+            onChangeText={props.setOcc}
           />
         </View>
       </View>
@@ -31,8 +40,8 @@ export default function TimesheetLine(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={props.formTestBox}
-            onChangeText={props.setformTestBox}
+            value={props.Hrs}
+            onChangeText={props.setHrs}
           />
         </View>
       </View>
@@ -41,8 +50,8 @@ export default function TimesheetLine(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={props.formTestBox}
-            onChangeText={props.setformTestBox}
+            value={props.PU}
+            onChangeText={props.setPU}
           />
         </View>
       </View>
@@ -51,8 +60,8 @@ export default function TimesheetLine(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={props.formTestBox}
-            onChangeText={props.setformTestBox}
+            value={props.Rig}
+            onChangeText={props.setRig}
           />
         </View>
       </View>
@@ -61,8 +70,8 @@ export default function TimesheetLine(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={props.formTestBox}
-            onChangeText={props.setformTestBox}
+            value={props.PD}
+            onChangeText={props.setPD}
           />
         </View>
       </View>
@@ -71,8 +80,8 @@ export default function TimesheetLine(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={props.formTestBox}
-            onChangeText={props.setformTestBox}
+            value={props.EquipNum}
+            onChangeText={props.setEquipNum}
           />
         </View>
       </View>
@@ -81,8 +90,8 @@ export default function TimesheetLine(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={props.formTestBox}
-            onChangeText={props.setformTestBox}
+            value={props.EquipDesc}
+            onChangeText={props.setEquipDesc}
           />
         </View>
       </View>
