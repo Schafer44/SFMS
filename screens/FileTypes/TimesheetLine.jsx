@@ -12,7 +12,7 @@ export default function TimesheetLine(props) {
   const [PD, setPD] = useState("");
   const [EquipNum, setEquipNum] = useState("");
   const [EquipDesc, setEquipDesc] = useState("");
-
+  const [Line, setLine] = useState({});
   return (
     <View style={styles.body}>
       <View style={styles.bGridLarge}>
@@ -20,8 +20,18 @@ export default function TimesheetLine(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={props.Name}
-            onChangeText={props.setName}
+            value={Line.Name}
+            onChange={(event) => {
+              console.log("ple", Line.Name);
+              setLine({ ...Line, Name: event.nativeEvent.text });
+              console.log("Name", event.nativeEvent.text);
+              console.log("hell1", Name);
+              console.log("please", Line.Name);
+              console.log("hell2", props.Lines);
+              console.log("Line at Id", props.Lines[props.id]);
+              props.setLines(props.Lines, (props.Lines[props.id] = { Line }));
+              console.log("hell3", props.Lines, "done");
+            }}
           />
         </View>
       </View>

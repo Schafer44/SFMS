@@ -9,7 +9,7 @@ export default function TimesheetLineComment(props) {
       <TextInput
         style={styles.textInputTest}
         placeholder=""
-        value={props.comment}
+        value={props.Comment}
         onChangeText={props.setComment}
         multiline={true}
         maxLength={400}

@@ -26,13 +26,13 @@ import {
 
 export default function Timesheet() {
   const [formTestBox, setformTestBox] = useState("");
-  const [comment, setComment] = useState("");
-
+  const [Comment, setComment] = useState("");
+  const [Names, setNames] = useState("");
   const [Proj, setProj] = useState("");
   const [Date, setDate] = useState("");
   const [Day, setDay] = useState("");
   const [Crew, setCrew] = useState("");
-
+  const [Lines, setLines] = useState([]);
   var TempName;
   var TempBaseId;
   var TempId;
@@ -53,15 +53,17 @@ export default function Timesheet() {
   useEffect(() => {
     fetchJob();
   }, []);
-  console.log(Job);
 
   const createTimesheet = (Timesheet) => {
     //Job.push(Timesheet);
     const docRef = doc(db, "TestJob101", "YW6v7l5t77zSbvnjUxwg");
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
+
+    console.log(Lines);
+    console.log("1");
     setDoc(docRef, {
-      displayName: "TEST2",
+      Timesheet: Lines,
     });
     /*setDoc(reference, {
       id: Timesheet.id,
@@ -87,7 +89,6 @@ export default function Timesheet() {
             setEquipDesc={setEquipDesc}
           />
     */
-    console.log("3", Job);
   };
   return (
     <View style={styles.globalContainer}>
@@ -112,13 +113,13 @@ export default function Timesheet() {
 
       <View style={styles.body}>
         <ScrollView style={styles.bodyScroll}>
-          <TimesheetLine />
-          <TimesheetLine />
-          <TimesheetLine />
-          <TimesheetLine />
-          <TimesheetLine />
-          <TimesheetLine />
-          <TimesheetLine />
+          <TimesheetLine Lines={Lines} setLines={setLines} id={0} />
+          <TimesheetLine Lines={Lines} setLines={setLines} id={1} />
+          <TimesheetLine Lines={Lines} setLines={setLines} id={2} />
+          <TimesheetLine Lines={Lines} setLines={setLines} id={3} />
+          <TimesheetLine Lines={Lines} setLines={setLines} id={4} />
+          <TimesheetLine Lines={Lines} setLines={setLines} id={5} />
+          <TimesheetLine Lines={Lines} setLines={setLines} id={6} />
         </ScrollView>
       </View>
       <View style={styles.footerDoc}>
@@ -126,7 +127,7 @@ export default function Timesheet() {
           <Text style={styles.footerDocTitle}>Additional Comments</Text>
         </View>
         <View style={styles.footerViewContent}>
-          <TimesheetLineComment comment={comment} setComment={setComment} />
+          <TimesheetLineComment Comment={Comment} setComment={setComment} />
         </View>
       </View>
       <View style={styles.footerPage}>
