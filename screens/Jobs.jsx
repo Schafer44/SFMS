@@ -1,9 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 export default function Jobs(props) {
   const [Jobs, setJobs] = useState([]);
+  console.log("help", props.navigation);
   const fetchJobs = async () => {
     var Jobs = [];
     const response = db.collection("PLEnerserv");
@@ -22,11 +23,17 @@ export default function Jobs(props) {
   }, []);
   return Jobs.map((job) => {
     if (job.JobNum.toLowerCase().includes(props.searchPhrase.toLowerCase()))
-      return (
+      /*return (
         <View style={styles.existingJob}>
+          <Button
+            title={job.JobNum}
+            onPress={() => job.navigate("Job", { job: job.JobNum })}
+          />
+
           <Text style={styles.Text}>{job.JobNum}</Text>
         </View>
-      );
+      );*/
+      return <Text onPress={() => props.navigation("Job")}>Settings</Text>;
   });
 
   /*<View style={styles.container}>

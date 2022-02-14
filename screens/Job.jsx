@@ -4,7 +4,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.newJob}>
-        <Text style={styles.Text}>New Job</Text>
+        <Text style={styles.Text}>New File</Text>
       </View>
     </View>
   );

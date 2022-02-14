@@ -5,9 +5,10 @@ import NewJob from "./NewJobButton";
 import Search from "./Search";
 import React, { useState, useEffect } from "react";
 
-export default function App() {
+export default function Home({ navigation }) {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
+  console.log("he", navigation.navigate);
   return (
     <View style={styles.Gloablcontainer}>
       <Search
@@ -17,7 +18,7 @@ export default function App() {
         setClicked={setClicked}
       />
       <ScrollView style={styles.Container}>
-        <Jobs searchPhrase={searchPhrase} />
+        <Jobs searchPhrase={searchPhrase} navigation={navigation.navigate} />
       </ScrollView>
       <NewJob />
     </View>

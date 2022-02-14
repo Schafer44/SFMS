@@ -135,13 +135,14 @@ export default function Timesheet() {
           style={styles.SigCap}
           title="Signature"
           underlayColor="#fff"
-          /*onPress={() => {
+          onPress={() => {
+            navigator;
             createTimesheet({
               TempName: "TestTimesheet",
               TempBaseId: "001",
               TempId: "1",
             });
-          }}*/
+          }}
         >
           <Text style={styles.loginText}>Signature</Text>
         </TouchableOpacity>
