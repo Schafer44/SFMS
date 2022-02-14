@@ -13,6 +13,11 @@ export default function TimesheetLine(props) {
   const [EquipNum, setEquipNum] = useState("");
   const [EquipDesc, setEquipDesc] = useState("");
   const [Line, setLine] = useState({});
+  useEffect(() => {
+    if (Object.keys(Line).length !== 0) {
+      props.setLines(props.Lines, (props.Lines[props.id] = { Line }));
+    }
+  });
   return (
     <View style={styles.body}>
       <View style={styles.bGridLarge}>
@@ -22,15 +27,8 @@ export default function TimesheetLine(props) {
             placeholder=""
             value={Line.Name}
             onChange={(event) => {
-              console.log("ple", Line.Name);
+              console.log("ple", event.nativeEvent.text);
               setLine({ ...Line, Name: event.nativeEvent.text });
-              console.log("Name", event.nativeEvent.text);
-              console.log("hell1", Name);
-              console.log("please", Line.Name);
-              console.log("hell2", props.Lines);
-              console.log("Line at Id", props.Lines[props.id]);
-              props.setLines(props.Lines, (props.Lines[props.id] = { Line }));
-              console.log("hell3", props.Lines, "done");
             }}
           />
         </View>
@@ -40,8 +38,10 @@ export default function TimesheetLine(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={props.Occ}
-            onChangeText={props.setOcc}
+            value={Line.Occ}
+            onChange={(event) => {
+              setLine({ ...Line, Occ: event.nativeEvent.text });
+            }}
           />
         </View>
       </View>
@@ -50,8 +50,10 @@ export default function TimesheetLine(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={props.Hrs}
-            onChangeText={props.setHrs}
+            value={Line.Hrs}
+            onChange={(event) => {
+              setLine({ ...Line, Hrs: event.nativeEvent.text });
+            }}
           />
         </View>
       </View>
@@ -60,8 +62,10 @@ export default function TimesheetLine(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={props.PU}
-            onChangeText={props.setPU}
+            value={Line.PU}
+            onChange={(event) => {
+              setLine({ ...Line, PU: event.nativeEvent.text });
+            }}
           />
         </View>
       </View>
@@ -70,8 +74,10 @@ export default function TimesheetLine(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={props.Rig}
-            onChangeText={props.setRig}
+            value={Line.Rig}
+            onChange={(event) => {
+              setLine({ ...Line, Rig: event.nativeEvent.text });
+            }}
           />
         </View>
       </View>
@@ -80,8 +86,10 @@ export default function TimesheetLine(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={props.PD}
-            onChangeText={props.setPD}
+            value={Line.PD}
+            onChange={(event) => {
+              setLine({ ...Line, PD: event.nativeEvent.text });
+            }}
           />
         </View>
       </View>
@@ -90,8 +98,10 @@ export default function TimesheetLine(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={props.EquipNum}
-            onChangeText={props.setEquipNum}
+            value={Line.EquipNum}
+            onChange={(event) => {
+              setLine({ ...Line, EquipNum: event.nativeEvent.text });
+            }}
           />
         </View>
       </View>
@@ -100,8 +110,10 @@ export default function TimesheetLine(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={props.EquipDesc}
-            onChangeText={props.setEquipDesc}
+            value={Line.EquipDesc}
+            onChange={(event) => {
+              setLine({ ...Line, EquipDesc: event.nativeEvent.text });
+            }}
           />
         </View>
       </View>
