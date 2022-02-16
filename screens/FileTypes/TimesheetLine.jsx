@@ -27,7 +27,6 @@ export default function TimesheetLine(props) {
             placeholder=""
             value={Line.Name}
             onChange={(event) => {
-              console.log("ple", event.nativeEvent.text);
               setLine({ ...Line, Name: event.nativeEvent.text });
             }}
           />

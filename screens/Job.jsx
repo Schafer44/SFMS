@@ -4,18 +4,18 @@ import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 export default function Job(props) {
   const [Job, setJobs] = useState([]);
-  console.log("help", props.navigation);
   const fetchJobs = async () => {
-    var Jobs = [];
-    const response = db.collection("PLEnerserv");
+    var Job = [];
+    const response = db.collection(props.route.params.job.JobNum);
     const data = await response.get();
-    Jobs = data.docs.map((doc) => ({
+    Job = data.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
       baseId: doc.id,
     }));
+    console.log("hnn", Job);
     data.docs.forEach((item) => {
-      setJobs([...Jobs]);
+      setJobs([...Job]);
     });
   };
   useEffect(() => {

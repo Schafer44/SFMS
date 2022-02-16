@@ -8,7 +8,6 @@ import React, { useState, useEffect } from "react";
 export default function Home({ navigation }) {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
-  console.log("he", navigation.navigate);
   return (
     <View style={styles.Gloablcontainer}>
       <Search

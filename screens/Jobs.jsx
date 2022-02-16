@@ -4,7 +4,6 @@ import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 export default function Jobs(props) {
   const [Jobs, setJobs] = useState([]);
-  console.log("help", props.navigation);
   const fetchJobs = async () => {
     var Jobs = [];
     const response = db.collection("PLEnerserv");

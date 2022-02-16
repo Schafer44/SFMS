@@ -60,8 +60,6 @@ export default function Timesheet() {
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
 
-    console.log(Lines);
-    console.log("1");
     setDoc(docRef, {
       Timesheet: Lines,
     });

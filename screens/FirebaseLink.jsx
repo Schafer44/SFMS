@@ -30,8 +30,6 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 export const db = firebaseApp.firestore();
 const PLECollection = db.collection("PLEnerserv");
 
-console.log("PLEnerserv", PLECollection.doc("TestJob101"));
-
 export const fetchJobs = async () => {
   var Jobs = "";
   const response = db.collection("PLEnerserv");
@@ -42,7 +40,6 @@ export const fetchJobs = async () => {
     ...doc.data(),
     baseId: doc.id,
   }));
-  console.log("jobs001", Jobs);
   /*data.docs.forEach((item) => {
     setJobs([...Jobs, item.data()]);
   });*/
@@ -75,6 +72,5 @@ export const getJobs = async () => {
     ...doc.data(),
     baseId: doc.id,
   }));
-  console.log("fefe", Lifts);
   return Lifts;
 };
