@@ -37,7 +37,7 @@ export default function Jobs(props) {
         <View style={styles.existingJob}>
           <Button
             style={styles.existingJobBtn}
-            onPress={() => props.navigation("Job")}
+            onPress={() => props.navigation("Job", { job })}
             title={job.JobNum}
           ></Button>
         </View>
