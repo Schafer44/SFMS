@@ -22,13 +22,20 @@ export default function Job(props) {
     fetchJobs();
   }, []);
   console.log("please", props.route.params.job.JobNum);
-  return (
-    <View style={styles.container}>
-      <View style={styles.newJob}>
-        <Text style={styles.Text}>New File</Text>
+  console.log("gfhgf", Job);
+  console.log("props2", props);
+  return Job.map((file) => {
+    console.log("/n", file.baseId);
+    return (
+      <View style={styles.existingJob}>
+        <Button
+          style={styles.existingJobBtn}
+          onPress={() => props.navigation.navigate("TimeSheet", { file })}
+          title={file.baseId}
+        ></Button>
       </View>
-    </View>
-  );
+    );
+  });
 }
 
 const styles = StyleSheet.create({

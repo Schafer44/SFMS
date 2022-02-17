@@ -32,15 +32,16 @@ export default function Jobs(props) {
           <Text style={styles.Text}>{job.JobNum}</Text>
         </View>
       );*/
-      return (
-        <View style={styles.existingJob}>
-          <Button
-            style={styles.existingJobBtn}
-            onPress={() => props.navigation("Job", { job })}
-            title={job.JobNum}
-          ></Button>
-        </View>
-      );
+      console.log("props", props);
+    return (
+      <View style={styles.existingJob}>
+        <Button
+          style={styles.existingJobBtn}
+          onPress={() => props.navigation("Job", { job })}
+          title={job.JobNum}
+        ></Button>
+      </View>
+    );
   });
 
   /*<View style={styles.container}>

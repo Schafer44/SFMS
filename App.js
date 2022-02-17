@@ -15,6 +15,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Job" component={Job} />
+        <Stack.Screen name="TimeSheet" component={TimeSheet} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -24,7 +24,7 @@ import {
   where,
 } from "firebase/firestore";
 
-export default function Timesheet() {
+export default function Timesheet(props) {
   const [formTestBox, setformTestBox] = useState("");
   const [Comment, setComment] = useState("");
   const [Names, setNames] = useState("");
@@ -53,7 +53,7 @@ export default function Timesheet() {
   useEffect(() => {
     fetchJob();
   }, []);
-
+  console.log("timesheet props = ", props);
   const createTimesheet = (Timesheet) => {
     //Job.push(Timesheet);
     const docRef = doc(db, "TestJob101", "YW6v7l5t77zSbvnjUxwg");
