@@ -21,39 +21,18 @@ export default function Jobs(props) {
     fetchJobs();
   }, []);
   return Jobs.map((job) => {
-    if (job.JobNum.toLowerCase().includes(props.searchPhrase.toLowerCase()))
-      /*return (
+    if (job.JobNum.toLowerCase().includes(props.searchPhrase.toLowerCase())) {
+      return (
         <View style={styles.existingJob}>
           <Button
+            style={styles.existingJobBtn}
+            onPress={() => props.navigation("Job", { job })}
             title={job.JobNum}
-            onPress={() => job.navigate("Job", { job: job.JobNum })}
-          />
-
-          <Text style={styles.Text}>{job.JobNum}</Text>
+          ></Button>
         </View>
-      );*/
-      console.log("props", props);
-    return (
-      <View style={styles.existingJob}>
-        <Button
-          style={styles.existingJobBtn}
-          onPress={() => props.navigation("Job", { job })}
-          title={job.JobNum}
-        ></Button>
-      </View>
-    );
+      );
+    }
   });
-
-  /*<View style={styles.container}>
-      <View style={styles.search}>
-        <Text style={styles.searchText}>Search</Text>
-      </View>
-      <ScrollView style={styles.container}>
-        <View style={styles.existingJob}>
-          <Text style={styles.Text}>Job 001</Text>
-        </View>
-      </ScrollView>
-    </View>*/
 }
 
 const styles = StyleSheet.create({
