@@ -6,6 +6,7 @@ import {
   ScrollView,
   Button,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import { db } from "../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
@@ -25,9 +26,7 @@ import {
 } from "firebase/firestore";
 
 export default function Timesheet(props, jobNum) {
-  const [formTestBox, setformTestBox] = useState("");
   const [Comment, setComment] = useState("");
-  const [Names, setNames] = useState("");
   const [Proj, setProj] = useState("");
   const [Date, setDate] = useState("");
   const [Day, setDay] = useState("");
@@ -37,6 +36,7 @@ export default function Timesheet(props, jobNum) {
   var TempBaseId;
   var TempId;
   const [Job, setJob] = useState([]);
+
   const fetchJob = async () => {
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
@@ -49,11 +49,13 @@ export default function Timesheet(props, jobNum) {
     data.docs.forEach((item) => {
       setJob([...Job]);
     });
+    setLines({ Lines: props.route.params.file.Timesheet });
   };
   useEffect(() => {
     fetchJob();
   }, []);
-  console.log("timesheet props2 = ", props.route.params.file);
+  console.log(props.route.params.file.Timesheet[0]);
+  console.log("lines", Lines);
   const createTimesheet = (Timesheet) => {
     //Job.push(Timesheet);
     const docRef = doc(
@@ -96,14 +98,12 @@ export default function Timesheet(props, jobNum) {
     <View style={styles.globalContainer}>
       <View style={styles.header}>
         <View style={styles.hGrid}>
-          <View style={styles.hGridColumns}>
-            {/*Job.forEach((file) => {
-              file.id;
-            })*/}
-          </View>
-          <View style={styles.hGridColumns}></View>
-          <View style={styles.hGridColumns}></View>
-          <View style={styles.hGridColumns}></View>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder="feed"
+            value={Proj}
+            onChange={setProj}
+          />
         </View>
         <View style={styles.hGrid}>
           <View style={styles.hGridColumns}></View>
@@ -256,5 +256,13 @@ const styles = StyleSheet.create({
   footerViewContent: {
     flex: 4,
     height: "100%",
+  },
+  textInputTest: {
+    fontSize: 15,
+    padding: 8,
+    paddingRight: 1000,
+    width: "100%",
+    height: "100%",
+    color: "black",
   },
 });
