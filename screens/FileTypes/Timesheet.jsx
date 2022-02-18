@@ -24,7 +24,7 @@ import {
   where,
 } from "firebase/firestore";
 
-export default function Timesheet(props) {
+export default function Timesheet(props, jobNum) {
   const [formTestBox, setformTestBox] = useState("");
   const [Comment, setComment] = useState("");
   const [Names, setNames] = useState("");
@@ -39,7 +39,7 @@ export default function Timesheet(props) {
   const [Job, setJob] = useState([]);
   const fetchJob = async () => {
     var Job = [];
-    const response = db.collection("TestJob101");
+    const response = db.collection(props.route.params.file.JobNum);
     const data = await response.get();
     Job = data.docs.map((doc) => ({
       id: doc.id,
@@ -53,10 +53,14 @@ export default function Timesheet(props) {
   useEffect(() => {
     fetchJob();
   }, []);
-  console.log("timesheet props = ", props);
+  console.log("timesheet props2 = ", props.route.params.file);
   const createTimesheet = (Timesheet) => {
     //Job.push(Timesheet);
-    const docRef = doc(db, "TestJob101", "YW6v7l5t77zSbvnjUxwg");
+    const docRef = doc(
+      db,
+      props.route.params.file.JobNum,
+      props.route.params.file.baseId
+    );
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
 

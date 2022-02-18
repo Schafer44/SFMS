@@ -26,6 +26,7 @@ export default function Job(props) {
   console.log("props2", props);
   return Job.map((file) => {
     console.log("/n", file.baseId);
+    file.JobNum = props.route.params.job.JobNum;
     return (
       <View style={styles.existingJob}>
         <Button
@@ -39,20 +40,20 @@ export default function Job(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  existingJob: {
     width: "100%",
-    backgroundColor: "white",
+    height: 70,
+    backgroundColor: "#272727",
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "center",
+    marginBottom: 5,
+  },
+  existingJobBtn: {
+    width: "100%",
+    height: 70,
+    backgroundColor: "white",
   },
   Text: {
     color: "white",
-  },
-  newJob: {
-    width: "100%",
-    height: 70,
-    backgroundColor: "green",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
