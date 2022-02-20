@@ -13,21 +13,28 @@ export default function TimesheetLine(props) {
   const [EquipNum, setEquipNum] = useState("");
   const [EquipDesc, setEquipDesc] = useState("");
   const [Line, setLine] = useState({});
-
   useEffect(() => {
-    console.log("help", props.Lines.Lines);
-    /*if (Object.keys(props.Lines.Lines).length !== 0) {
-      console.log("yayyyy");
+    /*if (props.tempLine !== undefined) {
+      console.log(props.tempLine);
+      setLine({ ...Line, Name: props.tempLine });
+      console.log(Line);
     }*/
     if (Object.keys(Line).length !== 0) {
-      //console.log("fdsfdsf", props.Lines.Lines[props.id]);
-      /*if (typeof props.Lines.Lines[props.id] != undefined) {
-    }*/
-      /*for (var i = 0; i < props.Lines.Lines.length; i++) {
-      setLine(Line, (Line = props.Lines.Lines[i]));
-    }*/
       props.setLines(props.Lines, (props.Lines[props.id] = { Line }));
-    }
+      console.log("3", Line);
+    } else if (props.Lines[0] !== undefined) {
+      console.log("1", props.Lines[0]);
+      console.log("2", Line);
+      setLine(props.Lines[0].Line);
+    } /*else if (props.tempLiner !== undefined) {
+      if (props.tempLine[props.id] !== undefined) {
+        console.log(props.tempLine[props.id].Line.Name);
+        setLine(Line, { Name: props.tempLine[0].Line.Name });
+        console.log(Line);
+        console.log("please work");
+      }
+    }*/
+    //console.log(props.tempLine);
   });
   return (
     <View style={styles.body}>

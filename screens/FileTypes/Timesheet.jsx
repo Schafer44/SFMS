@@ -49,13 +49,17 @@ export default function Timesheet(props, jobNum) {
     data.docs.forEach((item) => {
       setJob([...Job]);
     });
-    setLines({ Lines: props.route.params.file.Timesheet });
+    //setLines({ Line: props.route.params.file.Timesheet });
   };
   useEffect(() => {
     fetchJob();
+    if (props.route.params.file.Timesheet != undefined) {
+      console.log("Props Lines === ", props.route.params.file.Timesheet);
+      console.log("Lines === ", Lines);
+      setLines(props.route.params.file.Timesheet);
+      console.log("Lines === ", Lines);
+    }
   }, []);
-  console.log(props.route.params.file.Timesheet[0]);
-  console.log("lines", Lines);
   const createTimesheet = (Timesheet) => {
     //Job.push(Timesheet);
     const docRef = doc(
@@ -100,7 +104,7 @@ export default function Timesheet(props, jobNum) {
         <View style={styles.hGrid}>
           <TextInput
             style={styles.textInputTest}
-            placeholder="feed"
+            placeholder=""
             value={Proj}
             onChange={setProj}
           />
@@ -116,12 +120,6 @@ export default function Timesheet(props, jobNum) {
       <View style={styles.body}>
         <ScrollView style={styles.bodyScroll}>
           <TimesheetLine Lines={Lines} setLines={setLines} id={0} />
-          <TimesheetLine Lines={Lines} setLines={setLines} id={1} />
-          <TimesheetLine Lines={Lines} setLines={setLines} id={2} />
-          <TimesheetLine Lines={Lines} setLines={setLines} id={3} />
-          <TimesheetLine Lines={Lines} setLines={setLines} id={4} />
-          <TimesheetLine Lines={Lines} setLines={setLines} id={5} />
-          <TimesheetLine Lines={Lines} setLines={setLines} id={6} />
         </ScrollView>
       </View>
       <View style={styles.footerDoc}>
@@ -166,6 +164,42 @@ export default function Timesheet(props, jobNum) {
       </View>
     </View>
   );
+  /* <TimesheetLine
+            Lines={Lines}
+            setLines={setLines}
+            id={1}
+            tempLine={props.route.params.file.Timesheet}
+          />
+          <TimesheetLine
+            Lines={Lines}
+            setLines={setLines}
+            id={2}
+            tempLine={props.route.params.file.Timesheet.Lines[2]}
+          />
+          <TimesheetLine
+            Lines={Lines}
+            setLines={setLines}
+            id={3}
+            tempLine={props.route.params.file.Timesheet.Lines[3]}
+          />
+          <TimesheetLine
+            Lines={Lines}
+            setLines={setLines}
+            id={4}
+            tempLine={props.route.params.file.Timesheet.Lines[4]}
+          />
+          <TimesheetLine
+            Lines={Lines}
+            setLines={setLines}
+            id={5}
+            tempLine={props.route.params.file.Timesheet.Lines[5]}
+          />
+          <TimesheetLine
+            Lines={Lines}
+            setLines={setLines}
+            id={6}
+            tempLine={props.route.params.file.Timesheet.Lines[6]}
+          />*/
 }
 
 const styles = StyleSheet.create({
