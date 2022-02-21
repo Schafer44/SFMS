@@ -27,10 +27,6 @@ import {
 
 export default function Timesheet(props, jobNum) {
   const [Comment, setComment] = useState("");
-  const [Proj, setProj] = useState("");
-  const [Date, setDate] = useState("");
-  const [Day, setDay] = useState("");
-  const [Crew, setCrew] = useState("");
   const [Lines, setLines] = useState([]);
   const [Header, setHeader] = useState([]);
   var TempName;

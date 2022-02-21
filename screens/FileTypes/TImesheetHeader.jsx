@@ -4,14 +4,6 @@ import { db } from "../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
 export default function TimesheetLine(props) {
-  const [Name, setName] = useState("");
-  const [Occ, setOcc] = useState("");
-  const [Hrs, setHrs] = useState("");
-  const [PU, setPU] = useState("");
-  const [Rig, setRig] = useState("");
-  const [PD, setPD] = useState("");
-  const [EquipNum, setEquipNum] = useState("");
-  const [EquipDesc, setEquipDesc] = useState("");
   const [Line, setLine] = useState({});
   useEffect(() => {
     if (Object.keys(Line).length !== 0) {

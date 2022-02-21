@@ -4,34 +4,13 @@ import { db } from "../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
 export default function TimesheetLine(props) {
-  const [Name, setName] = useState("");
-  const [Occ, setOcc] = useState("");
-  const [Hrs, setHrs] = useState("");
-  const [PU, setPU] = useState("");
-  const [Rig, setRig] = useState("");
-  const [PD, setPD] = useState("");
-  const [EquipNum, setEquipNum] = useState("");
-  const [EquipDesc, setEquipDesc] = useState("");
   const [Line, setLine] = useState({});
   useEffect(() => {
-    /*if (props.tempLine !== undefined) {
-      console.log(props.tempLine);
-      setLine({ ...Line, Name: props.tempLine });
-      console.log(Line);
-    }*/
     if (Object.keys(Line).length !== 0) {
       props.setLines(props.Lines, (props.Lines[props.id] = { Line }));
     } else if (props.Lines[props.id] !== undefined) {
       setLine(props.Lines[props.id].Line);
-    } /*else if (props.tempLiner !== undefined) {
-      if (props.tempLine[props.id] !== undefined) {
-        console.log(props.tempLine[props.id].Line.Name);
-        setLine(Line, { Name: props.tempLine[0].Line.Name });
-        console.log(Line);
-        console.log("please work");
-      }
-    }*/
-    //console.log(props.tempLine);
+    }
   });
   return (
     <View style={styles.body}>
