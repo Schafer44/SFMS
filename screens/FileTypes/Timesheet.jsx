@@ -57,9 +57,6 @@ export default function Timesheet(props, jobNum) {
     if (props.route.params.file.TimesheetLines != undefined) {
       setLines(props.route.params.file.TimesheetLines);
     }
-    if (Object.keys(Header).length !== 0) {
-      props.setHeader(Header, (Header = { Header }));
-    }
     if (props.route.params.file.TimesheetHeader !== undefined) {
       setHeader(props.route.params.file.TimesheetHeader);
     }
