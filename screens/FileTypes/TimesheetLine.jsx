@@ -21,11 +21,8 @@ export default function TimesheetLine(props) {
     }*/
     if (Object.keys(Line).length !== 0) {
       props.setLines(props.Lines, (props.Lines[props.id] = { Line }));
-      console.log("3", Line);
-    } else if (props.Lines[0] !== undefined) {
-      console.log("1", props.Lines[0]);
-      console.log("2", Line);
-      setLine(props.Lines[0].Line);
+    } else if (props.Lines[props.id] !== undefined) {
+      setLine(props.Lines[props.id].Line);
     } /*else if (props.tempLiner !== undefined) {
       if (props.tempLine[props.id] !== undefined) {
         console.log(props.tempLine[props.id].Line.Name);
@@ -148,32 +145,29 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 100,
     flexDirection: "row",
-    backgroundColor: "darkgrey",
+    backgroundColor: "#d4d4d4",
   },
 
   bGridSmall: {
     height: "100%",
     flex: 2,
     backgroundColor: "white",
-    flexWrap: "wrap",
     borderColor: "black",
-    borderWidth: 4,
+    borderWidth: 2,
   },
   bGridMedium: {
     height: "100%",
     flex: 4,
     backgroundColor: "black",
-    flexWrap: "wrap",
     borderColor: "black",
-    borderWidth: 4,
+    borderWidth: 2,
   },
   bGridLarge: {
     height: "100%",
     flex: 8,
     backgroundColor: "white",
-    flexWrap: "wrap",
     borderColor: "black",
-    borderWidth: 4,
+    borderWidth: 2,
   },
   bGridColumns: {
     height: "100%",
@@ -185,8 +179,7 @@ const styles = StyleSheet.create({
   },
   textInputTest: {
     fontSize: 15,
-    padding: 8,
-    paddingRight: 1000,
+    padding: 5,
     width: "100%",
     height: "100%",
     color: "black",

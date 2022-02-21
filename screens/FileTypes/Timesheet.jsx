@@ -32,6 +32,7 @@ export default function Timesheet(props, jobNum) {
   const [Day, setDay] = useState("");
   const [Crew, setCrew] = useState("");
   const [Lines, setLines] = useState([]);
+  const [Header, setHeader] = useState([]);
   var TempName;
   var TempBaseId;
   var TempId;
@@ -53,11 +54,14 @@ export default function Timesheet(props, jobNum) {
   };
   useEffect(() => {
     fetchJob();
-    if (props.route.params.file.Timesheet != undefined) {
-      console.log("Props Lines === ", props.route.params.file.Timesheet);
-      console.log("Lines === ", Lines);
-      setLines(props.route.params.file.Timesheet);
-      console.log("Lines === ", Lines);
+    if (props.route.params.file.TimesheetLines != undefined) {
+      setLines(props.route.params.file.TimesheetLines);
+    }
+    if (Object.keys(Header).length !== 0) {
+      props.setHeader(Header, (Header = { Header }));
+    }
+    if (props.route.params.file.TimesheetHeader !== undefined) {
+      setHeader(props.route.params.file.TimesheetHeader);
     }
   }, []);
   const createTimesheet = (Timesheet) => {
@@ -70,56 +74,78 @@ export default function Timesheet(props, jobNum) {
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
 
+    console.log("ji", Header);
     setDoc(docRef, {
-      Timesheet: Lines,
+      TimesheetHeader: Header,
+      TimesheetLines: Lines,
     });
-    /*setDoc(reference, {
-      id: Timesheet.id,
-    });*/
-
-    /*
-     <TimesheetLine
-            Name={Name}
-            setName={setName}
-            Occ={Occ}
-            setOcc={setOcc}
-            Hrs={Hrs}
-            setHrs={setHrs}
-            PU={PU}
-            setPu={setPU}
-            Rig={Rig}
-            setRig={setRig}
-            PD={PD}
-            setPD={setPD}
-            EquipNum={EquipNum}
-            setEquipNum={setEquipNum}
-            EquipDesc={EquipDesc}
-            setEquipDesc={setEquipDesc}
-          />
-    */
   };
   return (
     <View style={styles.globalContainer}>
       <View style={styles.header}>
-        <View style={styles.hGrid}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Proj}
-            onChange={setProj}
-          />
+        <View style={styles.hGridTitles}>
+          <View style={styles.TextInputTwo}>
+            <Text style={styles.textInputHeader}>Project: </Text>
+          </View>
+          <View style={styles.TextInputTwo}>
+            <Text style={styles.textInputHeader}>Date: </Text>
+          </View>
+          <View style={styles.TextInputTwo}>
+            <Text style={styles.textInputHeader}>Day of the week: </Text>
+          </View>
+          <View style={styles.TextInputTwo}>
+            <Text style={styles.textInputHeader}>Crew #: </Text>
+          </View>
         </View>
-        <View style={styles.hGrid}>
-          <View style={styles.hGridColumns}></View>
-          <View style={styles.hGridColumns}></View>
-          <View style={styles.hGridColumns}></View>
-          <View style={styles.hGridColumns}></View>
+
+        <View style={styles.hGridInputs}>
+          <View style={styles.TextInputOne}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Header.Project}
+              onChange={(event) => {
+                setHeader({ ...Header, Project: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.TextInputOne}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Header.Date}
+              onChange={(event) => {
+                setHeader({ ...Header, Date: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.TextInputOne}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Header.Day}
+              onChange={(event) => {
+                setHeader({ ...Header, Day: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.TextInputOne}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Header.Crew}
+              onChange={(event) => {
+                setHeader({ ...Header, Crew: event.nativeEvent.text });
+              }}
+            />
+          </View>
         </View>
       </View>
 
       <View style={styles.body}>
         <ScrollView style={styles.bodyScroll}>
           <TimesheetLine Lines={Lines} setLines={setLines} id={0} />
+          <TimesheetLine Lines={Lines} setLines={setLines} id={1} />
         </ScrollView>
       </View>
       <View style={styles.footerDoc}>
@@ -204,24 +230,30 @@ export default function Timesheet(props, jobNum) {
 
 const styles = StyleSheet.create({
   globalContainer: {
-    marginTop: 20,
     width: "100%",
     flex: 1,
   },
   header: {
     width: "100%",
     flex: 2,
-    backgroundColor: "darkgrey",
+    backgroundColor: "#d4d4d4",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 5,
     flexDirection: "row",
   },
-  hGrid: {
+  hGridTitles: {
     height: "90%",
     flexDirection: "column",
     backgroundColor: "black",
     flex: 1,
+    margin: 5,
+    alignSelf: "flex-start",
+  },
+  hGridInputs: {
+    height: "90%",
+    flexDirection: "column",
+    backgroundColor: "black",
+    flex: 5,
     margin: 5,
     alignSelf: "flex-start",
   },
@@ -236,7 +268,7 @@ const styles = StyleSheet.create({
   body: {
     width: "100%",
     flex: 6,
-    backgroundColor: "darkgrey",
+    backgroundColor: "#d4d4d4",
     marginBottom: 5,
     borderColor: "black",
     borderBottomWidth: 4,
@@ -246,7 +278,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "column",
     flex: 1.5,
-    backgroundColor: "darkgrey",
+    backgroundColor: "#d4d4d4",
     marginTop: 5,
   },
   footerPage: {
@@ -278,6 +310,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   footerDocTitle: {
+    paddingLeft: 5,
     borderColor: "black",
     borderBottomWidth: 4,
     backgroundColor: "white",
@@ -293,10 +326,37 @@ const styles = StyleSheet.create({
   },
   textInputTest: {
     fontSize: 15,
-    padding: 8,
-    paddingRight: 1000,
     width: "100%",
     height: "100%",
     color: "black",
+  },
+  textInputHeader: {
+    fontSize: 15,
+    width: "100%",
+    height: "100%",
+    color: "black",
+    textAlign: "center",
+  },
+  TextInputOne: {
+    height: "100%",
+    flex: 1,
+    backgroundColor: "white",
+    paddingLeft: 5,
+    borderColor: "black",
+    borderWidth: 2,
+    textAlign: "center",
+  },
+  TextInputTwo: {
+    height: "100%",
+    flex: 1,
+    backgroundColor: "#d4d4d4",
+    paddingTop: 10,
+  },
+  TextInputEmpty: {
+    height: "100%",
+    flex: 1,
+    backgroundColor: "#d4d4d4",
+    borderColor: "#d4d4d4",
+    borderWidth: 2,
   },
 });
