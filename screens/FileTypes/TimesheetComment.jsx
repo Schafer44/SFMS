@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "white",
     borderColor: "black",
-    borderBottomWidth: 4,
+    borderBottomWidth: 1,
   },
   Text: {
     color: "black",
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   textInputTest: {
     height: "100%",
     fontSize: 15,
-    padding: 8,
+    padding: 10,
     width: "100%",
     color: "black",
   },

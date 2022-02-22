@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     flexWrap: "wrap",
     borderColor: "black",
-    borderWidth: 4,
+    borderWidth: 1,
   },
   bGridLarge: {
     height: "100%",
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flexWrap: "wrap",
     borderColor: "black",
-    borderWidth: 4,
+    borderWidth: 1,
   },
   bGridColumns: {
     height: "100%",

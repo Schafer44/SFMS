@@ -2,8 +2,15 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
-export default function Job(props) {
+import Timesheet from "./FileTypes/Timesheet";
+import AllTimesheet from "./allTimesheet";
+export const Job = (props) => {
+  const [content, setContent] = useState(true);
+  componentHideAndShow = () => {
+    setContent(!content);
+  };
   const [Job, setJobs] = useState([]);
+  const [fileType, setFileType] = useState("");
   const fetchJobs = async () => {
     var Job = [];
     const response = db.collection(props.route.params.job.JobNum);
@@ -13,7 +20,6 @@ export default function Job(props) {
       ...doc.data(),
       baseId: doc.id,
     }));
-    console.log("hnn", Job);
     data.docs.forEach((item) => {
       setJobs([...Job]);
     });
@@ -21,23 +27,85 @@ export default function Job(props) {
   useEffect(() => {
     fetchJobs();
   }, []);
-  console.log("please", props.route.params.job.JobNum);
-  console.log("gfhgf", Job);
-  console.log("props2", props);
-  return Job.map((file) => {
-    console.log("/n", file.baseId);
-    file.JobNum = props.route.params.job.JobNum;
-    return (
-      <View style={styles.existingJob}>
+  console.log("qw", props);
+  return (
+    <View>
+      <Button title="Hide Text Component" onPress={componentHideAndShow} />
+      {content ? (
+        <View>
+          <AllTimesheet
+            job={Job}
+            navigation={props.navigation}
+            jobNum={props.route.params.job.JobNum}
+          />
+        </View>
+      ) : null}
+    </View>
+  );
+  return (
+    <View>
+      <View style={styles.fileTypeBtn} key={"Timesheet"}>
         <Button
           style={styles.existingJobBtn}
-          onPress={() => props.navigation.navigate("Timesheet", { file })}
-          title={file.baseId}
+          onPress={() => {
+            return Job.map((file) => {
+              file.JobNum = props.route.params.job.JobNum;
+              console.log("f");
+              return (
+                <View style={styles.existingJob} key={file.baseId}>
+                  <Button
+                    style={styles.existingJobBtn}
+                    onPress={() =>
+                      props.navigation.navigate("Timesheet", { file })
+                    }
+                    title={file.baseId}
+                  ></Button>
+                </View>
+              );
+            });
+          }}
+          title={"Timesheet"}
         ></Button>
       </View>
-    );
-  });
-}
+      <View style={styles.fileTypeBtn} key={"JSA"}>
+        <Button
+          style={styles.existingJobBtn}
+          onPress={() => setFileType("JSA")}
+          title={"JSA"}
+        ></Button>
+      </View>
+      <View style={styles.fileTypeBtn} key={"OQ"}>
+        <Button
+          style={styles.existingJobBtn}
+          onPress={() => setFileType("OQ")}
+          title={"OQ"}
+        ></Button>
+      </View>
+      <View style={styles.fileTypeBtn} key={"ForemanReport"}>
+        <Button
+          style={styles.fileTypeBtn}
+          onPress={() => setFileType("ForemanReport")}
+          title={"Foreman Report"}
+        ></Button>
+      </View>
+    </View>
+  );
+
+  /*return Job.map((file) => {
+    if (job.JobNum.toLowerCase().includes(props.searchPhrase.toLowerCase())) {
+      return (
+        <View style={styles.existingJob} key={job.JobNum}>
+          <Button
+            style={styles.existingJobBtn}
+            onPress={() => props.navigation("Job", { job })}
+            title={job.JobNum}
+            key={job.JobNum}
+          ></Button>
+        </View>
+      );
+    }
+  });*/
+};
 
 const styles = StyleSheet.create({
   existingJob: {
@@ -47,6 +115,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 5,
+  },
+  fileTypeBtn: {
+    width: "100%",
+    height: 70,
+    backgroundColor: "green",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 5,
+    color: "white",
+  },
+  btn: {
+    height: 100,
+    width: 100,
   },
   existingJobBtn: {
     width: "100%",

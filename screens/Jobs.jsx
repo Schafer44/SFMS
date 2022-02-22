@@ -13,7 +13,7 @@ export default function Jobs(props) {
       ...doc.data(),
       baseId: doc.id,
     }));
-    data.docs.forEach((item) => {
+    data.docs.forEach(() => {
       setJobs([...Jobs]);
     });
   };
@@ -23,11 +23,12 @@ export default function Jobs(props) {
   return Jobs.map((job) => {
     if (job.JobNum.toLowerCase().includes(props.searchPhrase.toLowerCase())) {
       return (
-        <View style={styles.existingJob}>
+        <View style={styles.existingJob} key={job.JobNum}>
           <Button
             style={styles.existingJobBtn}
             onPress={() => props.navigation("Job", { job })}
             title={job.JobNum}
+            key={job.JobNum}
           ></Button>
         </View>
       );

@@ -56,6 +56,9 @@ export default function Timesheet(props, jobNum) {
     if (props.route.params.file.TimesheetHeader !== undefined) {
       setHeader(props.route.params.file.TimesheetHeader);
     }
+    if (props.route.params.file.Comment !== undefined) {
+      setComment(props.route.params.file.Comment);
+    }
   }, []);
   const createTimesheet = (Timesheet) => {
     //Job.push(Timesheet);
@@ -71,6 +74,8 @@ export default function Timesheet(props, jobNum) {
     setDoc(docRef, {
       TimesheetHeader: Header,
       TimesheetLines: Lines,
+      Comment: Comment,
+      Type: "Timesheet",
     });
   };
   return (
@@ -84,7 +89,7 @@ export default function Timesheet(props, jobNum) {
             <Text style={styles.textInputHeader}>Date: </Text>
           </View>
           <View style={styles.TextInputTwo}>
-            <Text style={styles.textInputHeader}>Day of the week: </Text>
+            <Text style={styles.textInputHeader}>Day: </Text>
           </View>
           <View style={styles.TextInputTwo}>
             <Text style={styles.textInputHeader}>Crew #: </Text>
@@ -184,6 +189,10 @@ export default function Timesheet(props, jobNum) {
         <ScrollView style={styles.bodyScroll}>
           <TimesheetLine Lines={Lines} setLines={setLines} id={0} />
           <TimesheetLine Lines={Lines} setLines={setLines} id={1} />
+          <TimesheetLine Lines={Lines} setLines={setLines} id={2} />
+          <TimesheetLine Lines={Lines} setLines={setLines} id={3} />
+          <TimesheetLine Lines={Lines} setLines={setLines} id={4} />
+          <TimesheetLine Lines={Lines} setLines={setLines} id={5} />
         </ScrollView>
       </View>
       <View style={styles.footerDoc}>
@@ -195,22 +204,6 @@ export default function Timesheet(props, jobNum) {
         </View>
       </View>
       <View style={styles.footerPage}>
-        <TouchableOpacity
-          style={styles.SigCap}
-          title="Signature"
-          underlayColor="#fff"
-          onPress={() => {
-            navigator;
-            createTimesheet({
-              TempName: "TestTimesheet",
-              TempBaseId: "001",
-              TempId: "1",
-            });
-          }}
-        >
-          <Text style={styles.loginText}>Signature</Text>
-        </TouchableOpacity>
-
         <TouchableOpacity
           style={styles.SubBtn}
           title="Submit"
@@ -266,10 +259,8 @@ const styles = StyleSheet.create({
   },
   bodyHeader: {
     width: "100%",
-    flex: 0.3,
+    flex: 0.5,
     backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
     flexDirection: "row",
   },
   bodyScroll: {
@@ -280,9 +271,6 @@ const styles = StyleSheet.create({
     flex: 6,
     backgroundColor: "white",
     marginBottom: 5,
-    borderColor: "#d4d4d4",
-    borderBottomWidth: 4,
-    borderTopWidth: 4,
   },
   footerDoc: {
     width: "100%",
@@ -320,15 +308,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   footerDocTitle: {
-    paddingLeft: 5,
-    borderColor: "#d4d4d4",
-    borderBottomWidth: 4,
+    paddingLeft: 10,
     backgroundColor: "white",
     width: "100%",
   },
   footerViewTitle: {
     flex: 1,
     width: "100%",
+    borderBottomWidth: 2,
+    borderColor: "#ededed",
   },
   footerViewContent: {
     flex: 4,
@@ -349,7 +337,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ededed",
     borderWidth: 1,
     borderColor: "#d4d4d4",
-    paddingTop: 5,
+    justifyContent: "center",
   },
   textInputHeaderHeader: {
     fontSize: 15,
@@ -360,7 +348,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#ededed",
     borderWidth: 1,
     borderColor: "#d4d4d4",
-    paddingTop: 2,
   },
   TextInputOne: {
     height: "100%",
@@ -372,10 +359,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   TextInputTwo: {
-    height: "100%",
-    flex: 1,
+    height: "25%",
     backgroundColor: "white",
-    paddingTop: 10,
+    alignItems: "center",
+    flex: 1,
+
+    alignItems: "center",
+    justifyContent: "center",
   },
   TextInputEmpty: {
     height: "100%",
@@ -390,6 +380,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderColor: "#d4d4d4",
     borderWidth: 1,
+    flexDirection: "row",
   },
   bGridMedium: {
     height: "100%",
@@ -406,9 +397,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   bGridColumns: {
-    height: "100%",
-    flex: 1,
     backgroundColor: "#ededed",
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center",
   },
   bodyHeaderBody: {
     width: "100%",

@@ -124,7 +124,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 100,
     flexDirection: "row",
-    backgroundColor: "#d4d4d4",
   },
 
   bGridSmall: {
@@ -151,6 +150,11 @@ const styles = StyleSheet.create({
   bGridColumns: {
     height: "100%",
     flex: 1,
+    backgroundColor: "white",
+  },
+  bGridColumnsss: {
+    height: "100%",
+    flex: 4,
     backgroundColor: "white",
   },
   Text: {
