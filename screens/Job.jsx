@@ -31,7 +31,7 @@ export default function Job(props) {
       <View style={styles.existingJob}>
         <Button
           style={styles.existingJobBtn}
-          onPress={() => props.navigation.navigate("TimeSheet", { file })}
+          onPress={() => props.navigation.navigate("Timesheet", { file })}
           title={file.baseId}
         ></Button>
       </View>

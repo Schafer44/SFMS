@@ -134,7 +134,52 @@ export default function Timesheet(props, jobNum) {
           </View>
         </View>
       </View>
-
+      <View style={styles.bodyHeader}>
+        <View style={styles.bodyHeaderBody}>
+          <View style={styles.bGridLarge}>
+            <View style={styles.bGridColumns}>
+              <Text style={styles.textInputHeaderHeader}>Name</Text>
+            </View>
+          </View>
+          <View style={styles.bGridSmall}>
+            <View style={styles.bGridColumns}>
+              <Text style={styles.textInputHeaderHeader}>Occ</Text>
+            </View>
+          </View>
+          <View style={styles.bGridSmall}>
+            <View style={styles.bGridColumns}>
+              <Text style={styles.textInputHeaderHeader}>Hrs.</Text>
+            </View>
+          </View>
+          <View style={styles.bGridSmall}>
+            <View style={styles.bGridColumns}>
+              <Text style={styles.textInputHeaderHeader}>P/U</Text>
+            </View>
+          </View>
+          <View style={styles.bGridSmall}>
+            <View style={styles.bGridColumns}>
+              <Text style={styles.textInputHeaderHeader}>Rig</Text>
+            </View>
+          </View>
+          <View style={styles.bGridSmall}>
+            <View style={styles.bGridColumns}>
+              <Text style={styles.textInputHeaderHeader}>P/D</Text>
+            </View>
+          </View>
+          <View style={styles.bGridMedium}>
+            <View style={styles.bGridColumns}>
+              <Text style={styles.textInputHeaderHeader}>Equip No.</Text>
+            </View>
+          </View>
+          <View style={styles.bGridLarge}>
+            <View style={styles.bGridColumns}>
+              <Text style={styles.textInputHeaderHeader}>
+                Equip Description
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
       <View style={styles.body}>
         <ScrollView style={styles.bodyScroll}>
           <TimesheetLine Lines={Lines} setLines={setLines} id={0} />
@@ -183,42 +228,6 @@ export default function Timesheet(props, jobNum) {
       </View>
     </View>
   );
-  /* <TimesheetLine
-            Lines={Lines}
-            setLines={setLines}
-            id={1}
-            tempLine={props.route.params.file.Timesheet}
-          />
-          <TimesheetLine
-            Lines={Lines}
-            setLines={setLines}
-            id={2}
-            tempLine={props.route.params.file.Timesheet.Lines[2]}
-          />
-          <TimesheetLine
-            Lines={Lines}
-            setLines={setLines}
-            id={3}
-            tempLine={props.route.params.file.Timesheet.Lines[3]}
-          />
-          <TimesheetLine
-            Lines={Lines}
-            setLines={setLines}
-            id={4}
-            tempLine={props.route.params.file.Timesheet.Lines[4]}
-          />
-          <TimesheetLine
-            Lines={Lines}
-            setLines={setLines}
-            id={5}
-            tempLine={props.route.params.file.Timesheet.Lines[5]}
-          />
-          <TimesheetLine
-            Lines={Lines}
-            setLines={setLines}
-            id={6}
-            tempLine={props.route.params.file.Timesheet.Lines[6]}
-          />*/
 }
 
 const styles = StyleSheet.create({
@@ -228,8 +237,8 @@ const styles = StyleSheet.create({
   },
   header: {
     width: "100%",
-    flex: 2,
-    backgroundColor: "#d4d4d4",
+    flex: 2.3,
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
@@ -255,15 +264,23 @@ const styles = StyleSheet.create({
     margin: 4,
     backgroundColor: "white",
   },
+  bodyHeader: {
+    width: "100%",
+    flex: 0.3,
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
   bodyScroll: {
     width: "100%",
   },
   body: {
     width: "100%",
     flex: 6,
-    backgroundColor: "#d4d4d4",
+    backgroundColor: "white",
     marginBottom: 5,
-    borderColor: "black",
+    borderColor: "#d4d4d4",
     borderBottomWidth: 4,
     borderTopWidth: 4,
   },
@@ -271,7 +288,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "column",
     flex: 1.5,
-    backgroundColor: "#d4d4d4",
+    backgroundColor: "white",
     marginTop: 5,
   },
   footerPage: {
@@ -304,7 +321,7 @@ const styles = StyleSheet.create({
   },
   footerDocTitle: {
     paddingLeft: 5,
-    borderColor: "black",
+    borderColor: "#d4d4d4",
     borderBottomWidth: 4,
     backgroundColor: "white",
     width: "100%",
@@ -329,27 +346,74 @@ const styles = StyleSheet.create({
     height: "100%",
     color: "black",
     textAlign: "center",
+    backgroundColor: "#ededed",
+    borderWidth: 1,
+    borderColor: "#d4d4d4",
+    paddingTop: 5,
+  },
+  textInputHeaderHeader: {
+    fontSize: 15,
+    width: "100%",
+    height: "100%",
+    color: "black",
+    textAlign: "center",
+    backgroundColor: "#ededed",
+    borderWidth: 1,
+    borderColor: "#d4d4d4",
+    paddingTop: 2,
   },
   TextInputOne: {
     height: "100%",
     flex: 1,
     backgroundColor: "white",
     paddingLeft: 5,
-    borderColor: "black",
+    borderColor: "#d4d4d4",
     borderWidth: 2,
     textAlign: "center",
   },
   TextInputTwo: {
     height: "100%",
     flex: 1,
-    backgroundColor: "#d4d4d4",
+    backgroundColor: "white",
     paddingTop: 10,
   },
   TextInputEmpty: {
     height: "100%",
     flex: 1,
-    backgroundColor: "#d4d4d4",
+    backgroundColor: "white",
     borderColor: "#d4d4d4",
-    borderWidth: 2,
+    borderWidth: 1,
+  },
+  bGridSmall: {
+    height: "100%",
+    flex: 2,
+    backgroundColor: "white",
+    borderColor: "#d4d4d4",
+    borderWidth: 1,
+  },
+  bGridMedium: {
+    height: "100%",
+    flex: 4,
+    backgroundColor: "black",
+    borderColor: "#d4d4d4",
+    borderWidth: 1,
+  },
+  bGridLarge: {
+    height: "100%",
+    flex: 8,
+    backgroundColor: "white",
+    borderColor: "#d4d4d4",
+    borderWidth: 1,
+  },
+  bGridColumns: {
+    height: "100%",
+    flex: 1,
+    backgroundColor: "#ededed",
+  },
+  bodyHeaderBody: {
+    width: "100%",
+    height: "100%",
+    flexDirection: "row",
+    backgroundColor: "white",
   },
 });
