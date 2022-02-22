@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import Home from "./screens/Home";
 import React, { useState, useEffect } from "react";
-import TimeSheet from "./screens/FileTypes/Timesheet";
+import Timesheet from "./screens/FileTypes/Timesheet";
 import { SignatureCapture } from "./screens/FileTypes/SignatureCapture";
 import SigCaptureWeb from "./screens/FileTypes/SigCaptureWeb";
 import { NavigationContainer } from "@react-navigation/native";
@@ -15,7 +15,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Job" component={Job} />
-        <Stack.Screen name="TimeSheet" component={TimeSheet} />
+        <Stack.Screen name="Timesheet" component={Timesheet} />
       </Stack.Navigator>
     </NavigationContainer>
   );
