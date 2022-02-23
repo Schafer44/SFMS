@@ -11,12 +11,14 @@ export default function AllJSA(props) {
       //console.log("f", file);
       if (file.Type === "JSA")
         return (
-          <View style={styles.existingJob} key={file.baseId}>
-            <Button
-              style={styles.existingJobBtn}
-              onPress={() => props.navigation.navigate("Timesheet", { file })}
-              title={file.baseId}
-            ></Button>
+          <View style={styles.container}>
+            <View style={styles.existingJob} key={file.baseId}>
+              <Button
+                style={styles.existingJobBtn}
+                onPress={() => props.navigation.navigate("Timesheet", { file })}
+                title={file.baseId}
+              ></Button>
+            </View>
           </View>
         );
     });
@@ -26,8 +28,14 @@ export default function AllJSA(props) {
 }
 
 const styles = StyleSheet.create({
-  existingJob: {
+  container: {
     width: "100%",
+    backgroundColor: "white",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  existingJob: {
+    width: "95%",
     height: 70,
     backgroundColor: "#272727",
     alignItems: "center",
