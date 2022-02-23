@@ -4,10 +4,25 @@ import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import Timesheet from "./FileTypes/Timesheet";
 import AllTimesheet from "./allTimesheet";
+import AllForeman from "./allForeman";
+import AllJSA from "./allJSA";
+import AllOQ from "./allOQ";
 export const Job = (props) => {
-  const [content, setContent] = useState(true);
-  componentHideAndShow = () => {
-    setContent(!content);
+  const [contentT, setContentTimesheet] = useState(false);
+  const [contentJ, setContentJSA] = useState(false);
+  const [contentO, setContentOQ] = useState(false);
+  const [contentF, setContentFR] = useState(false);
+  const componentHideAndShowTimesheet = () => {
+    setContentTimesheet(!contentT);
+  };
+  const componentHideAndShowJSA = () => {
+    setContentJSA(!contentJ);
+  };
+  const componentHideAndShowOQ = () => {
+    setContentOQ(!contentO);
+  };
+  const componentHideAndShowFR = () => {
+    setContentFR(!contentF);
   };
   const [Job, setJobs] = useState([]);
   const [fileType, setFileType] = useState("");
@@ -30,19 +45,81 @@ export const Job = (props) => {
   console.log("qw", props);
   return (
     <View>
-      <Button title="Hide Text Component" onPress={componentHideAndShow} />
-      {content ? (
-        <View>
-          <AllTimesheet
-            job={Job}
-            navigation={props.navigation}
-            jobNum={props.route.params.job.JobNum}
+      <View>
+        <View style={styles.existingJob}>
+          <Button
+            title="Timesheet"
+            onPress={componentHideAndShowTimesheet}
+            style={styles.existingJobBtn}
           />
         </View>
-      ) : null}
+        {contentT ? (
+          <View>
+            <AllTimesheet
+              job={Job}
+              navigation={props.navigation}
+              jobNum={props.route.params.job.JobNum}
+            />
+          </View>
+        ) : null}
+      </View>
+      <View>
+        <View style={styles.existingJob}>
+          <Button
+            title="JSA"
+            onPress={componentHideAndShowJSA}
+            style={styles.existingJobBtn}
+          />
+        </View>
+        {contentJ ? (
+          <View>
+            <AllJSA
+              job={Job}
+              navigation={props.navigation}
+              jobNum={props.route.params.job.JobNum}
+            />
+          </View>
+        ) : null}
+      </View>
+      <View>
+        <View style={styles.existingJob}>
+          <Button
+            title="Foreman Report"
+            onPress={componentHideAndShowFR}
+            style={styles.existingJobBtn}
+          />
+        </View>
+        {contentF ? (
+          <View>
+            <AllForeman
+              job={Job}
+              navigation={props.navigation}
+              jobNum={props.route.params.job.JobNum}
+            />
+          </View>
+        ) : null}
+      </View>
+      <View>
+        <View style={styles.existingJob}>
+          <Button
+            title="OQ"
+            onPress={componentHideAndShowOQ}
+            style={styles.existingJobBtn}
+          />
+        </View>
+        {contentO ? (
+          <View>
+            <AllOQ
+              job={Job}
+              navigation={props.navigation}
+              jobNum={props.route.params.job.JobNum}
+            />
+          </View>
+        ) : null}
+      </View>
     </View>
   );
-  return (
+  /*return (
     <View>
       <View style={styles.fileTypeBtn} key={"Timesheet"}>
         <Button
@@ -89,7 +166,7 @@ export const Job = (props) => {
         ></Button>
       </View>
     </View>
-  );
+  );*/
 
   /*return Job.map((file) => {
     if (job.JobNum.toLowerCase().includes(props.searchPhrase.toLowerCase())) {
@@ -110,7 +187,7 @@ export const Job = (props) => {
 const styles = StyleSheet.create({
   existingJob: {
     width: "100%",
-    height: 70,
+    height: 100,
     backgroundColor: "#272727",
     alignItems: "center",
     justifyContent: "center",
@@ -131,7 +208,7 @@ const styles = StyleSheet.create({
   },
   existingJobBtn: {
     width: "100%",
-    height: 70,
+    height: 100,
     backgroundColor: "white",
   },
   Text: {

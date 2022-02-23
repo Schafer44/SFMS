@@ -70,7 +70,6 @@ export default function Timesheet(props, jobNum) {
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
 
-    console.log("ji", Header);
     setDoc(docRef, {
       TimesheetHeader: Header,
       TimesheetLines: Lines,

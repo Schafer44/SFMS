@@ -2,14 +2,14 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
 import React, { setState, useState, useEffect } from "react";
 
-export default function AllTimesheet(props) {
+export default function AllForeman(props) {
   if (props.job != undefined) {
     console.log("1", props);
     return props.job.map((file) => {
       file.JobNum = props.jobNum;
       //console.log(props);
       //console.log("f", file);
-      if (file.Type === "Timesheet")
+      if (file.Type === "Foreman Report")
         return (
           <View style={styles.existingJob} key={file.baseId}>
             <Button
