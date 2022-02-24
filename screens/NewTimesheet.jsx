@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 export default class NewTimesheet extends React.Component {
   constructor(props) {
@@ -10,13 +11,24 @@ export default class NewTimesheet extends React.Component {
   render() {
     const DoBoth = async () => {
       const Ref = await NewTimesheet();
+    };
+    const nav = () => {
       this.props.navigation.navigate("Timesheet", { file: {} });
     };
     const NewTimesheet = async () => {
       var Job = [];
-      const response = db.collection(this.props.jobNum);
-      const ehehe = await response.add({ Type: "Timesheet" });
-      return ehehe._delegate._key.path.segments[1];
+      const ref = db.collection(this.props.jobNum).doc();
+      const ehehe = await db
+        .collection(this.props.jobNum)
+        .doc(ref._delegate._key.path.segments[1])
+        .set({
+          Type: "Timesheet",
+          baseId: ref._delegate._key.path.segments[1],
+        });
+      /*const ehehe = await response.add({
+        Type: "Timesheet",
+        baseId: ref._delegate._key.path.segments[1],
+      });*/
     };
     return (
       <View style={styles.container} key={1}>

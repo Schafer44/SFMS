@@ -13,17 +13,7 @@ import React, { setState, useState, useEffect } from "react";
 import TimesheetLine from "./TimesheetLine";
 import { SignatureCapture } from "./SignatureCapture";
 import TimesheetLineComment from "./TimesheetComment";
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc,
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 export default function Timesheet(props, jobNum) {
   const [Comment, setComment] = useState("");
@@ -71,12 +61,13 @@ export default function Timesheet(props, jobNum) {
     );
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
-
+    console.log("fdjfhdj", props);
     setDoc(docRef, {
       TimesheetHeader: Header,
       TimesheetLines: Lines,
       Comment: Comment,
       Type: "Timesheet",
+      baseId: props.route.params.file.baseId,
     });
   };
   return (

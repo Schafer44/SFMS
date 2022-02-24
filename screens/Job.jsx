@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
-import { onSnapshot, doc } from "firebase/firestore";
+import { onSnapshot, doc, collection } from "firebase/firestore";
 import Timesheet from "./FileTypes/Timesheet";
 import AllTimesheet from "./allTimesheet";
 import AllForeman from "./allForeman";
@@ -29,7 +29,7 @@ export const Job = (props) => {
   const componentHideAndShowFR = () => {
     setContentFR(!contentF);
   };
-  const [Job, setJobs] = useState([]);
+  //const [Job, setJobs] = useState([]);
   const [fileType, setFileType] = useState("");
   const fetchJobs = async () => {
     var Job = [];
@@ -44,9 +44,14 @@ export const Job = (props) => {
       setJobs([...Job]);
     });
   };
+  const [Job, setJobs] = useState([]);
   useEffect(() => {
-    fetchJobs();
+    onSnapshot(collection(db, props.route.params.job.JobNum), (snapshot) => {
+      setJobs(snapshot.docs.map((doc) => doc.data()));
+    });
+    //fetchJobs();
   }, []);
+
   return (
     <View>
       <View>
