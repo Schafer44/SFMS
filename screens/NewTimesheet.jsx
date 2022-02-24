@@ -1,18 +1,37 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
-export default function NewTimesheet() {
-  return (
-    <View style={styles.container}>
-      <View style={styles.newJob}>
-        <Text style={styles.Text}>New Timesheet</Text>
+export default class NewTimesheet extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    const DoBoth = async () => {
+      const Ref = await NewTimesheet();
+      this.props.navigation.navigate("Timesheet", { file: {} });
+    };
+    const NewTimesheet = async () => {
+      var Job = [];
+      const response = db.collection(this.props.jobNum);
+      const ehehe = await response.add({ Type: "Timesheet" });
+      return ehehe._delegate._key.path.segments[1];
+    };
+    return (
+      <View style={styles.container} key={1}>
+        <View style={styles.newJob} key={1}>
+          <Button
+            key={1}
+            style={styles.existingJobBtn}
+            onPress={() => DoBoth() /*props.navigation.navigate("Timesheet")*/}
+            title="New Timesheet"
+          ></Button>
+        </View>
       </View>
-    </View>
-  );
+    );
+  }
 }
-
 const styles = StyleSheet.create({
   container: {
     width: "100%",

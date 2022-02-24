@@ -4,14 +4,13 @@ import React, { setState, useState, useEffect } from "react";
 
 export default function AllJSA(props) {
   if (props.job != undefined) {
-    console.log("1", props);
     return props.job.map((file) => {
       file.JobNum = props.jobNum;
       //console.log(props);
       //console.log("f", file);
       if (file.Type === "JSA")
         return (
-          <View style={styles.container}>
+          <View style={styles.container} key={file.baseId}>
             <View style={styles.existingJob} key={file.baseId}>
               <Button
                 style={styles.existingJobBtn}

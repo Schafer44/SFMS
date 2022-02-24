@@ -36,6 +36,7 @@ export default function Timesheet(props, jobNum) {
 
   const fetchJob = async () => {
     var Job = [];
+    console.log(props);
     const response = db.collection(props.route.params.file.JobNum);
     const data = await response.get();
     Job = data.docs.map((doc) => ({
@@ -50,6 +51,7 @@ export default function Timesheet(props, jobNum) {
   };
   useEffect(() => {
     fetchJob();
+    console.log("!!!", props);
     if (props.route.params.file.TimesheetLines != undefined) {
       setLines(props.route.params.file.TimesheetLines);
     }

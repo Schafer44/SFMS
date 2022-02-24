@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
+import { onSnapshot, doc } from "firebase/firestore";
 import Timesheet from "./FileTypes/Timesheet";
 import AllTimesheet from "./allTimesheet";
 import AllForeman from "./allForeman";
@@ -39,14 +40,13 @@ export const Job = (props) => {
       ...doc.data(),
       baseId: doc.id,
     }));
-    data.docs.forEach((item) => {
+    data.docs.forEach(() => {
       setJobs([...Job]);
     });
   };
   useEffect(() => {
     fetchJobs();
   }, []);
-  console.log("qw", props);
   return (
     <View>
       <View>
@@ -64,7 +64,12 @@ export const Job = (props) => {
               navigation={props.navigation}
               jobNum={props.route.params.job.JobNum}
             />
-            <NewTimesheet />
+            <NewTimesheet
+              navigation={props.navigation}
+              jobNum={props.route.params.job.JobNum}
+              tempKey={1}
+              route={props.route}
+            />
           </View>
         ) : null}
       </View>
