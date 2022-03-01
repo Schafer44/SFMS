@@ -2,12 +2,14 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
+import { onSnapshot, doc, collection } from "firebase/firestore";
 export default function Jobs(props) {
   const [Jobs, setJobs] = useState([]);
   const fetchJobs = async () => {
     var Jobs = [];
     const response = db.collection("PLEnerserv");
     const data = await response.get();
+
     Jobs = data.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -18,7 +20,10 @@ export default function Jobs(props) {
     });
   };
   useEffect(() => {
-    fetchJobs();
+    onSnapshot(collection(db, "PLEnerserv"), (snapshot) => {
+      setJobs(snapshot.docs.map((doc) => doc.data()));
+    });
+    //fetchJobs();
   }, []);
   return Jobs.map((job) => {
     if (job.JobNum.toLowerCase().includes(props.searchPhrase.toLowerCase())) {

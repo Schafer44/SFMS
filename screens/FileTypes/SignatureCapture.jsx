@@ -1,32 +1,31 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Button } from "react-native";
 import Signature from "react-native-signature-canvas";
 
-export const SignatureCapture = () => {
-  const [signature, setSign] = useState(null);
+export const SignatureCapture = (props) => {
   const handleOK = (signature) => {
-    console.log(signature);
-    setSign(signature);
+    props.setSign(signature);
   };
 
   const handleEmpty = () => {
     console.log("Empty");
   };
-
-  const style = `.m-signature-pad--footer
-    .button {
-      background-color: red;
-      color: #FFF;
-      width:30%;
-    }`;
+  const toggleOverlay = () => {
+    props.setVisible(!props.visible);
+  };
+  const style = `.m-signature-pad {} 
+  .m-signature-pad--body {}
+  .m-signature-pad--footer { marginTop: 50%;}
+  body,html {
+  width: 90%; height: 50%; }`;
   return (
-    <View style={{ width: "90%", height: "100%" }}>
+    <View style={{ width: "100%", height: "100%" }}>
       <View style={styles.preview}>
-        {signature ? (
+        {props.signature ? (
           <Image
             resizeMode={"contain"}
             style={{ left: 0, width: "100%", height: "20%" }}
-            source={{ uri: signature }}
+            source={{ uri: props.signature }}
           />
         ) : null}
       </View>
@@ -37,6 +36,12 @@ export const SignatureCapture = () => {
         clearText="Clear"
         confirmText="Save"
         webStyle={style}
+      />
+      <Button
+        title="open"
+        color="#f194ff"
+        style={{ width: 50, height: 50 }}
+        onPress={() => toggleOverlay()}
       />
     </View>
   );
@@ -50,14 +55,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 15,
+
+    position: "absolute",
   },
   previewText: {
     color: "#FFF",
     fontSize: 25,
     height: 40,
     lineHeight: 40,
-    paddingLeft: 10,
-    paddingRight: 10,
     backgroundColor: "#69B2FF",
     width: 120,
     textAlign: "center",

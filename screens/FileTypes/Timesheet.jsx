@@ -7,6 +7,7 @@ import {
   Button,
   TouchableOpacity,
   TextInput,
+  Image,
 } from "react-native";
 import { db } from "../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
@@ -16,6 +17,7 @@ import TimesheetLineComment from "./TimesheetComment";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 export default function Timesheet(props, jobNum) {
+  const [signature, setSign] = useState(null);
   const [Comment, setComment] = useState("");
   const [Lines, setLines] = useState([]);
   const [Header, setHeader] = useState([]);
@@ -23,10 +25,12 @@ export default function Timesheet(props, jobNum) {
   var TempBaseId;
   var TempId;
   const [Job, setJob] = useState([]);
-
+  const [visible, setVisible] = useState(false);
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
   const fetchJob = async () => {
     var Job = [];
-    console.log(props);
     const response = db.collection(props.route.params.file.JobNum);
     const data = await response.get();
     Job = data.docs.map((doc) => ({
@@ -41,7 +45,6 @@ export default function Timesheet(props, jobNum) {
   };
   useEffect(() => {
     fetchJob();
-    console.log("!!!", props);
     if (props.route.params.file.TimesheetLines != undefined) {
       setLines(props.route.params.file.TimesheetLines);
     }
@@ -50,6 +53,9 @@ export default function Timesheet(props, jobNum) {
     }
     if (props.route.params.file.Comment !== undefined) {
       setComment(props.route.params.file.Comment);
+    }
+    if (props.route.params.file.signature !== undefined) {
+      setSign(props.route.params.file.signature);
     }
   }, []);
   const createTimesheet = (Timesheet) => {
@@ -68,9 +74,17 @@ export default function Timesheet(props, jobNum) {
       Comment: Comment,
       Type: "Timesheet",
       baseId: props.route.params.file.baseId,
+      signature: signature,
     });
   };
-  return (
+  return visible ? (
+    <SignatureCapture
+      visible={visible}
+      setVisible={setVisible}
+      signature={signature}
+      setSign={setSign}
+    />
+  ) : (
     <View style={styles.globalContainer}>
       <View style={styles.header}>
         <View style={styles.hGridTitles}>
@@ -196,20 +210,36 @@ export default function Timesheet(props, jobNum) {
         </View>
       </View>
       <View style={styles.footerPage}>
-        <TouchableOpacity
-          style={styles.SubBtn}
-          title="Submit"
-          underlayColor="#fff"
-          onPress={() => {
-            createTimesheet({
-              TempName: "TestTimesheet",
-              TempBaseId: "001",
-              TempId: "1",
-            });
-          }}
-        >
-          <Text style={styles.loginText}>Login</Text>
-        </TouchableOpacity>
+        <View style={styles.footerPageSig}>
+          <TouchableOpacity
+            title="Signature"
+            underlayColor="#fff"
+            style={styles.SubBtn}
+            onPress={() => toggleOverlay()}
+          >
+            <Text style={styles.loginText}>Signature</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Submit"
+            underlayColor="#fff"
+            onPress={() => {
+              createTimesheet({
+                TempName: "TestTimesheet",
+                TempBaseId: "001",
+                TempId: "1",
+              });
+            }}
+          >
+            <Text style={styles.loginText}>Submit</Text>
+          </TouchableOpacity>
+        </View>
+
+        <Image
+          resizeMode={"contain"}
+          style={styles.prev}
+          source={{ uri: signature }}
+        />
       </View>
     </View>
   );
@@ -267,12 +297,12 @@ const styles = StyleSheet.create({
   footerDoc: {
     width: "100%",
     flexDirection: "column",
-    flex: 1.5,
+    flex: 1,
     backgroundColor: "white",
     marginTop: 5,
   },
   footerPage: {
-    flexDirection: "column",
+    flexDirection: "row",
     width: "100%",
     flex: 1,
     alignItems: "center",
@@ -305,7 +335,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   footerViewTitle: {
-    flex: 1,
+    flex: 1.5,
     width: "100%",
     borderBottomWidth: 2,
     borderColor: "#ededed",
@@ -400,5 +430,21 @@ const styles = StyleSheet.create({
     height: "100%",
     flexDirection: "row",
     backgroundColor: "white",
+  },
+  prev: {
+    flex: 1,
+    height: "100%",
+    width: "100%",
+  },
+  sigBtn: {
+    width: "50%",
+    flex: 1,
+    backgroundColor: "green",
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  footerPageSig: {
+    flex: 2,
+    flexDirection: "column",
   },
 });
