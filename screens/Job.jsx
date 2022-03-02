@@ -11,6 +11,7 @@ import AllOQ from "./allOQ";
 import NewForemanReport from "./NewForemanReport";
 import NewJSA from "./NewJSA";
 import NewTimesheet from "./NewTimesheet";
+import AllTimesheetDup from "./allTimesheetDup";
 
 export const Job = (props) => {
   const [contentT, setContentTimesheet] = useState(false);
@@ -70,6 +71,11 @@ export const Job = (props) => {
               jobNum={props.route.params.job.JobNum}
             />
             <NewTimesheet jobNum={props.route.params.job.JobNum} tempKey={1} />
+            <AllTimesheetDup
+              job={Job}
+              navigation={props.navigation}
+              jobNum={props.route.params.job.JobNum}
+            />
           </View>
         ) : null}
       </View>

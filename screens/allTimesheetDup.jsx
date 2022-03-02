@@ -1,24 +1,33 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
 import React, { setState, useState, useEffect } from "react";
+import Duplicate from "./Duplicate";
 
-export default function AllTimesheet(props) {
+export default function AllTimesheetDup(props) {
   if (props.job != undefined) {
     return props.job.map((file) => {
       file.JobNum = props.jobNum;
       if (file.Type === "Timesheet") {
-        console.log(file.TypeExtra);
-        if (file.TypeExtra !== "Templete") {
+        if (file.TypeExtra === "Templete") {
           return (
-            <View style={styles.container} key={file.baseId}>
-              <View style={styles.existingJob} key={file.baseId}>
-                <Button
-                  style={styles.existingJobBtn}
-                  onPress={() =>
-                    props.navigation.navigate("Timesheet", { file })
-                  }
-                  title={file.baseId}
-                ></Button>
+            <View key={1}>
+              <View style={styles.container} key={file.baseId}>
+                <View style={styles.existingJob} key={file.baseId}>
+                  <Button
+                    style={styles.existingJobBtn}
+                    onPress={() =>
+                      props.navigation.navigate("Timesheet", { file })
+                    }
+                    title={file.TypeExtra}
+                  ></Button>
+                </View>
+              </View>
+              <View key={2}>
+                <Duplicate
+                  jobNum={file.JobNum}
+                  tempKey={file.baseId}
+                  file={file}
+                />
               </View>
             </View>
           );

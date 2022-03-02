@@ -33,7 +33,6 @@ export default class Duplicate extends React.Component {
       <View style={styles.container} key={1}>
         <View style={styles.newJob} key={1}>
           <Button
-            key={5}
             style={styles.existingJobBtn}
             onPress={() => DoBoth()}
             title="Duplicate Templete"
