@@ -19,7 +19,7 @@ export default function Home({ navigation }) {
       <ScrollView style={styles.Container}>
         <Jobs searchPhrase={searchPhrase} navigation={navigation.navigate} />
       </ScrollView>
-      <NewJob />
+      <NewJob navigation={navigation.navigate} style={styles.blank} />
     </View>
   );
 }
@@ -31,9 +31,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-end",
   },
-  Container: {
+  blank: {
     width: "100%",
     flex: 1,
+  },
+  Container: {
+    width: "100%",
+    flex: 4,
     backgroundColor: "white",
   },
 });

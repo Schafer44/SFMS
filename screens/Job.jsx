@@ -69,12 +69,7 @@ export const Job = (props) => {
               navigation={props.navigation}
               jobNum={props.route.params.job.JobNum}
             />
-            <NewTimesheet
-              navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
-              tempKey={1}
-              route={props.route}
-            />
+            <NewTimesheet jobNum={props.route.params.job.JobNum} tempKey={1} />
           </View>
         ) : null}
       </View>

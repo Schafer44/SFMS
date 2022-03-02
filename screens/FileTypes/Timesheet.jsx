@@ -72,9 +72,10 @@ export default function Timesheet(props, jobNum) {
       TimesheetHeader: Header,
       TimesheetLines: Lines,
       Comment: Comment,
-      Type: "Timesheet",
+      Type: props.route.params.file.Type,
       baseId: props.route.params.file.baseId,
       signature: signature,
+      TypeExtra: props.route.params.file.TypeExtra,
     });
   };
   return visible ? (

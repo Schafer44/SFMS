@@ -1,23 +1,46 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
 import React, { setState, useState, useEffect } from "react";
+import Duplicate from "./Duplicate";
 
 export default function AllTimesheet(props) {
   if (props.job != undefined) {
     return props.job.map((file) => {
       file.JobNum = props.jobNum;
       if (file.Type === "Timesheet") {
-        return (
-          <View style={styles.container} key={file.baseId}>
-            <View style={styles.existingJob} key={file.baseId}>
-              <Button
-                style={styles.existingJobBtn}
-                onPress={() => props.navigation.navigate("Timesheet", { file })}
-                title={file.baseId}
-              ></Button>
+        if (file.TypeExtra === "null") {
+          return (
+            <View style={styles.container} key={file.baseId}>
+              <View style={styles.existingJob} key={file.baseId}>
+                <Button
+                  style={styles.existingJobBtn}
+                  onPress={() =>
+                    props.navigation.navigate("Timesheet", { file })
+                  }
+                  title={file.baseId}
+                ></Button>
+              </View>
             </View>
-          </View>
-        );
+          );
+        } else if (file.TypeExtra === "Templete") {
+          console.log("2", file);
+          return (
+            <View>
+              <Duplicate jobNum={file.JobNum} tempKey={2} file={file} />
+              <View style={styles.container} key={file.baseId}>
+                <View style={styles.existingJob} key={file.baseId}>
+                  <Button
+                    style={styles.existingJobBtn}
+                    onPress={() =>
+                      props.navigation.navigate("Timesheet", { file })
+                    }
+                    title={file.TypeExtra}
+                  ></Button>
+                </View>
+              </View>
+            </View>
+          );
+        }
       }
     });
   } else {
