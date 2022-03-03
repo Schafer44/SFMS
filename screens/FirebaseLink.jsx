@@ -29,7 +29,10 @@ const firebaseConfig = {
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 export const db = firebaseApp.firestore();
 const PLECollection = db.collection("PLEnerserv");
+const authentication = getAuth(firebaseApp);
 
+console.log("2", authentication);
+export default authentication;
 export const fetchJobs = async () => {
   var Jobs = "";
   const response = db.collection("PLEnerserv");

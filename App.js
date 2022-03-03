@@ -3,16 +3,16 @@ import { Platform, StyleSheet, Text, View } from "react-native";
 import Home from "./screens/Home";
 import React, { useState, useEffect } from "react";
 import Timesheet from "./screens/FileTypes/Timesheet";
-import { SignatureCapture } from "./screens/FileTypes/SignatureCapture";
-import SigCaptureWeb from "./screens/FileTypes/SigCaptureWeb";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Job } from "./screens/Job";
+import Login from "./screens/login";
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Job" component={Job} />
         <Stack.Screen name="Timesheet" component={Timesheet} />
