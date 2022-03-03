@@ -25,6 +25,7 @@ const LoginScreen = (props) => {
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log("Logged in with:", user.email);
+        props.navigation.navigate("Home", user.email);
       })
       .catch((userCredentials) => console.log(userCredentials));
   };
