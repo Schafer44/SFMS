@@ -12,42 +12,88 @@ export default function ExportDataToExcel(props) {
       { wpx: 50 },
       { wpx: 50 },
       { wpx: 50 },
-      { wpx: 50 }, // "pixels"
+      { wpx: 50 },
+      { wpx: 75 },
+      { wpx: 100 },
     ];
-    var wsrows = [
-      { hpx: 16 }, // "pixels"
-    ];
+    var wsrows = [{ hpx: 16 }, { hpx: 16 }, { hpx: 16 }, { hpx: 16 }];
     let tempData = [props.Header];
-    let tmp = 0;
+    let tempDataThree = [];
+    tempDataThree.Comment = props.Comment;
+    var ws = XLSX.utils.json_to_sheet(tempData);
+    var wb = XLSX.utils.book_new();
+    XLSX.utils.sheet_add_json(ws, [], { origin: -1 });
+    XLSX.utils.sheet_add_aoa(
+      ws,
+      [
+        [
+          "Name",
+          "Occ",
+          "Hrs.",
+          "P/U",
+          "Rig",
+          "P/D",
+          "Equip No.",
+          "Equip Description",
+        ],
+      ],
+      { origin: -1 }
+    );
+    let tmp = 3;
     props.Lines.forEach((Line) => {
       tmp++;
       if (Line !== undefined) {
-        let tempLine = {};
+        let tempLine = [];
         if (Line.Line.Name !== undefined) {
-          tempLine.Name = Line.Line.Name;
+          tempLine.push(Line.Line.Name);
+          //tempLine.Name = Line.Line.Name;
+        } else {
+          tempLine.push("");
         }
         if (Line.Line.Occ !== undefined) {
-          tempLine.Occ = Line.Line.Occ;
+          tempLine.push(Line.Line.Occ);
+          // tempLine.Occ = Line.Line.Occ;
+        } else {
+          tempLine.push("");
         }
         if (Line.Line.Hrs !== undefined) {
-          tempLine.Hrs = Line.Line.Hrs;
+          tempLine.push(Line.Line.Hrs);
+          //tempLine.Hrs = Line.Line.Hrs;
+        } else {
+          tempLine.push("");
         }
         if (Line.Line.PU !== undefined) {
-          tempLine.PU = Line.Line.PU;
+          tempLine.push(Line.Line.PU);
+          //tempLine.PU = Line.Line.PU;
+        } else {
+          tempLine.push("");
         }
         if (Line.Line.Rig !== undefined) {
-          tempLine.Rig = Line.Line.Rig;
+          tempLine.push(Line.Line.Rig);
+          // tempLine.Rig = Line.Line.Rig;
+        } else {
+          tempLine.push("");
         }
         if (Line.Line.PD !== undefined) {
-          tempLine.PD = Line.Line.PD;
+          tempLine.push(Line.Line.PD);
+          //tempLine.PD = Line.Line.PD;
+        } else {
+          tempLine.push("");
         }
         if (Line.Line.EquipNum !== undefined) {
-          tempLine.EquipNum = Line.Line.EquipNum;
+          tempLine.push(Line.Line.EquipNum);
+          // tempLine.EquipNum = Line.Line.EquipNum;
+        } else {
+          tempLine.push("");
         }
         if (Line.Line.EquipDesc !== undefined) {
-          tempLine.EquipDesc = Line.Line.EquipDesc;
+          tempLine.push(Line.Line.EquipDesc);
+          //tempLine.EquipDesc = Line.Line.EquipDesc;
+        } else {
+          tempLine.push("");
         }
-        tempData.push({
+        XLSX.utils.sheet_add_aoa(ws, [tempLine], { origin: -1 });
+        /*tempDataTwo.push({
           Name: tempLine.Name,
           Occ: tempLine.Occ,
           Hrs: tempLine.Hrs,
@@ -56,15 +102,16 @@ export default function ExportDataToExcel(props) {
           PD: tempLine.PD,
           EquipNum: tempLine.EquipNum,
           EquipDesc: tempLine.EquipDesc,
-        });
+        });*/
       }
     });
-    tempData.push({ Comment: props.Comment });
-    var ws = XLSX.utils.json_to_sheet(tempData);
-    var wb = XLSX.utils.book_new();
+    //tempData.push({ Comment: props.Comment });
+    XLSX.utils.sheet_add_json(ws, [], { origin: -1 });
+    XLSX.utils.sheet_add_json(ws, [tempDataThree], { origin: -1 });
     ws["!cols"] = wscols;
     ws["!rows"] = wsrows;
     XLSX.utils.book_append_sheet(wb, ws, "Cities");
+
     const wbout = XLSX.write(wb, {
       type: "base64",
       bookType: "xlsx",
