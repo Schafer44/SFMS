@@ -7,14 +7,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Job } from "./screens/Job";
 import Login from "./screens/login";
-import ExportDataToExcel from "./screens/ExportToExcel";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="ExportToExcel" component={ExportDataToExcel} />
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Job" component={Job} />

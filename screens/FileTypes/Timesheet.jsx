@@ -15,6 +15,7 @@ import TimesheetLine from "./TimesheetLine";
 import { SignatureCapture } from "./SignatureCapture";
 import TimesheetLineComment from "./TimesheetComment";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import ExportDataToExcel from "../ExportToExcel";
 
 export default function Timesheet(props, jobNum) {
   const [signature, setSign] = useState(null);
@@ -25,6 +26,7 @@ export default function Timesheet(props, jobNum) {
   var TempBaseId;
   var TempId;
   const [Job, setJob] = useState([]);
+  const [JobTwo, setJobTwo] = useState([]);
   const [visible, setVisible] = useState(false);
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -234,6 +236,12 @@ export default function Timesheet(props, jobNum) {
           >
             <Text style={styles.loginText}>Submit</Text>
           </TouchableOpacity>
+          <ExportDataToExcel
+            Header={Header}
+            Comment={Comment}
+            Lines={Lines}
+            signature={signature}
+          />
         </View>
 
         <Image
