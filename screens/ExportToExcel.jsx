@@ -17,44 +17,49 @@ export default function ExportDataToExcel(props) {
     var wsrows = [
       { hpx: 16 }, // "pixels"
     ];
-    let tempData = [props.Header, { Comment: props.Comment }];
+    let tempData = [props.Header];
+    let tmp = 0;
     props.Lines.forEach((Line) => {
+      tmp++;
       if (Line !== undefined) {
         let tempLine = {};
         if (Line.Line.Name !== undefined) {
           tempLine.Name = Line.Line.Name;
-          tempData.push({ Name: tempLine.Name });
         }
         if (Line.Line.Occ !== undefined) {
           tempLine.Occ = Line.Line.Occ;
-          tempData.push({ Occ: tempLine.Occ });
         }
         if (Line.Line.Hrs !== undefined) {
           tempLine.Hrs = Line.Line.Hrs;
-          tempData.push({ Hrs: tempLine.Hrs });
         }
         if (Line.Line.PU !== undefined) {
           tempLine.PU = Line.Line.PU;
-          tempData.push({ PU: tempLine.PU });
         }
         if (Line.Line.Rig !== undefined) {
           tempLine.Rig = Line.Line.Rig;
-          tempData.push({ Rig: tempLine.Rig });
         }
         if (Line.Line.PD !== undefined) {
           tempLine.PD = Line.Line.PD;
-          tempData.push({ PD: tempLine.PD });
         }
         if (Line.Line.EquipNum !== undefined) {
           tempLine.EquipNum = Line.Line.EquipNum;
-          tempData.push({ EquipNum: tempLine.EquipNum });
         }
         if (Line.Line.EquipDesc !== undefined) {
           tempLine.EquipDesc = Line.Line.EquipDesc;
-          tempData.push({ EquipDesc: tempLine.EquipDesc });
         }
+        tempData.push({
+          Name: tempLine.Name,
+          Occ: tempLine.Occ,
+          Hrs: tempLine.Hrs,
+          PU: tempLine.PU,
+          Rig: tempLine.Rig,
+          PD: tempLine.PD,
+          EquipNum: tempLine.EquipNum,
+          EquipDesc: tempLine.EquipDesc,
+        });
       }
     });
+    tempData.push({ Comment: props.Comment });
     var ws = XLSX.utils.json_to_sheet(tempData);
     var wb = XLSX.utils.book_new();
     ws["!cols"] = wscols;
