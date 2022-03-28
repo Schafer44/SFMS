@@ -1,38 +1,27 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
 import React, { setState, useState, useEffect } from "react";
-import Duplicate from "./Duplicate";
 
-export default function AllTimesheetDup(props) {
+export default function AllForeman(props) {
   if (props.job != undefined) {
     return props.job.map((file) => {
       file.JobNum = props.jobNum;
-      if (file.Type === "Timesheet") {
-        if (file.TypeExtra === "Templete") {
-          return (
-            <View key={1}>
-              <View style={styles.container} key={file.baseId}>
-                <View style={styles.existingJob} key={file.baseId}>
-                  <Button
-                    style={styles.existingJobBtn}
-                    onPress={() =>
-                      props.navigation.navigate("Timesheet", { file })
-                    }
-                    title={file.TypeExtra}
-                  ></Button>
-                </View>
-              </View>
-              <View key={2}>
-                <Duplicate
-                  jobNum={file.JobNum}
-                  tempKey={file.baseId}
-                  file={file}
-                />
-              </View>
+      //console.log(props);
+      //console.log("f", file);
+      if (file.Type === "Foreman Report")
+        return (
+          <View style={styles.container} key={file.baseId}>
+            <View style={styles.existingJob} key={file.baseId}>
+              <Button
+                style={styles.existingJobBtn}
+                onPress={() =>
+                  props.navigation.navigate("ForemanReport", { file })
+                }
+                title={file.baseId}
+              ></Button>
             </View>
-          );
-        }
-      }
+          </View>
+        );
     });
   } else {
     return null;

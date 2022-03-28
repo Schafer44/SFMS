@@ -21,7 +21,11 @@ const LoginScreen = (props) => {
     console.log("3", authentication);
     console.log(email);
     console.log(password);
-    signInWithEmailAndPassword(authentication, email, password)
+    signInWithEmailAndPassword(
+      authentication,
+      /*email*/ "tanner44schafer@gmail.com",
+      /*password*/ "444444"
+    )
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log("Logged in with:", user.email);

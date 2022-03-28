@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
-import { db } from "../FirebaseLink";
+import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
 export default function TimesheetLine(props) {
@@ -8,6 +8,8 @@ export default function TimesheetLine(props) {
   useEffect(() => {
     if (Object.keys(Line).length !== 0) {
       props.setLines(props.Lines, (props.Lines[props.id] = { Line }));
+    } else if (props.Lines[props.id] !== undefined) {
+      setLine(props.Lines[props.id].Line);
     }
   });
   return (
@@ -122,31 +124,27 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 100,
     flexDirection: "row",
-    backgroundColor: "#d4d4d4",
   },
 
   bGridSmall: {
     height: "100%",
     flex: 2,
     backgroundColor: "white",
-    flexWrap: "wrap",
-    borderColor: "black",
-    borderWidth: 4,
+    borderColor: "#d4d4d4",
+    borderWidth: 1,
   },
   bGridMedium: {
     height: "100%",
     flex: 4,
     backgroundColor: "black",
-    flexWrap: "wrap",
-    borderColor: "black",
+    borderColor: "#d4d4d4",
     borderWidth: 1,
   },
   bGridLarge: {
     height: "100%",
     flex: 8,
     backgroundColor: "white",
-    flexWrap: "wrap",
-    borderColor: "black",
+    borderColor: "#d4d4d4",
     borderWidth: 1,
   },
   bGridColumns: {
@@ -154,13 +152,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
+  bGridColumnsss: {
+    height: "100%",
+    flex: 4,
+    backgroundColor: "white",
+  },
   Text: {
     color: "black",
   },
   textInputTest: {
     fontSize: 15,
-    padding: 8,
-    paddingRight: 1000,
+    padding: 5,
     width: "100%",
     height: "100%",
     color: "black",

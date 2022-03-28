@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
-import { db } from "../FirebaseLink";
+import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
 export default function TimesheetLineComment(props) {

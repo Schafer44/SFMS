@@ -3,15 +3,15 @@ import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { onSnapshot, doc, collection } from "firebase/firestore";
-import Timesheet from "./FileTypes/Timesheet";
-import AllTimesheet from "./allTimesheet";
-import AllForeman from "./allForeman";
-import AllJSA from "./allJSA";
-import AllOQ from "./allOQ";
+import Timesheet from "./FileTypes/TimesheetFolder/Timesheet";
+import AllTimesheet from "./all_Folder/allTimesheet";
+import AllForeman from "./all_Folder/allForeman";
+import AllJSA from "./all_Folder/allJSA";
+import AllOQ from "./all_Folder/allOQ";
 import NewForemanReport from "./NewForemanReport";
 import NewJSA from "./NewJSA";
 import NewTimesheet from "./NewTimesheet";
-import AllTimesheetDup from "./allTimesheetDup";
+import AllTimesheetDup from "./all_Folder/allTimesheetDup";
 
 export const Job = (props) => {
   const [contentT, setContentTimesheet] = useState(false);

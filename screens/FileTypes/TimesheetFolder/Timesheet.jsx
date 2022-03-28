@@ -9,13 +9,13 @@ import {
   TextInput,
   Image,
 } from "react-native";
-import { db } from "../FirebaseLink";
+import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import TimesheetLine from "./TimesheetLine";
-import { SignatureCapture } from "./SignatureCapture";
+import { SignatureCapture } from "../SignatureCapture";
 import TimesheetLineComment from "./TimesheetComment";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import ExportDataToExcel from "../ExportToExcel";
+import ExportDataToExcel from "../../ExportToExcel";
 
 export default function Timesheet(props, jobNum) {
   const [signature, setSign] = useState(null);

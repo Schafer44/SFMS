@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import Home from "./screens/Home";
 import React, { useState, useEffect } from "react";
-import Timesheet from "./screens/FileTypes/Timesheet";
+import Timesheet from "./screens/FileTypes/TimesheetFolder/Timesheet";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Job } from "./screens/Job";
