@@ -15,7 +15,7 @@ export default function AllForeman(props) {
               <Button
                 style={styles.existingJobBtn}
                 onPress={() =>
-                  props.navigation.navigate("ForemanReport", { file })
+                  props.navigation.navigate("Foreman Report", { file })
                 }
                 title={file.baseId}
               ></Button>
