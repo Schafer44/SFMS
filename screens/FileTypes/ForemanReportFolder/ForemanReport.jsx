@@ -53,17 +53,14 @@ export default function ForemanReport(props, jobNum) {
     });
   };
   useEffect(() => {
+    console.log("props", props.route.params);
     fetchJob();
+    if (props.route.params.file.T1 != undefined) {
+      setT1(props.route.params.file.T1);
+    }
+    console.log("test", T1);
   }, []);
-  const createForemanReport = (ForemanReport) => {
-    const docRef = doc(db);
-    setDoc(docRef, {
-      ForemanReportHeader: Header,
-      Type: props.route.params.file.Type,
-      baseId: props.route.params.file.baseId,
-      signature: signature,
-    });
-  };
+
   return visible ? (
     <SignatureCapture
       visible={visible}
@@ -107,7 +104,7 @@ export default function ForemanReport(props, jobNum) {
           <FRT7 T7={T7} setT7={setT7} id={6} />
         </View>
       </View>
-      <ForemanFooter />
+      <ForemanFooter T1={T1} route={props.route} />
     </View>
   );
 }

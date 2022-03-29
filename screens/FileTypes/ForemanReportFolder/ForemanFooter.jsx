@@ -12,17 +12,29 @@ import {
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import ExportDataToExcel from "../../ExportToExcel";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 export default function ForemanFooter(props) {
   const [signature, setSign] = useState(null);
   const [Header, setHeader] = useState([]);
-  const [T1, setT1] = useState([]);
-  const [T2, setT2] = useState([]);
-  const [T3, setT3] = useState([]);
-  const [T4, setT4] = useState([]);
-  const [T5, setT5] = useState([]);
-  const [T7, setT6] = useState([]);
-  const [T6, setT7] = useState([]);
+  const createTimesheet = (Timesheet) => {
+    //Job.push(Timesheet);
+    const docRef = doc(
+      db,
+      props.route.params.file.JobNum,
+      props.route.params.file.baseId
+    );
+    //const reference = ref(db, "TestJob101");
+    const docSnap = getDoc(docRef);
+    console.log("fdjfhdj", props);
+    setDoc(docRef, {
+      T1: props.T1,
+      Type: props.route.params.file.Type,
+      baseId: props.route.params.file.baseId,
+      signature: signature,
+      TypeExtra: props.route.params.file.TypeExtra,
+    });
+  };
   return (
     <View style={styles.footerPage}>
       <View style={styles.footerPageSig}>
