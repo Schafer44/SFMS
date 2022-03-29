@@ -22,12 +22,20 @@ import FRT4 from "./FRT4";
 import FRT5 from "./FRT5";
 import FRT6 from "./FRT6";
 import FRT7 from "./FRT7";
+import ForemanFooter from "./ForemanFooter";
 
 export default function ForemanReport(props, jobNum) {
   const [signature, setSign] = useState(null);
   const [visible, setVisible] = useState(false);
   const [Header, setHeader] = useState([]);
   const [Job, setJob] = useState([]);
+  const [T1, setT1] = useState([]);
+  const [T2, setT2] = useState([]);
+  const [T3, setT3] = useState([]);
+  const [T4, setT4] = useState([]);
+  const [T5, setT5] = useState([]);
+  const [T7, setT6] = useState([]);
+  const [T6, setT7] = useState([]);
   const toggleOverlay = () => {
     setVisible(!visible);
   };
@@ -70,35 +78,36 @@ export default function ForemanReport(props, jobNum) {
       </View>
       <View style={styles.RowTwo}>
         <View style={styles.BT1}>
-          <FRT1></FRT1>
+          <FRT1 T1={T1} setT1={setT1} id={0} />
         </View>
       </View>
       <View style={styles.RowThree}>
         <View style={styles.BT2}>
-          <FRT2></FRT2>
+          <FRT2 T2={T2} setT2={setT2} id={1} />
         </View>
       </View>
       <View style={styles.RowFour}>
         <View style={styles.BT3}>
-          <FRT3></FRT3>
+          <FRT3 T3={T3} setT3={setT3} id={2} />
         </View>
         <View style={styles.BT4}>
-          <FRT4></FRT4>
+          <FRT4 T4={T4} setT4={setT4} id={3} />
         </View>
         <View style={styles.BT5}>
-          <FRT5></FRT5>
+          <FRT5 T5={T5} setT5={setT5} id={4} />
         </View>
       </View>
       <View style={styles.RowFive}>
         <View style={styles.BT6}>
-          <FRT6></FRT6>
+          <FRT6 T6={T6} setT6={setT6} id={5} />
         </View>
       </View>
       <View style={styles.RowSix}>
         <View style={styles.BT7}>
-          <FRT7></FRT7>
+          <FRT7 T7={T7} setT7={setT7} id={6} />
         </View>
       </View>
+      <ForemanFooter />
     </View>
   );
 }

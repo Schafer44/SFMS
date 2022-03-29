@@ -5,13 +5,13 @@ import React, { setState, useState, useEffect } from "react";
 
 export default function FRT1(props) {
   const [Line, setLine] = useState({});
-  /*useEffect(() => {
+  useEffect(() => {
     if (Object.keys(Line).length !== 0) {
-      props.setLines(props.Lines, (props.Lines[props.id] = { Line }));
-    } else if (props.Lines[props.id] !== undefined) {
-      setLine(props.Lines[props.id].Line);
+      props.setT1(props.Lines, (props.T1[props.id] = { Line }));
+    } else if (props.T1[props.id] !== undefined) {
+      setLine(props.T1[props.id].Line);
     }
-  });*/
+  });
   return (
     <View style={styles.body}>
       <View style={styles.ColumnTitle}>
