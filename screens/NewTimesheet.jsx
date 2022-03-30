@@ -12,9 +12,6 @@ export default class NewTimesheet extends React.Component {
     const DoBoth = async () => {
       const Ref = await NewTimesheet();
     };
-    const nav = () => {
-      this.props.navigation.navigate("Timesheet", { file: {} });
-    };
     const NewTimesheet = async () => {
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
@@ -25,6 +22,14 @@ export default class NewTimesheet extends React.Component {
           Type: "Timesheet",
           TypeExtra: "null",
           baseId: ref._delegate._key.path.segments[1],
+          TimesheetLines: [
+            { Line: {} },
+            { Line: {} },
+            { Line: {} },
+            { Line: {} },
+            { Line: {} },
+            { Line: {} },
+          ],
         });
       /*const ehehe = await response.add({
         Type: "Timesheet",

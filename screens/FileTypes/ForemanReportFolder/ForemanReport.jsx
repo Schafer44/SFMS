@@ -58,7 +58,21 @@ export default function ForemanReport(props, jobNum) {
     if (props.route.params.file.T1 != undefined) {
       setT1(props.route.params.file.T1);
     }
-    console.log("test", T1);
+    if (props.route.params.file.T2 != undefined) {
+      setT2(props.route.params.file.T2);
+    }
+    if (props.route.params.file.T3 != undefined) {
+      setT3(props.route.params.file.T3);
+    }
+    if (props.route.params.file.T4 != undefined) {
+      setT4(props.route.params.file.T4);
+    }
+    if (props.route.params.file.T5 != undefined) {
+      setT5(props.route.params.file.T5);
+    }
+    if (props.route.params.file.T6 != undefined) {
+      setT6(props.route.params.file.T6);
+    }
   }, []);
 
   return visible ? (
@@ -104,7 +118,15 @@ export default function ForemanReport(props, jobNum) {
           <FRT7 T7={T7} setT7={setT7} id={6} />
         </View>
       </View>
-      <ForemanFooter T1={T1} route={props.route} />
+      <ForemanFooter
+        T1={T1}
+        T2={T2}
+        T3={T3}
+        T4={T4}
+        T5={T5}
+        T6={T6}
+        route={props.route}
+      />
     </View>
   );
 }

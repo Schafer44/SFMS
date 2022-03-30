@@ -11,7 +11,7 @@ export default function TimesheetLine(props) {
     } else if (props.Lines[props.id] !== undefined) {
       setLine(props.Lines[props.id].Line);
     }
-  });
+  }, [props, Line]);
   return (
     <View style={styles.body}>
       <View style={styles.bGridLarge}>

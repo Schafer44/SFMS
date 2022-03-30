@@ -9,26 +9,32 @@ export default function FRT1(props) {
   const [Line2, setLine2] = useState({});
   const [Line3, setLine3] = useState({});
   useEffect(() => {
-    /*if (Object.keys(T1).length !== 0) {
-      props.setT1(props.T1, (props.T1[props.id] = { T1 }));
-    } else if (props.T1[props.id] !== undefined) {
-      setT1(props.T1);
-    }*/
     if (Object.keys(Line0).length !== 0) {
       props.setT1(props.T1, (props.T1[0] = { Line0 }));
-    } else if (Object.keys(Line1).length !== 0) {
-      props.setT1(props.T1, (props.T1[1] = { Line1 }));
-    } else if (Object.keys(Line2).length !== 0) {
-      props.setT1(props.T1, (props.T1[2] = { Line2 }));
-    } else if (Object.keys(Line3).length !== 0) {
-      props.setT1(props.T1, (props.T1[3] = { Line3 }));
-    } else if (props.T1[0] !== undefined) {
-      console.log("1");
-      setLine0(props.T1[0].Line0);
     }
-    console.log("sds", Line0);
-    console.log("T1", props.T1);
-  });
+    if (Object.keys(Line1).length !== 0) {
+      props.setT1(props.T1, (props.T1[1] = { Line1 }));
+    }
+    if (Object.keys(Line2).length !== 0) {
+      props.setT1(props.T1, (props.T1[2] = { Line2 }));
+    }
+    if (Object.keys(Line3).length !== 0) {
+      props.setT1(props.T1, (props.T1[3] = { Line3 }));
+    } else if (props.T1 !== undefined) {
+      if (props.T1[0] !== undefined) {
+        setLine0(props.T1[0].Line0);
+      }
+      if (props.T1[1] !== undefined) {
+        setLine1(props.T1[1].Line1);
+      }
+      if (props.T1[2] !== undefined) {
+        setLine2(props.T1[2].Line2);
+      }
+      if (props.T1[3] !== undefined) {
+        setLine3(props.T1[3].Line3);
+      }
+    }
+  }, [props, Line0, Line1, Line2, Line3]);
   return (
     <View style={styles.body}>
       <View style={styles.ColumnTitle}>

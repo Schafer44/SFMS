@@ -29,6 +29,11 @@ export default function ForemanFooter(props) {
     console.log("fdjfhdj", props);
     setDoc(docRef, {
       T1: props.T1,
+      T2: props.T2,
+      T3: props.T3,
+      T4: props.T4,
+      T5: props.T5,
+      T6: props.T6,
       Type: props.route.params.file.Type,
       baseId: props.route.params.file.baseId,
       signature: signature,
