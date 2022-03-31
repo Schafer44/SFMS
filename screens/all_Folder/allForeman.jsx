@@ -6,8 +6,6 @@ export default function AllForeman(props) {
   if (props.job != undefined) {
     return props.job.map((file) => {
       file.JobNum = props.jobNum;
-      //console.log(props);
-      //console.log("f", file);
       if (file.Type === "Foreman Report")
         return (
           <View style={styles.container} key={file.baseId}>

@@ -44,8 +44,6 @@ class SigCaptureWeb extends React.PureComponent {
       // eslint-disable-next-line no-alert
       alert("Please provide a signature first.");
     } else {
-      console.log(signaturePad);
-      console.log(signaturePad.toDataURL());
       signaturePad.toDataURL();
     }
   }

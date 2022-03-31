@@ -15,8 +15,6 @@ import ExportDataToExcel from "../../ExportToExcel";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 export default function ForemanFooter(props) {
-  const [signature, setSign] = useState(null);
-  const [Header, setHeader] = useState([]);
   const createTimesheet = (Timesheet) => {
     //Job.push(Timesheet);
     const docRef = doc(
@@ -26,7 +24,6 @@ export default function ForemanFooter(props) {
     );
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
-    console.log("fdjfhdj", props);
     setDoc(docRef, {
       T1: props.T1,
       T2: props.T2,
@@ -34,11 +31,16 @@ export default function ForemanFooter(props) {
       T4: props.T4,
       T5: props.T5,
       T6: props.T6,
+      T7: props.T7,
+      Header: props.Header,
       Type: props.route.params.file.Type,
       baseId: props.route.params.file.baseId,
-      signature: signature,
+      signature: props.signature,
       TypeExtra: props.route.params.file.TypeExtra,
     });
+  };
+  const toggleOverlay = () => {
+    props.setVisible(!props.visible);
   };
   return (
     <View style={styles.footerPage}>
@@ -71,7 +73,7 @@ export default function ForemanFooter(props) {
       <Image
         resizeMode={"contain"}
         style={styles.prev}
-        source={{ uri: signature }}
+        source={{ uri: props.signature }}
       />
     </View>
   );

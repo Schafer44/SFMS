@@ -7,9 +7,7 @@ export const SignatureCapture = (props) => {
     props.setSign(signature);
   };
 
-  const handleEmpty = () => {
-    console.log("Empty");
-  };
+  const handleEmpty = () => {};
   const toggleOverlay = () => {
     props.setVisible(!props.visible);
   };

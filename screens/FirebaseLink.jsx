@@ -31,7 +31,6 @@ export const db = firebaseApp.firestore();
 const PLECollection = db.collection("PLEnerserv");
 const authentication = getAuth(firebaseApp);
 
-console.log("2", authentication);
 export default authentication;
 export const fetchJobs = async () => {
   var Jobs = "";
@@ -43,16 +42,7 @@ export const fetchJobs = async () => {
     ...doc.data(),
     baseId: doc.id,
   }));
-  /*data.docs.forEach((item) => {
-    setJobs([...Jobs, item.data()]);
-  });*/
 };
-/*export const getJobs = async () => {
-  const jobs = await PLECollection.doc().get();
-
-  console.log("jobs = ", jobs);
-  return jobs.exists ? jobs.data() : null;
-};*/
 
 export const useLoadJobs = () => {
   const Lifts = ref([]);

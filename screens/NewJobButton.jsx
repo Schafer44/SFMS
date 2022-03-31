@@ -8,7 +8,6 @@ import { TextInput } from "react-native-paper";
 export default class NewTimesheet extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       jobNum: "",
     };
@@ -30,7 +29,6 @@ export default class NewTimesheet extends React.Component {
       db.collection(this.state.jobNum).add({ JobNum: this.state.jobNum });
     };
     const handleNum = (text) => {
-      console.log(text);
       this.setState({ jobNum: text });
     };
     return (

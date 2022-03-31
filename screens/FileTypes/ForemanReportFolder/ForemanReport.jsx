@@ -15,6 +15,7 @@ import { SignatureCapture } from "../SignatureCapture";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import ExportDataToExcel from "../../ExportToExcel";
 
+import FRHeader from "./FRHeader";
 import FRT1 from "./FRT1";
 import FRT2 from "./FRT2";
 import FRT3 from "./FRT3";
@@ -26,19 +27,16 @@ import ForemanFooter from "./ForemanFooter";
 
 export default function ForemanReport(props, jobNum) {
   const [signature, setSign] = useState(null);
-  const [visible, setVisible] = useState(false);
   const [Header, setHeader] = useState([]);
+  const [visible, setVisible] = useState(false);
   const [Job, setJob] = useState([]);
   const [T1, setT1] = useState([]);
   const [T2, setT2] = useState([]);
   const [T3, setT3] = useState([]);
   const [T4, setT4] = useState([]);
   const [T5, setT5] = useState([]);
-  const [T7, setT6] = useState([]);
-  const [T6, setT7] = useState([]);
-  const toggleOverlay = () => {
-    setVisible(!visible);
-  };
+  const [T6, setT6] = useState([]);
+  const [T7, setT7] = useState([]);
   const fetchJob = async () => {
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
@@ -53,8 +51,14 @@ export default function ForemanReport(props, jobNum) {
     });
   };
   useEffect(() => {
-    console.log("props", props.route.params);
     fetchJob();
+
+    if (props.route.params.file.signature !== undefined) {
+      setHeader(props.route.params.file.Header);
+    }
+    if (props.route.params.file.signature !== undefined) {
+      setSign(props.route.params.file.signature);
+    }
     if (props.route.params.file.T1 != undefined) {
       setT1(props.route.params.file.T1);
     }
@@ -73,6 +77,10 @@ export default function ForemanReport(props, jobNum) {
     if (props.route.params.file.T6 != undefined) {
       setT6(props.route.params.file.T6);
     }
+
+    if (props.route.params.file.T7 != undefined) {
+      setT7(props.route.params.file.T7);
+    }
   }, []);
 
   return visible ? (
@@ -85,7 +93,9 @@ export default function ForemanReport(props, jobNum) {
   ) : (
     <View style={styles.globalContainer}>
       <View style={styles.RowOne}>
-        <View style={styles.Header}></View>
+        <View style={styles.Header}>
+          <FRHeader Header={Header} setHeader={setHeader} />
+        </View>
       </View>
       <View style={styles.RowTwo}>
         <View style={styles.BT1}>
@@ -125,7 +135,12 @@ export default function ForemanReport(props, jobNum) {
         T4={T4}
         T5={T5}
         T6={T6}
+        T7={T7}
+        Header={Header}
         route={props.route}
+        visible={visible}
+        setVisible={setVisible}
+        signature={signature}
       />
     </View>
   );
