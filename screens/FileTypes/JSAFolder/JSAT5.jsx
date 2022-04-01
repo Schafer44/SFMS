@@ -86,6 +86,8 @@ export default function JSAT5(props) {
 
 const styles = StyleSheet.create({
   body: {
+    borderStyle: "solid",
+    borderWidth: 3,
     width: "100%",
     height: "100%",
     flexDirection: "column",

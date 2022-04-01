@@ -16,14 +16,11 @@ export default function JSAT2(props) {
   }, [props, Line0]);
   return (
     <View style={styles.body}>
-      <View style={styles.ColumnTitle}>
-        <View style={styles.Title}>
-          <Text style={styles.TitleText1}>FABRICATION WELDS TODAY</Text>
-        </View>
-      </View>
       <View style={styles.Column}>
         <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Diameter</Text>
+          <Text style={styles.TitleText2}>
+            Description or work to be performed:
+          </Text>
         </View>
       </View>
       <View style={styles.Column}>
@@ -44,6 +41,8 @@ export default function JSAT2(props) {
 
 const styles = StyleSheet.create({
   body: {
+    borderStyle: "solid",
+    borderWidth: 3,
     width: "100%",
     height: "100%",
     flexDirection: "column",

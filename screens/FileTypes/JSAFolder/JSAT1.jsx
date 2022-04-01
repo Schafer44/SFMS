@@ -44,127 +44,74 @@ export default function JSAT1(props) {
   }, [props, Line0, Line1, Line2, Line3, Line4]);
   return (
     <View style={styles.body}>
-      <View style={styles.ColumnTitle}>
-        <View style={styles.Title}>
-          <Text style={styles.TitleText1}>FABRICATION WELDS TODAY</Text>
+      <View style={styles.Column}>
+        <View style={styles.Row}>
+          <Text style={styles.TitleText2}>Date:</Text>
         </View>
+        <View style={styles.Row}></View>
+
+        <View style={styles.Row}>
+          <Text style={styles.TitleText2}>Project #:</Text>
+        </View>
+
+        <View style={styles.Row}></View>
+
+        <View style={styles.Row}>
+          <Text style={styles.TitleText2}>Work Location:</Text>
+        </View>
+        <View style={styles.Row}></View>
+      </View>
+
+      <View style={styles.Column}>
+        <View style={styles.Row}>
+          <Text style={styles.TitleText2}>Client:</Text>
+        </View>
+        <View style={styles.Row}></View>
+        <View style={styles.Row}>
+          <Text style={styles.TitleText2}>Foreman/Supervisor:</Text>
+        </View>
+        <View style={styles.Row}></View>
+        <View style={styles.Row}>
+          <Text style={styles.TitleText2}># in Crew:</Text>
+        </View>
+        <View style={styles.Row}></View>
+      </View>
+
+      <View style={styles.Column}>
+        <View style={styles.Row}>
+          <Text style={styles.TitleText2}>GPS Coord:</Text>
+        </View>
+        <View style={styles.Row}></View>
+        <View style={styles.Row}>
+          <Text style={styles.TitleText2}>Nearest Intersection:</Text>
+        </View>
+        <View style={styles.Row}></View>
       </View>
       <View style={styles.Column}>
         <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Diameter</Text>
+          <Text style={styles.TitleText2}>First Aid Person:</Text>
         </View>
+        <View style={styles.Row}></View>
         <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Quantity</Text>
+          <Text style={styles.TitleText2}>Conpetent Person:</Text>
         </View>
+        <View style={styles.Row}></View>
       </View>
       <View style={styles.Column}>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line0.Diameter}
-            onChange={(event) => {
-              setLine0({ ...Line0, Diameter: event.nativeEvent.text });
-            }}
-          />
+          <Text style={styles.TitleText2}>Who will transport injured?</Text>
         </View>
+        <View style={styles.Row}></View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line0.Quantity}
-            onChange={(event) => {
-              setLine0({ ...Line0, Diameter: event.nativeEvent.text });
-            }}
-          />
+          <Text style={styles.TitleText2}>Current Weather:</Text>
         </View>
+        <View style={styles.Row}></View>
       </View>
       <View style={styles.Column}>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line1.Diameter}
-            onChange={(event) => {
-              setLine1({ ...Line1, Diameter: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line1.Quantity}
-            onChange={(event) => {
-              setLine1({ ...Line1, Diameter: event.nativeEvent.text });
-            }}
-          />
-        </View>
-      </View>
-      <View style={styles.Column}>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line2.Diameter}
-            onChange={(event) => {
-              setLine2({ ...Line2, Diameter: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line2.Quantity}
-            onChange={(event) => {
-              setLine2({ ...Line2, Diameter: event.nativeEvent.text });
-            }}
-          />
-        </View>
-      </View>
-      <View style={styles.Column}>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line3.Diameter}
-            onChange={(event) => {
-              setLine3({ ...Line3, Diameter: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line3.Quantity}
-            onChange={(event) => {
-              setLine3({ ...Line3, Diameter: event.nativeEvent.text });
-            }}
-          />
-        </View>
-      </View>
-      <View style={styles.Column}>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line4.Diameter}
-            onChange={(event) => {
-              setLine4({ ...Line4, Diameter: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line4.Quantity}
-            onChange={(event) => {
-              setLine4({ ...Line4, Diameter: event.nativeEvent.text });
-            }}
-          />
+          <Text style={styles.TitleText2}>
+            FOR EMERGENCIES OR LIFE-THREATENING INJURIES,CALL 911*****
+          </Text>
         </View>
       </View>
     </View>
@@ -173,6 +120,8 @@ export default function JSAT1(props) {
 
 const styles = StyleSheet.create({
   body: {
+    borderStyle: "solid",
+    borderWidth: 3,
     width: "100%",
     height: "100%",
     flexDirection: "column",

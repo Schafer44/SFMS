@@ -16,14 +16,9 @@ export default function JSAT3(props) {
   }, [props, Line0]);
   return (
     <View style={styles.body}>
-      <View style={styles.ColumnTitle}>
-        <View style={styles.Title}>
-          <Text style={styles.TitleText1}>FABRICATION WELDS TODAY</Text>
-        </View>
-      </View>
       <View style={styles.Column}>
         <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Diameter</Text>
+          <Text style={styles.TitleText2}>Topics discussed for tallgate:</Text>
         </View>
       </View>
       <View style={styles.Column}>
@@ -44,6 +39,8 @@ export default function JSAT3(props) {
 
 const styles = StyleSheet.create({
   body: {
+    borderStyle: "solid",
+    borderWidth: 3,
     width: "100%",
     height: "100%",
     flexDirection: "column",
