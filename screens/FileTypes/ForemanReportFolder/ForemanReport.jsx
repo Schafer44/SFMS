@@ -26,10 +26,10 @@ import FRT7 from "./FRT7";
 import ForemanFooter from "./ForemanFooter";
 
 export default function ForemanReport(props, jobNum) {
+  const [Job, setJob] = useState([]);
   const [signature, setSign] = useState(null);
   const [Header, setHeader] = useState([]);
   const [visible, setVisible] = useState(false);
-  const [Job, setJob] = useState([]);
   const [T1, setT1] = useState([]);
   const [T2, setT2] = useState([]);
   const [T3, setT3] = useState([]);

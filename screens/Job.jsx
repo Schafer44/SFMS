@@ -54,87 +54,92 @@ export const Job = (props) => {
   }, []);
 
   return (
-    <View>
-      <View>
-        <View style={styles.existingJob}>
-          <Button
-            title="Timesheet"
-            onPress={componentHideAndShowTimesheet}
-            style={styles.existingJobBtn}
-          />
-        </View>
-        {contentT ? (
-          <View>
-            <AllTimesheet
-              job={Job}
-              navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
-            />
-            <NewTimesheet jobNum={props.route.params.job.JobNum} tempKey={1} />
-            <AllTimesheetDup
-              job={Job}
-              navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
+    <View style={styles.GC}>
+      <ScrollView style={styles.Scroll}>
+        <View>
+          <View style={styles.existingJob}>
+            <Button
+              title="Timesheet"
+              onPress={componentHideAndShowTimesheet}
+              style={styles.existingJobBtn}
             />
           </View>
-        ) : null}
-      </View>
-      <View>
-        <View style={styles.existingJob}>
-          <Button
-            title="JSA"
-            onPress={componentHideAndShowJSA}
-            style={styles.existingJobBtn}
-          />
+          {contentT ? (
+            <View>
+              <AllTimesheet
+                job={Job}
+                navigation={props.navigation}
+                jobNum={props.route.params.job.JobNum}
+              />
+              <NewTimesheet
+                jobNum={props.route.params.job.JobNum}
+                tempKey={1}
+              />
+              <AllTimesheetDup
+                job={Job}
+                navigation={props.navigation}
+                jobNum={props.route.params.job.JobNum}
+              />
+            </View>
+          ) : null}
         </View>
-        {contentJ ? (
-          <View>
-            <AllJSA
-              job={Job}
-              navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
-            />
-            <NewJSA />
-          </View>
-        ) : null}
-      </View>
-      <View>
-        <View style={styles.existingJob}>
-          <Button
-            title="Foreman Report"
-            onPress={componentHideAndShowFR}
-            style={styles.existingJobBtn}
-          />
-        </View>
-        {contentF ? (
-          <View>
-            <AllForeman
-              job={Job}
-              navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
-            />
-            <NewForemanReport />
-          </View>
-        ) : null}
-      </View>
-      <View>
-        <View style={styles.existingJob}>
-          <Button
-            title="OQ"
-            onPress={componentHideAndShowOQ}
-            style={styles.existingJobBtn}
-          />
-        </View>
-        {contentO ? (
-          <View>
-            <AllOQ
-              job={Job}
-              navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
+        <View>
+          <View style={styles.existingJob}>
+            <Button
+              title="JSA"
+              onPress={componentHideAndShowJSA}
+              style={styles.existingJobBtn}
             />
           </View>
-        ) : null}
-      </View>
+          {contentJ ? (
+            <View>
+              <AllJSA
+                job={Job}
+                navigation={props.navigation}
+                jobNum={props.route.params.job.JobNum}
+              />
+              <NewJSA />
+            </View>
+          ) : null}
+        </View>
+        <View>
+          <View style={styles.existingJob}>
+            <Button
+              title="Foreman Report"
+              onPress={componentHideAndShowFR}
+              style={styles.existingJobBtn}
+            />
+          </View>
+          {contentF ? (
+            <View>
+              <AllForeman
+                job={Job}
+                navigation={props.navigation}
+                jobNum={props.route.params.job.JobNum}
+              />
+              <NewForemanReport />
+            </View>
+          ) : null}
+        </View>
+        <View>
+          <View style={styles.existingJob}>
+            <Button
+              title="OQ"
+              onPress={componentHideAndShowOQ}
+              style={styles.existingJobBtn}
+            />
+          </View>
+          {contentO ? (
+            <View>
+              <AllOQ
+                job={Job}
+                navigation={props.navigation}
+                jobNum={props.route.params.job.JobNum}
+              />
+            </View>
+          ) : null}
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -168,5 +173,11 @@ const styles = StyleSheet.create({
   },
   Text: {
     color: "white",
+  },
+  Scroll: {
+    maxHeight: "100%",
+  },
+  GC: {
+    maxHeight: "100%",
   },
 });
