@@ -18,22 +18,89 @@ export default function JSAT7(props) {
     <View style={styles.body}>
       <View style={styles.ColumnTitle}>
         <View style={styles.Title}>
-          <Text style={styles.TitleText1}>FABRICATION WELDS TODAY</Text>
+          <Text style={styles.TitleText1}>ROW Conditions:</Text>
         </View>
       </View>
       <View style={styles.Column}>
         <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Diameter</Text>
+          <Text>Dry</Text>
         </View>
-      </View>
-      <View style={styles.Column}>
         <View style={styles.Row}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
             value={Line0.Diameter}
             onChange={(event) => {
-              setLine0({ ...Line0, Diameter: event.nativeEvent.text });
+              setLine0({ ...Line0, Dry: event.nativeEvent.text });
+            }}
+          />
+        </View>
+        <View style={styles.Row}>
+          <Text>Rocky</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line0.Diameter}
+            onChange={(event) => {
+              setLine0({ ...Line0, Rocky: event.nativeEvent.text });
+            }}
+          />
+        </View>
+
+        <View style={styles.Row}>
+          <Text>Muddy</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line0.Diameter}
+            onChange={(event) => {
+              setLine0({ ...Line0, Muddy: event.nativeEvent.text });
+            }}
+          />
+        </View>
+
+        <View style={styles.Row}>
+          <Text>Sandy</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line0.Diameter}
+            onChange={(event) => {
+              setLine0({ ...Line0, Sandy: event.nativeEvent.text });
+            }}
+          />
+        </View>
+
+        <View style={styles.Row}>
+          <Text>Ice/Snow</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line0.Diameter}
+            onChange={(event) => {
+              setLine0({ ...Line0, Ice_Snow: event.nativeEvent.text });
+            }}
+          />
+        </View>
+
+        <View style={styles.Row}>
+          <Text>Steep Slope</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line0.Diameter}
+            onChange={(event) => {
+              setLine0({ ...Line0, SteepSlope: event.nativeEvent.text });
             }}
           />
         </View>

@@ -23,7 +23,7 @@ import JSAT5 from "./JSAT5";
 import JSAT6 from "./JSAT6";
 import JSAT7 from "./JSAT7";
 import JSAT8 from "./JSAT8";
-import JSAT9 from "./JSAT8";
+import JSAT9 from "./JSAT9";
 import JSAT10 from "./JSAT10";
 import JSAT11 from "./JSAT11";
 import JSAFooter from "./JSAFooter";

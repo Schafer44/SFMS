@@ -25,60 +25,111 @@ export default function JSAT5(props) {
     <View style={styles.body}>
       <View style={styles.ColumnTitle}>
         <View style={styles.Title}>
-          <Text style={styles.TitleText1}>FABRICATION WELDS TODAY</Text>
+          <Text style={styles.TitleText1}>Permits Required:</Text>
         </View>
       </View>
       <View style={styles.Column}>
         <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Diameter</Text>
+          <Text>Client Work Permit</Text>
         </View>
         <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Quantity</Text>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line0.ClientWorkPermit}
+            onChange={(event) => {
+              setLine0({ ...Line0, ClientWorkPermit: event.nativeEvent.text });
+            }}
+          />
+        </View>
+
+        <View style={styles.Row}>
+          <Text>Hot Work Permit</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line0.HotWorkPermit}
+            onChange={(event) => {
+              setLine0({ ...Line0, HotWorkPermit: event.nativeEvent.text });
+            }}
+          />
+        </View>
+
+        <View style={styles.Row}>
+          <Text>Air Monitoring</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line0.AirMonitoring}
+            onChange={(event) => {
+              setLine0({ ...Line0, AirMonitoring: event.nativeEvent.text });
+            }}
+          />
+        </View>
+
+        <View style={styles.Row}>
+          <Text>Ground Disturbance</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line0.GroundDisturbance}
+            onChange={(event) => {
+              setLine0({ ...Line0, GroundDisturbance: event.nativeEvent.text });
+            }}
+          />
         </View>
       </View>
+
       <View style={styles.Column}>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line0.Diameter}
-            onChange={(event) => {
-              setLine0({ ...Line0, Diameter: event.nativeEvent.text });
-            }}
-          />
+          <Text>Confined Space</Text>
         </View>
         <View style={styles.Row}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.Quantity}
+            value={Line1.ConfinedSpace}
             onChange={(event) => {
-              setLine0({ ...Line0, Diameter: event.nativeEvent.text });
+              setLine1({ ...Line1, ConfinedSpace: event.nativeEvent.text });
             }}
           />
         </View>
-      </View>
-      <View style={styles.Column}>
+
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line1.Diameter}
-            onChange={(event) => {
-              setLine1({ ...Line1, Diameter: event.nativeEvent.text });
-            }}
-          />
+          <Text>Excavation</Text>
         </View>
         <View style={styles.Row}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line1.Quantity}
+            value={Line1.Excavation}
             onChange={(event) => {
-              setLine1({ ...Line1, Diameter: event.nativeEvent.text });
+              setLine1({ ...Line1, Excavation: event.nativeEvent.text });
             }}
           />
         </View>
+
+        <View style={styles.Row}>
+          <Text>Other</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line1.Other}
+            onChange={(event) => {
+              setLine1({ ...Line1, Other: event.nativeEvent.text });
+            }}
+          />
+        </View>
+        <View style={styles.Row}></View>
+        <View style={styles.Row}></View>
       </View>
     </View>
   );

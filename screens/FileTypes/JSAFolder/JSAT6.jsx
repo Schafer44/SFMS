@@ -32,82 +32,184 @@ export default function JSAT6(props) {
     <View style={styles.body}>
       <View style={styles.ColumnTitle}>
         <View style={styles.Title}>
-          <Text style={styles.TitleText1}>FABRICATION WELDS TODAY</Text>
+          <Text style={styles.TitleText1}>Other Equipment:</Text>
         </View>
       </View>
       <View style={styles.Column}>
         <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Diameter</Text>
+          <Text>Fire Extinguishers</Text>
         </View>
         <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Quantity</Text>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line0.FireExtinguishers}
+            onChange={(event) => {
+              setLine0({ ...Line0, FireExtinguishers: event.nativeEvent.text });
+            }}
+          />
         </View>
+
+        <View style={styles.Row}>
+          <Text>Gas Monitor</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line0.GasMonitor}
+            onChange={(event) => {
+              setLine0({ ...Line0, GasMonitor: event.nativeEvent.text });
+            }}
+          />
+        </View>
+
+        <View style={styles.Row}>
+          <Text>First Aid Kit</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line0.FirstAidKit}
+            onChange={(event) => {
+              setLine0({ ...Line0, FirstAidKit: event.nativeEvent.text });
+            }}
+          />
+        </View>
+
+        <View style={styles.Row}>
+          <Text>Lighting</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line0.Lighting}
+            onChange={(event) => {
+              setLine0({ ...Line0, Lighting: event.nativeEvent.text });
+            }}
+          />
+        </View>
+        <View style={styles.Row}></View>
+        <View style={styles.Row}></View>
       </View>
+
       <View style={styles.Column}>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line0.Diameter}
-            onChange={(event) => {
-              setLine0({ ...Line0, Diameter: event.nativeEvent.text });
-            }}
-          />
+          <Text>Safety Data Sheets</Text>
         </View>
         <View style={styles.Row}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.Quantity}
+            value={Line1.SafetyDataSheets}
             onChange={(event) => {
-              setLine0({ ...Line0, Diameter: event.nativeEvent.text });
+              setLine1({ ...Line1, SafetyDataSheets: event.nativeEvent.text });
+            }}
+          />
+        </View>
+        <View style={styles.Row}>
+          <Text>Stop Paddles</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line1.StopPaddles}
+            onChange={(event) => {
+              setLine1({ ...Line1, StopPaddles: event.nativeEvent.text });
+            }}
+          />
+        </View>
+
+        <View style={styles.Row}>
+          <Text>Road Signs</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line1.RoadSigns}
+            onChange={(event) => {
+              setLine1({ ...Line1, RoadSigns: event.nativeEvent.text });
+            }}
+          />
+        </View>
+        <View style={styles.Row}>
+          <Text>Air Horn</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line1.AirHorn}
+            onChange={(event) => {
+              setLine1({ ...Line1, AirHorn: event.nativeEvent.text });
+            }}
+          />
+        </View>
+
+        <View style={styles.Row}>
+          <Text>One Calls</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line1.OneCalls}
+            onChange={(event) => {
+              setLine1({ ...Line1, OneCalls: event.nativeEvent.text });
             }}
           />
         </View>
       </View>
+
       <View style={styles.Column}>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line1.Diameter}
-            onChange={(event) => {
-              setLine1({ ...Line1, Diameter: event.nativeEvent.text });
-            }}
-          />
+          <Text>Slings/Chains</Text>
         </View>
         <View style={styles.Row}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line1.Quantity}
+            value={Line2.Slings}
             onChange={(event) => {
-              setLine1({ ...Line1, Diameter: event.nativeEvent.text });
+              setLine2({ ...Line2, Slings: event.nativeEvent.text });
             }}
           />
         </View>
-      </View>
-      <View style={styles.Column}>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line2.Diameter}
-            onChange={(event) => {
-              setLine2({ ...Line2, Diameter: event.nativeEvent.text });
-            }}
-          />
+          <Text>Two-way Radios</Text>
         </View>
         <View style={styles.Row}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line2.Quantity}
+            value={Line2.Two_way_Radios}
             onChange={(event) => {
-              setLine2({ ...Line2, Diameter: event.nativeEvent.text });
+              setLine2({ ...Line2, Two_way_Radios: event.nativeEvent.text });
             }}
           />
         </View>
+
+        <View style={styles.Row}>
+          <Text>Other</Text>
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line2.Other}
+            onChange={(event) => {
+              setLine2({ ...Line2, Other: event.nativeEvent.text });
+            }}
+          />
+        </View>
+        <View style={styles.Row}></View>
+        <View style={styles.Row}></View>
+        <View style={styles.Row}></View>
+        <View style={styles.Row}></View>
       </View>
     </View>
   );
