@@ -4,16 +4,16 @@ import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
 export default function JSAT2(props) {
-  const [Line0, setLine0] = useState({});
+  const [Table, setTable] = useState({});
   useEffect(() => {
-    if (Object.keys(Line0).length !== 0) {
-      props.setT2(props.T2, (props.T2[0] = { Line0 }));
+    if (Object.keys(Table).length !== 0) {
+      props.setT2(props.T2, (props.T2[0] = { Table }));
     } else if (props.T2 !== undefined) {
       if (props.T2[0] !== undefined) {
-        setLine0(props.T2[0].Line0);
+        setTable(props.T2[0].Table);
       }
     }
-  }, [props, Line0]);
+  }, [props, Table]);
   return (
     <View style={styles.body}>
       <View style={styles.Column}>
@@ -28,9 +28,9 @@ export default function JSAT2(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.Diameter}
+            value={Table.Description}
             onChange={(event) => {
-              setLine0({ ...Line0, Diameter: event.nativeEvent.text });
+              setTable({ ...Table, Description: event.nativeEvent.text });
             }}
           />
         </View>

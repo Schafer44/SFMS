@@ -4,30 +4,16 @@ import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
 export default function JSAT6(props) {
-  const [Line0, setLine0] = useState({});
-  const [Line1, setLine1] = useState({});
-  const [Line2, setLine2] = useState({});
+  const [Table, setTable] = useState({});
   useEffect(() => {
-    if (Object.keys(Line0).length !== 0) {
-      props.setT6(props.T6, (props.T6[0] = { Line0 }));
-    }
-    if (Object.keys(Line1).length !== 0) {
-      props.setT6(props.T6, (props.T6[1] = { Line1 }));
-    }
-    if (Object.keys(Line2).length !== 0) {
-      props.setT6(props.T6, (props.T6[2] = { Line2 }));
+    if (Object.keys(Table).length !== 0) {
+      props.setT6(props.T6, (props.T6[0] = { Table }));
     } else if (props.T6 !== undefined) {
       if (props.T6[0] !== undefined) {
-        setLine0(props.T6[0].Line0);
-      }
-      if (props.T6[1] !== undefined) {
-        setLine1(props.T6[1].Line1);
-      }
-      if (props.T6[2] !== undefined) {
-        setLine2(props.T6[2].Line2);
+        setTable(props.T6[0].Table);
       }
     }
-  }, [props, Line0, Line1, Line2]);
+  }, [props, Table]);
   return (
     <View style={styles.body}>
       <View style={styles.ColumnTitle}>
@@ -43,9 +29,9 @@ export default function JSAT6(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.FireExtinguishers}
+            value={Table.FireExtinguishers}
             onChange={(event) => {
-              setLine0({ ...Line0, FireExtinguishers: event.nativeEvent.text });
+              setTable({ ...Table, FireExtinguishers: event.nativeEvent.text });
             }}
           />
         </View>
@@ -57,9 +43,9 @@ export default function JSAT6(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.GasMonitor}
+            value={Table.GasMonitor}
             onChange={(event) => {
-              setLine0({ ...Line0, GasMonitor: event.nativeEvent.text });
+              setTable({ ...Table, GasMonitor: event.nativeEvent.text });
             }}
           />
         </View>
@@ -71,9 +57,9 @@ export default function JSAT6(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.FirstAidKit}
+            value={Table.FirstAidKit}
             onChange={(event) => {
-              setLine0({ ...Line0, FirstAidKit: event.nativeEvent.text });
+              setTable({ ...Table, FirstAidKit: event.nativeEvent.text });
             }}
           />
         </View>
@@ -85,9 +71,9 @@ export default function JSAT6(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.Lighting}
+            value={Table.Lighting}
             onChange={(event) => {
-              setLine0({ ...Line0, Lighting: event.nativeEvent.text });
+              setTable({ ...Table, Lighting: event.nativeEvent.text });
             }}
           />
         </View>
@@ -103,9 +89,9 @@ export default function JSAT6(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line1.SafetyDataSheets}
+            value={Table.SafetyDataSheets}
             onChange={(event) => {
-              setLine1({ ...Line1, SafetyDataSheets: event.nativeEvent.text });
+              setTable({ ...Table, SafetyDataSheets: event.nativeEvent.text });
             }}
           />
         </View>
@@ -116,9 +102,9 @@ export default function JSAT6(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line1.StopPaddles}
+            value={Table.StopPaddles}
             onChange={(event) => {
-              setLine1({ ...Line1, StopPaddles: event.nativeEvent.text });
+              setTable({ ...Table, StopPaddles: event.nativeEvent.text });
             }}
           />
         </View>
@@ -130,9 +116,9 @@ export default function JSAT6(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line1.RoadSigns}
+            value={Table.RoadSigns}
             onChange={(event) => {
-              setLine1({ ...Line1, RoadSigns: event.nativeEvent.text });
+              setTable({ ...Table, RoadSigns: event.nativeEvent.text });
             }}
           />
         </View>
@@ -143,9 +129,9 @@ export default function JSAT6(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line1.AirHorn}
+            value={Table.AirHorn}
             onChange={(event) => {
-              setLine1({ ...Line1, AirHorn: event.nativeEvent.text });
+              setTable({ ...Table, AirHorn: event.nativeEvent.text });
             }}
           />
         </View>
@@ -157,9 +143,9 @@ export default function JSAT6(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line1.OneCalls}
+            value={Table.OneCalls}
             onChange={(event) => {
-              setLine1({ ...Line1, OneCalls: event.nativeEvent.text });
+              setTable({ ...Table, OneCalls: event.nativeEvent.text });
             }}
           />
         </View>
@@ -173,9 +159,9 @@ export default function JSAT6(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line2.Slings}
+            value={Table.Slings}
             onChange={(event) => {
-              setLine2({ ...Line2, Slings: event.nativeEvent.text });
+              setTable({ ...Table, Slings: event.nativeEvent.text });
             }}
           />
         </View>
@@ -186,9 +172,9 @@ export default function JSAT6(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line2.Two_way_Radios}
+            value={Table.Two_way_Radios}
             onChange={(event) => {
-              setLine2({ ...Line2, Two_way_Radios: event.nativeEvent.text });
+              setTable({ ...Table, Two_way_Radios: event.nativeEvent.text });
             }}
           />
         </View>
@@ -200,9 +186,9 @@ export default function JSAT6(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line2.Other}
+            value={Table.Other}
             onChange={(event) => {
-              setLine2({ ...Line2, Other: event.nativeEvent.text });
+              setTable({ ...Table, Other: event.nativeEvent.text });
             }}
           />
         </View>

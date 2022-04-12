@@ -4,16 +4,16 @@ import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
 export default function JSAT7(props) {
-  const [Line0, setLine0] = useState({});
+  const [Table, setTable] = useState({});
   useEffect(() => {
-    if (Object.keys(Line0).length !== 0) {
-      props.setT7(props.T7, (props.T7[0] = { Line0 }));
+    if (Object.keys(Table).length !== 0) {
+      props.setT7(props.T7, (props.T7[0] = { Table }));
     } else if (props.T7 !== undefined) {
       if (props.T7[0] !== undefined) {
-        setLine0(props.T7[0].Line0);
+        setTable(props.T7[0].Table);
       }
     }
-  }, [props, Line0]);
+  }, [props, Table]);
   return (
     <View style={styles.body}>
       <View style={styles.ColumnTitle}>
@@ -29,9 +29,9 @@ export default function JSAT7(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.Diameter}
+            value={Table.Dry}
             onChange={(event) => {
-              setLine0({ ...Line0, Dry: event.nativeEvent.text });
+              setTable({ ...Table, Dry: event.nativeEvent.text });
             }}
           />
         </View>
@@ -42,9 +42,9 @@ export default function JSAT7(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.Diameter}
+            value={Table.Rocky}
             onChange={(event) => {
-              setLine0({ ...Line0, Rocky: event.nativeEvent.text });
+              setTable({ ...Table, Rocky: event.nativeEvent.text });
             }}
           />
         </View>
@@ -56,9 +56,9 @@ export default function JSAT7(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.Diameter}
+            value={Table.Muddy}
             onChange={(event) => {
-              setLine0({ ...Line0, Muddy: event.nativeEvent.text });
+              setTable({ ...Table, Muddy: event.nativeEvent.text });
             }}
           />
         </View>
@@ -70,9 +70,9 @@ export default function JSAT7(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.Diameter}
+            value={Table.Sandy}
             onChange={(event) => {
-              setLine0({ ...Line0, Sandy: event.nativeEvent.text });
+              setTable({ ...Table, Sandy: event.nativeEvent.text });
             }}
           />
         </View>
@@ -84,9 +84,9 @@ export default function JSAT7(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.Diameter}
+            value={Table.Ice_Snow}
             onChange={(event) => {
-              setLine0({ ...Line0, Ice_Snow: event.nativeEvent.text });
+              setTable({ ...Table, Ice_Snow: event.nativeEvent.text });
             }}
           />
         </View>
@@ -98,9 +98,9 @@ export default function JSAT7(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.Diameter}
+            value={Table.SteepSlope}
             onChange={(event) => {
-              setLine0({ ...Line0, SteepSlope: event.nativeEvent.text });
+              setTable({ ...Table, SteepSlope: event.nativeEvent.text });
             }}
           />
         </View>

@@ -24,6 +24,7 @@ export default function JSAFooter(props) {
     );
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
+    console.log(props);
     setDoc(docRef, {
       T1: props.T1,
       T2: props.T2,
@@ -32,10 +33,10 @@ export default function JSAFooter(props) {
       T5: props.T5,
       T6: props.T6,
       T7: props.T7,
-      T7: props.T8,
-      T7: props.T9,
-      T7: props.T10,
-      T7: props.T11,
+      T8: props.T8,
+      T9: props.T9,
+      T10: props.T10,
+      T11: props.T11,
       Type: props.route.params.file.Type,
       baseId: props.route.params.file.baseId,
       signature: props.signature,

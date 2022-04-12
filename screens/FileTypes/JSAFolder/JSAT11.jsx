@@ -3,35 +3,35 @@ import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
-export default function JSAT4(props) {
+export default function JSAT11(props) {
   const [Line0, setLine0] = useState({});
   const [Line1, setLine1] = useState({});
   const [Line2, setLine2] = useState({});
   const [Line3, setLine3] = useState({});
   useEffect(() => {
     if (Object.keys(Line0).length !== 0) {
-      props.setT4(props.T4, (props.T4[0] = { Line0 }));
+      props.setT11(props.T11, (props.T11[0] = { Line0 }));
     }
     if (Object.keys(Line1).length !== 0) {
-      props.setT4(props.T4, (props.T4[1] = { Line1 }));
+      props.setT11(props.T11, (props.T11[1] = { Line1 }));
     }
     if (Object.keys(Line2).length !== 0) {
-      props.setT4(props.T4, (props.T4[2] = { Line2 }));
+      props.setT11(props.T11, (props.T11[2] = { Line2 }));
     }
     if (Object.keys(Line3).length !== 0) {
-      props.setT4(props.T4, (props.T4[3] = { Line3 }));
-    } else if (props.T4 !== undefined) {
-      if (props.T4[0] !== undefined) {
-        setLine0(props.T4[0].Line0);
+      props.setT11(props.T11, (props.T11[3] = { Line3 }));
+    } else if (props.T11 !== undefined) {
+      if (props.T11[0] !== undefined) {
+        setLine0(props.T11[0].Line0);
       }
-      if (props.T4[1] !== undefined) {
-        setLine1(props.T4[1].Line1);
+      if (props.T11[1] !== undefined) {
+        setLine1(props.T11[1].Line1);
       }
-      if (props.T4[2] !== undefined) {
-        setLine2(props.T4[2].Line2);
+      if (props.T11[2] !== undefined) {
+        setLine2(props.T11[2].Line2);
       }
-      if (props.T4[3] !== undefined) {
-        setLine3(props.T4[3].Line3);
+      if (props.T11[3] !== undefined) {
+        setLine3(props.T11[3].Line3);
       }
     }
   }, [props, Line0, Line1, Line2, Line3]);
@@ -41,17 +41,31 @@ export default function JSAT4(props) {
         <View style={styles.Row}>
           <Text>Print Name:</Text>
         </View>
-        <View style={styles.Row}></View>
-        <View style={styles.Row}></View>
-        <View style={styles.Row}></View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line0.NamePrint}
+            onChange={(event) => {
+              setLine0({ ...Line0, NamePrint: event.nativeEvent.text });
+            }}
+          />
+        </View>
       </View>
       <View style={styles.Column}>
         <View style={styles.Row}>
           <Text>Signature:</Text>
         </View>
-        <View style={styles.Row}></View>
-        <View style={styles.Row}></View>
-        <View style={styles.Row}></View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line0.NameSignature}
+            onChange={(event) => {
+              setLine0({ ...Line0, NameSignature: event.nativeEvent.text });
+            }}
+          />
+        </View>
       </View>
     </View>
   );

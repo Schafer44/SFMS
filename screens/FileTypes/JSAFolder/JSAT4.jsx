@@ -4,30 +4,16 @@ import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
 export default function JSAT4(props) {
-  const [Line0, setLine0] = useState({});
-  const [Line1, setLine1] = useState({});
-  const [Line2, setLine2] = useState({});
+  const [Table, setTable] = useState({});
   useEffect(() => {
-    if (Object.keys(Line0).length !== 0) {
-      props.setT4(props.T4, (props.T4[0] = { Line0 }));
-    }
-    if (Object.keys(Line1).length !== 0) {
-      props.setT4(props.T4, (props.T4[1] = { Line1 }));
-    }
-    if (Object.keys(Line2).length !== 0) {
-      props.setT4(props.T4, (props.T4[2] = { Line2 }));
+    if (Object.keys(Table).length !== 0) {
+      props.setT4(props.T4, (props.T4[0] = { Table }));
     } else if (props.T4 !== undefined) {
       if (props.T4[0] !== undefined) {
-        setLine0(props.T4[0].Line0);
-      }
-      if (props.T4[1] !== undefined) {
-        setLine1(props.T4[1].Line1);
-      }
-      if (props.T4[2] !== undefined) {
-        setLine2(props.T4[2].Line2);
+        setTable(props.T4[0].Table);
       }
     }
-  }, [props, Line0, Line1, Line2]);
+  }, [props, Table]);
   return (
     <View style={styles.body}>
       <View style={styles.ColumnTitle}>
@@ -43,9 +29,9 @@ export default function JSAT4(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.SafetyGlasses}
+            value={Table.SafetyGlasses}
             onChange={(event) => {
-              setLine0({ ...Line0, SafetyGlasses: event.nativeEvent.text });
+              setTable({ ...Table, SafetyGlasses: event.nativeEvent.text });
             }}
           />
         </View>
@@ -56,9 +42,9 @@ export default function JSAT4(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.HardHat}
+            value={Table.HardHat}
             onChange={(event) => {
-              setLine0({ ...Line0, HardHat: event.nativeEvent.text });
+              setTable({ ...Table, HardHat: event.nativeEvent.text });
             }}
           />
         </View>
@@ -70,9 +56,9 @@ export default function JSAT4(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.SafetyVest}
+            value={Table.SafetyVest}
             onChange={(event) => {
-              setLine0({ ...Line0, SafetyVest: event.nativeEvent.text });
+              setTable({ ...Table, SafetyVest: event.nativeEvent.text });
             }}
           />
         </View>
@@ -84,9 +70,9 @@ export default function JSAT4(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.SafetyToeBoots}
+            value={Table.SafetyToeBoots}
             onChange={(event) => {
-              setLine0({ ...Line0, SafetyToeBoots: event.nativeEvent.text });
+              setTable({ ...Table, SafetyToeBoots: event.nativeEvent.text });
             }}
           />
         </View>
@@ -98,9 +84,9 @@ export default function JSAT4(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.Gloves}
+            value={Table.Gloves}
             onChange={(event) => {
-              setLine0({ ...Line0, Gloves: event.nativeEvent.text });
+              setTable({ ...Table, Gloves: event.nativeEvent.text });
             }}
           />
         </View>
@@ -114,9 +100,9 @@ export default function JSAT4(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line1.FRClothing}
+            value={Table.FRClothing}
             onChange={(event) => {
-              setLine1({ ...Line1, FRClothing: event.nativeEvent.text });
+              setTable({ ...Table, FRClothing: event.nativeEvent.text });
             }}
           />
         </View>
@@ -127,9 +113,9 @@ export default function JSAT4(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line1.FallProtection}
+            value={Table.FallProtection}
             onChange={(event) => {
-              setLine1({ ...Line1, FallProtection: event.nativeEvent.text });
+              setTable({ ...Table, FallProtection: event.nativeEvent.text });
             }}
           />
         </View>
@@ -141,9 +127,9 @@ export default function JSAT4(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line1.WinterFootwear}
+            value={Table.WinterFootwear}
             onChange={(event) => {
-              setLine1({ ...Line1, WinterFootwear: event.nativeEvent.text });
+              setTable({ ...Table, WinterFootwear: event.nativeEvent.text });
             }}
           />
         </View>
@@ -154,9 +140,9 @@ export default function JSAT4(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line1.HearingProtection}
+            value={Table.HearingProtection}
             onChange={(event) => {
-              setLine1({ ...Line1, HearingProtection: event.nativeEvent.text });
+              setTable({ ...Table, HearingProtection: event.nativeEvent.text });
             }}
           />
         </View>
@@ -168,10 +154,10 @@ export default function JSAT4(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line1.ResporatoryProtection}
+            value={Table.ResporatoryProtection}
             onChange={(event) => {
-              setLine1({
-                ...Line1,
+              setTable({
+                ...Table,
                 ResporatoryProtection: event.nativeEvent.text,
               });
             }}
@@ -187,9 +173,9 @@ export default function JSAT4(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line2.ChainSawChaps}
+            value={Table.ChainSawChaps}
             onChange={(event) => {
-              setLine2({ ...Line2, ChainSawChaps: event.nativeEvent.text });
+              setTable({ ...Table, ChainSawChaps: event.nativeEvent.text });
             }}
           />
         </View>
@@ -201,9 +187,9 @@ export default function JSAT4(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line2.MetalarsalGuards}
+            value={Table.MetalarsalGuards}
             onChange={(event) => {
-              setLine2({ ...Line2, MetalarsalGuards: event.nativeEvent.text });
+              setTable({ ...Table, MetalarsalGuards: event.nativeEvent.text });
             }}
           />
         </View>
@@ -214,9 +200,9 @@ export default function JSAT4(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line2.LifeVest}
+            value={Table.LifeVest}
             onChange={(event) => {
-              setLine2({ ...Line2, LifeVest: event.nativeEvent.text });
+              setTable({ ...Table, LifeVest: event.nativeEvent.text });
             }}
           />
         </View>
@@ -227,9 +213,9 @@ export default function JSAT4(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line2.FaceShielding}
+            value={Table.FaceShielding}
             onChange={(event) => {
-              setLine2({ ...Line2, FaceShielding: event.nativeEvent.text });
+              setTable({ ...Table, FaceShielding: event.nativeEvent.text });
             }}
           />
         </View>
@@ -241,9 +227,9 @@ export default function JSAT4(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line2.Other}
+            value={Table.Other}
             onChange={(event) => {
-              setLine2({ ...Line2, Other: event.nativeEvent.text });
+              setTable({ ...Table, Other: event.nativeEvent.text });
             }}
           />
         </View>

@@ -4,23 +4,16 @@ import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
 export default function JSAT5(props) {
-  const [Line0, setLine0] = useState({});
-  const [Line1, setLine1] = useState({});
+  const [Table, setTable] = useState({});
   useEffect(() => {
-    if (Object.keys(Line0).length !== 0) {
-      props.setT5(props.T5, (props.T5[0] = { Line0 }));
-    }
-    if (Object.keys(Line1).length !== 0) {
-      props.setT5(props.T5, (props.T5[1] = { Line1 }));
+    if (Object.keys(Table).length !== 0) {
+      props.setT5(props.T5, (props.T5[0] = { Table }));
     } else if (props.T5 !== undefined) {
       if (props.T5[0] !== undefined) {
-        setLine0(props.T5[0].Line0);
-      }
-      if (props.T5[1] !== undefined) {
-        setLine1(props.T5[1].Line1);
+        setTable(props.T5[0].Table);
       }
     }
-  }, [props, Line0, Line1]);
+  }, [props, Table]);
   return (
     <View style={styles.body}>
       <View style={styles.ColumnTitle}>
@@ -36,9 +29,9 @@ export default function JSAT5(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.ClientWorkPermit}
+            value={Table.ClientWorkPermit}
             onChange={(event) => {
-              setLine0({ ...Line0, ClientWorkPermit: event.nativeEvent.text });
+              setTable({ ...Table, ClientWorkPermit: event.nativeEvent.text });
             }}
           />
         </View>
@@ -50,9 +43,9 @@ export default function JSAT5(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.HotWorkPermit}
+            value={Table.HotWorkPermit}
             onChange={(event) => {
-              setLine0({ ...Line0, HotWorkPermit: event.nativeEvent.text });
+              setTable({ ...Table, HotWorkPermit: event.nativeEvent.text });
             }}
           />
         </View>
@@ -64,9 +57,9 @@ export default function JSAT5(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.AirMonitoring}
+            value={Table.AirMonitoring}
             onChange={(event) => {
-              setLine0({ ...Line0, AirMonitoring: event.nativeEvent.text });
+              setTable({ ...Table, AirMonitoring: event.nativeEvent.text });
             }}
           />
         </View>
@@ -78,9 +71,9 @@ export default function JSAT5(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line0.GroundDisturbance}
+            value={Table.GroundDisturbance}
             onChange={(event) => {
-              setLine0({ ...Line0, GroundDisturbance: event.nativeEvent.text });
+              setTable({ ...Table, GroundDisturbance: event.nativeEvent.text });
             }}
           />
         </View>
@@ -94,9 +87,9 @@ export default function JSAT5(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line1.ConfinedSpace}
+            value={Table.ConfinedSpace}
             onChange={(event) => {
-              setLine1({ ...Line1, ConfinedSpace: event.nativeEvent.text });
+              setTable({ ...Table, ConfinedSpace: event.nativeEvent.text });
             }}
           />
         </View>
@@ -108,9 +101,9 @@ export default function JSAT5(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line1.Excavation}
+            value={Table.Excavation}
             onChange={(event) => {
-              setLine1({ ...Line1, Excavation: event.nativeEvent.text });
+              setTable({ ...Table, Excavation: event.nativeEvent.text });
             }}
           />
         </View>
@@ -122,9 +115,9 @@ export default function JSAT5(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
-            value={Line1.Other}
+            value={Table.Other}
             onChange={(event) => {
-              setLine1({ ...Line1, Other: event.nativeEvent.text });
+              setTable({ ...Table, Other: event.nativeEvent.text });
             }}
           />
         </View>

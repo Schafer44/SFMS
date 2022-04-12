@@ -58,10 +58,7 @@ export default function JSA(props, jobNum) {
   };
   useEffect(() => {
     fetchJob();
-
-    if (props.route.params.file.signature !== undefined) {
-      setHeader(props.route.params.file.Header);
-    }
+    console.log("test", props.route.params.file);
     if (props.route.params.file.signature !== undefined) {
       setSign(props.route.params.file.signature);
     }
@@ -72,7 +69,7 @@ export default function JSA(props, jobNum) {
       setT2(props.route.params.file.T2);
     }
     if (props.route.params.file.T3 != undefined) {
-      setT3(props.route.params.file.JSAT3);
+      setT3(props.route.params.file.T3);
     }
     if (props.route.params.file.T4 != undefined) {
       setT4(props.route.params.file.T4);
@@ -83,9 +80,20 @@ export default function JSA(props, jobNum) {
     if (props.route.params.file.T6 != undefined) {
       setT6(props.route.params.file.T6);
     }
-
     if (props.route.params.file.T7 != undefined) {
       setT7(props.route.params.file.T7);
+    }
+    if (props.route.params.file.T8 != undefined) {
+      setT8(props.route.params.file.T8);
+    }
+    if (props.route.params.file.T9 != undefined) {
+      setT9(props.route.params.file.T9);
+    }
+    if (props.route.params.file.T10 != undefined) {
+      setT10(props.route.params.file.T10);
+    }
+    if (props.route.params.file.T11 != undefined) {
+      setT11(props.route.params.file.T11);
     }
   }, []);
 
