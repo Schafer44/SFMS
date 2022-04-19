@@ -37,6 +37,7 @@ export default function ForemanReport(props, jobNum) {
   const [T5, setT5] = useState([]);
   const [T6, setT6] = useState([]);
   const [T7, setT7] = useState([]);
+  const [scrollEnabled, setScrollEnabled] = useState(true);
   const fetchJob = async () => {
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
@@ -83,12 +84,16 @@ export default function ForemanReport(props, jobNum) {
     }
   }, []);
 
+  const SignInScroll = () => {
+    setScrollEnabled(!scrollEnabled);
+  };
   return visible ? (
     <SignatureCapture
       visible={visible}
       setVisible={setVisible}
       signature={signature}
       setSign={setSign}
+      SignInScroll={SignInScroll}
     />
   ) : (
     <View style={styles.globalContainer}>

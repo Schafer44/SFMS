@@ -43,6 +43,7 @@ export default function JSA(props, jobNum) {
   const [T9, setT9] = useState([]);
   const [T10, setT10] = useState([]);
   const [T11, setT11] = useState([]);
+  const [scrollEnabled, setScrollEnabled] = useState(true);
   const fetchJob = async () => {
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
@@ -97,100 +98,139 @@ export default function JSA(props, jobNum) {
     }
   }, []);
 
+  const SignInScroll = () => {
+    setScrollEnabled(!scrollEnabled);
+  };
   return visible ? (
     <SignatureCapture
       visible={visible}
       setVisible={setVisible}
       signature={signature}
       setSign={setSign}
+      SignInScroll={SignInScroll}
     />
   ) : (
-    <ScrollView>
-      <View style={styles.globalContainer}>
-        <View style={styles.RowOne}>
-          <View style={styles.Header}>
-            <JSAT1 T1={T1} setT1={setT1} id={0} />
+    <View style={styles.globalContainer}>
+      <TouchableOpacity
+        style={styles.SubBtn}
+        title="Lock"
+        underlayColor="#fff"
+        onPress={() => SignInScroll()}
+      >
+        <Text style={styles.LockText}>Lock Scroll</Text>
+      </TouchableOpacity>
+      <ScrollView scrollEnabled={scrollEnabled}>
+        <View>
+          <View style={styles.RowOne}>
+            <View style={styles.Header}>
+              <JSAT1 T1={T1} setT1={setT1} id={0} />
+            </View>
           </View>
-        </View>
-        <View style={styles.RowTwo}>
-          <View style={styles.BJSAT1}>
-            <JSAT2 T2={T2} setT2={setT2} id={1} />
+          <View style={styles.RowTwo}>
+            <View style={styles.BJSAT1}>
+              <JSAT2 T2={T2} setT2={setT2} id={1} />
+            </View>
           </View>
-        </View>
-        <View style={styles.RowThree}>
-          <View style={styles.BJSAT2}>
-            <JSAT3 T3={T3} setT3={setT3} id={2} />
+          <View style={styles.RowThree}>
+            <View style={styles.BJSAT2}>
+              <JSAT3 T3={T3} setT3={setT3} id={2} />
+            </View>
           </View>
-        </View>
-        <View style={styles.RowFour}>
-          <View style={styles.BJSAT3}>
-            <JSAT4 T4={T4} setT4={setT4} id={3} />
+          <View style={styles.RowFour}>
+            <View style={styles.BJSAT3}>
+              <JSAT4 T4={T4} setT4={setT4} id={3} />
+            </View>
           </View>
-        </View>
-        <View style={styles.RowFive}>
-          <View style={styles.BJSAT4}>
-            <JSAT5 T5={T5} setT5={setT5} id={4} />
+          <View style={styles.RowFive}>
+            <View style={styles.BJSAT4}>
+              <JSAT5 T5={T5} setT5={setT5} id={4} />
+            </View>
           </View>
-        </View>
 
-        <View style={styles.RowSix}>
-          <View style={styles.BJSAT5}>
-            <JSAT6 T6={T6} setT6={setT6} id={5} />
+          <View style={styles.RowSix}>
+            <View style={styles.BJSAT5}>
+              <JSAT6 T6={T6} setT6={setT6} id={5} />
+            </View>
           </View>
-        </View>
-        <View style={styles.RowSeven}>
-          <View style={styles.BJSAT6}>
-            <JSAT7 T7={T7} setT7={setT7} id={6} />
+          <View style={styles.RowSeven}>
+            <View style={styles.BJSAT6}>
+              <JSAT7 T7={T7} setT7={setT7} id={6} />
+            </View>
           </View>
-        </View>
-        <View style={styles.RowEight}>
-          <View style={styles.BJSAT}>
-            <JSAT8 T8={T8} setT8={setT8} id={7} />
+          <View style={styles.RowEight}>
+            <View style={styles.BJSAT7}>
+              <JSAT8
+                T8={T8}
+                setT8={setT8}
+                id={7}
+                setSign={setSign}
+                SignInScroll={SignInScroll}
+              />
+            </View>
           </View>
-        </View>
-        <View style={styles.RowNine}>
-          <View style={styles.BJSAT}>
-            <JSAT9 T9={T9} setT9={setT9} id={8} />
+          <View style={styles.RowNine}>
+            <View style={styles.BJSAT8}>
+              <JSAT9
+                T9={T9}
+                setT9={setT9}
+                id={8}
+                setSign={setSign}
+                SignInScroll={SignInScroll}
+              />
+            </View>
           </View>
-        </View>
 
-        <View style={styles.RowTen}>
-          <View style={styles.BJSAT}>
-            <JSAT10 T10={T10} setT10={setT10} id={9} />
+          <View style={styles.RowTen}>
+            <View style={styles.BJSAT9}>
+              <JSAT10
+                T10={T10}
+                setT10={setT10}
+                id={9}
+                setSign={setSign}
+                SignInScroll={SignInScroll}
+              />
+            </View>
           </View>
-        </View>
-        <View style={styles.RowEleven}>
-          <View style={styles.BJSAT}>
-            <JSAT11 T11={T11} setT11={setT11} id={10} />
+          <View style={styles.RowEleven}>
+            <View style={styles.BJSAT10}>
+              <JSAT11
+                T11={T11}
+                setT11={setT11}
+                id={10}
+                setSign={setSign}
+                SignInScroll={SignInScroll}
+              />
+            </View>
           </View>
-        </View>
 
-        <JSAFooter
-          T1={T1}
-          T2={T2}
-          T3={T3}
-          T4={T4}
-          T5={T5}
-          T6={T6}
-          T7={T7}
-          T8={T8}
-          T9={T9}
-          T10={T10}
-          T11={T11}
-          route={props.route}
-          visible={visible}
-          setVisible={setVisible}
-          signature={signature}
-        />
-      </View>
-    </ScrollView>
+          <JSAFooter
+            T1={T1}
+            T2={T2}
+            T3={T3}
+            T4={T4}
+            T5={T5}
+            T6={T6}
+            T7={T7}
+            T8={T8}
+            T9={T9}
+            T10={T10}
+            T11={T11}
+            route={props.route}
+            visible={visible}
+            setVisible={setVisible}
+            signature={signature}
+          />
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   globalContainer: {
     width: "100%",
-    flex: 1,
+    flexGrow: 1,
+    paddingBottom: "3%",
   },
   RowOne: { flex: 1.2 },
   Header: {
@@ -215,24 +255,42 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: "1%",
   },
-  BJSAT4: {
-    flex: 1,
-    margin: "1%",
-  },
-  BJSAT5: {
-    flex: 1,
-    margin: "1%",
-  },
-
   RowFive: { flex: 1.4 },
-  BJSAT6: {
+  BJSAT4: {
     flex: 1,
     margin: "1%",
   },
 
   RowSix: { flex: 3 },
-  BJSAT: {
+  BJSAT5: {
     flex: 1,
     margin: "1%",
   },
+  RowSeven: { flex: 3 },
+  BJSAT6: {
+    flex: 1,
+    margin: "1%",
+  },
+  RowEight: { flex: 3 },
+  BJSAT7: {
+    flex: 1,
+    margin: "1%",
+  },
+  RowNine: {},
+  BJSAT8: {
+    flex: 1,
+    margin: "1%",
+  },
+  RowTen: { flex: 1 },
+  BJSAT9: {
+    flex: 1,
+    margin: "1%",
+  },
+  RowEleven: { flex: 1 },
+  BJSAT10: {
+    flex: 1,
+    margin: "1%",
+  },
+  SubBtn: { backgroundColor: "green", padding: "1%" },
+  LockText: { color: "white", marginLeft: "45%" },
 });

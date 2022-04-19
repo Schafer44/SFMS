@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Image, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Button,
+  TouchableWithoutFeedback,
+} from "react-native";
 import Signature from "react-native-signature-canvas";
 
 export const SignatureCapture = (props) => {
   const handleOK = (signature) => {
     props.setSign(signature);
+    toggleOverlay();
   };
 
   const handleEmpty = () => {};
@@ -13,9 +21,8 @@ export const SignatureCapture = (props) => {
   };
   const style = `.m-signature-pad {} 
   .m-signature-pad--body {}
-  .m-signature-pad--footer { marginTop: 50%;}
   body,html {
-  width: 90%; height: 50%; }`;
+  width: 90%; height: 80%; }`;
   return (
     <View style={{ width: "100%", height: "100%" }}>
       <View style={styles.preview}>
@@ -34,10 +41,13 @@ export const SignatureCapture = (props) => {
         clearText="Clear"
         confirmText="Save"
         webStyle={style}
+        resizeMode={"contain"}
+        onBegin={() => props.SignInScroll()}
+        onEnd={() => props.SignInScroll()}
       />
       <Button
         title="open"
-        color="#f194ff"
+        color="green"
         style={{ width: 50, height: 50 }}
         onPress={() => toggleOverlay()}
       />
@@ -53,7 +63,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 15,
-
+    top: 0,
     position: "absolute",
   },
   previewText: {

@@ -22,6 +22,7 @@ export default function Timesheet(props, jobNum) {
   const [Comment, setComment] = useState("");
   const [Lines, setLines] = useState([]);
   const [Header, setHeader] = useState([]);
+  const [scrollEnabled, setScrollEnabled] = useState(true);
   var TempName;
   var TempBaseId;
   var TempId;
@@ -79,12 +80,16 @@ export default function Timesheet(props, jobNum) {
       TypeExtra: props.route.params.file.TypeExtra,
     });
   };
+  const SignInScroll = () => {
+    setScrollEnabled(!scrollEnabled);
+  };
   return visible ? (
     <SignatureCapture
       visible={visible}
       setVisible={setVisible}
       signature={signature}
       setSign={setSign}
+      SignInScroll={SignInScroll}
     />
   ) : (
     <View style={styles.globalContainer}>

@@ -1,13 +1,24 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
+import { SignatureCapture } from "../SignatureCapture";
 
 export default function JSAT11(props) {
   const [Line0, setLine0] = useState({});
   const [Line1, setLine1] = useState({});
   const [Line2, setLine2] = useState({});
   const [Line3, setLine3] = useState({});
+  const [signature, setSign] = useState(null);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
     if (Object.keys(Line0).length !== 0) {
       props.setT11(props.T11, (props.T11[0] = { Line0 }));
@@ -35,7 +46,21 @@ export default function JSAT11(props) {
       }
     }
   }, [props, Line0, Line1, Line2, Line3]);
-  return (
+
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
+  return visible ? (
+    <View style={styles.body2}>
+      <SignatureCapture
+        visible={visible}
+        setVisible={setVisible}
+        signature={signature}
+        setSign={setSign}
+        SignInScroll={props.SignInScroll}
+      />
+    </View>
+  ) : (
     <View style={styles.body}>
       <View style={styles.Column}>
         <View style={styles.Row}>
@@ -57,14 +82,18 @@ export default function JSAT11(props) {
           <Text>Signature:</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line0.NameSignature}
-            onChange={(event) => {
-              setLine0({ ...Line0, NameSignature: event.nativeEvent.text });
-            }}
-          />
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Submit"
+            underlayColor="#fff"
+            onPress={() => toggleOverlay()}
+          >
+            <Image
+              resizeMode={"contain"}
+              style={styles.prev}
+              source={{ uri: signature }}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -73,11 +102,31 @@ export default function JSAT11(props) {
 
 const styles = StyleSheet.create({
   body: {
+    flex: 1,
+    height: 100,
     borderStyle: "solid",
     borderWidth: 3,
     width: "100%",
-    height: "100%",
     flexDirection: "row",
+  },
+  body2: {
+    flex: 1,
+    height: 400,
+    borderStyle: "solid",
+    borderWidth: 3,
+    width: "100%",
+    flexDirection: "row",
+  },
+  SubBtn: {
+    width: "100%",
+    flex: 1,
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  prev: {
+    width: "100%",
+    height: "100%",
+    flex: 1,
   },
   Title: {
     flex: 1.2,
