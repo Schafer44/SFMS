@@ -7,7 +7,6 @@ export default function AllTimesheet(props) {
     return props.job.map((file) => {
       file.JobNum = props.jobNum;
       if (file.Type === "Timesheet") {
-        console.log(file.TypeExtra);
         if (file.TypeExtra !== "Templete") {
           return (
             <View style={styles.container} key={file.baseId}>

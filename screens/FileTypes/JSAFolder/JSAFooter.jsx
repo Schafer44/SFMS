@@ -24,7 +24,6 @@ export default function JSAFooter(props) {
     );
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
-    console.log(props);
     setDoc(docRef, {
       T1: props.T1,
       T2: props.T2,

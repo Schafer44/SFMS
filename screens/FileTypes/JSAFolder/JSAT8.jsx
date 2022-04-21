@@ -18,7 +18,15 @@ export default function JSAT8(props) {
   const [Line2, setLine2] = useState({});
   const [Line3, setLine3] = useState({});
   const [signature, setSign] = useState(null);
+  const [signature0, setSign0] = useState(null);
+  const [signature1, setSign1] = useState(null);
+  const [signature2, setSign2] = useState(null);
+  const [signature3, setSign3] = useState(null);
   const [visible, setVisible] = useState(false);
+  const [visible0, setVisible0] = useState(false);
+  const [visible1, setVisible1] = useState(false);
+  const [visible2, setVisible2] = useState(false);
+  const [visible3, setVisible3] = useState(false);
   useEffect(() => {
     if (Object.keys(Line0).length !== 0) {
       props.setT8(props.T8, (props.T8[0] = { Line0 }));
@@ -50,6 +58,19 @@ export default function JSAT8(props) {
   const toggleOverlay = () => {
     setVisible(!visible);
   };
+
+  const toggleOverlay0 = () => {
+    setVisible0(!visible0);
+  };
+  const toggleOverlay1 = () => {
+    setVisible1(!visible1);
+  };
+  const toggleOverlay2 = () => {
+    setVisible2(!visible2);
+  };
+  const toggleOverlay3 = () => {
+    setVisible3(!visible3);
+  };
   return visible ? (
     <View style={styles.body2}>
       <SignatureCapture
@@ -58,6 +79,54 @@ export default function JSAT8(props) {
         signature={signature}
         setSign={setSign}
         SignInScroll={props.SignInScroll}
+      />
+    </View>
+  ) : visible0 ? (
+    <View style={styles.body2}>
+      <SignatureCapture
+        visible={visible0}
+        setVisible={setVisible0}
+        signature={signature0}
+        setSign={setSign0}
+        SignInScroll={props.SignInScroll}
+        Line={Line0}
+        setLine={setLine0}
+      />
+    </View>
+  ) : visible1 ? (
+    <View style={styles.body2}>
+      <SignatureCapture
+        visible={visible1}
+        setVisible={setVisible1}
+        signature={signature1}
+        setSign={setSign1}
+        SignInScroll={props.SignInScroll}
+        Line={Line1}
+        setLine={setLine1}
+      />
+    </View>
+  ) : visible2 ? (
+    <View style={styles.body2}>
+      <SignatureCapture
+        visible={visible2}
+        setVisible={setVisible2}
+        signature={signature2}
+        setSign={setSign2}
+        SignInScroll={props.SignInScroll}
+        Line={Line2}
+        setLine={setLine2}
+      />
+    </View>
+  ) : visible3 ? (
+    <View style={styles.body2}>
+      <SignatureCapture
+        visible={visible3}
+        setVisible={setVisible4}
+        signature={signature3}
+        setSign={setSign3}
+        SignInScroll={props.SignInScroll}
+        Line={Line3}
+        setLine={setLine3}
       />
     </View>
   ) : (
@@ -76,6 +145,39 @@ export default function JSAT8(props) {
             }}
           />
         </View>
+
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line1.NamePrint}
+            onChange={(event) => {
+              setLine1({ ...Line1, NamePrint: event.nativeEvent.text });
+            }}
+          />
+        </View>
+
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line2.NamePrint}
+            onChange={(event) => {
+              setLine2({ ...Line2, NamePrint: event.nativeEvent.text });
+            }}
+          />
+        </View>
+
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line3.NamePrint}
+            onChange={(event) => {
+              setLine3({ ...Line3, NamePrint: event.nativeEvent.text });
+            }}
+          />
+        </View>
       </View>
       <View style={styles.Column}>
         <View style={styles.Row}>
@@ -86,12 +188,54 @@ export default function JSAT8(props) {
             style={styles.SubBtn}
             title="Submit"
             underlayColor="#fff"
-            onPress={() => toggleOverlay()}
+            onPress={() => toggleOverlay0()}
           >
             <Image
               resizeMode={"contain"}
               style={styles.prev}
               source={{ uri: signature }}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.Row}>
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Submit"
+            underlayColor="#fff"
+            onPress={() => toggleOverlay1()}
+          >
+            <Image
+              resizeMode={"contain"}
+              style={styles.prev}
+              source={{ uri: signature1 }}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.Row}>
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Submit"
+            underlayColor="#fff"
+            onPress={() => toggleOverlay2()}
+          >
+            <Image
+              resizeMode={"contain"}
+              style={styles.prev}
+              source={{ uri: signature2 }}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.Row}>
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Submit"
+            underlayColor="#fff"
+            onPress={() => toggleOverlay3()}
+          >
+            <Image
+              resizeMode={"contain"}
+              style={styles.prev}
+              source={{ uri: signature3 }}
             />
           </TouchableOpacity>
         </View>
@@ -103,7 +247,7 @@ export default function JSAT8(props) {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    height: 100,
+    height: 200,
     borderStyle: "solid",
     borderWidth: 3,
     width: "100%",

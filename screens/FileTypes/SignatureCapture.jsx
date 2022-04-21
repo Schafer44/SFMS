@@ -12,6 +12,11 @@ import Signature from "react-native-signature-canvas";
 export const SignatureCapture = (props) => {
   const handleOK = (signature) => {
     props.setSign(signature);
+    if (props.setLine !== undefined) {
+      props.setLine({ ...props.Line, signature: signature });
+      //props.setLine(signature);
+      //props.setLine({ ...props.Line, signature: "" });
+    }
     toggleOverlay();
   };
 

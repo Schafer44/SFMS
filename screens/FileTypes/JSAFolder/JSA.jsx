@@ -59,7 +59,6 @@ export default function JSA(props, jobNum) {
   };
   useEffect(() => {
     fetchJob();
-    console.log("test", props.route.params.file);
     if (props.route.params.file.signature !== undefined) {
       setSign(props.route.params.file.signature);
     }
