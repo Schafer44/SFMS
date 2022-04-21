@@ -121,7 +121,7 @@ export default function JSAT9(props) {
     <View style={styles.body2}>
       <SignatureCapture
         visible={visible3}
-        setVisible={setVisible4}
+        setVisible={setVisible3}
         signature={signature3}
         setSign={setSign3}
         SignInScroll={props.SignInScroll}
@@ -193,7 +193,7 @@ export default function JSAT9(props) {
             <Image
               resizeMode={"contain"}
               style={styles.prev}
-              source={{ uri: signature }}
+              source={{ uri: Line0.signature }}
             />
           </TouchableOpacity>
         </View>
@@ -207,7 +207,7 @@ export default function JSAT9(props) {
             <Image
               resizeMode={"contain"}
               style={styles.prev}
-              source={{ uri: signature1 }}
+              source={{ uri: Line1.signature }}
             />
           </TouchableOpacity>
         </View>
@@ -221,7 +221,7 @@ export default function JSAT9(props) {
             <Image
               resizeMode={"contain"}
               style={styles.prev}
-              source={{ uri: signature2 }}
+              source={{ uri: Line2.signature }}
             />
           </TouchableOpacity>
         </View>
@@ -235,7 +235,7 @@ export default function JSAT9(props) {
             <Image
               resizeMode={"contain"}
               style={styles.prev}
-              source={{ uri: signature3 }}
+              source={{ uri: Line3.signature }}
             />
           </TouchableOpacity>
         </View>
@@ -246,8 +246,8 @@ export default function JSAT9(props) {
 
 const styles = StyleSheet.create({
   body: {
-    flex: 1,
     height: 200,
+    flex: 1,
     borderStyle: "solid",
     borderWidth: 3,
     width: "100%",
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     textAlign: "center",
   },
-  Column: { flex: 3 },
+  Column: { flex: 1 },
   Column2: { flex: 1 },
   ColumnTitle: { flex: 0.3, borderStyle: "solid", borderWidth: 1 },
 });

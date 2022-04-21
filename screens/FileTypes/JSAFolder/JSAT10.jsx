@@ -17,16 +17,23 @@ export default function JSAT10(props) {
   const [Line1, setLine1] = useState({});
   const [Line2, setLine2] = useState({});
   const [Line3, setLine3] = useState({});
+  const [Line4, setLine4] = useState({});
+  const [Line5, setLine5] = useState({});
   const [signature, setSign] = useState(null);
   const [signature0, setSign0] = useState(null);
   const [signature1, setSign1] = useState(null);
   const [signature2, setSign2] = useState(null);
   const [signature3, setSign3] = useState(null);
+  const [signature4, setSign4] = useState(null);
+  const [signature5, setSign5] = useState(null);
   const [visible, setVisible] = useState(false);
   const [visible0, setVisible0] = useState(false);
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
   const [visible3, setVisible3] = useState(false);
+  const [visible4, setVisible4] = useState(false);
+  const [visible5, setVisible5] = useState(false);
+  const [visible6, setVisible6] = useState(false);
   useEffect(() => {
     if (Object.keys(Line0).length !== 0) {
       props.setT10(props.T10, (props.T10[0] = { Line0 }));
@@ -39,6 +46,12 @@ export default function JSAT10(props) {
     }
     if (Object.keys(Line3).length !== 0) {
       props.setT10(props.T10, (props.T10[3] = { Line3 }));
+    }
+    if (Object.keys(Line4).length !== 0) {
+      props.setT10(props.T10, (props.T10[4] = { Line4 }));
+    }
+    if (Object.keys(Line5).length !== 0) {
+      props.setT10(props.T10, (props.T10[5] = { Line5 }));
     } else if (props.T10 !== undefined) {
       if (props.T10[0] !== undefined) {
         setLine0(props.T10[0].Line0);
@@ -52,8 +65,14 @@ export default function JSAT10(props) {
       if (props.T10[3] !== undefined) {
         setLine3(props.T10[3].Line3);
       }
+      if (props.T10[4] !== undefined) {
+        setLine4(props.T10[4].Line4);
+      }
+      if (props.T10[5] !== undefined) {
+        setLine5(props.T10[5].Line5);
+      }
     }
-  }, [props, Line0, Line1, Line2, Line3]);
+  }, [props, Line0, Line1, Line2, Line3, Line4, Line5]);
 
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -70,6 +89,16 @@ export default function JSAT10(props) {
   };
   const toggleOverlay3 = () => {
     setVisible3(!visible3);
+  };
+
+  const toggleOverlay4 = () => {
+    setVisible4(!visible4);
+  };
+  const toggleOverlay5 = () => {
+    setVisible5(!visible5);
+  };
+  const toggleOverlay6 = () => {
+    setVisible6(!visible6);
   };
   return visible ? (
     <View style={styles.body2}>
@@ -121,12 +150,36 @@ export default function JSAT10(props) {
     <View style={styles.body2}>
       <SignatureCapture
         visible={visible3}
-        setVisible={setVisible4}
+        setVisible={setVisible3}
         signature={signature3}
         setSign={setSign3}
         SignInScroll={props.SignInScroll}
         Line={Line3}
         setLine={setLine3}
+      />
+    </View>
+  ) : visible4 ? (
+    <View style={styles.body2}>
+      <SignatureCapture
+        visible={visible4}
+        setVisible={setVisible4}
+        signature={signature4}
+        setSign={setSign4}
+        SignInScroll={props.SignInScroll}
+        Line={Line4}
+        setLine={setLine4}
+      />
+    </View>
+  ) : visible5 ? (
+    <View style={styles.body2}>
+      <SignatureCapture
+        visible={visible5}
+        setVisible={setVisible5}
+        signature={signature5}
+        setSign={setSign5}
+        SignInScroll={props.SignInScroll}
+        Line={Line5}
+        setLine={setLine5}
       />
     </View>
   ) : (
@@ -178,6 +231,26 @@ export default function JSAT10(props) {
             }}
           />
         </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line4.NamePrint}
+            onChange={(event) => {
+              setLine4({ ...Line4, NamePrint: event.nativeEvent.text });
+            }}
+          />
+        </View>
+        <View style={styles.Row}>
+          <TextInput
+            style={styles.textInputTest}
+            placeholder=""
+            value={Line5.NamePrint}
+            onChange={(event) => {
+              setLine5({ ...Line5, NamePrint: event.nativeEvent.text });
+            }}
+          />
+        </View>
       </View>
       <View style={styles.Column}>
         <View style={styles.Row}>
@@ -193,7 +266,7 @@ export default function JSAT10(props) {
             <Image
               resizeMode={"contain"}
               style={styles.prev}
-              source={{ uri: signature }}
+              source={{ uri: Line0.signature }}
             />
           </TouchableOpacity>
         </View>
@@ -207,7 +280,7 @@ export default function JSAT10(props) {
             <Image
               resizeMode={"contain"}
               style={styles.prev}
-              source={{ uri: signature1 }}
+              source={{ uri: Line1.signature }}
             />
           </TouchableOpacity>
         </View>
@@ -221,7 +294,7 @@ export default function JSAT10(props) {
             <Image
               resizeMode={"contain"}
               style={styles.prev}
-              source={{ uri: signature2 }}
+              source={{ uri: Line2.signature }}
             />
           </TouchableOpacity>
         </View>
@@ -235,7 +308,36 @@ export default function JSAT10(props) {
             <Image
               resizeMode={"contain"}
               style={styles.prev}
-              source={{ uri: signature3 }}
+              source={{ uri: Line3.signature }}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.Row}>
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Submit"
+            underlayColor="#fff"
+            onPress={() => toggleOverlay4()}
+          >
+            <Image
+              resizeMode={"contain"}
+              style={styles.prev}
+              source={{ uri: Line4.signature }}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.Row}>
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Submit"
+            underlayColor="#fff"
+            onPress={() => toggleOverlay5()}
+          >
+            <Image
+              resizeMode={"contain"}
+              style={styles.prev}
+              source={{ uri: Line5.signature }}
             />
           </TouchableOpacity>
         </View>
