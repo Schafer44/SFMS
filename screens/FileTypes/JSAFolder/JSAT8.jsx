@@ -40,34 +40,36 @@ export default function JSAT8(props) {
     //setRows([...rows]);
   };
   return (
-    <View>
+    <View View style={styles.body}>
       <View style={styles.Column}>
         <View style={styles.Row}>
           <Text>Print Name:</Text>
         </View>
-        {Object.keys(Table).map((Keys, r) => (
-          <View key={Keys}>
-            <View style={styles.Row}>
-              <TextInput
-                style={styles.textInputTest}
-                placeholder=""
-                value={Table.Name}
-                onChange={(event) => {
-                  var temp = Keys;
-                  var temp2;
-                  //[temp] = [event];
-                  var [temp] = [event.nativeEvent.text, "dsfsdf"];
-                  temp2 = [temp];
-                  temp2[1] = "hhjh";
-                  setTable({
-                    ...Table,
-                    [Keys]: temp2,
-                  });
-                }}
-              />
+        {Object.keys(Table)
+          .sort()
+          .map((Keys, r) => (
+            <View key={Keys}>
+              <View style={styles.Row}>
+                <TextInput
+                  style={styles.textInputTest}
+                  placeholder=""
+                  value={Table[Keys][0]}
+                  onChange={(event) => {
+                    var temp = Keys;
+                    var temp2;
+                    //[temp] = [event];
+                    var [temp] = [event.nativeEvent.text, "dsfsdf"];
+                    temp2 = [temp];
+                    temp2[1] = "hhjh";
+                    setTable({
+                      ...Table,
+                      [Keys]: temp2,
+                    });
+                  }}
+                />
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
       </View>
       <View style={styles.Column}>
         <View style={styles.Row}>
@@ -184,7 +186,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     width: "100%",
     height: "100%",
-    flexDirection: "column",
+    flexDirection: "row",
   },
   Title: {
     flex: 1.2,
