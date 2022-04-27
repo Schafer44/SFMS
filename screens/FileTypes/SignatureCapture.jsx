@@ -11,7 +11,19 @@ import Signature from "react-native-signature-canvas";
 
 export const SignatureCapture = (props) => {
   const handleOK = (signature) => {
-    props.setSign(signature);
+    if (props.setSign !== undefined) {
+      props.setSign(signature);
+    }
+    if (props.setTable !== undefined) {
+      var temp = props.Table[props.Keys][0];
+      var temp2;
+      temp2 = [temp];
+      temp2[1] = signature;
+      props.setTable({
+        ...props.Table,
+        [props.Keys]: temp2,
+      });
+    }
     if (props.setLine !== undefined) {
       props.setLine({ ...props.Line, signature: signature });
       //props.setLine(signature);

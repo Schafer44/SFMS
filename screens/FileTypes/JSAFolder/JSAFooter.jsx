@@ -72,7 +72,6 @@ export default function JSAFooter(props) {
         </TouchableOpacity>
         <ExportDataToExcel />
       </View>
-
       <Image
         resizeMode={"contain"}
         style={styles.prev}

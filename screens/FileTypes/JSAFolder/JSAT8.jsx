@@ -6,17 +6,18 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
+import { SignatureCapture } from "../SignatureCapture";
 
 export default function JSAT8(props) {
   const [Table, setTable] = useState({});
   const [Rows, setRows] = useState([]);
+  const [signature, setSign] = useState(null);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
-    console.log("1");
-    console.log("2", Table);
-    console.log("3", Rows.Rows0);
     if (Object.keys(Table).length !== 0) {
       props.setT8(props.T8, (props.T8[0] = { Table }));
     } else if (props.T8 !== undefined) {
@@ -25,7 +26,9 @@ export default function JSAT8(props) {
       }
     }
   }, [props, Table]);
-
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
   const addRow = () => {
     var rows = ["", ""];
     var temp = Object.keys(Table).length;
@@ -60,7 +63,11 @@ export default function JSAT8(props) {
                     //[temp] = [event];
                     var [temp] = [event.nativeEvent.text, "dsfsdf"];
                     temp2 = [temp];
-                    temp2[1] = "hhjh";
+                    if (Table[Keys][1] !== undefined) {
+                      temp2[1] = Table[Keys][1];
+                    } else {
+                      temp2[1] = "";
+                    }
                     setTable({
                       ...Table,
                       [Keys]: temp2,
@@ -73,8 +80,41 @@ export default function JSAT8(props) {
       </View>
       <View style={styles.Column}>
         <View style={styles.Row}>
-          <Text>Print Name:</Text>
+          <Text>Signature:</Text>
         </View>
+        {Object.keys(Table)
+          .sort()
+          .map((Keys, r) =>
+            visible ? (
+              <View style={styles.body2}>
+                <SignatureCapture
+                  Keys={Keys}
+                  setTable={setTable}
+                  Table={Table}
+                  visible={visible}
+                  setVisible={setVisible}
+                  signature={Table[Keys][1]}
+                  SignInScroll={props.SignInScroll}
+                />
+              </View>
+            ) : (
+              <View key={Keys}>
+                <View style={styles.Row}>
+                  <TouchableOpacity
+                    style={styles.SubBtn}
+                    underlayColor="#fff"
+                    onPress={() => setVisible(!visible)}
+                  >
+                    <Image
+                      resizeMode={"contain"}
+                      style={styles.prev}
+                      source={{ uri: Table[Keys][1] }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )
+          )}
       </View>
       <TouchableOpacity
         style={styles.SubBtn}
@@ -85,102 +125,17 @@ export default function JSAT8(props) {
       </TouchableOpacity>
     </View>
   );
-  /*return (
-    <View style={styles.body}>
-      <View style={styles.ColumnTitle}>
-        <View style={styles.Title}>
-          <Text style={styles.TitleText1}>ROW Conditions:</Text>
-        </View>
-      </View>
-      <View style={styles.Column}>
-        <View style={styles.Row}>
-          <Text>Dry</Text>
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.Dry}
-            onChange={(event) => {
-              setTable({ ...Table, Dry: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <Text>Rocky</Text>
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.Rocky}
-            onChange={(event) => {
-              setTable({ ...Table, Rocky: event.nativeEvent.text });
-            }}
-          />
-        </View>
-
-        <View style={styles.Row}>
-          <Text>Muddy</Text>
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.Muddy}
-            onChange={(event) => {
-              setTable({ ...Table, Muddy: event.nativeEvent.text });
-            }}
-          />
-        </View>
-
-        <View style={styles.Row}>
-          <Text>Sandy</Text>
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.Sandy}
-            onChange={(event) => {
-              setTable({ ...Table, Sandy: event.nativeEvent.text });
-            }}
-          />
-        </View>
-
-        <View style={styles.Row}>
-          <Text>Ice/Snow</Text>
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.Ice_Snow}
-            onChange={(event) => {
-              setTable({ ...Table, Ice_Snow: event.nativeEvent.text });
-            }}
-          />
-        </View>
-
-        <View style={styles.Row}>
-          <Text>Steep Slope</Text>
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.SteepSlope}
-            onChange={(event) => {
-              setTable({ ...Table, SteepSlope: event.nativeEvent.text });
-            }}
-          />
-        </View>
-      </View>
-    </View>
-  );*/
 }
 
 const styles = StyleSheet.create({
+  body2: {
+    flex: 1,
+    height: 400,
+    borderStyle: "solid",
+    borderWidth: 3,
+    width: "100%",
+    flexDirection: "row",
+  },
   body: {
     borderStyle: "solid",
     borderWidth: 3,
@@ -197,10 +152,8 @@ const styles = StyleSheet.create({
     flex: 1,
     borderStyle: "solid",
     borderWidth: 1,
-    justifyContent: "center",
-    alignContent: "center",
   },
-  Column: { flex: 1, flexDirection: "column" },
+  Column: { flex: 1, flexDirection: "column", width: "100%" },
   ColumnTitle: {
     flex: 2,
     borderStyle: "solid",
@@ -211,6 +164,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     textAlign: "center",
+  },
+
+  prev: {
+    width: "100%",
+    height: "100%",
+    flex: 1,
+  },
+  SubBtn: {
+    width: "100%",
+    flex: 1,
+    justifyContent: "center",
+    alignContent: "center",
   },
   TitleText2: {
     justifyContent: "center",

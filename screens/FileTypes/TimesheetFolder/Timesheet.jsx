@@ -16,6 +16,7 @@ import { SignatureCapture } from "../SignatureCapture";
 import TimesheetLineComment from "./TimesheetComment";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import ExportDataToExcel from "../../ExportToExcel";
+import TimesheetBody from "./TimesheetBody";
 
 export default function Timesheet(props, jobNum) {
   const [signature, setSign] = useState(null);
@@ -23,6 +24,7 @@ export default function Timesheet(props, jobNum) {
   const [Lines, setLines] = useState([]);
   const [Header, setHeader] = useState([]);
   const [scrollEnabled, setScrollEnabled] = useState(true);
+  const [Body, setBody] = useState([]);
   var TempName;
   var TempBaseId;
   var TempId;
@@ -199,6 +201,7 @@ export default function Timesheet(props, jobNum) {
         </View>
       </View>
       <View style={styles.body}>
+        <TimesheetBody T8={Body} setT8={setBody} />
         <ScrollView style={styles.bodyScroll}>
           <TimesheetLine Lines={Lines} setLines={setLines} id={0} />
           <TimesheetLine Lines={Lines} setLines={setLines} id={1} />
