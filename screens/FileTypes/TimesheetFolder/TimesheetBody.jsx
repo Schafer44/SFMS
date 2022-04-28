@@ -18,23 +18,24 @@ export default function TimesheetBody(props) {
   const [signature, setSign] = useState(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
+    console.log("4", props);
     if (Object.keys(Table).length !== 0) {
-      props.setT8(props.T8, (props.T8[0] = { Table }));
+      console.log("10", Table);
+      props.setT8(Table);
     } else if (props.T8 !== undefined) {
-      if (props.T8[0] !== undefined) {
-        setTable(props.T8[0].Table);
-      }
+      console.log("8", props.T8);
+      setTable(props.T8);
     }
+    console.log("5", Table);
   }, [props, Table]);
   const toggleOverlay = () => {
     setVisible(!visible);
   };
   const addRow = () => {
-    var rows = ["", ""];
+    var rows = ["", "", "", "", "", "", "", ""];
     var temp = Object.keys(Table).length;
-    console.log("1", temp);
+
     var Keys = "Line" + temp;
-    console.log("2", Keys);
     setTable({
       ...Table,
       [Keys]: rows,
@@ -51,7 +52,8 @@ export default function TimesheetBody(props) {
         {Object.keys(Table)
           .sort()
           .map((Keys, r) => (
-            <View key={Keys}>
+            <View key={Keys} style={styles.Line}>
+              <Text>{Keys}</Text>
               <View style={styles.Row}>
                 <TextInput
                   style={styles.textInputTest}
@@ -60,17 +62,14 @@ export default function TimesheetBody(props) {
                   onChange={(event) => {
                     var temp = Keys;
                     var temp2;
+                    var temp3 = Table[Keys];
                     //[temp] = [event];
-                    var [temp] = [event.nativeEvent.text, "dsfsdf"];
+                    var [temp] = [event.nativeEvent.text];
+                    temp3[0] = event.nativeEvent.text;
                     temp2 = [temp];
-                    if (Table[Keys][1] !== undefined) {
-                      temp2[1] = Table[Keys][1];
-                    } else {
-                      temp2[1] = "";
-                    }
                     setTable({
                       ...Table,
-                      [Keys]: temp2,
+                      [Keys]: temp3,
                     });
                   }}
                 />
@@ -79,21 +78,18 @@ export default function TimesheetBody(props) {
                 <TextInput
                   style={styles.textInputTest}
                   placeholder=""
-                  value={Table[Keys][0]}
+                  value={Table[Keys][1]}
                   onChange={(event) => {
                     var temp = Keys;
                     var temp2;
+                    var temp3 = Table[Keys];
                     //[temp] = [event];
-                    var [temp] = [event.nativeEvent.text, "dsfsdf"];
+                    var [temp] = [event.nativeEvent.text];
+                    temp3[1] = event.nativeEvent.text;
                     temp2 = [temp];
-                    if (Table[Keys][1] !== undefined) {
-                      temp2[1] = Table[Keys][1];
-                    } else {
-                      temp2[1] = "";
-                    }
                     setTable({
                       ...Table,
-                      [Keys]: temp2,
+                      [Keys]: temp3,
                     });
                   }}
                 />
@@ -102,21 +98,18 @@ export default function TimesheetBody(props) {
                 <TextInput
                   style={styles.textInputTest}
                   placeholder=""
-                  value={Table[Keys][0]}
+                  value={Table[Keys][2]}
                   onChange={(event) => {
                     var temp = Keys;
                     var temp2;
+                    var temp3 = Table[Keys];
                     //[temp] = [event];
-                    var [temp] = [event.nativeEvent.text, "dsfsdf"];
+                    var [temp] = [event.nativeEvent.text];
+                    temp3[2] = event.nativeEvent.text;
                     temp2 = [temp];
-                    if (Table[Keys][1] !== undefined) {
-                      temp2[1] = Table[Keys][1];
-                    } else {
-                      temp2[1] = "";
-                    }
                     setTable({
                       ...Table,
-                      [Keys]: temp2,
+                      [Keys]: temp3,
                     });
                   }}
                 />
@@ -125,21 +118,18 @@ export default function TimesheetBody(props) {
                 <TextInput
                   style={styles.textInputTest}
                   placeholder=""
-                  value={Table[Keys][0]}
+                  value={Table[Keys][3]}
                   onChange={(event) => {
                     var temp = Keys;
                     var temp2;
+                    var temp3 = Table[Keys];
                     //[temp] = [event];
-                    var [temp] = [event.nativeEvent.text, "dsfsdf"];
+                    var [temp] = [event.nativeEvent.text];
+                    temp3[3] = event.nativeEvent.text;
                     temp2 = [temp];
-                    if (Table[Keys][1] !== undefined) {
-                      temp2[1] = Table[Keys][1];
-                    } else {
-                      temp2[1] = "";
-                    }
                     setTable({
                       ...Table,
-                      [Keys]: temp2,
+                      [Keys]: temp3,
                     });
                   }}
                 />
@@ -148,21 +138,18 @@ export default function TimesheetBody(props) {
                 <TextInput
                   style={styles.textInputTest}
                   placeholder=""
-                  value={Table[Keys][0]}
+                  value={Table[Keys][4]}
                   onChange={(event) => {
                     var temp = Keys;
                     var temp2;
+                    var temp3 = Table[Keys];
                     //[temp] = [event];
-                    var [temp] = [event.nativeEvent.text, "dsfsdf"];
+                    var [temp] = [event.nativeEvent.text];
+                    temp3[4] = event.nativeEvent.text;
                     temp2 = [temp];
-                    if (Table[Keys][1] !== undefined) {
-                      temp2[1] = Table[Keys][1];
-                    } else {
-                      temp2[1] = "";
-                    }
                     setTable({
                       ...Table,
-                      [Keys]: temp2,
+                      [Keys]: temp3,
                     });
                   }}
                 />
@@ -171,21 +158,18 @@ export default function TimesheetBody(props) {
                 <TextInput
                   style={styles.textInputTest}
                   placeholder=""
-                  value={Table[Keys][0]}
+                  value={Table[Keys][5]}
                   onChange={(event) => {
                     var temp = Keys;
                     var temp2;
+                    var temp3 = Table[Keys];
                     //[temp] = [event];
-                    var [temp] = [event.nativeEvent.text, "dsfsdf"];
+                    var [temp] = [event.nativeEvent.text];
+                    temp3[5] = event.nativeEvent.text;
                     temp2 = [temp];
-                    if (Table[Keys][1] !== undefined) {
-                      temp2[1] = Table[Keys][1];
-                    } else {
-                      temp2[1] = "";
-                    }
                     setTable({
                       ...Table,
-                      [Keys]: temp2,
+                      [Keys]: temp3,
                     });
                   }}
                 />
@@ -194,21 +178,18 @@ export default function TimesheetBody(props) {
                 <TextInput
                   style={styles.textInputTest}
                   placeholder=""
-                  value={Table[Keys][0]}
+                  value={Table[Keys][6]}
                   onChange={(event) => {
                     var temp = Keys;
                     var temp2;
+                    var temp3 = Table[Keys];
                     //[temp] = [event];
-                    var [temp] = [event.nativeEvent.text, "dsfsdf"];
+                    var [temp] = [event.nativeEvent.text];
+                    temp3[6] = event.nativeEvent.text;
                     temp2 = [temp];
-                    if (Table[Keys][1] !== undefined) {
-                      temp2[1] = Table[Keys][1];
-                    } else {
-                      temp2[1] = "";
-                    }
                     setTable({
                       ...Table,
-                      [Keys]: temp2,
+                      [Keys]: temp3,
                     });
                   }}
                 />
@@ -217,21 +198,18 @@ export default function TimesheetBody(props) {
                 <TextInput
                   style={styles.textInputTest}
                   placeholder=""
-                  value={Table[Keys][0]}
+                  value={Table[Keys][7]}
                   onChange={(event) => {
                     var temp = Keys;
                     var temp2;
+                    var temp3 = Table[Keys];
                     //[temp] = [event];
-                    var [temp] = [event.nativeEvent.text, "dsfsdf"];
+                    var [temp] = [event.nativeEvent.text];
+                    temp3[7] = event.nativeEvent.text;
                     temp2 = [temp];
-                    if (Table[Keys][1] !== undefined) {
-                      temp2[1] = Table[Keys][1];
-                    } else {
-                      temp2[1] = "";
-                    }
                     setTable({
                       ...Table,
-                      [Keys]: temp2,
+                      [Keys]: temp3,
                     });
                   }}
                 />
@@ -252,6 +230,14 @@ export default function TimesheetBody(props) {
 }
 
 const styles = StyleSheet.create({
+  Line: {
+    flex: 1,
+    height: 75,
+    borderStyle: "solid",
+    borderWidth: 3,
+    width: "100%",
+    flexDirection: "row",
+  },
   body2: {
     flex: 1,
     height: 400,
@@ -265,7 +251,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     width: "100%",
     height: "100%",
-    flexDirection: "row",
+    flexDirection: "column",
   },
   Title: {
     flex: 1.2,
@@ -273,6 +259,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   Row: {
+    width: "100%",
     flex: 1,
     borderStyle: "solid",
     borderWidth: 1,

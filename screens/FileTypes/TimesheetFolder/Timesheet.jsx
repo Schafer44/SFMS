@@ -50,8 +50,10 @@ export default function Timesheet(props, jobNum) {
   };
   useEffect(() => {
     fetchJob();
-    if (props.route.params.file.TimesheetLines != undefined) {
-      setLines(props.route.params.file.TimesheetLines);
+    if (props.route.params.file.TimesheetLines !== undefined) {
+      console.log("3", props.route.params.file.TimesheetLines);
+      setBody(props.route.params.file.TimesheetLines);
+      console.log("3", Body);
     }
     if (props.route.params.file.TimesheetHeader !== undefined) {
       setHeader(props.route.params.file.TimesheetHeader);
@@ -74,7 +76,7 @@ export default function Timesheet(props, jobNum) {
     const docSnap = getDoc(docRef);
     setDoc(docRef, {
       TimesheetHeader: Header,
-      TimesheetLines: Lines,
+      TimesheetLines: Body,
       Comment: Comment,
       Type: props.route.params.file.Type,
       baseId: props.route.params.file.baseId,
@@ -201,14 +203,8 @@ export default function Timesheet(props, jobNum) {
         </View>
       </View>
       <View style={styles.body}>
-        <TimesheetBody T8={Body} setT8={setBody} />
         <ScrollView style={styles.bodyScroll}>
-          <TimesheetLine Lines={Lines} setLines={setLines} id={0} />
-          <TimesheetLine Lines={Lines} setLines={setLines} id={1} />
-          <TimesheetLine Lines={Lines} setLines={setLines} id={2} />
-          <TimesheetLine Lines={Lines} setLines={setLines} id={3} />
-          <TimesheetLine Lines={Lines} setLines={setLines} id={4} />
-          <TimesheetLine Lines={Lines} setLines={setLines} id={5} />
+          <TimesheetBody T8={Body} setT8={setBody} />
         </ScrollView>
       </View>
       <View style={styles.footerDoc}>
