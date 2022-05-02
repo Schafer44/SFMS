@@ -39,7 +39,14 @@ export const SignatureCapture = (props) => {
   const style = `.m-signature-pad {} 
   .m-signature-pad--body {}
   body,html {
-  width: 90%; height: 80%; }`;
+  width: 90%; height: 80%; }
+  .m-signature-pad--footer
+    .button {
+      background-color: green;
+      color: #FFF;
+      width:30%;
+      height:90%;
+    }`;
   return (
     <View style={{ width: "100%", height: "100%" }}>
       <View style={styles.preview}>
@@ -63,9 +70,9 @@ export const SignatureCapture = (props) => {
         onEnd={() => props.SignInScroll()}
       />
       <Button
-        title="open"
+        title="Close"
         color="green"
-        style={{ width: 50, height: 50 }}
+        style={{ width: 50, height: 50, backgroundColor: "green" }}
         onPress={() => toggleOverlay()}
       />
     </View>

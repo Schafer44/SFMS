@@ -32,9 +32,7 @@ export default function JSAT8(props) {
   const addRow = () => {
     var rows = ["", ""];
     var temp = Object.keys(Table).length;
-    console.log("1", temp);
     var Keys = "Rows" + temp;
-    console.log("2", Keys);
     setTable({
       ...Table,
       [Keys]: rows,

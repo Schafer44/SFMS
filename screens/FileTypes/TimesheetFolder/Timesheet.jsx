@@ -51,9 +51,7 @@ export default function Timesheet(props, jobNum) {
   useEffect(() => {
     fetchJob();
     if (props.route.params.file.TimesheetLines !== undefined) {
-      console.log("3", props.route.params.file.TimesheetLines);
       setBody(props.route.params.file.TimesheetLines);
-      console.log("3", Body);
     }
     if (props.route.params.file.TimesheetHeader !== undefined) {
       setHeader(props.route.params.file.TimesheetHeader);
@@ -203,9 +201,7 @@ export default function Timesheet(props, jobNum) {
         </View>
       </View>
       <View style={styles.body}>
-        <ScrollView style={styles.bodyScroll}>
-          <TimesheetBody T8={Body} setT8={setBody} />
-        </ScrollView>
+        <TimesheetBody T8={Body} setT8={setBody} />
       </View>
       <View style={styles.footerDoc}>
         <View style={styles.footerViewTitle}>

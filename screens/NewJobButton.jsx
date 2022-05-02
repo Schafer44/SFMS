@@ -40,6 +40,7 @@ export default class NewTimesheet extends React.Component {
             style={styles.SubBtn}
             onPress={() => DoBoth()}
             title="New Job"
+            color="white"
           ></TouchableOpacity>
           <View style={{ flex: 1 }}>
             <View style={styles.tempText} key={3}>

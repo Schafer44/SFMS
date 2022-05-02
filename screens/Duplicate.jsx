@@ -36,6 +36,7 @@ export default class Duplicate extends React.Component {
             style={styles.existingJobBtn}
             onPress={() => DoBoth()}
             title="Duplicate Templete"
+            color="white"
           ></Button>
         </View>
       </View>

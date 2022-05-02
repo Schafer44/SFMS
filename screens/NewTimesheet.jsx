@@ -22,7 +22,8 @@ export default class NewTimesheet extends React.Component {
           Type: "Timesheet",
           TypeExtra: "null",
           baseId: ref._delegate._key.path.segments[1],
-          TimesheetLines: [{ Line0: [] }],
+          TimesheetLines: { Line0: [] },
+          TimesheetHeader: { Date: "" },
         });
       /*const ehehe = await response.add({
         Type: "Timesheet",
@@ -37,6 +38,7 @@ export default class NewTimesheet extends React.Component {
             style={styles.existingJobBtn}
             onPress={() => DoBoth() /*props.navigation.navigate("Timesheet")*/}
             title="New Timesheet"
+            color="white"
           ></Button>
         </View>
       </View>

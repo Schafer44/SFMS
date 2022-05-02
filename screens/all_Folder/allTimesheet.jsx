@@ -8,19 +8,35 @@ export default function AllTimesheet(props) {
       file.JobNum = props.jobNum;
       if (file.Type === "Timesheet") {
         if (file.TypeExtra !== "Templete") {
-          return (
-            <View style={styles.container} key={file.baseId}>
-              <View style={styles.existingJob} key={file.baseId}>
-                <Button
-                  style={styles.existingJobBtn}
-                  onPress={() =>
-                    props.navigation.navigate("Timesheet", { file })
-                  }
-                  title={file.baseId}
-                ></Button>
+          if (file.TimesheetHeader.Date !== "") {
+            return (
+              <View style={styles.container} key={file.baseId}>
+                <View style={styles.existingJob} key={file.baseId}>
+                  <Button
+                    style={styles.existingJobBtn}
+                    onPress={() =>
+                      props.navigation.navigate("Timesheet", { file })
+                    }
+                    title={file.TimesheetHeader.Date}
+                  ></Button>
+                </View>
               </View>
-            </View>
-          );
+            );
+          } else {
+            return (
+              <View style={styles.container} key={file.baseId}>
+                <View style={styles.existingJob} key={file.baseId}>
+                  <Button
+                    style={styles.existingJobBtn}
+                    onPress={() =>
+                      props.navigation.navigate("Timesheet", { file })
+                    }
+                    title={"New Sheet"}
+                  ></Button>
+                </View>
+              </View>
+            );
+          }
         }
       }
     });

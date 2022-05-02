@@ -7,10 +7,12 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Image,
 } from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import authentication from "./FirebaseLink";
+import Logo from "../assets/LoginLogo.png";
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
@@ -32,6 +34,7 @@ const LoginScreen = (props) => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <Image source={Logo} style={styles.Logo}></Image>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Email"
@@ -62,8 +65,14 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
+  },
+  Logo: {
+    marginTop: "15%",
+    marginBottom: "5%",
+    width: "50%",
+    height: "40%",
+    borderRadius: 40,
   },
   inputContainer: {
     width: "80%",
@@ -87,6 +96,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
+    backgroundColor: "green",
   },
   buttonOutline: {
     backgroundColor: "white",
