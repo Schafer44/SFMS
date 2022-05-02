@@ -13,13 +13,13 @@ import React, { setState, useState, useEffect } from "react";
 
 export default function JSAT11(props) {
   const [Line0, setLine0] = useState({});
-  const [Line1, setLine1] = useState({});
+  /*const [Line1, setLine1] = useState({});
   const [Line2, setLine2] = useState({});
-  const [Line3, setLine3] = useState({});
+  const [Line3, setLine3] = useState({});*/
   useEffect(() => {
     if (Object.keys(Line0).length !== 0) {
       props.setT11(props.T11, (props.T11[0] = { Line0 }));
-    }
+    } /*
     if (Object.keys(Line1).length !== 0) {
       props.setT11(props.T11, (props.T11[1] = { Line1 }));
     }
@@ -28,11 +28,11 @@ export default function JSAT11(props) {
     }
     if (Object.keys(Line3).length !== 0) {
       props.setT11(props.T11, (props.T11[3] = { Line3 }));
-    } else if (props.T11 !== undefined) {
+    }*/ else if (props.T11 !== undefined) {
       if (props.T11[0] !== undefined) {
         setLine0(props.T11[0].Line0);
       }
-      if (props.T11[1] !== undefined) {
+      /*if (props.T11[1] !== undefined) {
         setLine1(props.T11[1].Line1);
       }
       if (props.T11[2] !== undefined) {
@@ -40,9 +40,9 @@ export default function JSAT11(props) {
       }
       if (props.T11[3] !== undefined) {
         setLine3(props.T11[3].Line3);
-      }
+      }*/
     }
-  }, [props, Line0, Line1, Line2, Line3]);
+  }, [props, Line0 /*, Line1, Line2, Line3*/]);
 
   return (
     <View style={styles.body}>

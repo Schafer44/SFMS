@@ -1,10 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button } from "react-native";
-import { db } from "./FirebaseLink";
+import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
-export default class NewForemanReport extends React.Component {
+export default class DupFR extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -19,31 +19,27 @@ export default class NewForemanReport extends React.Component {
         .collection(this.props.jobNum)
         .doc(ref._delegate._key.path.segments[1])
         .set({
-          Type: "Foreman Report",
+          Header: this.props.file.Header,
+          T1: this.props.file.T1,
+          T2: this.props.file.T2,
+          T3: this.props.file.T3,
+          T4: this.props.file.T4,
+          T5: this.props.file.T5,
+          T6: this.props.file.T6,
+          T7: this.props.file.T7,
+          Type: this.props.file.Type,
+          signature: this.props.file.signature,
           TypeExtra: "null",
           baseId: ref._delegate._key.path.segments[1],
-          Header: [{ Line0: {} }],
-          T1: [{ Line0: {} }, { Line1: {} }],
-          T2: [{ Line0: {} }],
-          T3: [{ Line0: {} }],
-          T4: [{ Line0: {} }],
-          T5: [{ Line0: {} }],
-          T6: [{ Line0: {} }, { Line1: {} }],
-          T7: [{ Line0: {} }],
         });
-      /*const ehehe = await response.add({
-        Type: "Timesheet",
-        baseId: ref._delegate._key.path.segments[1],
-      });*/
     };
     return (
       <View style={styles.container} key={1}>
         <View style={styles.newJob} key={1}>
           <Button
-            key={1}
             style={styles.existingJobBtn}
-            onPress={() => DoBoth() /*props.navigation.navigate("Timesheet")*/}
-            title="New Foreman Report"
+            onPress={() => DoBoth()}
+            title="Duplicate Templete"
             color="white"
           ></Button>
         </View>
@@ -68,5 +64,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 5,
+  },
+  existingJobBtn: {
+    color: "white",
   },
 });

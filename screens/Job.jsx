@@ -12,6 +12,8 @@ import NewForemanReport from "./NewForemanReport";
 import NewJSA from "./NewJSA";
 import NewTimesheet from "./NewTimesheet";
 import AllTimesheetDup from "./all_Folder/allTimesheetDup";
+import AllForemanDup from "./all_Folder/AllForemanDup";
+import AllJSADup from "./all_Folder/allJSADup";
 
 export const Job = (props) => {
   const [contentT, setContentTimesheet] = useState(false);
@@ -98,7 +100,12 @@ export const Job = (props) => {
                 navigation={props.navigation}
                 jobNum={props.route.params.job.JobNum}
               />
-              <NewJSA />
+              <NewJSA jobNum={props.route.params.job.JobNum} tempKey={2} />
+              <AllJSADup
+                job={Job}
+                navigation={props.navigation}
+                jobNum={props.route.params.job.JobNum}
+              />
             </View>
           ) : null}
         </View>
@@ -117,7 +124,15 @@ export const Job = (props) => {
                 navigation={props.navigation}
                 jobNum={props.route.params.job.JobNum}
               />
-              <NewForemanReport />
+              <NewForemanReport
+                jobNum={props.route.params.job.JobNum}
+                tempKey={3}
+              />
+              <AllForemanDup
+                job={Job}
+                navigation={props.navigation}
+                jobNum={props.route.params.job.JobNum}
+              />
             </View>
           ) : null}
         </View>
