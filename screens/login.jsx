@@ -20,14 +20,11 @@ const LoginScreen = (props) => {
 
   useEffect(() => {}, []);
   const handleLogin = () => {
-    signInWithEmailAndPassword(
-      authentication,
-      /*email*/ "tanner44schafer@gmail.com",
-      /*password*/ "444444"
-    )
+    setEmail("tanner44schafer@gmail.com");
+    signInWithEmailAndPassword(authentication, email, /*password*/ "444444")
       .then((userCredentials) => {
         const user = userCredentials.user;
-        props.navigation.navigate("Home", user.email);
+        props.navigation.navigate("Home", email);
       })
       .catch((userCredentials) => console.log(userCredentials));
   };

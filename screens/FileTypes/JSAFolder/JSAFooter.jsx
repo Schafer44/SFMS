@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  Alert,
 } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
@@ -24,23 +25,34 @@ export default function JSAFooter(props) {
     );
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
-    setDoc(docRef, {
-      T1: props.T1,
-      T2: props.T2,
-      T3: props.T3,
-      T4: props.T4,
-      T5: props.T5,
-      T6: props.T6,
-      T7: props.T7,
-      T8: props.T8,
-      T9: props.T9,
-      T10: props.T10,
-      T11: props.T11,
-      Type: props.route.params.file.Type,
-      baseId: props.route.params.file.baseId,
-      signature: props.signature,
-      TypeExtra: props.route.params.file.TypeExtra,
-    });
+
+    if (props.signature === null) {
+      Alert.alert("Signature Required");
+    } else {
+      setDoc(docRef, {
+        T1: props.T1,
+        T2: props.T2,
+        T3: props.T3,
+        T4: props.T4,
+        T5: props.T5,
+        T6: props.T6,
+        T7: props.T7,
+        T8: props.T8,
+        T9: props.T9,
+        T10: props.T10,
+        T11: props.T11,
+        Type: props.route.params.file.Type,
+        baseId: props.route.params.file.baseId,
+        signature: props.signature,
+        TypeExtra: props.route.params.file.TypeExtra,
+      })
+        .then(() => {
+          Alert.alert("Success");
+        })
+        .catch((error) => {
+          Alert.alert("Submit Failed");
+        });
+    }
   };
   const toggleOverlay = () => {
     props.setVisible(!props.visible);
@@ -61,11 +73,7 @@ export default function JSAFooter(props) {
           title="Submit"
           underlayColor="#fff"
           onPress={() => {
-            createTimesheet({
-              TempName: "TestTimesheet",
-              TempBaseId: "001",
-              TempId: "1",
-            });
+            createTimesheet({});
           }}
         >
           <Text style={styles.loginText}>Submit</Text>

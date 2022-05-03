@@ -5,9 +5,10 @@ import NewJob from "./NewJobButton";
 import Search from "./Search";
 import React, { useState, useEffect } from "react";
 
-export default function Home({ navigation }) {
+export default function Home(props) {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
+  console.log(props.route.params);
   return (
     <View style={styles.Gloablcontainer}>
       <Search
@@ -17,9 +18,12 @@ export default function Home({ navigation }) {
         setClicked={setClicked}
       />
       <ScrollView style={styles.Container}>
-        <Jobs searchPhrase={searchPhrase} navigation={navigation.navigate} />
+        <Jobs
+          searchPhrase={searchPhrase}
+          navigation={props.navigation.navigate}
+        />
       </ScrollView>
-      <NewJob navigation={navigation.navigate} style={styles.blank} />
+      <NewJob navigation={props.navigation.navigate} style={styles.blank} />
     </View>
   );
 }

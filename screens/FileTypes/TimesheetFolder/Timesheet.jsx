@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  Alert,
 } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
@@ -72,15 +73,25 @@ export default function Timesheet(props, jobNum) {
     );
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
-    setDoc(docRef, {
-      TimesheetHeader: Header,
-      TimesheetLines: Body,
-      Comment: Comment,
-      Type: props.route.params.file.Type,
-      baseId: props.route.params.file.baseId,
-      signature: signature,
-      TypeExtra: props.route.params.file.TypeExtra,
-    });
+    if (signature === null) {
+      Alert.alert("Signature Required");
+    } else {
+      setDoc(docRef, {
+        TimesheetHeader: Header,
+        TimesheetLines: Body,
+        Comment: Comment,
+        Type: props.route.params.file.Type,
+        baseId: props.route.params.file.baseId,
+        signature: signature,
+        TypeExtra: props.route.params.file.TypeExtra,
+      })
+        .then(() => {
+          Alert.alert("Success");
+        })
+        .catch((error) => {
+          Alert.alert("Submit Failed");
+        });
+    }
   };
   const SignInScroll = () => {
     setScrollEnabled(!scrollEnabled);
