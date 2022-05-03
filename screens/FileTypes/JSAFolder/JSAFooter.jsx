@@ -28,6 +28,12 @@ export default function JSAFooter(props) {
 
     if (props.signature === null) {
       Alert.alert("Signature Required");
+    } else if (
+      props.T1[0].Table.Date === undefined ||
+      props.T1[0].Table.Date === null ||
+      props.T1[0].Table.Date === ""
+    ) {
+      Alert.alert("Date Required");
     } else {
       setDoc(docRef, {
         T1: props.T1,

@@ -74,8 +74,15 @@ export default function Timesheet(props, jobNum) {
     );
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
+    console.log(Header);
     if (signature === null) {
       Alert.alert("Signature Required");
+    } else if (
+      Header.Date === undefined ||
+      Header.Date == "" ||
+      Header.Date == null
+    ) {
+      Alert.alert("Date Required");
     } else {
       setDoc(docRef, {
         TimesheetHeader: Header,

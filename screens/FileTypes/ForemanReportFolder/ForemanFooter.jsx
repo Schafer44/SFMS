@@ -25,9 +25,15 @@ export default function ForemanFooter(props) {
     );
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
-
+    console.log(props.Header);
     if (props.signature === null) {
       Alert.alert("Signature Required");
+    } else if (
+      props.Header[0].Line0.Date === undefined ||
+      props.Header[0].Line0.Date === null ||
+      props.Header[0].Line0.Date === ""
+    ) {
+      Alert.alert("Date Required");
     } else {
       setDoc(docRef, {
         T1: props.T1,
