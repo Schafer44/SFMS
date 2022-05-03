@@ -5,21 +5,8 @@ import React, { setState, useState, useEffect } from "react";
 import { onSnapshot, doc, collection } from "firebase/firestore";
 export default function Jobs(props) {
   const [Jobs, setJobs] = useState([]);
-  const fetchJobs = async () => {
-    var Jobs = [];
-    const response = db.collection("PLEnerserv");
-    const data = await response.get();
-
-    Jobs = data.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-      baseId: doc.id,
-    }));
-    data.docs.forEach(() => {
-      setJobs([...Jobs]);
-    });
-  };
   useEffect(() => {
+    console.log("1", props.user);
     onSnapshot(collection(db, "PLEnerserv"), (snapshot) => {
       setJobs(snapshot.docs.map((doc) => doc.data()));
     });
@@ -27,6 +14,7 @@ export default function Jobs(props) {
   }, []);
   return Jobs.map((job) => {
     if (job.JobNum.toLowerCase().includes(props.searchPhrase.toLowerCase())) {
+      job.user = props.user;
       return (
         <View style={styles.existingJob} key={job.JobNum}>
           <Button

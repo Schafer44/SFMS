@@ -42,6 +42,7 @@ export default function ForemanFooter(props) {
         baseId: props.route.params.file.baseId,
         signature: props.signature,
         TypeExtra: props.route.params.file.TypeExtra,
+        lastUpdatedBy: props.user,
       })
         .then(() => {
           Alert.alert("Success");

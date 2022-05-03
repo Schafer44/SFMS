@@ -6,18 +6,36 @@ export default function AllJSA(props) {
   if (props.job != undefined) {
     return props.job.map((file) => {
       file.JobNum = props.jobNum;
-      if (file.Type === "JSA")
-        return (
-          <View style={styles.container} key={file.baseId}>
-            <View style={styles.existingJob} key={file.baseId}>
-              <Button
-                style={styles.existingJobBtn}
-                onPress={() => props.navigation.navigate("JSA", { file })}
-                title={file.baseId}
-              ></Button>
-            </View>
-          </View>
-        );
+      file.user = props.user;
+      if (file.Type === "JSA") {
+        if (file.TypeExtra !== "Templete") {
+          if (file.T1[0].Table.Date !== undefined) {
+            return (
+              <View style={styles.container} key={file.baseId}>
+                <View style={styles.existingJob} key={file.baseId}>
+                  <Button
+                    style={styles.existingJobBtn}
+                    onPress={() => props.navigation.navigate("JSA", { file })}
+                    title={file.T1[0].Table.Date}
+                  ></Button>
+                </View>
+              </View>
+            );
+          } else {
+            return (
+              <View style={styles.container} key={file.baseId}>
+                <View style={styles.existingJob} key={file.baseId}>
+                  <Button
+                    style={styles.existingJobBtn}
+                    onPress={() => props.navigation.navigate("JSA", { file })}
+                    title={"New JSA"}
+                  ></Button>
+                </View>
+              </View>
+            );
+          }
+        }
+      }
     });
   } else {
     return null;

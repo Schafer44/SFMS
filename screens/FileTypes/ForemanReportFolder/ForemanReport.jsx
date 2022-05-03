@@ -146,6 +146,7 @@ export default function ForemanReport(props, jobNum) {
         visible={visible}
         setVisible={setVisible}
         signature={signature}
+        user={props.route.params.file.user}
       />
     </View>
   );

@@ -6,20 +6,40 @@ export default function AllForeman(props) {
   if (props.job != undefined) {
     return props.job.map((file) => {
       file.JobNum = props.jobNum;
-      if (file.Type === "Foreman Report")
-        return (
-          <View style={styles.container} key={file.baseId}>
-            <View style={styles.existingJob} key={file.baseId}>
-              <Button
-                style={styles.existingJobBtn}
-                onPress={() =>
-                  props.navigation.navigate("Foreman Report", { file })
-                }
-                title={file.baseId}
-              ></Button>
-            </View>
-          </View>
-        );
+      file.user = props.user;
+      if (file.Type === "Foreman Report") {
+        if (file.TypeExtra !== "Templete") {
+          if (file.Header[0].Line0.Date !== undefined) {
+            return (
+              <View style={styles.container} key={file.baseId}>
+                <View style={styles.existingJob} key={file.baseId}>
+                  <Button
+                    style={styles.existingJobBtn}
+                    onPress={() =>
+                      props.navigation.navigate("Foreman Report", { file })
+                    }
+                    title={file.Header[0].Line0.Date}
+                  ></Button>
+                </View>
+              </View>
+            );
+          } else {
+            return (
+              <View style={styles.container} key={file.baseId}>
+                <View style={styles.existingJob} key={file.baseId}>
+                  <Button
+                    style={styles.existingJobBtn}
+                    onPress={() =>
+                      props.navigation.navigate("Foreman Report", { file })
+                    }
+                    title={"New Report"}
+                  ></Button>
+                </View>
+              </View>
+            );
+          }
+        }
+      }
     });
   } else {
     return null;

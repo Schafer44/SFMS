@@ -50,6 +50,7 @@ export default function Timesheet(props, jobNum) {
     //setLines({ Line: props.route.params.file.Timesheet });
   };
   useEffect(() => {
+    console.log("4", props.route.params.file.user);
     fetchJob();
     if (props.route.params.file.TimesheetLines !== undefined) {
       setBody(props.route.params.file.TimesheetLines);
@@ -83,7 +84,7 @@ export default function Timesheet(props, jobNum) {
         Type: props.route.params.file.Type,
         baseId: props.route.params.file.baseId,
         signature: signature,
-        TypeExtra: props.route.params.file.TypeExtra,
+        lastUpdatedBy: props.route.params.file.user,
       })
         .then(() => {
           Alert.alert("Success");

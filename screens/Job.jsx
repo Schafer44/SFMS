@@ -34,21 +34,9 @@ export const Job = (props) => {
   };
   //const [Job, setJobs] = useState([]);
   const [fileType, setFileType] = useState("");
-  const fetchJobs = async () => {
-    var Job = [];
-    const response = db.collection(props.route.params.job.JobNum);
-    const data = await response.get();
-    Job = data.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-      baseId: doc.id,
-    }));
-    data.docs.forEach(() => {
-      setJobs([...Job]);
-    });
-  };
   const [Job, setJobs] = useState([]);
   useEffect(() => {
+    console.log("2", props.route.params.job.user);
     onSnapshot(collection(db, props.route.params.job.JobNum), (snapshot) => {
       setJobs(snapshot.docs.map((doc) => doc.data()));
     });
@@ -72,6 +60,7 @@ export const Job = (props) => {
                 job={Job}
                 navigation={props.navigation}
                 jobNum={props.route.params.job.JobNum}
+                user={props.route.params.job.user}
               />
               <NewTimesheet
                 jobNum={props.route.params.job.JobNum}
@@ -99,6 +88,7 @@ export const Job = (props) => {
                 job={Job}
                 navigation={props.navigation}
                 jobNum={props.route.params.job.JobNum}
+                user={props.route.params.job.user}
               />
               <NewJSA jobNum={props.route.params.job.JobNum} tempKey={2} />
               <AllJSADup
@@ -123,6 +113,7 @@ export const Job = (props) => {
                 job={Job}
                 navigation={props.navigation}
                 jobNum={props.route.params.job.JobNum}
+                user={props.route.params.job.user}
               />
               <NewForemanReport
                 jobNum={props.route.params.job.JobNum}

@@ -6,6 +6,7 @@ export default function AllTimesheet(props) {
   if (props.job != undefined) {
     return props.job.map((file) => {
       file.JobNum = props.jobNum;
+      file.user = props.user;
       if (file.Type === "Timesheet") {
         if (file.TypeExtra !== "Templete") {
           if (file.TimesheetHeader.Date !== "") {

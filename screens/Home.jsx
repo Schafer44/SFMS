@@ -21,6 +21,7 @@ export default function Home(props) {
         <Jobs
           searchPhrase={searchPhrase}
           navigation={props.navigation.navigate}
+          user={props.route.params}
         />
       </ScrollView>
       <NewJob navigation={props.navigation.navigate} style={styles.blank} />

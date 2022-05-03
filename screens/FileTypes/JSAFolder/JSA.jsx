@@ -59,6 +59,7 @@ export default function JSA(props, jobNum) {
   };
   useEffect(() => {
     fetchJob();
+    console.log(props.route.params.file.user);
     if (props.route.params.file.signature !== undefined) {
       setSign(props.route.params.file.signature);
     }
@@ -218,6 +219,7 @@ export default function JSA(props, jobNum) {
             visible={visible}
             setVisible={setVisible}
             signature={signature}
+            user={props.route.params.file.user}
           />
         </View>
       </ScrollView>
