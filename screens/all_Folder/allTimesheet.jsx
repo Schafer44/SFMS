@@ -53,7 +53,7 @@ export default function AllTimesheet(props) {
                   <View style={styles.existingJob2} key={file.baseId + "2"}>
                     <Button
                       style={styles.existingJobBtn}
-                      onPress={() => console.log("1")}
+                      onPress={() => Delete(file)}
                       title={"X"}
                       color="white"
                     ></Button>
