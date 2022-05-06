@@ -4,67 +4,94 @@ import React, { setState, useState, useEffect } from "react";
 import { db } from "../FirebaseLink";
 
 export default function AllTimesheet(props) {
+  const [visible, setVisible] = useState(false);
   const Delete = async (temp) => {
     const ehehe = await db.collection(props.jobNum).doc(temp.baseId).delete();
   };
   if (props.job != undefined) {
-    return props.job.map((file) => {
-      file.JobNum = props.jobNum;
-      file.user = props.user;
-      if (file.Type === "Timesheet") {
-        if (file.TypeExtra !== "Templete") {
-          if (file.TimesheetHeader.Date !== "") {
-            return (
-              <View style={styles.gc} key={file.baseId}>
-                <View style={styles.container} key={file.baseId}>
-                  <View style={styles.existingJob} key={file.baseId}>
-                    <Button
-                      style={styles.existingJobBtn}
-                      onPress={() =>
-                        props.navigation.navigate("Timesheet", { file })
-                      }
-                      title={file.TimesheetHeader.Date}
-                    ></Button>
+    return (
+      <View>
+        {props.job.map((file) => {
+          file.JobNum = props.jobNum;
+          file.user = props.user;
+          if (file.Type === "Timesheet") {
+            if (file.TypeExtra !== "Templete") {
+              if (file.TimesheetHeader.Date !== "") {
+                return (
+                  <View style={styles.gc} key={file.baseId}>
+                    <View style={styles.container} key={file.baseId}>
+                      <View style={styles.existingJob} key={file.baseId}>
+                        <Button
+                          style={styles.existingJobBtn}
+                          onPress={() =>
+                            props.navigation.navigate("Timesheet", { file })
+                          }
+                          title={file.TimesheetHeader.Date}
+                        ></Button>
+                      </View>
+                      {visible ? (
+                        <View
+                          style={styles.existingJob2}
+                          key={file.baseId + "2"}
+                        >
+                          <Button
+                            style={styles.existingJobBtn}
+                            onPress={() => Delete(file)}
+                            title={"X"}
+                            color="white"
+                          ></Button>
+                        </View>
+                      ) : (
+                        <View></View>
+                      )}
+                    </View>
                   </View>
-                  <View style={styles.existingJob2} key={file.baseId + "2"}>
-                    <Button
-                      style={styles.existingJobBtn}
-                      onPress={() => Delete(file)}
-                      title={"X"}
-                      color="white"
-                    ></Button>
+                );
+              } else {
+                return (
+                  <View style={styles.gc} key={file.baseId}>
+                    <View style={styles.container} key={file.baseId}>
+                      <View style={styles.existingJob} key={file.baseId}>
+                        <Button
+                          style={styles.existingJobBtn}
+                          onPress={() =>
+                            props.navigation.navigate("Timesheet", { file })
+                          }
+                          title={"New Sheet"}
+                        ></Button>
+                      </View>
+                      {visible ? (
+                        <View
+                          style={styles.existingJob2}
+                          key={file.baseId + "2"}
+                        >
+                          <Button
+                            style={styles.existingJobBtn}
+                            onPress={() => Delete(file)}
+                            title={"X"}
+                            color="white"
+                          ></Button>
+                        </View>
+                      ) : (
+                        <View></View>
+                      )}
+                    </View>
                   </View>
-                </View>
-              </View>
-            );
-          } else {
-            return (
-              <View style={styles.gc} key={file.baseId}>
-                <View style={styles.container} key={file.baseId}>
-                  <View style={styles.existingJob} key={file.baseId}>
-                    <Button
-                      style={styles.existingJobBtn}
-                      onPress={() =>
-                        props.navigation.navigate("Timesheet", { file })
-                      }
-                      title={"New Sheet"}
-                    ></Button>
-                  </View>
-                  <View style={styles.existingJob2} key={file.baseId + "2"}>
-                    <Button
-                      style={styles.existingJobBtn}
-                      onPress={() => Delete(file)}
-                      title={"X"}
-                      color="white"
-                    ></Button>
-                  </View>
-                </View>
-              </View>
-            );
+                );
+              }
+            }
           }
-        }
-      }
-    });
+        })}
+        <View style={styles.Edit} key={1}>
+          <Button
+            style={styles.existingJobBtn}
+            onPress={() => setVisible(!visible)}
+            title={"Toggle Deletion"}
+            color="white"
+          ></Button>
+        </View>
+      </View>
+    );
   } else {
     return null;
   }
@@ -89,7 +116,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 5,
     flex: 20,
-    paddingLeft: "5%",
   },
   existingJob2: {
     flexDirection: "row",
@@ -124,5 +150,17 @@ const styles = StyleSheet.create({
   },
   Text: {
     color: "white",
+  },
+  Edit: {
+    flexDirection: "row",
+    height: 70,
+    width: "95%",
+    backgroundColor: "green",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 5,
+    flex: 1,
+    alignSelf: "flex-end",
+    marginRight: "2.5%",
   },
 });

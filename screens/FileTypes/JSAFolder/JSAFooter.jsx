@@ -25,6 +25,7 @@ export default function JSAFooter(props) {
     );
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
+    console.log(props.T1);
 
     if (props.signature === null) {
       Alert.alert("Signature Required");

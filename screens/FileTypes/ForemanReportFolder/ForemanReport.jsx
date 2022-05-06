@@ -54,7 +54,7 @@ export default function ForemanReport(props, jobNum) {
   useEffect(() => {
     fetchJob();
 
-    if (props.route.params.file.signature !== undefined) {
+    if (props.route.params.file.Header !== undefined) {
       setHeader(props.route.params.file.Header);
     }
     if (props.route.params.file.signature !== undefined) {
