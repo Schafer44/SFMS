@@ -5,28 +5,62 @@ import React, { setState, useState, useEffect } from "react";
 import { onSnapshot, doc, collection } from "firebase/firestore";
 export default function Jobs(props) {
   const [Jobs, setJobs] = useState([]);
+  const [visible, setVisible] = useState(false);
+  const Delete = async (temp) => {
+    console.log("2", temp.baseid);
+
+    await db.collection("PLEnerserv").doc(temp.baseid).delete();
+    //await db.collection().delete();
+  };
   useEffect(() => {
-    console.log("1", props.user);
+    console.log("1", props);
     onSnapshot(collection(db, "PLEnerserv"), (snapshot) => {
       setJobs(snapshot.docs.map((doc) => doc.data()));
     });
     //fetchJobs();
   }, []);
-  return Jobs.map((job) => {
-    if (job.JobNum.toLowerCase().includes(props.searchPhrase.toLowerCase())) {
-      job.user = props.user;
-      return (
-        <View style={styles.existingJob} key={job.JobNum}>
-          <Button
-            style={styles.existingJobBtn}
-            onPress={() => props.navigation("Job", { job })}
-            title={job.JobNum}
-            key={job.JobNum}
-          ></Button>
-        </View>
-      );
-    }
-  });
+
+  return (
+    <View>
+      {Jobs.map((job) => {
+        if (
+          job.JobNum.toLowerCase().includes(props.searchPhrase.toLowerCase())
+        ) {
+          job.user = props.user;
+          return (
+            <View style={styles.existingJob} key={job.JobNum}>
+              <Button
+                style={styles.existingJobBtn}
+                onPress={() => props.navigation("Job", { job })}
+                title={job.JobNum}
+                key={job.JobNum}
+              ></Button>
+              {visible ? (
+                <View style={styles.existingJob2} key={job + "2"}>
+                  <Button
+                    style={styles.existingJobBtn}
+                    onPress={() => Delete(job)}
+                    title={"X"}
+                    color="white"
+                  ></Button>
+                </View>
+              ) : (
+                <View></View>
+              )}
+            </View>
+          );
+        }
+      })}
+      <View style={styles.Edit} key={1}>
+        <Button
+          style={styles.existingJobBtn}
+          onPress={() => setVisible(!visible)}
+          title={"Toggle Deletion"}
+          color="white"
+        ></Button>
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -45,5 +79,17 @@ const styles = StyleSheet.create({
   },
   Text: {
     color: "white",
+  },
+  Edit: {
+    flexDirection: "row",
+    height: 70,
+    width: "95%",
+    backgroundColor: "green",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 5,
+    flex: 1,
+    alignSelf: "flex-end",
+    marginRight: "2.5%",
   },
 });

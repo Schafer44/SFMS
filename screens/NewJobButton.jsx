@@ -25,8 +25,9 @@ export default class NewTimesheet extends React.Component {
         .doc(ref._delegate._key.path.segments[1])
         .set({
           JobNum: this.state.jobNum,
+          baseid: ref._delegate._key.path.segments[1],
         });
-      db.collection(this.state.jobNum).add({ JobNum: this.state.jobNum });
+      db.collection(this.state.jobNum).add({});
     };
     const handleNum = (text) => {
       this.setState({ jobNum: text });
