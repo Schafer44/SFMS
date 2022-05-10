@@ -1,5 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Button,
+  Alert,
+} from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { onSnapshot, doc, collection } from "firebase/firestore";
@@ -7,9 +14,23 @@ export default function Jobs(props) {
   const [Jobs, setJobs] = useState([]);
   const [visible, setVisible] = useState(false);
   const Delete = async (temp) => {
-    console.log("2", temp.baseid);
-
-    await db.collection("PLEnerserv").doc(temp.baseid).delete();
+    Alert.alert("Delete Job", "Are you sure you want to delete this job?", [
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: async () => {
+          await db.collection("PLEnerserv").doc(temp.baseid).delete();
+        },
+      },
+      {
+        text: "Cancel",
+        style: "cancel",
+        // If the user confirmed, then we dispatch the action we blocked earlier
+        // This will continue the action that had triggered the removal of the screen
+        onPress: async () => {},
+      },
+    ]);
+    //await db.collection("PLEnerserv").doc(temp.baseid).delete();
     //await db.collection().delete();
   };
   useEffect(() => {

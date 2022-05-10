@@ -1,12 +1,35 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Button,
+  Alert,
+} from "react-native";
 import React, { setState, useState, useEffect } from "react";
 import { db } from "../FirebaseLink";
 
 export default function AllJSA(props) {
   const [visible, setVisible] = useState(false);
   const Delete = async (temp) => {
-    const ehehe = await db.collection(props.jobNum).doc(temp.baseId).delete();
+    Alert.alert("Delete Report?", "Are you sure you wish to delete this JSA?", [
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: async () => {
+          await db.collection(props.jobNum).doc(temp.baseId).delete();
+        },
+      },
+      {
+        text: "Cancel",
+        style: "cancel",
+        // If the user confirmed, then we dispatch the action we blocked earlier
+        // This will continue the action that had triggered the removal of the screen
+        onPress: async () => {},
+      },
+    ]);
+    //const ehehe = await db.collection(props.jobNum).doc(temp.baseId).delete();
   };
   if (props.job != undefined) {
     return (
