@@ -11,8 +11,7 @@ import {
   Alert,
 } from "react-native";
 import { db } from "../../FirebaseLink";
-import React, { setState, useState, useEffect } from "react";
-import TimesheetLine from "./TimesheetLine";
+import React, { useState, useEffect } from "react";
 import { SignatureCapture } from "../SignatureCapture";
 import TimesheetLineComment from "./TimesheetComment";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -26,11 +25,7 @@ export default function Timesheet(props, jobNum) {
   const [Header, setHeader] = useState([]);
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [Body, setBody] = useState([]);
-  var TempName;
-  var TempBaseId;
-  var TempId;
   const [Job, setJob] = useState([]);
-  const [JobTwo, setJobTwo] = useState([]);
   const [visible, setVisible] = useState(false);
   const toggleOverlay = () => {
     setVisible(!visible);
