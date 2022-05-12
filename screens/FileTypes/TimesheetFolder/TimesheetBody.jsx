@@ -18,6 +18,7 @@ export default function TimesheetBody(props) {
   const [signature, setSign] = useState(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
+    console.log("10", Table);
     if (Object.keys(Table).length !== 0) {
       props.setT8(Table);
     } else if (props.T8 !== undefined) {
@@ -113,24 +114,38 @@ export default function TimesheetBody(props) {
                   />
                 </View>
                 <View style={styles.bGridSmall}>
-                  <TextInput
-                    style={styles.textInputTest}
-                    placeholder=""
-                    value={Table[Keys][3]}
-                    onChange={(event) => {
-                      var temp = Keys;
-                      var temp2;
-                      var temp3 = Table[Keys];
-                      //[temp] = [event];
-                      var [temp] = [event.nativeEvent.text];
-                      temp3[3] = event.nativeEvent.text;
-                      temp2 = [temp];
-                      setTable({
-                        ...Table,
-                        [Keys]: temp3,
-                      });
+                  <TouchableOpacity
+                    style={styles.SubBtn}
+                    title="Lock"
+                    onPress={() => {
+                      if (
+                        Table[Keys][3] !== null ||
+                        Table[Keys][3] !== undefined
+                      ) {
+                        var temp3 = Table[Keys];
+                        //[temp] = [event];
+                        temp3[3] = !Table[Keys][3];
+                        setTable({
+                          ...Table,
+                          [Keys]: temp3,
+                        });
+                      } else {
+                        var temp3 = Table[Keys];
+                        //[temp] = [event];
+                        temp3[3] = true;
+                        setTable({
+                          ...Table,
+                          [Keys]: temp3,
+                        });
+                      }
                     }}
-                  />
+                  >
+                    {Table[Keys][3] ? (
+                      <View style={styles.true}></View>
+                    ) : (
+                      <View style={styles.false}></View>
+                    )}
+                  </TouchableOpacity>
                 </View>
                 <View style={styles.bGridSmall}>
                   <TextInput
@@ -153,24 +168,38 @@ export default function TimesheetBody(props) {
                   />
                 </View>
                 <View style={styles.bGridSmall}>
-                  <TextInput
-                    style={styles.textInputTest}
-                    placeholder=""
-                    value={Table[Keys][5]}
-                    onChange={(event) => {
-                      var temp = Keys;
-                      var temp2;
-                      var temp3 = Table[Keys];
-                      //[temp] = [event];
-                      var [temp] = [event.nativeEvent.text];
-                      temp3[5] = event.nativeEvent.text;
-                      temp2 = [temp];
-                      setTable({
-                        ...Table,
-                        [Keys]: temp3,
-                      });
+                  <TouchableOpacity
+                    style={styles.SubBtn}
+                    title="Lock"
+                    onPress={() => {
+                      if (
+                        Table[Keys][5] !== null ||
+                        Table[Keys][5] !== undefined
+                      ) {
+                        var temp3 = Table[Keys];
+                        //[temp] = [event];
+                        temp3[5] = !Table[Keys][5];
+                        setTable({
+                          ...Table,
+                          [Keys]: temp3,
+                        });
+                      } else {
+                        var temp3 = Table[Keys];
+                        //[temp] = [event];
+                        temp3[5] = true;
+                        setTable({
+                          ...Table,
+                          [Keys]: temp3,
+                        });
+                      }
                     }}
-                  />
+                  >
+                    {Table[Keys][5] ? (
+                      <View style={styles.true}></View>
+                    ) : (
+                      <View style={styles.false}></View>
+                    )}
+                  </TouchableOpacity>
                 </View>
                 <View style={styles.bGridMedium}>
                   <TextInput
@@ -326,5 +355,15 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderColor: "#d4d4d4",
     borderWidth: 1,
+  },
+  true: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "yellow",
+  },
+  false: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "red",
   },
 });
