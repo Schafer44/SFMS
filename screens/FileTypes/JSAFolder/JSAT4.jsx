@@ -1,5 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
@@ -26,69 +33,160 @@ export default function JSAT4(props) {
           <Text>Safety Glasses</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.SafetyGlasses}
-            onChange={(event) => {
-              setTable({ ...Table, SafetyGlasses: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (
+                Table.SafetyGlasses !== null ||
+                Table.SafetyGlasses !== undefined
+              ) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  SafetyGlasses: !Table.SafetyGlasses,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.SafetyGlasses ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
         <View style={styles.Row}>
           <Text>Hard Hat</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.HardHat}
-            onChange={(event) => {
-              setTable({ ...Table, HardHat: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (Table.HardHat !== null || Table.HardHat !== undefined) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  HardHat: !Table.HardHat,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.HardHat ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
 
         <View style={styles.Row}>
           <Text>Safety Vest</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.SafetyVest}
-            onChange={(event) => {
-              setTable({ ...Table, SafetyVest: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (Table.SafetyVest !== null || Table.SafetyVest !== undefined) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  SafetyVest: !Table.SafetyVest,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.SafetyVest ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
 
         <View style={styles.Row}>
           <Text>Safety-Toe Boots</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.SafetyToeBoots}
-            onChange={(event) => {
-              setTable({ ...Table, SafetyToeBoots: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (
+                Table.SafetyToeBoots !== null ||
+                Table.SafetyToeBoots !== undefined
+              ) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  SafetyToeBoots: !Table.SafetyToeBoots,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.SafetyToeBoots ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
 
         <View style={styles.Row}>
           <Text>Gloves</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.Gloves}
-            onChange={(event) => {
-              setTable({ ...Table, Gloves: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (Table.Gloves !== null || Table.Gloves !== undefined) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  Gloves: !Table.Gloves,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.Gloves ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -97,71 +195,165 @@ export default function JSAT4(props) {
           <Text>FR Clothing</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.FRClothing}
-            onChange={(event) => {
-              setTable({ ...Table, FRClothing: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (Table.FRClothing !== null || Table.FRClothing !== undefined) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  FRClothing: !Table.FRClothing,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.FRClothing ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
         <View style={styles.Row}>
           <Text>Fall Protection</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.FallProtection}
-            onChange={(event) => {
-              setTable({ ...Table, FallProtection: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (
+                Table.FallProtection !== null ||
+                Table.FallProtection !== undefined
+              ) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  FallProtection: !Table.FallProtection,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.FallProtection ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
 
         <View style={styles.Row}>
           <Text>Winter Footwear</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.WinterFootwear}
-            onChange={(event) => {
-              setTable({ ...Table, WinterFootwear: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (
+                Table.WinterFootwear !== null ||
+                Table.WinterFootwear !== undefined
+              ) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  WinterFootwear: !Table.WinterFootwear,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.WinterFootwear ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
         <View style={styles.Row}>
           <Text>Hearing Protection</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.HearingProtection}
-            onChange={(event) => {
-              setTable({ ...Table, HearingProtection: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (
+                Table.HearingProtection !== null ||
+                Table.HearingProtection !== undefined
+              ) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  HearingProtection: !Table.HearingProtection,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.HearingProtection ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
 
         <View style={styles.Row}>
           <Text>Resporatory Protection</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.ResporatoryProtection}
-            onChange={(event) => {
-              setTable({
-                ...Table,
-                ResporatoryProtection: event.nativeEvent.text,
-              });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (
+                Table.ResporatoryProtection !== null ||
+                Table.ResporatoryProtection !== undefined
+              ) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  ResporatoryProtection: !Table.ResporatoryProtection,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.ResporatoryProtection ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -170,68 +362,162 @@ export default function JSAT4(props) {
           <Text>Chain Saw Chaps</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.ChainSawChaps}
-            onChange={(event) => {
-              setTable({ ...Table, ChainSawChaps: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (
+                Table.ChainsawChaps !== null ||
+                Table.ChainsawChaps !== undefined
+              ) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  ChainsawChaps: !Table.ChainsawChaps,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.ChainsawChaps ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
 
         <View style={styles.Row}>
           <Text>Metalarsal Guards</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.MetalarsalGuards}
-            onChange={(event) => {
-              setTable({ ...Table, MetalarsalGuards: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (
+                Table.MetalarsalGuards !== null ||
+                Table.MetalarsalGuards !== undefined
+              ) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  MetalarsalGuards: !Table.MetalarsalGuards,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.MetalarsalGuards ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
         <View style={styles.Row}>
           <Text>Life Vest</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.LifeVest}
-            onChange={(event) => {
-              setTable({ ...Table, LifeVest: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (Table.LifeVest !== null || Table.LifeVest !== undefined) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  LifeVest: !Table.LifeVest,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.LifeVest ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
         <View style={styles.Row}>
           <Text>Face Shielding</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.FaceShielding}
-            onChange={(event) => {
-              setTable({ ...Table, FaceShielding: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (
+                Table.FaceShielding !== null ||
+                Table.FaceShielding !== undefined
+              ) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  FaceShielding: !Table.FaceShielding,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.FaceShielding ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
 
         <View style={styles.Row}>
           <Text>Other</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.Other}
-            onChange={(event) => {
-              setTable({ ...Table, Other: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (Table.Other !== null || Table.Other !== undefined) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  Other: !Table.Other,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.Other ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -273,5 +559,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     textAlign: "center",
+  },
+  true: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "yellow",
+  },
+  false: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "red",
   },
 });

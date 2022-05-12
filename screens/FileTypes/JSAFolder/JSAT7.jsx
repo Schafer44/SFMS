@@ -1,5 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
@@ -26,83 +33,185 @@ export default function JSAT7(props) {
           <Text>Dry</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.Dry}
-            onChange={(event) => {
-              setTable({ ...Table, Dry: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (Table.Dry !== null || Table.Dry !== undefined) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  Dry: !Table.Dry,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.Dry ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
         <View style={styles.Row}>
           <Text>Rocky</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.Rocky}
-            onChange={(event) => {
-              setTable({ ...Table, Rocky: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (Table.Rocky !== null || Table.Rocky !== undefined) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  Rocky: !Table.Rocky,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.Rocky ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
 
         <View style={styles.Row}>
           <Text>Muddy</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.Muddy}
-            onChange={(event) => {
-              setTable({ ...Table, Muddy: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (Table.Muddy !== null || Table.Muddy !== undefined) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  Muddy: !Table.Muddy,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.Muddy ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
 
         <View style={styles.Row}>
           <Text>Sandy</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.Sandy}
-            onChange={(event) => {
-              setTable({ ...Table, Sandy: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (Table.Sandy !== null || Table.Sandy !== undefined) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  Sandy: !Table.Sandy,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.Sandy ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
 
         <View style={styles.Row}>
           <Text>Ice/Snow</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.Ice_Snow}
-            onChange={(event) => {
-              setTable({ ...Table, Ice_Snow: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (Table.Ice_Snow !== null || Table.Ice_Snow !== undefined) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  Ice_Snow: !Table.Ice_Snow,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.Ice_Snow ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
 
         <View style={styles.Row}>
           <Text>Steep Slope</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Table.SteepSlope}
-            onChange={(event) => {
-              setTable({ ...Table, SteepSlope: event.nativeEvent.text });
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Lock"
+            onPress={() => {
+              if (Table.SteepSlope !== null || Table.SteepSlope !== undefined) {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  SteepSlope: !Table.SteepSlope,
+                });
+              } else {
+                //[temp] = [event];
+                setTable({
+                  ...Table,
+                  [Keys]: true,
+                });
+              }
             }}
-          />
+          >
+            {Table.SteepSlope ? (
+              <View style={styles.true}></View>
+            ) : (
+              <View style={styles.false}></View>
+            )}
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -145,5 +254,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     textAlign: "center",
+  },
+  true: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "yellow",
+  },
+  false: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "red",
   },
 });
