@@ -25,9 +25,11 @@ export default function ForemanFooter(props) {
     );
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
-    console.log(props.Header);
-    if (props.signature === null) {
-      Alert.alert("Signature Required");
+    console.log(props);
+    if (props.ForemanSignature === null) {
+      Alert.alert("Foreman Signature Required");
+    } else if (props.ClientSignature === null) {
+      Alert.alert("Client Signature Required");
     } else if (
       props.Header[0].Line0.Date === undefined ||
       props.Header[0].Line0.Date === null ||
@@ -46,7 +48,8 @@ export default function ForemanFooter(props) {
         Header: props.Header,
         Type: props.route.params.file.Type,
         baseId: props.route.params.file.baseId,
-        signature: props.signature,
+        ForemanSignature: props.ForemanSignature,
+        ClientSignature: props.ClientSignature,
         TypeExtra: props.route.params.file.TypeExtra,
         lastUpdatedBy: props.user,
       })
@@ -61,6 +64,9 @@ export default function ForemanFooter(props) {
   const toggleOverlay = () => {
     props.setVisible(!props.visible);
   };
+  const toggleOverlay2 = () => {
+    props.setVisible2(!props.visible2);
+  };
   return (
     <View style={styles.footerPage}>
       <View style={styles.footerPageSig}>
@@ -68,9 +74,17 @@ export default function ForemanFooter(props) {
           title="Signature"
           underlayColor="#fff"
           style={styles.SubBtn}
+          onPress={() => toggleOverlay2()}
+        >
+          <Text style={styles.loginText}>Client Rep Signature</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          title="Signature"
+          underlayColor="#fff"
+          style={styles.SubBtn}
           onPress={() => toggleOverlay()}
         >
-          <Text style={styles.loginText}>Signature</Text>
+          <Text style={styles.loginText}>Foreman Signature</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.SubBtn}
@@ -88,7 +102,12 @@ export default function ForemanFooter(props) {
       <Image
         resizeMode={"contain"}
         style={styles.prev}
-        source={{ uri: props.signature }}
+        source={{ uri: props.ForemanSignature }}
+      />
+      <Image
+        resizeMode={"contain"}
+        style={styles.prev}
+        source={{ uri: props.ClientSignature }}
       />
     </View>
   );

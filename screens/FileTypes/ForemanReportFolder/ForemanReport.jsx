@@ -27,9 +27,11 @@ import ForemanFooter from "./ForemanFooter";
 
 export default function ForemanReport(props, jobNum) {
   const [Job, setJob] = useState([]);
-  const [signature, setSign] = useState(null);
+  const [ForemanSignature, setForemanSign] = useState(null);
+  const [ClientSignature, setClientSign] = useState(null);
   const [Header, setHeader] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [visible2, setVisible2] = useState(false);
   const [T1, setT1] = useState([]);
   const [T2, setT2] = useState([]);
   const [T3, setT3] = useState([]);
@@ -53,12 +55,15 @@ export default function ForemanReport(props, jobNum) {
   };
   useEffect(() => {
     fetchJob();
-
+    console.log("5", ForemanSignature);
     if (props.route.params.file.Header !== undefined) {
       setHeader(props.route.params.file.Header);
     }
-    if (props.route.params.file.signature !== undefined) {
-      setSign(props.route.params.file.signature);
+    if (props.route.params.file.ForemanSignature !== undefined) {
+      setForemanSign(props.route.params.file.ForemanSignature);
+    }
+    if (props.route.params.file.ClientSignature !== undefined) {
+      setClientSign(props.route.params.file.ClientSignature);
     }
     if (props.route.params.file.T1 != undefined) {
       setT1(props.route.params.file.T1);
@@ -91,8 +96,16 @@ export default function ForemanReport(props, jobNum) {
     <SignatureCapture
       visible={visible}
       setVisible={setVisible}
-      signature={signature}
-      setSign={setSign}
+      signature={ForemanSignature}
+      setSign={setForemanSign}
+      SignInScroll={SignInScroll}
+    />
+  ) : visible2 ? (
+    <SignatureCapture
+      visible={visible2}
+      setVisible={setVisible2}
+      signature={ClientSignature}
+      setSign={setClientSign}
       SignInScroll={SignInScroll}
     />
   ) : (
@@ -145,7 +158,10 @@ export default function ForemanReport(props, jobNum) {
         route={props.route}
         visible={visible}
         setVisible={setVisible}
-        signature={signature}
+        visible2={visible2}
+        setVisible2={setVisible2}
+        ForemanSignature={ForemanSignature}
+        ClientSignature={ClientSignature}
         user={props.route.params.file.user}
       />
     </View>
