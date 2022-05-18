@@ -13,10 +13,11 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
+      "infoPlist": {
+        "NSPhotoLibraryAddUsageDescription": "This app will use your photo libary to save PDFs"
+      },
       "supportsTablet": true
     },
     "android": {

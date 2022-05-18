@@ -1,5 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Button,
+} from "react-native";
 import Jobs from "./Jobs";
 import NewJob from "./NewJobButton";
 import Search from "./Search";
@@ -8,7 +15,7 @@ import React, { useState, useEffect } from "react";
 export default function Home(props) {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
-  console.log(props.route.params);
+
   return (
     <View style={styles.Gloablcontainer}>
       <Search
@@ -24,6 +31,7 @@ export default function Home(props) {
           user={props.route.params}
         />
       </ScrollView>
+
       <NewJob navigation={props.navigation.navigate} style={styles.blank} />
     </View>
   );
@@ -45,4 +53,5 @@ const styles = StyleSheet.create({
     flex: 4,
     backgroundColor: "white",
   },
+  prev: { width: "100%", height: "100%" },
 });

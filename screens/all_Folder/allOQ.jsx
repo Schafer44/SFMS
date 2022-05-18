@@ -12,7 +12,7 @@ export default function AllOQ(props) {
             <View style={styles.existingJob} key={file.baseId}>
               <Button
                 style={styles.existingJobBtn}
-                onPress={() => props.navigation.navigate("Timesheet", { file })}
+                onPress={() => props.navigation.navigate("OQ", { file })}
                 title={file.baseId}
               ></Button>
             </View>
