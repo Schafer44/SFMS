@@ -11,6 +11,7 @@ import AllOQ from "./all_Folder/allOQ";
 import NewForemanReport from "./NewForemanReport";
 import NewJSA from "./NewJSA";
 import NewTimesheet from "./NewTimesheet";
+import NewOQ from "./NewOQ";
 import AllTimesheetDup from "./all_Folder/allTimesheetDup";
 import AllForemanDup from "./all_Folder/AllForemanDup";
 import AllJSADup from "./all_Folder/allJSADup";
@@ -142,6 +143,8 @@ export const Job = (props) => {
                 navigation={props.navigation}
                 jobNum={props.route.params.job.JobNum}
               />
+
+              <NewOQ jobNum={props.route.params.job.JobNum} tempKey={1} />
             </View>
           ) : null}
         </View>
