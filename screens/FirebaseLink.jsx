@@ -7,6 +7,8 @@ import { getAuth } from "firebase/auth";
 import "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
+import { getStorage } from "firebase/storage";
+
 import React, { useState, useEffect } from "react";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -25,9 +27,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+export const firebaseApp = firebase.initializeApp(firebaseConfig);
 export const db = firebaseApp.firestore();
+export const FBstorage = getStorage(firebaseApp, "gs://sfms-ce695.appspot.com");
 const PLECollection = db.collection("PLEnerserv");
 const authentication = getAuth(firebaseApp);
 

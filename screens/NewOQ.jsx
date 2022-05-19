@@ -1,9 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button } from "react-native";
-import { db } from "./FirebaseLink";
+import { db, FBstorage, firebaseApp } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import * as DocumentPicker from "expo-document-picker";
+import { ref, uploadBytes } from "firebase/storage";
+import storage from "firebase/storage";
 
 export default class NewOQ extends React.Component {
   constructor(props) {
@@ -16,8 +18,27 @@ export default class NewOQ extends React.Component {
     };
     const DoBoth = async () => {
       const file = await FilePicker();
-
-      console.log("ow", file);
+      console.log(file);
+      const Ref = ref(FBstorage, file.name);
+      console.log(Ref);
+      const blob = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          resolve(xhr.response);
+        };
+        xhr.onerror = function (e) {
+          console.log(e);
+          reject(new TypeError("Network request failed"));
+        };
+        xhr.responseType = "blob";
+        xhr.open("GET", file.uri, true);
+        xhr.send(null);
+      });
+      //console.log(file);
+      ///*
+      uploadBytes(Ref, blob).then((snapshot) => {
+        console.log("Uploaded!");
+      }); //*/
       //const Ref = await NewOQ();
     };
     const NewOQ = async () => {
