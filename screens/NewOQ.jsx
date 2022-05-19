@@ -4,12 +4,13 @@ import { db, FBstorage, firebaseApp } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import * as DocumentPicker from "expo-document-picker";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import storage from "firebase/storage";
 
 export default class NewOQ extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { url: "" };
   }
   render() {
     const FilePicker = async () => {
@@ -18,16 +19,14 @@ export default class NewOQ extends React.Component {
     };
     const DoBoth = async () => {
       const file = await FilePicker();
-      console.log(file);
       const Ref = ref(FBstorage, file.name);
-      console.log(Ref);
+      //let temp = "gs://sfms-ce695.appspot.com/" + file.name;
       const blob = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.onload = function () {
           resolve(xhr.response);
         };
         xhr.onerror = function (e) {
-          console.log(e);
           reject(new TypeError("Network request failed"));
         };
         xhr.responseType = "blob";
@@ -36,19 +35,27 @@ export default class NewOQ extends React.Component {
       });
       //console.log(file);
       ///*
-      uploadBytes(Ref, blob).then((snapshot) => {
-        console.log("Uploaded!");
+      let temp3 = "";
+      uploadBytes(Ref, blob).then(async (snapshot) => {
+        const temp2 = getDownloadURL(snapshot.ref).then(async (downloadURL) => {
+          console.log("File available at", downloadURL);
+          await NewOQ(downloadURL, file.name);
+        });
       }); //*/
-      //const Ref = await NewOQ();
+      console.log("fdffgdsfsdf", temp3);
+      //await NewOQ(temp, file.name);
     };
-    const NewOQ = async () => {
+    const NewOQ = async (temp, name) => {
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
       const ehehe = await db
         .collection(this.props.jobNum)
         .doc(ref._delegate._key.path.segments[1])
         .set({
+          Type: "OQ",
           baseId: ref._delegate._key.path.segments[1],
+          URI: temp,
+          name: name,
         });
       /*const ehehe = await response.add({
         Type: "Timesheet",

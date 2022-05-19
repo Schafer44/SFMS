@@ -7,11 +7,11 @@ import React, { setState, useState, useEffect } from "react";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 
-export default function OQ() {
+export default function OQ(props) {
   const download = async () => {
     const downloadPath = FileSystem.cacheDirectory + "fileName.pdf";
     const { uri: localUrl } = await FileSystem.downloadAsync(
-      "https://firebasestorage.googleapis.com/v0/b/sfms-ce695.appspot.com/o/Andrieu2003_Article_AnIntroductionToMCMCForMachine.pdf?alt=media&token=677859dd-02f7-4579-984c-fc77034de3e9",
+      props.route.params.file.URI,
       downloadPath
     );
     Sharing.shareAsync(localUrl, {
@@ -24,7 +24,7 @@ export default function OQ() {
         <WebView
           style={styles.prev}
           source={{
-            uri: "https://firebasestorage.googleapis.com/v0/b/sfms-ce695.appspot.com/o/Andrieu2003_Article_AnIntroductionToMCMCForMachine.pdf?alt=media&token=677859dd-02f7-4579-984c-fc77034de3e9",
+            uri: props.route.params.file.URI,
           }}
         />
       </View>
