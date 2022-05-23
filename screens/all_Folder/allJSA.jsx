@@ -13,7 +13,7 @@ import { db } from "../FirebaseLink";
 export default function AllJSA(props) {
   const [visible, setVisible] = useState(false);
   const Delete = async (temp) => {
-    Alert.alert("Delete Report?", "Are you sure you wish to delete this JSA?", [
+    Alert.alert("Delete JSA?", "Are you sure you wish to delete this JSA?", [
       {
         text: "Delete",
         style: "destructive",

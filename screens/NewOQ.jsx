@@ -1,11 +1,9 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button } from "react-native";
-import { db, FBstorage, firebaseApp } from "./FirebaseLink";
+import { StyleSheet, Text, View, Button, Alert } from "react-native";
 import React, { setState, useState, useEffect } from "react";
-import { doc, getDoc, setDoc } from "firebase/firestore";
 import * as DocumentPicker from "expo-document-picker";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import storage from "firebase/storage";
+import { getStorage } from "firebase/storage";
+import { db, firebaseApp } from "./FirebaseLink";
 
 export default class NewOQ extends React.Component {
   constructor(props) {
@@ -19,32 +17,43 @@ export default class NewOQ extends React.Component {
     };
     const DoBoth = async () => {
       const file = await FilePicker();
-      const Ref = ref(FBstorage, file.name);
-      //let temp = "gs://sfms-ce695.appspot.com/" + file.name;
-      const blob = await new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.onload = function () {
-          resolve(xhr.response);
-        };
-        xhr.onerror = function (e) {
-          reject(new TypeError("Network request failed"));
-        };
-        xhr.responseType = "blob";
-        xhr.open("GET", file.uri, true);
-        xhr.send(null);
-      });
-      //console.log(file);
-      ///*
-      let temp3 = "";
-      uploadBytes(Ref, blob).then(async (snapshot) => {
-        const temp2 = getDownloadURL(snapshot.ref).then(async (downloadURL) => {
-          console.log("File available at", downloadURL);
-          await NewOQ(downloadURL, file.name);
-        });
-      }); //*/
-      console.log("fdffgdsfsdf", temp3);
+      //    /*
+      const FBstorage = getStorage(firebaseApp, "gs://sfms-ce695.appspot.com");
+      const Ref = ref(FBstorage, this.props.jobNum + "/" + file.name);
+      getDownloadURL(Ref).then(
+        async () => {
+          Alert.alert(
+            "Either this file has already been uploaded or it shares the same file name as another file"
+          );
+        },
+        async () => {
+          const blob = await new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+              resolve(xhr.response);
+            };
+            xhr.onerror = function (e) {
+              reject(new TypeError("Network request failed"));
+            };
+            xhr.responseType = "blob";
+            xhr.open("GET", file.uri, true);
+            xhr.send(null);
+          });
+          //console.log(file);
+          ///*
+          let temp3 = "";
+          uploadBytes(Ref, blob).then(async (snapshot) => {
+            const temp2 = getDownloadURL(snapshot.ref).then(
+              async (downloadURL) => {
+                await NewOQ(downloadURL, file.name);
+              }
+            );
+          });
+        }
+      ); //*/
       //await NewOQ(temp, file.name);
     };
+
     const NewOQ = async (temp, name) => {
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
@@ -57,10 +66,6 @@ export default class NewOQ extends React.Component {
           URI: temp,
           name: name,
         });
-      /*const ehehe = await response.add({
-        Type: "Timesheet",
-        baseId: ref._delegate._key.path.segments[1],
-      });*/
     };
     return (
       <View style={styles.container} key={1}>

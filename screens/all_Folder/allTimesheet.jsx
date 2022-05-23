@@ -14,7 +14,7 @@ export default function AllTimesheet(props) {
   const [visible, setVisible] = useState(false);
   const Delete = async (temp) => {
     Alert.alert(
-      "Delete Report?",
+      "Delete Timesheet?",
       "Are you sure you wish to delete this Timesheet?",
       [
         {
