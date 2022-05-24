@@ -84,7 +84,6 @@ export default function JSAFooter(props) {
         >
           <Text style={styles.loginText}>Submit</Text>
         </TouchableOpacity>
-        <ExportDataToExcel />
       </View>
       <Image
         resizeMode={"contain"}

@@ -12,7 +12,6 @@ import {
 } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
-import ExportDataToExcel from "../TimesheetFolder/ExportToExcel";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 export default function ForemanFooter(props) {
@@ -95,7 +94,6 @@ export default function ForemanFooter(props) {
         >
           <Text style={styles.loginText}>Submit</Text>
         </TouchableOpacity>
-        <ExportDataToExcel />
       </View>
 
       <Image
