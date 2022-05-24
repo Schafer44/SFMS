@@ -40,7 +40,76 @@ export default function ExportDataToExcel(props) {
       { origin: -1 }
     );
     let tmp = 3;
-    props.Lines.forEach((Line) => {
+    console.log("1", props.Lines);
+    Object.keys(props.Lines)
+      .sort()
+      .map((Key, Line) => {
+        tmp++;
+        console.log(props.Lines[Key][0]);
+        if (Line !== undefined) {
+          let tempLine = [];
+          // Name
+          if (props.Lines[Key][0] !== undefined) {
+            tempLine.push(props.Lines[Key][0]);
+          } else {
+            tempLine.push("");
+          }
+          // Occ
+          if (props.Lines[Key][1] !== undefined) {
+            tempLine.push(props.Lines[Key][1]);
+          } else {
+            tempLine.push("");
+          }
+          //Hrs.
+          if (props.Lines[Key][2] !== undefined) {
+            tempLine.push(props.Lines[Key][2]);
+          } else {
+            tempLine.push("");
+          }
+          //P/U
+          if (props.Lines[Key][3] !== undefined) {
+            tempLine.push(props.Lines[Key][3]);
+          } else {
+            tempLine.push("");
+          }
+          //Rig
+          if (props.Lines[Key][4] !== undefined) {
+            tempLine.push(props.Lines[Key][4]);
+          } else {
+            tempLine.push("");
+          }
+          //P/D
+          if (props.Lines[Key][5] !== undefined) {
+            tempLine.push(props.Lines[Key][6]);
+          } else {
+            tempLine.push("");
+          }
+          //Equip No.
+          if (props.Lines[Key][6] !== undefined) {
+            tempLine.push(props.Lines[Key][6]);
+          } else {
+            tempLine.push("");
+          }
+          //Equip Description
+          if (props.Lines[Key][7] !== undefined) {
+            tempLine.push(props.Lines[Key][7]);
+          } else {
+            tempLine.push("");
+          }
+          XLSX.utils.sheet_add_aoa(ws, [tempLine], { origin: -1 });
+          /*tempDataTwo.push({
+            Name: tempLine.Name,
+            Occ: tempLine.Occ,
+            Hrs: tempLine.Hrs,
+            PU: tempLine.PU,
+            Rig: tempLine.Rig,
+            PD: tempLine.PD,
+            EquipNum: tempLine.EquipNum,
+            EquipDesc: tempLine.EquipDesc,
+          });*/
+        }
+      });
+    /*props.Lines.forEach((Line) => {
       tmp++;
       if (Line !== undefined) {
         let tempLine = [];
@@ -102,9 +171,9 @@ export default function ExportDataToExcel(props) {
           PD: tempLine.PD,
           EquipNum: tempLine.EquipNum,
           EquipDesc: tempLine.EquipDesc,
-        });*/
+        });
       }
-    });
+    });*/
     //tempData.push({ Comment: props.Comment });
     XLSX.utils.sheet_add_json(ws, [], { origin: -1 });
     XLSX.utils.sheet_add_json(ws, [tempDataThree], { origin: -1 });

@@ -15,7 +15,7 @@ import React, { useState, useEffect } from "react";
 import { SignatureCapture } from "../SignatureCapture";
 import TimesheetLineComment from "./TimesheetComment";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import ExportDataToExcel from "../../ExportToExcel";
+import ExportDataToExcel from "./ExportToExcel";
 import TimesheetBody from "./TimesheetBody";
 
 export default function Timesheet(props, jobNum) {
@@ -250,7 +250,7 @@ export default function Timesheet(props, jobNum) {
           <ExportDataToExcel
             Header={Header}
             Comment={Comment}
-            Lines={Lines}
+            Lines={Body}
             signature={signature}
           />
         </View>

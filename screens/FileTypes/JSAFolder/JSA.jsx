@@ -13,7 +13,6 @@ import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { SignatureCapture } from "../SignatureCapture";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import ExportDataToExcel from "../../ExportToExcel";
 
 import JSAT1 from "./JSAT1";
 import JSAT2 from "./JSAT2";
