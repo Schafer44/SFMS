@@ -40,12 +40,10 @@ export default function ExportDataToExcel(props) {
       { origin: -1 }
     );
     let tmp = 3;
-    console.log("1", props.Lines);
     Object.keys(props.Lines)
       .sort()
       .map((Key, Line) => {
         tmp++;
-        console.log(props.Lines[Key][0]);
         if (Line !== undefined) {
           let tempLine = [];
           // Name
@@ -97,84 +95,8 @@ export default function ExportDataToExcel(props) {
             tempLine.push("");
           }
           XLSX.utils.sheet_add_aoa(ws, [tempLine], { origin: -1 });
-          /*tempDataTwo.push({
-            Name: tempLine.Name,
-            Occ: tempLine.Occ,
-            Hrs: tempLine.Hrs,
-            PU: tempLine.PU,
-            Rig: tempLine.Rig,
-            PD: tempLine.PD,
-            EquipNum: tempLine.EquipNum,
-            EquipDesc: tempLine.EquipDesc,
-          });*/
         }
       });
-    /*props.Lines.forEach((Line) => {
-      tmp++;
-      if (Line !== undefined) {
-        let tempLine = [];
-        if (Line.Line.Name !== undefined) {
-          tempLine.push(Line.Line.Name);
-          //tempLine.Name = Line.Line.Name;
-        } else {
-          tempLine.push("");
-        }
-        if (Line.Line.Occ !== undefined) {
-          tempLine.push(Line.Line.Occ);
-          // tempLine.Occ = Line.Line.Occ;
-        } else {
-          tempLine.push("");
-        }
-        if (Line.Line.Hrs !== undefined) {
-          tempLine.push(Line.Line.Hrs);
-          //tempLine.Hrs = Line.Line.Hrs;
-        } else {
-          tempLine.push("");
-        }
-        if (Line.Line.PU !== undefined) {
-          tempLine.push(Line.Line.PU);
-          //tempLine.PU = Line.Line.PU;
-        } else {
-          tempLine.push("");
-        }
-        if (Line.Line.Rig !== undefined) {
-          tempLine.push(Line.Line.Rig);
-          // tempLine.Rig = Line.Line.Rig;
-        } else {
-          tempLine.push("");
-        }
-        if (Line.Line.PD !== undefined) {
-          tempLine.push(Line.Line.PD);
-          //tempLine.PD = Line.Line.PD;
-        } else {
-          tempLine.push("");
-        }
-        if (Line.Line.EquipNum !== undefined) {
-          tempLine.push(Line.Line.EquipNum);
-          // tempLine.EquipNum = Line.Line.EquipNum;
-        } else {
-          tempLine.push("");
-        }
-        if (Line.Line.EquipDesc !== undefined) {
-          tempLine.push(Line.Line.EquipDesc);
-          //tempLine.EquipDesc = Line.Line.EquipDesc;
-        } else {
-          tempLine.push("");
-        }
-        XLSX.utils.sheet_add_aoa(ws, [tempLine], { origin: -1 });
-        /*tempDataTwo.push({
-          Name: tempLine.Name,
-          Occ: tempLine.Occ,
-          Hrs: tempLine.Hrs,
-          PU: tempLine.PU,
-          Rig: tempLine.Rig,
-          PD: tempLine.PD,
-          EquipNum: tempLine.EquipNum,
-          EquipDesc: tempLine.EquipDesc,
-        });
-      }
-    });*/
-    //tempData.push({ Comment: props.Comment });
     XLSX.utils.sheet_add_json(ws, [], { origin: -1 });
     XLSX.utils.sheet_add_json(ws, [tempDataThree], { origin: -1 });
     ws["!cols"] = wscols;
@@ -206,7 +128,9 @@ export default function ExportDataToExcel(props) {
         style={styles.SubBtn}
         onPress={() => DoBoth()}
         title="New Job"
-      ></TouchableOpacity>
+      >
+        <Text style={styles.loginText}>Export to Excel</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -229,22 +153,20 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   newJob: {
-    width: "95%",
     flex: 1,
-    marginTop: 5,
-    alignItems: "center",
-    marginBottom: 5,
-    backgroundColor: "green",
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-    borderRadius: 20,
-    flexDirection: "row",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignContent: "center",
   },
   temp: {
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
     width: "98%",
+  },
+  loginText: {
+    color: "#fff",
+    textAlign: "center",
   },
   tempText: {
     alignItems: "center",
@@ -256,14 +178,12 @@ const styles = StyleSheet.create({
   loginText: {
     color: "#fff",
     textAlign: "center",
-    justifyContent: "center",
-    flex: 1,
   },
   SubBtn: {
+    width: "100%",
+    flex: 1,
+    backgroundColor: "green",
     justifyContent: "center",
     alignContent: "center",
-    flex: 1,
-    width: "100%",
-    height: "100%",
   },
 });
