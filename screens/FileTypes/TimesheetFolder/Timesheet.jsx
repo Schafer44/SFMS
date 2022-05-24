@@ -45,7 +45,6 @@ export default function Timesheet(props, jobNum) {
     //setLines({ Line: props.route.params.file.Timesheet });
   };
   useEffect(() => {
-    console.log("4", props.route.params.file.user);
     fetchJob();
     if (props.route.params.file.TimesheetLines !== undefined) {
       setBody(props.route.params.file.TimesheetLines);
@@ -69,7 +68,6 @@ export default function Timesheet(props, jobNum) {
     );
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
-    console.log(Header);
     if (signature === null) {
       Alert.alert("Signature Required");
     } else if (

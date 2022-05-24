@@ -37,7 +37,6 @@ export const Job = (props) => {
   const [fileType, setFileType] = useState("");
   const [Job, setJobs] = useState([]);
   useEffect(() => {
-    console.log("2", props.route.params.job.user);
     onSnapshot(collection(db, props.route.params.job.JobNum), (snapshot) => {
       setJobs(snapshot.docs.map((doc) => doc.data()));
     });

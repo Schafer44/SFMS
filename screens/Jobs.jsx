@@ -34,7 +34,6 @@ export default function Jobs(props) {
     //await db.collection().delete();
   };
   useEffect(() => {
-    console.log("1", props);
     onSnapshot(collection(db, "PLEnerserv"), (snapshot) => {
       setJobs(snapshot.docs.map((doc) => doc.data()));
     });

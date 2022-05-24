@@ -18,7 +18,6 @@ export default function TimesheetBody(props) {
   const [signature, setSign] = useState(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
-    console.log("10", Table);
     if (Object.keys(Table).length !== 0) {
       props.setT8(Table);
     } else if (props.T8 !== undefined) {

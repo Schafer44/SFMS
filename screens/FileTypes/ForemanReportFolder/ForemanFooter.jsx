@@ -25,7 +25,6 @@ export default function ForemanFooter(props) {
     );
     //const reference = ref(db, "TestJob101");
     const docSnap = getDoc(docRef);
-    console.log(props);
     if (props.ForemanSignature === null) {
       Alert.alert("Foreman Signature Required");
     } else if (props.ClientSignature === null) {

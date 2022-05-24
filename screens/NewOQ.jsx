@@ -39,8 +39,6 @@ export default class NewOQ extends React.Component {
             xhr.open("GET", file.uri, true);
             xhr.send(null);
           });
-          //console.log(file);
-          ///*
           let temp3 = "";
           uploadBytes(Ref, blob).then(async (snapshot) => {
             const temp2 = getDownloadURL(snapshot.ref).then(
@@ -50,8 +48,7 @@ export default class NewOQ extends React.Component {
             );
           });
         }
-      ); //*/
-      //await NewOQ(temp, file.name);
+      );
     };
 
     const NewOQ = async (temp, name) => {
