@@ -49,7 +49,7 @@ export const Job = (props) => {
         <View>
           <View style={styles.existingJob}>
             <Button
-              title="Timesheet"
+              title="Timesheets"
               onPress={componentHideAndShowTimesheet}
               style={styles.existingJobBtn}
             />
@@ -102,7 +102,7 @@ export const Job = (props) => {
         <View>
           <View style={styles.existingJob}>
             <Button
-              title="Foreman Report"
+              title="Foreman Reports"
               onPress={componentHideAndShowFR}
               style={styles.existingJobBtn}
             />

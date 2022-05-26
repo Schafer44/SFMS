@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   newJob: {
     width: "95%",
-    height: 70,
+    height: 40,
     backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",

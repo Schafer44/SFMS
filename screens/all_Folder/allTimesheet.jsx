@@ -111,7 +111,7 @@ export default function AllTimesheet(props) {
         })}
         <View style={styles.Edit} key={1}>
           <Button
-            style={styles.existingJobBtn}
+            style={styles.existingJobBtn2}
             onPress={() => setVisible(!visible)}
             title={"Toggle Deletion"}
             color="white"
@@ -166,6 +166,16 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     color: "white",
   },
+
+  existingJobBtn2: {
+    width: "100%",
+    height: 40,
+    backgroundColor: "green",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 5,
+    color: "white",
+  },
   btn: {
     height: 100,
     width: 100,
@@ -180,7 +190,7 @@ const styles = StyleSheet.create({
   },
   Edit: {
     flexDirection: "row",
-    height: 70,
+    height: 40,
     width: "95%",
     backgroundColor: "green",
     alignItems: "center",

@@ -53,7 +53,9 @@ export default function JSAT7(props) {
             }}
           >
             {Table.Dry ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -83,7 +85,9 @@ export default function JSAT7(props) {
             }}
           >
             {Table.Rocky ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -114,7 +118,9 @@ export default function JSAT7(props) {
             }}
           >
             {Table.Muddy ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -145,7 +151,9 @@ export default function JSAT7(props) {
             }}
           >
             {Table.Sandy ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -176,7 +184,9 @@ export default function JSAT7(props) {
             }}
           >
             {Table.Ice_Snow ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -207,7 +217,9 @@ export default function JSAT7(props) {
             }}
           >
             {Table.SteepSlope ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -258,11 +270,18 @@ const styles = StyleSheet.create({
   true: {
     width: "100%",
     height: "100%",
-    backgroundColor: "yellow",
+    backgroundColor: "green",
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  trueText: {
+    textAlign: "center",
+    fontSize: 20,
+    color: "white",
   },
   false: {
     width: "100%",
     height: "100%",
-    backgroundColor: "red",
+    backgroundColor: "white",
   },
 });

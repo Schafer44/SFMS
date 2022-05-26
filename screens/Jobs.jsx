@@ -54,6 +54,7 @@ export default function Jobs(props) {
                 onPress={() => props.navigation("Job", { job })}
                 title={job.JobNum}
                 key={job.JobNum}
+                color="white"
               ></Button>
               {visible ? (
                 <View style={styles.existingJob2} key={job + "2"}>

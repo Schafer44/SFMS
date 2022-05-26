@@ -1,5 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+  alert,
+  Alert,
+} from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { doc, getDoc, setDoc, addDoc, collection } from "firebase/firestore";
@@ -19,15 +27,19 @@ export default class NewTimesheet extends React.Component {
     };
     const NewTimesheet = async () => {
       var Job = [];
-      const ref = db.collection("PLEnerserv").doc();
-      const ehehe = await db
-        .collection("PLEnerserv")
-        .doc(ref._delegate._key.path.segments[1])
-        .set({
-          JobNum: this.state.jobNum,
-          baseid: ref._delegate._key.path.segments[1],
-        });
-      db.collection(this.state.jobNum).add({});
+      if (this.state.jobNum === "") {
+        Alert.alert("Please Insert Job Number");
+      } else {
+        const ref = db.collection("PLEnerserv").doc();
+        const ehehe = await db
+          .collection("PLEnerserv")
+          .doc(ref._delegate._key.path.segments[1])
+          .set({
+            JobNum: this.state.jobNum,
+            baseid: ref._delegate._key.path.segments[1],
+          });
+        db.collection(this.state.jobNum).add({});
+      }
     };
     const handleNum = (text) => {
       this.setState({ jobNum: text });
@@ -42,16 +54,15 @@ export default class NewTimesheet extends React.Component {
             onPress={() => DoBoth()}
             title="New Job"
             color="white"
-          ></TouchableOpacity>
-          <View style={{ flex: 1 }}>
+          >
             <View style={styles.tempText} key={3}>
               <Text style={styles.textInputTest}>Submit</Text>
             </View>
-          </View>
+          </TouchableOpacity>
           <View style={{ flex: 1 }}>
             <View style={styles.temp} key={3}>
               <TextInput
-                style={styles.textInputTest}
+                style={styles.textInputTest2}
                 placeholder="Job Number"
                 onChangeText={handleNum}
               />
@@ -75,9 +86,14 @@ const styles = StyleSheet.create({
   },
   textInputTest: {
     width: "100%",
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-    borderRadius: 20,
+    color: "white",
+    fontSize: 20,
+  },
+
+  textInputTest2: {
+    width: "100%",
+    color: "white",
+    fontSize: 15,
   },
   newJob: {
     width: "95%",
@@ -86,9 +102,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 5,
     backgroundColor: "green",
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-    borderRadius: 20,
     flexDirection: "row",
   },
   temp: {
