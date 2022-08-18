@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     width: "50%",
     height: "40%",
     borderRadius: 40,
+    aspectRatio: 1,
   },
   inputContainer: {
     width: "80%",
