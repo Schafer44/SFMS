@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
   globalContainer: {
     width: "100%",
     flexGrow: 1,
-    paddingBottom: "3%",
+    paddingBottom: "4.2%",
   },
   RowOne: { flex: 1.2 },
   Header: {

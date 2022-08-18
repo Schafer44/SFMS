@@ -45,6 +45,7 @@ export default function AllJSA(props) {
                     <View style={styles.container} key={file.baseId}>
                       <View style={styles.existingJob} key={file.baseId}>
                         <Button
+                          color="white"
                           style={styles.existingJobBtn}
                           onPress={() =>
                             props.navigation.navigate("JSA", { file })
@@ -76,6 +77,7 @@ export default function AllJSA(props) {
                     <View style={styles.container} key={file.baseId}>
                       <View style={styles.existingJob} key={file.baseId}>
                         <Button
+                          color="white"
                           style={styles.existingJobBtn}
                           onPress={() =>
                             props.navigation.navigate("JSA", { file })
@@ -107,7 +109,7 @@ export default function AllJSA(props) {
         })}
         <View style={styles.Edit} key={1}>
           <Button
-            style={styles.existingJobBtn}
+            style={styles.existingJobBtn2}
             onPress={() => setVisible(!visible)}
             title={"Toggle Deletion"}
             color="white"
@@ -139,6 +141,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 5,
     flex: 20,
+  },
+
+  existingJobBtn2: {
+    width: "100%",
+    height: 40,
+    backgroundColor: "green",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 5,
+    color: "white",
   },
   existingJob2: {
     flexDirection: "row",
@@ -176,7 +188,7 @@ const styles = StyleSheet.create({
   },
   Edit: {
     flexDirection: "row",
-    height: 70,
+    height: 40,
     width: "95%",
     backgroundColor: "green",
     alignItems: "center",

@@ -52,6 +52,7 @@ export const Job = (props) => {
               title="Timesheets"
               onPress={componentHideAndShowTimesheet}
               style={styles.existingJobBtn}
+              color="white"
             />
           </View>
           {contentT ? (
@@ -77,6 +78,7 @@ export const Job = (props) => {
         <View>
           <View style={styles.existingJob}>
             <Button
+              color="white"
               title="JSA"
               onPress={componentHideAndShowJSA}
               style={styles.existingJobBtn}
@@ -102,6 +104,7 @@ export const Job = (props) => {
         <View>
           <View style={styles.existingJob}>
             <Button
+              color="white"
               title="Foreman Reports"
               onPress={componentHideAndShowFR}
               style={styles.existingJobBtn}
@@ -130,6 +133,7 @@ export const Job = (props) => {
         <View>
           <View style={styles.existingJob}>
             <Button
+              color="white"
               title="OQ"
               onPress={componentHideAndShowOQ}
               style={styles.existingJobBtn}

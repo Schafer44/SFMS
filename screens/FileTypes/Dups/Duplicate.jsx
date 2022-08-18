@@ -54,12 +54,16 @@ const styles = StyleSheet.create({
     color: "white",
   },
   newJob: {
-    width: "95%",
+    flexDirection: "row",
     height: 40,
+    width: "95%",
     backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 5,
+    flex: 1,
+    alignSelf: "flex-end",
+    marginRight: "2.5%",
   },
   existingJobBtn: {
     color: "white",

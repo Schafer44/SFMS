@@ -53,6 +53,7 @@ export default function AllForeman(props) {
                     <View style={styles.container} key={file.baseId}>
                       <View style={styles.existingJob} key={file.baseId}>
                         <Button
+                          color="white"
                           style={styles.existingJobBtn}
                           onPress={() =>
                             props.navigation.navigate("Foreman Report", {
@@ -86,6 +87,7 @@ export default function AllForeman(props) {
                     <View style={styles.container} key={file.baseId}>
                       <View style={styles.existingJob} key={file.baseId}>
                         <Button
+                          color="white"
                           style={styles.existingJobBtn}
                           onPress={() =>
                             props.navigation.navigate("Foreman Report", {
@@ -188,7 +190,7 @@ const styles = StyleSheet.create({
   },
   Edit: {
     flexDirection: "row",
-    height: 70,
+    height: 40,
     width: "95%",
     backgroundColor: "green",
     alignItems: "center",

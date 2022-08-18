@@ -14,6 +14,7 @@ export default function AllJSADup(props) {
               <View style={styles.container} key={file.baseId}>
                 <View style={styles.existingJob} key={file.baseId}>
                   <Button
+                    color="white"
                     style={styles.existingJobBtn}
                     onPress={() => props.navigation.navigate("JSA", { file })}
                     title={file.TypeExtra}

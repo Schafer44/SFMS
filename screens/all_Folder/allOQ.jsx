@@ -55,6 +55,7 @@ export default function AllOQ(props) {
               <View style={styles.container} key={file.baseId}>
                 <View style={styles.existingJob} key={file.baseId}>
                   <Button
+                    color="white"
                     style={styles.existingJobBtn}
                     onPress={() => props.navigation.navigate("OQ", { file })}
                     title={file.name}
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
   },
   Edit: {
     flexDirection: "row",
-    height: 70,
+    height: 40,
     width: "95%",
     backgroundColor: "green",
     alignItems: "center",
