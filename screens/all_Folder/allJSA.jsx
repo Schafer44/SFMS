@@ -80,7 +80,7 @@ export default function AllJSA(props) {
                           onPress={() =>
                             props.navigation.navigate("JSA", { file })
                           }
-                          title={"New Sheet"}
+                          title={"New JSA"}
                         ></Button>
                       </View>
                       {visible ? (
