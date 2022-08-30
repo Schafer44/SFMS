@@ -51,6 +51,7 @@ export default function JSAFooter(props) {
         signature: props.signature,
         TypeExtra: props.route.params.file.TypeExtra,
         lastUpdatedBy: props.user,
+        id: props.id,
       })
         .then(() => {
           Alert.alert("Success");

@@ -161,6 +161,7 @@ export default function ForemanReport(props, jobNum) {
         ForemanSignature={ForemanSignature}
         ClientSignature={ClientSignature}
         user={props.route.params.file.user}
+        id={props.route.params.file.id}
       />
     </View>
   );

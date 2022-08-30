@@ -218,6 +218,7 @@ export default function JSA(props, jobNum) {
             setVisible={setVisible}
             signature={signature}
             user={props.route.params.file.user}
+            id={props.route.params.file.id}
           />
         </View>
       </ScrollView>

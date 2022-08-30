@@ -50,6 +50,7 @@ export default function ForemanFooter(props) {
         ClientSignature: props.ClientSignature,
         TypeExtra: props.route.params.file.TypeExtra,
         lastUpdatedBy: props.user,
+        id: props.id,
       })
         .then(() => {
           Alert.alert("Success");

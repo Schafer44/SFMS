@@ -40,37 +40,51 @@ export default function AllJSA(props) {
           if (file.Type === "JSA") {
             if (file.TypeExtra !== "Templete") {
               if (file.T1[0].Table.Date !== undefined) {
-                return (
-                  <View style={styles.gc} key={file.baseId}>
-                    <View style={styles.container} key={file.baseId}>
-                      <View style={styles.existingJob} key={file.baseId}>
-                        <Button
-                          color="white"
-                          style={styles.existingJobBtn}
-                          onPress={() =>
-                            props.navigation.navigate("JSA", { file })
-                          }
-                          title={file.T1[0].Table.Date}
-                        ></Button>
-                      </View>
-                      {visible ? (
-                        <View
-                          style={styles.existingJob2}
-                          key={file.baseId + "2"}
-                        >
+                if (
+                  (
+                    file.T1[0].Table.Date.split(" ")[1] +
+                    " " +
+                    file.T1[0].Table.Date.split(" ")[2] +
+                    " " +
+                    file.T1[0].Table.Date.split(" ")[3]
+                  )
+                    .toLowerCase()
+                    .includes(props.searchPhrase.toLowerCase())
+                ) {
+                  return (
+                    <View style={styles.gc} key={file.baseId}>
+                      <View style={styles.container} key={file.baseId}>
+                        <View style={styles.existingJob} key={file.baseId}>
                           <Button
-                            style={styles.existingJobBtn}
-                            onPress={() => Delete(file)}
-                            title={"X"}
                             color="white"
+                            style={styles.existingJobBtn}
+                            onPress={() =>
+                              props.navigation.navigate("JSA", { file })
+                            }
+                            title={file.T1[0].Table.Date}
                           ></Button>
                         </View>
-                      ) : (
-                        <View></View>
-                      )}
+                        {visible ? (
+                          <View
+                            style={styles.existingJob2}
+                            key={file.baseId + "2"}
+                          >
+                            <Button
+                              style={styles.existingJobBtn}
+                              onPress={() => Delete(file)}
+                              title={"X"}
+                              color="white"
+                            ></Button>
+                          </View>
+                        ) : (
+                          <View></View>
+                        )}
+                      </View>
                     </View>
-                  </View>
-                );
+                  );
+                } else {
+                  <View></View>;
+                }
               } else {
                 return (
                   <View style={styles.gc} key={file.baseId}>

@@ -21,6 +21,8 @@ export const Job = (props) => {
   const [contentJ, setContentJSA] = useState(false);
   const [contentO, setContentOQ] = useState(false);
   const [contentF, setContentFR] = useState(false);
+  const [searchPhrase, setSearchPhrase] = useState("");
+  const [clicked, setClicked] = useState(false);
   const componentHideAndShowTimesheet = () => {
     setContentTimesheet(!contentT);
   };
@@ -45,6 +47,12 @@ export const Job = (props) => {
 
   return (
     <View style={styles.GC}>
+      <Search
+        searchPhrase={searchPhrase}
+        setSearchPhrase={setSearchPhrase}
+        clicked={clicked}
+        setClicked={setClicked}
+      />
       <ScrollView style={styles.Scroll}>
         <View>
           <View style={styles.existingJob}>
@@ -62,6 +70,7 @@ export const Job = (props) => {
                 navigation={props.navigation}
                 jobNum={props.route.params.job.JobNum}
                 user={props.route.params.job.user}
+                searchPhrase={searchPhrase}
               />
               <NewTimesheet
                 jobNum={props.route.params.job.JobNum}
@@ -91,6 +100,7 @@ export const Job = (props) => {
                 navigation={props.navigation}
                 jobNum={props.route.params.job.JobNum}
                 user={props.route.params.job.user}
+                searchPhrase={searchPhrase}
               />
               <NewJSA jobNum={props.route.params.job.JobNum} tempKey={2} />
               <AllJSADup
@@ -117,6 +127,7 @@ export const Job = (props) => {
                 navigation={props.navigation}
                 jobNum={props.route.params.job.JobNum}
                 user={props.route.params.job.user}
+                searchPhrase={searchPhrase}
               />
               <NewForemanReport
                 jobNum={props.route.params.job.JobNum}

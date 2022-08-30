@@ -44,37 +44,51 @@ export default function AllTimesheet(props) {
           if (file.Type === "Timesheet") {
             if (file.TypeExtra !== "Templete") {
               if (file.TimesheetHeader.Date !== "") {
-                return (
-                  <View style={styles.gc} key={file.baseId}>
-                    <View style={styles.container} key={file.baseId}>
-                      <View style={styles.existingJob} key={file.baseId}>
-                        <Button
-                          color="white"
-                          style={styles.existingJobBtn}
-                          onPress={() =>
-                            props.navigation.navigate("Timesheet", { file })
-                          }
-                          title={file.TimesheetHeader.Date}
-                        ></Button>
-                      </View>
-                      {visible ? (
-                        <View
-                          style={styles.existingJob2}
-                          key={file.baseId + "2"}
-                        >
+                if (
+                  (
+                    file.TimesheetHeader.Date.split(" ")[1] +
+                    " " +
+                    file.TimesheetHeader.Date.split(" ")[2] +
+                    " " +
+                    file.TimesheetHeader.Date.split(" ")[3]
+                  )
+                    .toLowerCase()
+                    .includes(props.searchPhrase.toLowerCase())
+                ) {
+                  return (
+                    <View style={styles.gc} key={file.baseId}>
+                      <View style={styles.container} key={file.baseId}>
+                        <View style={styles.existingJob} key={file.baseId}>
                           <Button
-                            style={styles.existingJobBtn}
-                            onPress={() => Delete(file)}
-                            title={"X"}
                             color="white"
+                            style={styles.existingJobBtn}
+                            onPress={() =>
+                              props.navigation.navigate("Timesheet", { file })
+                            }
+                            title={file.TimesheetHeader.Date}
                           ></Button>
                         </View>
-                      ) : (
-                        <View></View>
-                      )}
+                        {visible ? (
+                          <View
+                            style={styles.existingJob2}
+                            key={file.baseId + "2"}
+                          >
+                            <Button
+                              style={styles.existingJobBtn}
+                              onPress={() => Delete(file)}
+                              title={"X"}
+                              color="white"
+                            ></Button>
+                          </View>
+                        ) : (
+                          <View></View>
+                        )}
+                      </View>
                     </View>
-                  </View>
-                );
+                  );
+                } else {
+                  <View></View>;
+                }
               } else {
                 return (
                   <View style={styles.gc} key={file.baseId}>

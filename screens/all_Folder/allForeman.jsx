@@ -48,39 +48,53 @@ export default function AllForeman(props) {
                 file.Header[0].Line0.Date !== null &&
                 file.Header[0].Line0.Date !== ""
               ) {
-                return (
-                  <View style={styles.gc} key={file.baseId}>
-                    <View style={styles.container} key={file.baseId}>
-                      <View style={styles.existingJob} key={file.baseId}>
-                        <Button
-                          color="white"
-                          style={styles.existingJobBtn}
-                          onPress={() =>
-                            props.navigation.navigate("Foreman Report", {
-                              file,
-                            })
-                          }
-                          title={file.Header[0].Line0.Date}
-                        ></Button>
-                      </View>
-                      {visible ? (
-                        <View
-                          style={styles.existingJob2}
-                          key={file.baseId + "2"}
-                        >
+                if (
+                  (
+                    file.Header[0].Line0.Date.split(" ")[1] +
+                    " " +
+                    file.Header[0].Line0.Date.split(" ")[2] +
+                    " " +
+                    file.Header[0].Line0.Date.split(" ")[3]
+                  )
+                    .toLowerCase()
+                    .includes(props.searchPhrase.toLowerCase())
+                ) {
+                  return (
+                    <View style={styles.gc} key={file.baseId}>
+                      <View style={styles.container} key={file.baseId}>
+                        <View style={styles.existingJob} key={file.baseId}>
                           <Button
-                            style={styles.existingJobBtn}
-                            onPress={() => Delete(file)}
-                            title={"X"}
                             color="white"
+                            style={styles.existingJobBtn}
+                            onPress={() =>
+                              props.navigation.navigate("Foreman Report", {
+                                file,
+                              })
+                            }
+                            title={file.Header[0].Line0.Date}
                           ></Button>
                         </View>
-                      ) : (
-                        <View></View>
-                      )}
+                        {visible ? (
+                          <View
+                            style={styles.existingJob2}
+                            key={file.baseId + "2"}
+                          >
+                            <Button
+                              style={styles.existingJobBtn}
+                              onPress={() => Delete(file)}
+                              title={"X"}
+                              color="white"
+                            ></Button>
+                          </View>
+                        ) : (
+                          <View></View>
+                        )}
+                      </View>
                     </View>
-                  </View>
-                );
+                  );
+                } else {
+                  <View></View>;
+                }
               } else {
                 return (
                   <View style={styles.gc} key={file.baseId}>
