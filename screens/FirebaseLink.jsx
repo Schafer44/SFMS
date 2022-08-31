@@ -34,6 +34,25 @@ const PLECollection = db.collection("PLEnerserv");
 const authentication = getAuth(firebaseApp);
 
 export default authentication;
+
+export const fetchUsersCompany = async (email) => {
+  console.log("Test fetchUserCompany");
+  const response = db.collection("Users");
+  const snapshot = await response.get();
+  const users = snapshot.docs.map((doc) => ({
+    ...doc.data(),
+  }));
+  let temp = "";
+  users.forEach((item) => {
+    console.log("Test ForEach", item);
+    if (item.Email.toLowerCase() === email.toLowerCase()) {
+      console.log("test Company", item.Company);
+      temp = item.Company;
+    }
+  });
+  return temp;
+};
+
 export const fetchJobs = async () => {
   var Jobs = "";
   const response = db.collection("PLEnerserv");

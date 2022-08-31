@@ -16,8 +16,10 @@ import { TextInput } from "react-native-paper";
 export default class NewTimesheet extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       jobNum: "",
+      company: props.company,
     };
   }
 
@@ -30,16 +32,102 @@ export default class NewTimesheet extends React.Component {
       if (this.state.jobNum === "") {
         Alert.alert("Please Insert Job Number");
       } else {
-        const ref = db.collection("PLEnerserv").doc();
+        let TempJSA = "";
+        let TempFR = "";
+        let TempTS = "";
+        const ref = db.collection(this.state.company).doc();
+        /*await db
+          .collection(props.company)
+          .doc(ref._delegate._key.path.segments[1])
+          .set({
+            JobNum:
+              this.state.jobNum + "_" + props.company,
+            baseid: ref._delegate._key.path.segments[1],
+          });*/
+        await db
+          .collection(this.state.jobNum + "_" + this.state.company)
+          .add({})
+          .then((docRef) => {
+            TempTS = docRef.id;
+            console.log("121", docRef.id);
+            setDoc(docRef, {
+              TimesheetHeader: {},
+              TimesheetLines: {},
+              Comment: "",
+              Type: "Timesheet",
+              baseId: docRef.id,
+              signature: "",
+              lastUpdatedBy: "Admin",
+              TypeExtra: "Templete",
+              id: 0,
+            });
+          });
+
+        await db
+          .collection(this.state.jobNum + "_" + this.state.company)
+          .add({})
+          .then((docRef) => {
+            TempFR = docRef.id;
+            console.log("121", docRef.id);
+            setDoc(docRef, {
+              Type: "Foreman Report",
+              TypeExtra: "Templete",
+              baseId: docRef.id,
+              Header: [{ Line0: {} }],
+              T1: [{ Line0: {} }, { Line1: {} }],
+              T2: [{ Line0: {} }],
+              T3: [{ Line0: {} }],
+              T4: [{ Line0: {} }],
+              T5: [{ Line0: {} }],
+              T6: [{ Line0: {} }, { Line1: {} }],
+              T7: [{ Line0: {} }],
+              id: 1,
+            });
+          });
+
+        await db
+          .collection(this.state.jobNum + "_" + this.state.company)
+          .add({})
+          .then((docRef) => {
+            TempJSA = docRef.id;
+            console.log("121", docRef.id);
+            setDoc(docRef, {
+              Type: "JSA",
+              TypeExtra: "Templete",
+              baseId: docRef.id,
+              T1: [{ Table: {} }],
+              T2: [{ Table: {} }],
+              T3: [{ Table: {} }],
+              T4: [{ Table: {} }],
+              T5: [{ Table: {} }],
+              T6: [{ Table: {} }],
+              T7: [{ Table: {} }],
+              T8: [{ Table: {} }],
+              T9: [{ Line0: {} }],
+              T10: [{ Line0: {} }],
+              T11: [{ Line0: {} }],
+              id: 2,
+            });
+          });
+        console.log("Test1", ref._delegate._key.path.segments[1]);
+        await db
+          .collection(this.state.company)
+          .doc(ref._delegate._key.path.segments[1])
+          .set({
+            JobNum: this.state.jobNum + "_" + this.state.company,
+            baseid: ref._delegate._key.path.segments[1],
+          });
+      } /*else {
+        const ref = db.collection(props.company).doc();
         const ehehe = await db
-          .collection("PLEnerserv")
+          .collection(props.company)
           .doc(ref._delegate._key.path.segments[1])
           .set({
             JobNum: this.state.jobNum,
             baseid: ref._delegate._key.path.segments[1],
           });
         db.collection(this.state.jobNum).add({});
-      }
+      }*/
     };
     const handleNum = (text) => {
       this.setState({ jobNum: text });
@@ -93,7 +181,8 @@ const styles = StyleSheet.create({
   textInputTest2: {
     width: "100%",
     color: "white",
-    fontSize: 15,
+    flex: 1,
+    justifyContent: "center",
   },
   newJob: {
     width: "95%",
@@ -107,7 +196,8 @@ const styles = StyleSheet.create({
   temp: {
     alignItems: "center",
     justifyContent: "center",
-    flex: 1,
+
+    flex: 0.75,
     width: "98%",
   },
   tempText: {

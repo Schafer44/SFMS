@@ -13,18 +13,21 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import authentication from "./FirebaseLink";
 import Logo from "../assets/LoginLogo.png";
+import { fetchUsersCompany } from "./FirebaseLink";
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {}, []);
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setEmail("tanner44schafer@gmail.com");
     signInWithEmailAndPassword(authentication, email, /*password*/ "444444")
-      .then((userCredentials) => {
+      .then(async (userCredentials) => {
+        const company = await fetchUsersCompany(email);
         const user = userCredentials.user;
-        props.navigation.navigate("Home", email);
+        const tempArr = [email, company];
+        props.navigation.navigate("Home", tempArr);
       })
       .catch((userCredentials) => console.log(userCredentials));
   };

@@ -43,7 +43,7 @@ export default function AllTimesheet(props) {
           file.user = props.user;
           if (file.Type === "Timesheet") {
             if (file.TypeExtra !== "Templete") {
-              if (file.TimesheetHeader.Date !== "") {
+              if (file.TimesheetHeader.Date !== undefined) {
                 if (
                   (
                     file.TimesheetHeader.Date.split(" ")[1] +

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  KeyboardAvoidingView,
 } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
@@ -26,6 +27,7 @@ import JSAT9 from "./JSAT9";
 import JSAT10 from "./JSAT10";
 import JSAT11 from "./JSAT11";
 import JSAFooter from "./JSAFooter";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 export default function JSA(props, jobNum) {
   const [Job, setJob] = useState([]);
@@ -43,6 +45,7 @@ export default function JSA(props, jobNum) {
   const [T10, setT10] = useState([]);
   const [T11, setT11] = useState([]);
   const [scrollEnabled, setScrollEnabled] = useState(true);
+  const [headerHeight] = useState(useHeaderHeight());
   const fetchJob = async () => {
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
@@ -108,7 +111,11 @@ export default function JSA(props, jobNum) {
       SignInScroll={SignInScroll}
     />
   ) : (
-    <View style={styles.globalContainer}>
+    <KeyboardAvoidingView
+      style={styles.globalContainer}
+      behavior="padding"
+      keyboardVerticalOffset={headerHeight}
+    >
       <TouchableOpacity
         style={styles.SubBtn}
         title="Lock"
@@ -222,7 +229,7 @@ export default function JSA(props, jobNum) {
           />
         </View>
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

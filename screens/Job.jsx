@@ -15,6 +15,7 @@ import NewOQ from "./NewOQ";
 import AllTimesheetDup from "./all_Folder/allTimesheetDup";
 import AllForemanDup from "./all_Folder/AllForemanDup";
 import AllJSADup from "./all_Folder/allJSADup";
+import Search from "./Search";
 
 export const Job = (props) => {
   const [contentT, setContentTimesheet] = useState(false);

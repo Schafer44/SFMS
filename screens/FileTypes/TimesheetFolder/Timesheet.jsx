@@ -9,6 +9,7 @@ import {
   TextInput,
   Image,
   Alert,
+  KeyboardAvoidingView,
 } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { useState, useEffect } from "react";
@@ -16,6 +17,7 @@ import { SignatureCapture } from "../SignatureCapture";
 import TimesheetLineComment from "./TimesheetComment";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import TimesheetBody from "./TimesheetBody";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 export default function Timesheet(props, jobNum) {
   const [signature, setSign] = useState(null);
@@ -26,6 +28,7 @@ export default function Timesheet(props, jobNum) {
   const [Body, setBody] = useState([]);
   const [Job, setJob] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [headerHeight] = useState(useHeaderHeight());
   const toggleOverlay = () => {
     setVisible(!visible);
   };
@@ -107,7 +110,11 @@ export default function Timesheet(props, jobNum) {
       SignInScroll={SignInScroll}
     />
   ) : (
-    <View style={styles.globalContainer}>
+    <KeyboardAvoidingView
+      style={styles.globalContainer}
+      behavior="padding"
+      keyboardVerticalOffset={headerHeight}
+    >
       <View style={styles.header}>
         <View style={styles.hGridTitles}>
           <View style={styles.TextInputTwo}>
@@ -256,7 +263,7 @@ export default function Timesheet(props, jobNum) {
           source={{ uri: signature }}
         />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

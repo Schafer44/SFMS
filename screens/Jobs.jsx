@@ -9,7 +9,13 @@ import {
 } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
-import { onSnapshot, doc, collection } from "firebase/firestore";
+import {
+  onSnapshot,
+  doc,
+  collection,
+  query,
+  orderBy,
+} from "firebase/firestore";
 export default function Jobs(props) {
   const [Jobs, setJobs] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -19,7 +25,7 @@ export default function Jobs(props) {
         text: "Delete",
         style: "destructive",
         onPress: async () => {
-          await db.collection("PLEnerserv").doc(temp.baseid).delete();
+          await db.collection(props.company).doc(temp.baseid).delete();
         },
       },
       {
@@ -34,9 +40,12 @@ export default function Jobs(props) {
     //await db.collection().delete();
   };
   useEffect(() => {
-    onSnapshot(collection(db, "PLEnerserv"), (snapshot) => {
-      setJobs(snapshot.docs.map((doc) => doc.data()));
-    });
+    onSnapshot(
+      query(collection(db, props.company), orderBy("JobNum")),
+      (snapshot) => {
+        setJobs(snapshot.docs.map((doc) => doc.data()));
+      }
+    );
     //fetchJobs();
   }, []);
 
@@ -52,7 +61,7 @@ export default function Jobs(props) {
               <Button
                 style={styles.existingJobBtn}
                 onPress={() => props.navigation("Job", { job })}
-                title={job.JobNum}
+                title={job.JobNum.split("_" + props.company)[0]}
                 key={job.JobNum}
                 color="white"
               ></Button>
