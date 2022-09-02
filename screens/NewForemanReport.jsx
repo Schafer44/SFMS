@@ -30,6 +30,7 @@ export default class NewForemanReport extends React.Component {
           T5: [{ Line0: {} }],
           T6: [{ Line0: {} }, { Line1: {} }],
           T7: [{ Line0: {} }],
+          id: this.props.job.length,
         });
       /*const ehehe = await response.add({
         Type: "Timesheet",

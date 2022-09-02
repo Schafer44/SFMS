@@ -23,7 +23,8 @@ export default class NewTimesheet extends React.Component {
           TypeExtra: "null",
           baseId: ref._delegate._key.path.segments[1],
           TimesheetLines: {},
-          TimesheetHeader: { Date: "" },
+          TimesheetHeader: {},
+          id: this.props.job.length,
         });
       /*const ehehe = await response.add({
         Type: "Timesheet",

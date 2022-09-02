@@ -76,6 +76,7 @@ export const Job = (props) => {
               <NewTimesheet
                 jobNum={props.route.params.job.JobNum}
                 tempKey={1}
+                job={Job}
               />
               <AllTimesheetDup
                 job={Job}
@@ -103,7 +104,11 @@ export const Job = (props) => {
                 user={props.route.params.job.user}
                 searchPhrase={searchPhrase}
               />
-              <NewJSA jobNum={props.route.params.job.JobNum} tempKey={2} />
+              <NewJSA
+                jobNum={props.route.params.job.JobNum}
+                tempKey={2}
+                job={Job}
+              />
               <AllJSADup
                 job={Job}
                 navigation={props.navigation}
@@ -133,6 +138,7 @@ export const Job = (props) => {
               <NewForemanReport
                 jobNum={props.route.params.job.JobNum}
                 tempKey={3}
+                job={Job}
               />
               <AllForemanDup
                 job={Job}

@@ -112,65 +112,68 @@ export default function ForemanReport(props, jobNum) {
   ) : (
     <KeyboardAvoidingView
       style={styles.globalContainer}
-      behavior="padding"
+      behavior={Platform.OS === "ios" ? "padding" : null}
       keyboardVerticalOffset={headerHeight}
     >
-      <ScrollView scrollEnabled={scrollEnabled}>
-        <View style={styles.RowOne}>
-          <View style={styles.Header}>
-            <FRHeader Header={Header} setHeader={setHeader} />
+      <ScrollView scrollEnabled={scrollEnabled} style={styles.body}>
+        <View>
+          <View style={styles.RowOne}>
+            <View style={styles.Header}>
+              <FRHeader Header={Header} setHeader={setHeader} />
+            </View>
           </View>
+
+          <View style={styles.RowTwo}>
+            <View style={styles.BT1}>
+              <FRT1 T1={T1} setT1={setT1} id={0} />
+            </View>
+          </View>
+          <View style={styles.RowThree}>
+            <View style={styles.BT2}>
+              <FRT2 T2={T2} setT2={setT2} id={1} />
+            </View>
+          </View>
+          <View style={styles.RowFour}>
+            <View style={styles.BT3}>
+              <FRT3 T3={T3} setT3={setT3} id={2} />
+            </View>
+            <View style={styles.BT4}>
+              <FRT4 T4={T4} setT4={setT4} id={3} />
+            </View>
+            <View style={styles.BT5}>
+              <FRT5 T5={T5} setT5={setT5} id={4} />
+            </View>
+          </View>
+          <View style={styles.RowFive}>
+            <View style={styles.BT6}>
+              <FRT6 T6={T6} setT6={setT6} id={5} />
+            </View>
+          </View>
+          <View style={styles.RowSix}>
+            <View style={styles.BT7}>
+              <FRT7 T7={T7} setT7={setT7} id={6} />
+            </View>
+          </View>
+          <ForemanFooter
+            T1={T1}
+            T2={T2}
+            T3={T3}
+            T4={T4}
+            T5={T5}
+            T6={T6}
+            T7={T7}
+            Header={Header}
+            route={props.route}
+            visible={visible}
+            setVisible={setVisible}
+            visible2={visible2}
+            setVisible2={setVisible2}
+            ForemanSignature={ForemanSignature}
+            ClientSignature={ClientSignature}
+            user={props.route.params.file.user}
+            id={props.route.params.file.id}
+          />
         </View>
-        <View style={styles.RowTwo}>
-          <View style={styles.BT1}>
-            <FRT1 T1={T1} setT1={setT1} id={0} />
-          </View>
-        </View>
-        <View style={styles.RowThree}>
-          <View style={styles.BT2}>
-            <FRT2 T2={T2} setT2={setT2} id={1} />
-          </View>
-        </View>
-        <View style={styles.RowFour}>
-          <View style={styles.BT3}>
-            <FRT3 T3={T3} setT3={setT3} id={2} />
-          </View>
-          <View style={styles.BT4}>
-            <FRT4 T4={T4} setT4={setT4} id={3} />
-          </View>
-          <View style={styles.BT5}>
-            <FRT5 T5={T5} setT5={setT5} id={4} />
-          </View>
-        </View>
-        <View style={styles.RowFive}>
-          <View style={styles.BT6}>
-            <FRT6 T6={T6} setT6={setT6} id={5} />
-          </View>
-        </View>
-        <View style={styles.RowSix}>
-          <View style={styles.BT7}>
-            <FRT7 T7={T7} setT7={setT7} id={6} />
-          </View>
-        </View>
-        <ForemanFooter
-          T1={T1}
-          T2={T2}
-          T3={T3}
-          T4={T4}
-          T5={T5}
-          T6={T6}
-          T7={T7}
-          Header={Header}
-          route={props.route}
-          visible={visible}
-          setVisible={setVisible}
-          visible2={visible2}
-          setVisible2={setVisible2}
-          ForemanSignature={ForemanSignature}
-          ClientSignature={ClientSignature}
-          user={props.route.params.file.user}
-          id={props.route.params.file.id}
-        />
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -181,7 +184,9 @@ const styles = StyleSheet.create({
     width: "100%",
     flexGrow: 1,
     paddingBottom: "4.2%",
+    height: "100%",
   },
+  body: { height: "100%" },
   RowOne: { flex: 1.2 },
   Header: {
     flex: 1,
@@ -192,37 +197,44 @@ const styles = StyleSheet.create({
   BT1: {
     flex: 1,
     margin: "1%",
+    marginTop: "3%",
   },
 
   RowThree: { flex: 1.2 },
   BT2: {
     flex: 1,
     margin: "1%",
+    marginTop: "3%",
   },
 
   RowFour: { flex: 2.4, flexDirection: "row" },
   BT3: {
     flex: 1,
     margin: "1%",
+    marginTop: "3%",
   },
   BT4: {
     flex: 1,
     margin: "1%",
+    marginTop: "3%",
   },
   BT5: {
     flex: 1,
     margin: "1%",
+    marginTop: "3%",
   },
 
   RowFive: { flex: 1.4 },
   BT6: {
     flex: 1,
     margin: "1%",
+    marginTop: "3%",
   },
 
   RowSix: { flex: 3 },
   BT7: {
     flex: 1,
     margin: "1%",
+    marginTop: "3%",
   },
 });

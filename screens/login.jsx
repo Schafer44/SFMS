@@ -33,7 +33,10 @@ const LoginScreen = (props) => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : null}
+    >
       <Image source={Logo} style={styles.Logo}></Image>
       <View style={styles.inputContainer}>
         <TextInput

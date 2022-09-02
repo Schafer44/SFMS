@@ -112,7 +112,7 @@ export default function Timesheet(props, jobNum) {
   ) : (
     <KeyboardAvoidingView
       style={styles.globalContainer}
-      behavior="padding"
+      behavior={Platform.OS === "ios" ? "padding" : null}
       keyboardVerticalOffset={headerHeight}
     >
       <View style={styles.header}>

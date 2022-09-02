@@ -20,7 +20,7 @@ export default function Home(props, props2) {
   return (
     <KeyboardAvoidingView
       style={styles.Gloablcontainer}
-      behavior="padding"
+      behavior={Platform.OS === "ios" ? "padding" : null}
       keyboardVerticalOffset={headerHeight}
     >
       <Search

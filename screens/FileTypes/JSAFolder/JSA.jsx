@@ -113,7 +113,7 @@ export default function JSA(props, jobNum) {
   ) : (
     <KeyboardAvoidingView
       style={styles.globalContainer}
-      behavior="padding"
+      behavior={Platform.OS === "ios" ? "padding" : null}
       keyboardVerticalOffset={headerHeight}
     >
       <TouchableOpacity
@@ -124,7 +124,7 @@ export default function JSA(props, jobNum) {
       >
         <Text style={styles.LockText}>Lock Scroll</Text>
       </TouchableOpacity>
-      <ScrollView scrollEnabled={scrollEnabled}>
+      <ScrollView scrollEnabled={scrollEnabled} style={styles.body}>
         <View>
           <View style={styles.RowOne}>
             <View style={styles.Header}>
@@ -238,7 +238,9 @@ const styles = StyleSheet.create({
     width: "100%",
     flexGrow: 1,
     paddingBottom: "4.2%",
+    height: "100%",
   },
+  body: { height: "100%" },
   RowOne: { flex: 1.2 },
   Header: {
     flex: 1,

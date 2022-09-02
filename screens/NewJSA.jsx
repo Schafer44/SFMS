@@ -33,6 +33,7 @@ export default class NewJSA extends React.Component {
           T9: [{ Line0: {} }],
           T10: [{ Line0: {} }],
           T11: [{ Line0: {} }],
+          id: this.props.job.length,
         });
       /*const ehehe = await response.add({
         Type: "Timesheet",
