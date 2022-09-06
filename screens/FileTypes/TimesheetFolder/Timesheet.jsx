@@ -18,6 +18,7 @@ import TimesheetLineComment from "./TimesheetComment";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import TimesheetBody from "./TimesheetBody";
 import { useHeaderHeight } from "@react-navigation/elements";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function Timesheet(props, jobNum) {
   const [signature, setSign] = useState(null);
@@ -31,6 +32,9 @@ export default function Timesheet(props, jobNum) {
   const [headerHeight] = useState(useHeaderHeight());
   const toggleOverlay = () => {
     setVisible(!visible);
+  };
+  const setDate = (event, date) => {
+    console.log(date);
   };
   const fetchJob = async () => {
     var Job = [];
@@ -143,12 +147,24 @@ export default function Timesheet(props, jobNum) {
             />
           </View>
           <View style={styles.TextInputOne}>
+            {/*
             <TextInput
               style={styles.textInputTest}
               placeholder=""
               value={Header.Date}
               onChange={(event) => {
                 setHeader({ ...Header, Date: event.nativeEvent.text });
+              }}
+            />*/}
+            <DateTimePicker
+              dateFormat="dayofweek month day year"
+              value={new Date(Header.Date)}
+              themeVariant="dark"
+              onChange={(event) => {
+                setHeader({
+                  ...Header,
+                  Date: new Date(event.nativeEvent.timestamp).toString(),
+                });
               }}
             />
           </View>
