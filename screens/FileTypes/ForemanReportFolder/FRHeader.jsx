@@ -20,6 +20,12 @@ export default function FRHeader(props) {
     } else if (props.Header !== undefined) {
       if (props.Header[0] !== undefined) {
         setLine0(props.Header[0].Line0);
+        if (props.Header[0].Line0.Date === undefined) {
+          setLine0({
+            ...Table,
+            Date: new Date().toString(),
+          });
+        }
       }
       if (props.Header[1] !== undefined) {
         setLine1(props.Header[1].Line1);
@@ -62,7 +68,7 @@ export default function FRHeader(props) {
             value={new Date(Line0.Date)}
             themeVariant="dark"
             onChange={(event) => {
-              setHeader({
+              setLine0({
                 ...Line0,
                 Date: new Date(event.nativeEvent.timestamp).toString(),
               });

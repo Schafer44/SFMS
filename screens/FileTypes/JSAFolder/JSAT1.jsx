@@ -12,6 +12,12 @@ export default function JSAT1(props) {
     } else if (props.T1 !== undefined) {
       if (props.T1[0] !== undefined) {
         setTable(props.T1[0].Table);
+        if (props.T1[0].Table.Date === undefined) {
+          setTable({
+            ...Table,
+            Date: new Date().toString(),
+          });
+        }
       }
     }
   }, [props, Table]);
@@ -32,10 +38,10 @@ export default function JSAT1(props) {
           />*/}
           <DateTimePicker
             dateFormat="dayofweek month day year"
-            value={new Date(Table.Date)}
             themeVariant="dark"
+            value={new Date(Table.Date)}
             onChange={(event) => {
-              setHeader({
+              setTable({
                 ...Table,
                 Date: new Date(event.nativeEvent.timestamp).toString(),
               });

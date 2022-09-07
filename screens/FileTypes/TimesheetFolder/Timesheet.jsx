@@ -57,6 +57,12 @@ export default function Timesheet(props, jobNum) {
     }
     if (props.route.params.file.TimesheetHeader !== undefined) {
       setHeader(props.route.params.file.TimesheetHeader);
+      if (props.route.params.file.TimesheetHeader.Date === undefined) {
+        setHeader({
+          ...Header,
+          Date: new Date().toString(),
+        });
+      }
     }
     if (props.route.params.file.Comment !== undefined) {
       setComment(props.route.params.file.Comment);
@@ -158,8 +164,8 @@ export default function Timesheet(props, jobNum) {
             />*/}
             <DateTimePicker
               dateFormat="dayofweek month day year"
-              value={new Date(Header.Date)}
               themeVariant="dark"
+              value={new Date(Header.Date)}
               onChange={(event) => {
                 setHeader({
                   ...Header,
