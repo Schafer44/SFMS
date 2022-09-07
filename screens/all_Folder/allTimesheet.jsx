@@ -65,7 +65,13 @@ export default function AllTimesheet(props) {
                             onPress={() =>
                               props.navigation.navigate("Timesheet", { file })
                             }
-                            title={file.TimesheetHeader.Date}
+                            title={
+                              file.TimesheetHeader.Date.split(" ")[1] +
+                              " " +
+                              file.TimesheetHeader.Date.split(" ")[2] +
+                              " " +
+                              file.TimesheetHeader.Date.split(" ")[3]
+                            }
                           ></Button>
                         </View>
                         {visible ? (

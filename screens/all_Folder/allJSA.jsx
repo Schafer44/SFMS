@@ -61,7 +61,13 @@ export default function AllJSA(props) {
                             onPress={() =>
                               props.navigation.navigate("JSA", { file })
                             }
-                            title={file.T1[0].Table.Date}
+                            title={
+                              file.T1[0].Table.Date.split(" ")[1] +
+                              " " +
+                              file.T1[0].Table.Date.split(" ")[2] +
+                              " " +
+                              file.T1[0].Table.Date.split(" ")[3]
+                            }
                           ></Button>
                         </View>
                         {visible ? (

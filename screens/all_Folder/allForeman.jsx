@@ -71,7 +71,13 @@ export default function AllForeman(props) {
                                 file,
                               })
                             }
-                            title={file.Header[0].Line0.Date}
+                            title={
+                              file.Header[0].Line0.Date.split(" ")[1] +
+                              " " +
+                              file.Header[0].Line0.Date.split(" ")[2] +
+                              " " +
+                              file.Header[0].Line0.Date.split(" ")[3]
+                            }
                           ></Button>
                         </View>
                         {visible ? (

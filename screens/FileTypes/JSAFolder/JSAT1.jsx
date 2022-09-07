@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function JSAT1(props) {
   const [Table, setTable] = useState({});
@@ -21,12 +22,23 @@ export default function JSAT1(props) {
           <Text style={styles.TitleText2}>Date:</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
+          {/* <TextInput
             style={styles.textInputTest}
             placeholder=""
             value={Table.Date}
             onChange={(event) => {
               setTable({ ...Table, Date: event.nativeEvent.text });
+            }}
+          />*/}
+          <DateTimePicker
+            dateFormat="dayofweek month day year"
+            value={new Date(Table.Date)}
+            themeVariant="dark"
+            onChange={(event) => {
+              setHeader({
+                ...Table,
+                Date: new Date(event.nativeEvent.timestamp).toString(),
+              });
             }}
           />
         </View>

@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function FRHeader(props) {
   const [Line0, setLine0] = useState({});
@@ -48,12 +49,23 @@ export default function FRHeader(props) {
           <Text style={styles.TextTitle}>Date:</Text>
         </View>
         <View style={styles.Row}>
-          <TextInput
+          {/*<TextInput
             style={styles.TextInput}
             placeholder=""
             value={Line0.Date}
             onChange={(event) => {
               setLine0({ ...Line0, Date: event.nativeEvent.text });
+            }}
+          />*/}
+          <DateTimePicker
+            dateFormat="dayofweek month day year"
+            value={new Date(Line0.Date)}
+            themeVariant="dark"
+            onChange={(event) => {
+              setHeader({
+                ...Line0,
+                Date: new Date(event.nativeEvent.timestamp).toString(),
+              });
             }}
           />
         </View>
