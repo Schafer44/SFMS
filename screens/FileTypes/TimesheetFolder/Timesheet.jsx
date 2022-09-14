@@ -152,27 +152,20 @@ export default function Timesheet(props, jobNum) {
               }}
             />
           </View>
-          <View style={styles.TextInputOne}>
-            {/*
-            <TextInput
-              style={styles.textInputTest}
-              placeholder=""
-              value={Header.Date}
-              onChange={(event) => {
-                setHeader({ ...Header, Date: event.nativeEvent.text });
-              }}
-            />*/}
-            <DateTimePicker
-              dateFormat="dayofweek month day year"
-              themeVariant="dark"
-              value={new Date(Header.Date)}
-              onChange={(event) => {
-                setHeader({
-                  ...Header,
-                  Date: new Date(event.nativeEvent.timestamp).toString(),
-                });
-              }}
-            />
+          <View style={styles.DatePickerCont}>
+            <View style={styles.DatePicker}>
+              <DateTimePicker
+                dateFormat="dayofweek month day year"
+                themeVariant="light"
+                value={new Date(Header.Date)}
+                onChange={(event) => {
+                  setHeader({
+                    ...Header,
+                    Date: new Date(event.nativeEvent.timestamp).toString(),
+                  });
+                }}
+              />
+            </View>
           </View>
           <View style={styles.TextInputOne}>
             <TextInput
@@ -298,7 +291,6 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 2.3,
     backgroundColor: "white",
-    alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
   },
@@ -317,6 +309,24 @@ const styles = StyleSheet.create({
     flex: 5,
     margin: 5,
     alignSelf: "flex-start",
+  },
+
+  DatePicker: {
+    flex: 1,
+    justifyContent: "center",
+    width: 75,
+  },
+  DatePickerCont: {
+    backgroundColor: "white",
+    height: "100%",
+    backgroundColor: "white",
+    paddingRight: 5,
+    borderColor: "#d4d4d4",
+    borderWidth: 2,
+    flex: 1,
+    display: "flex",
+    alignItems: "flex-start",
+    paddingLeft: 5,
   },
   hGridColumns: {
     flex: 1,
@@ -429,7 +439,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     alignItems: "center",
     flex: 1,
-
     alignItems: "center",
     justifyContent: "center",
   },

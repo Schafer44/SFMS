@@ -27,8 +27,9 @@ export default function JSAT1(props) {
         <View style={styles.Row}>
           <Text style={styles.TitleText2}>Date:</Text>
         </View>
-        <View style={styles.Row}>
-          {/* <TextInput
+        <View style={styles.DatePickerCont}>
+          <View style={styles.DatePicker}>
+            {/* <TextInput
             style={styles.textInputTest}
             placeholder=""
             value={Table.Date}
@@ -36,17 +37,18 @@ export default function JSAT1(props) {
               setTable({ ...Table, Date: event.nativeEvent.text });
             }}
           />*/}
-          <DateTimePicker
-            dateFormat="dayofweek month day year"
-            themeVariant="dark"
-            value={new Date(Table.Date)}
-            onChange={(event) => {
-              setTable({
-                ...Table,
-                Date: new Date(event.nativeEvent.timestamp).toString(),
-              });
-            }}
-          />
+            <DateTimePicker
+              dateFormat="dayofweek month day year"
+              themeVariant="light"
+              value={new Date(Table.Date)}
+              onChange={(event) => {
+                setTable({
+                  ...Table,
+                  Date: new Date(event.nativeEvent.timestamp).toString(),
+                });
+              }}
+            />
+          </View>
         </View>
 
         <View style={styles.Row}>
@@ -238,6 +240,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: "center",
     alignContent: "center",
+    height: 50,
   },
   Column: { flex: 1, flexDirection: "row" },
   ColumnTitle: {
@@ -256,4 +259,17 @@ const styles = StyleSheet.create({
     alignContent: "center",
     textAlign: "center",
   },
+  DatePicker: {
+    flex: 1,
+    justifyContent: "center",
+    width: 75,
+  },
+  DatePickerCont: {
+    height: "100%",
+    borderWidth: 1,
+    flex: 1,
+    display: "flex",
+    alignItems: "flex-start",
+  },
+  textInputTest: { paddingLeft: 5 },
 });

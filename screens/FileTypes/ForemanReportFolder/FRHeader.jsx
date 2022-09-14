@@ -54,8 +54,9 @@ export default function FRHeader(props) {
         <View style={styles.Row}>
           <Text style={styles.TextTitle}>Date:</Text>
         </View>
-        <View style={styles.Row}>
-          {/*<TextInput
+        <View style={styles.DatePickerCont}>
+          <View style={styles.DatePicker}>
+            {/*<TextInput
             style={styles.TextInput}
             placeholder=""
             value={Line0.Date}
@@ -63,17 +64,19 @@ export default function FRHeader(props) {
               setLine0({ ...Line0, Date: event.nativeEvent.text });
             }}
           />*/}
-          <DateTimePicker
-            dateFormat="dayofweek month day year"
-            value={new Date(Line0.Date)}
-            themeVariant="dark"
-            onChange={(event) => {
-              setLine0({
-                ...Line0,
-                Date: new Date(event.nativeEvent.timestamp).toString(),
-              });
-            }}
-          />
+            <DateTimePicker
+              dateFormat="dayofweek month day year"
+              value={new Date(Line0.Date)}
+              themeVariant="light"
+              style={styles.DatePicker}
+              onChange={(event) => {
+                setLine0({
+                  ...Line0,
+                  Date: new Date(event.nativeEvent.timestamp).toString(),
+                });
+              }}
+            />
+          </View>
         </View>
         <View style={styles.Row}>
           <Text style={styles.TextTitle}>Day of Week:</Text>
@@ -182,17 +185,42 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderBottomWidth: 1,
     paddingRight: 5,
+    flex: 1,
+  },
+
+  DatePicker: {
+    flex: 1,
+    justifyContent: "center",
+    width: 75,
+  },
+  DatePickerCont: {
+    height: "100%",
+    borderWidth: 1,
+    flex: 1,
+    display: "flex",
+    alignItems: "flex-start",
   },
   Title: {
+    display: "flex",
     flex: 1.2,
     borderStyle: "solid",
     borderWidth: 1,
+    borderColor: "black",
   },
   Row: {
+    display: "flex",
     flex: 1,
+    height: 50,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "black",
   },
   Row2: {
     flex: 2,
+    height: 50,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "black",
   },
   TitleText1: {
     justifyContent: "center",
@@ -200,5 +228,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   Column2: { flex: 1, flexDirection: "row" },
-  ColumnTitle: { flex: 0.3, borderStyle: "solid", borderWidth: 1 },
+  ColumnTitle: {
+    flex: 0.3,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "black",
+  },
 });
