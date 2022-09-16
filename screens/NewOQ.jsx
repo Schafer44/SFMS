@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Button, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Alert,
+  TouchableHighlight,
+} from "react-native";
 import React, { setState, useState, useEffect } from "react";
 import * as DocumentPicker from "expo-document-picker";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -62,18 +69,20 @@ export default class NewOQ extends React.Component {
           baseId: ref._delegate._key.path.segments[1],
           URI: temp,
           name: name,
+          id: this.props.job.length,
         });
     };
     return (
       <View style={styles.container} key={1}>
         <View style={styles.newJob} key={1}>
-          <Button
-            key={1}
-            style={styles.existingJobBtn}
+          <TouchableHighlight
+            activeOpacity={0.99}
+            underlayColor="darkgreen"
+            style={styles.EditJobBtn}
             onPress={() => DoBoth()}
-            title="New OQ"
-            color="white"
-          ></Button>
+          >
+            <Text style={{ color: "white" }}>New OQ</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -100,5 +109,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "flex-end",
     marginRight: "2.5%",
+  },
+  EditJobBtn: {
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

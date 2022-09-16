@@ -6,6 +6,7 @@ import {
   ScrollView,
   Button,
   Alert,
+  TouchableHighlight,
 } from "react-native";
 import React, { setState, useState, useEffect } from "react";
 import { db } from "../FirebaseLink";
@@ -15,6 +16,7 @@ const windowHeight = Dimensions.get("window").height;
 
 export default function AllTimesheet(props) {
   const [visible, setVisible] = useState(false);
+  const [BtnColor, setBtnColor] = useState("black");
   const Delete = async (temp) => {
     Alert.alert(
       "Delete Timesheet?",
@@ -63,20 +65,23 @@ export default function AllTimesheet(props) {
                       <View style={styles.gc} key={file.baseId}>
                         <View style={styles.container} key={file.baseId}>
                           <View style={styles.existingJob} key={file.baseId}>
-                            <Button
-                              color="black"
+                            <TouchableHighlight
+                              underlayColor="#272727"
+                              onPressIn={() => setBtnColor("lightgrey")}
+                              onPressOut={() => setBtnColor("black")}
                               style={styles.existingJobBtn}
                               onPress={() =>
                                 props.navigation.navigate("Timesheet", { file })
                               }
-                              title={
-                                file.TimesheetHeader.Date.split(" ")[1] +
-                                " " +
-                                file.TimesheetHeader.Date.split(" ")[2] +
-                                " " +
-                                file.TimesheetHeader.Date.split(" ")[3]
-                              }
-                            ></Button>
+                            >
+                              <Text style={{ color: BtnColor }}>
+                                {file.TimesheetHeader.Date.split(" ")[1] +
+                                  " " +
+                                  file.TimesheetHeader.Date.split(" ")[2] +
+                                  " " +
+                                  file.TimesheetHeader.Date.split(" ")[3]}
+                              </Text>
+                            </TouchableHighlight>
                           </View>
                           {visible ? (
                             <View
@@ -104,14 +109,19 @@ export default function AllTimesheet(props) {
                     <View style={styles.gc} key={file.baseId}>
                       <View style={styles.container} key={file.baseId}>
                         <View style={styles.existingJob} key={file.baseId}>
-                          <Button
-                            color="black"
+                          <TouchableHighlight
+                            underlayColor="#272727"
+                            onPressIn={() => setBtnColor("lightgrey")}
+                            onPressOut={() => setBtnColor("black")}
                             style={styles.existingJobBtn}
                             onPress={() =>
                               props.navigation.navigate("Timesheet", { file })
                             }
-                            title={"New Sheet"}
-                          ></Button>
+                          >
+                            <Text style={{ color: BtnColor }}>
+                              New Timesheet
+                            </Text>
+                          </TouchableHighlight>
                         </View>
                         {visible ? (
                           <View
@@ -137,12 +147,14 @@ export default function AllTimesheet(props) {
           })}
         </View>
         <View style={styles.Edit} key={1}>
-          <Button
-            style={styles.existingJobBtn2}
+          <TouchableHighlight
+            activeOpacity={0.99}
+            underlayColor="darkgreen"
+            style={styles.EditJobBtn}
             onPress={() => setVisible(!visible)}
-            title={"Toggle Deletion"}
-            color="white"
-          ></Button>
+          >
+            <Text style={{ color: "white" }}>Toggle Deletion</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -168,11 +180,12 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "100%",
+    height: "100%",
     flexDirection: "row",
   },
   existingJob: {
     flexDirection: "row",
-    height: 70,
+    height: "100%",
     aspectRatio: 1 / 1,
     backgroundColor: "lightgrey",
     alignItems: "center",
@@ -180,6 +193,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     flex: 20,
     borderRadius: windowWidth * 0.02,
+    flex: 1,
   },
   existingJob2: {
     position: "absolute",
@@ -209,23 +223,24 @@ const styles = StyleSheet.create({
   },
 
   existingJobBtn2: {
-    width: "100%",
-    height: 40,
-    backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 5,
-    color: "white",
+    flex: 1,
+    alignSelf: "stretch",
+    borderRadius: windowWidth * 0.02,
   },
   btn: {
     height: 100,
     width: 100,
   },
   existingJobBtn: {
-    width: "100%",
-    height: 70,
-    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+    alignSelf: "stretch",
+    borderRadius: windowWidth * 0.02,
   },
+  existingJobBtnText: {},
   Text: {
     color: "white",
   },
@@ -240,5 +255,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "flex-end",
     marginRight: "2.5%",
+  },
+  EditJobBtn: {
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

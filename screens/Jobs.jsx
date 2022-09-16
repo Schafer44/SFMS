@@ -6,6 +6,7 @@ import {
   ScrollView,
   Button,
   Alert,
+  TouchableHighlight,
 } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
@@ -58,21 +59,23 @@ export default function Jobs(props) {
           job.user = props.user;
           return (
             <View style={styles.existingJob} key={job.JobNum}>
-              <Button
-                style={styles.existingJobBtn}
+              <TouchableHighlight
                 onPress={() => props.navigation("Job", { job })}
-                title={job.JobNum.split("_" + props.company)[0]}
-                key={job.JobNum}
-                color="white"
-              ></Button>
+                style={styles.existingJobBtn}
+              >
+                <Text style={styles.Text}>
+                  {job.JobNum.split("_" + props.company)[0]}
+                </Text>
+              </TouchableHighlight>
               {visible ? (
                 <View style={styles.existingJob2} key={job + "2"}>
-                  <Button
-                    style={styles.existingJobBtn}
+                  <TouchableHighlight
+                    underlayColor="darkred"
                     onPress={() => Delete(job)}
-                    title={"X"}
-                    color="white"
-                  ></Button>
+                    style={styles.existingJob2}
+                  >
+                    <Text style={styles.Text}>X</Text>
+                  </TouchableHighlight>
                 </View>
               ) : (
                 <View></View>
@@ -82,12 +85,13 @@ export default function Jobs(props) {
         }
       })}
       <View style={styles.Edit} key={1}>
-        <Button
-          style={styles.existingJobBtn}
+        <TouchableHighlight
+          underlayColor="darkgrey"
           onPress={() => setVisible(!visible)}
-          title={"Toggle Deletion"}
-          color="white"
-        ></Button>
+          style={styles.EditJobBtn}
+        >
+          <Text style={styles.Text}>Toggle Deletion</Text>
+        </TouchableHighlight>
       </View>
     </View>
   );
@@ -101,11 +105,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 5,
+    display: "flex",
+    flexDirection: "row",
+  },
+  existingJob2: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "red",
+    alignItems: "center",
+    justifyContent: "center",
   },
   existingJobBtn: {
+    flex: 10,
     width: "100%",
     height: 70,
-    backgroundColor: "white",
+    backgroundColor: "#272727",
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
   },
   Text: {
     color: "white",
@@ -121,5 +139,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "flex-end",
     marginRight: "2.5%",
+  },
+  EditJobBtn: {
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

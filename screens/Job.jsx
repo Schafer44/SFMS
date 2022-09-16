@@ -1,5 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Button,
+  TouchableHighlight,
+} from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import {
@@ -69,12 +76,12 @@ export const Job = (props) => {
       <ScrollView style={styles.Scroll}>
         <View>
           <View style={styles.existingJob}>
-            <Button
-              title="Timesheets"
+            <TouchableHighlight
               onPress={componentHideAndShowTimesheet}
               style={styles.existingJobBtn}
-              color="white"
-            />
+            >
+              <Text style={styles.Text}>Timesheets</Text>
+            </TouchableHighlight>
           </View>
           {contentT ? (
             <View>
@@ -100,12 +107,12 @@ export const Job = (props) => {
         </View>
         <View>
           <View style={styles.existingJob}>
-            <Button
-              color="white"
-              title="JSA"
+            <TouchableHighlight
               onPress={componentHideAndShowJSA}
               style={styles.existingJobBtn}
-            />
+            >
+              <Text style={styles.Text}>JSAs</Text>
+            </TouchableHighlight>
           </View>
           {contentJ ? (
             <View>
@@ -131,12 +138,12 @@ export const Job = (props) => {
         </View>
         <View>
           <View style={styles.existingJob}>
-            <Button
-              color="white"
-              title="Foreman Reports"
+            <TouchableHighlight
               onPress={componentHideAndShowFR}
               style={styles.existingJobBtn}
-            />
+            >
+              <Text style={styles.Text}>Foreman Reports</Text>
+            </TouchableHighlight>
           </View>
           {contentF ? (
             <View>
@@ -162,12 +169,12 @@ export const Job = (props) => {
         </View>
         <View>
           <View style={styles.existingJob}>
-            <Button
-              color="white"
-              title="OQ"
+            <TouchableHighlight
               onPress={componentHideAndShowOQ}
               style={styles.existingJobBtn}
-            />
+            >
+              <Text style={styles.Text}>OQs</Text>
+            </TouchableHighlight>
           </View>
           {contentO ? (
             <View>
@@ -177,7 +184,11 @@ export const Job = (props) => {
                 jobNum={props.route.params.job.JobNum}
               />
 
-              <NewOQ jobNum={props.route.params.job.JobNum} tempKey={1} />
+              <NewOQ
+                jobNum={props.route.params.job.JobNum}
+                tempKey={1}
+                job={Job}
+              />
             </View>
           ) : null}
         </View>
@@ -211,7 +222,10 @@ const styles = StyleSheet.create({
   existingJobBtn: {
     width: "100%",
     height: 100,
-    backgroundColor: "white",
+    backgroundColor: "#272727",
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
   },
   Text: {
     color: "white",

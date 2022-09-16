@@ -6,6 +6,7 @@ import {
   ScrollView,
   Button,
   Alert,
+  TouchableHighlight,
 } from "react-native";
 import React, { setState, useState, useEffect } from "react";
 import { db } from "../FirebaseLink";
@@ -15,6 +16,7 @@ const windowHeight = Dimensions.get("window").height;
 
 export default function AllForeman(props) {
   const [visible, setVisible] = useState(false);
+  const [BtnColor, setBtnColor] = useState("black");
   const Delete = async (temp) => {
     Alert.alert(
       "Delete Report?",
@@ -67,22 +69,25 @@ export default function AllForeman(props) {
                       <View style={styles.gc} key={file.baseId}>
                         <View style={styles.container} key={file.baseId}>
                           <View style={styles.existingJob} key={file.baseId}>
-                            <Button
-                              color="black"
+                            <TouchableHighlight
+                              underlayColor="#272727"
+                              onPressIn={() => setBtnColor("lightgrey")}
+                              onPressOut={() => setBtnColor("black")}
                               style={styles.existingJobBtn}
                               onPress={() =>
                                 props.navigation.navigate("Foreman Report", {
                                   file,
                                 })
                               }
-                              title={
-                                file.Header[0].Line0.Date.split(" ")[1] +
-                                " " +
-                                file.Header[0].Line0.Date.split(" ")[2] +
-                                " " +
-                                file.Header[0].Line0.Date.split(" ")[3]
-                              }
-                            ></Button>
+                            >
+                              <Text style={{ color: BtnColor }}>
+                                {file.Header[0].Line0.Date.split(" ")[1] +
+                                  " " +
+                                  file.Header[0].Line0.Date.split(" ")[2] +
+                                  " " +
+                                  file.Header[0].Line0.Date.split(" ")[3]}
+                              </Text>
+                            </TouchableHighlight>
                           </View>
                           {visible ? (
                             <View
@@ -110,16 +115,21 @@ export default function AllForeman(props) {
                     <View style={styles.gc} key={file.baseId}>
                       <View style={styles.container} key={file.baseId}>
                         <View style={styles.existingJob} key={file.baseId}>
-                          <Button
-                            color="black"
+                          <TouchableHighlight
+                            underlayColor="#272727"
+                            onPressIn={() => setBtnColor("lightgrey")}
+                            onPressOut={() => setBtnColor("black")}
                             style={styles.existingJobBtn}
                             onPress={() =>
                               props.navigation.navigate("Foreman Report", {
                                 file,
                               })
                             }
-                            title={"New Report"}
-                          ></Button>
+                          >
+                            <Text style={{ color: BtnColor }}>
+                              New Foreman Report
+                            </Text>
+                          </TouchableHighlight>
                         </View>
                         {visible ? (
                           <View
@@ -145,12 +155,14 @@ export default function AllForeman(props) {
           })}
         </View>
         <View style={styles.Edit} key={1}>
-          <Button
-            style={styles.existingJobBtn}
+          <TouchableHighlight
+            activeOpacity={0.99}
+            underlayColor="darkgreen"
+            style={styles.EditJobBtn}
             onPress={() => setVisible(!visible)}
-            title={"Toggle Deletion"}
-            color="white"
-          ></Button>
+          >
+            <Text style={{ color: "white" }}>Toggle Deletion</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -231,9 +243,11 @@ const styles = StyleSheet.create({
     width: 100,
   },
   existingJobBtn: {
-    width: "100%",
-    height: 70,
-    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+    alignSelf: "stretch",
+    borderRadius: windowWidth * 0.02,
   },
   Text: {
     color: "white",
@@ -249,5 +263,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "flex-end",
     marginRight: "2.5%",
+  },
+  EditJobBtn: {
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

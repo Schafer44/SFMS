@@ -6,6 +6,7 @@ import {
   ScrollView,
   Button,
   Alert,
+  TouchableHighlight,
 } from "react-native";
 import React, { setState, useState, useEffect } from "react";
 
@@ -78,12 +79,14 @@ export default function AllOQ(props) {
         })}
 
         <View style={styles.Edit} key={1}>
-          <Button
-            style={styles.existingJobBtn}
+          <TouchableHighlight
+            activeOpacity={0.99}
+            underlayColor="darkgreen"
+            style={styles.EditJobBtn}
             onPress={() => setVisible(!visible)}
-            title={"Toggle Deletion"}
-            color="white"
-          ></Button>
+          >
+            <Text style={{ color: "white" }}>Toggle Deletion</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -154,5 +157,12 @@ const styles = StyleSheet.create({
   },
   Text: {
     color: "white",
+  },
+
+  EditJobBtn: {
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

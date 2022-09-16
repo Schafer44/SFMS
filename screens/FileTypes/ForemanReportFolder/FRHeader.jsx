@@ -22,7 +22,7 @@ export default function FRHeader(props) {
         setLine0(props.Header[0].Line0);
         if (props.Header[0].Line0.Date === undefined) {
           setLine0({
-            ...Table,
+            ...Line0,
             Date: new Date().toString(),
           });
         }
