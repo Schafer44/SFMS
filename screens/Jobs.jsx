@@ -86,7 +86,7 @@ export default function Jobs(props) {
       })}
       <View style={styles.Edit} key={1}>
         <TouchableHighlight
-          underlayColor="darkgrey"
+          underlayColor="darkgreen"
           onPress={() => setVisible(!visible)}
           style={styles.EditJobBtn}
         >

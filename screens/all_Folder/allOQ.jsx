@@ -9,6 +9,9 @@ import {
   TouchableHighlight,
 } from "react-native";
 import React, { setState, useState, useEffect } from "react";
+import { Dimensions } from "react-native";
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 import { getStorage } from "firebase/storage";
 import {
@@ -20,6 +23,7 @@ import {
 import { db, firebaseApp } from "../FirebaseLink";
 
 export default function AllOQ(props) {
+  const [BtnColor, setBtnColor] = useState("black");
   const [visible, setVisible] = useState(false);
   const Delete = async (temp) => {
     Alert.alert("Delete OQ?", "Are you sure you wish to delete this OQ?", [
@@ -48,36 +52,44 @@ export default function AllOQ(props) {
   };
   if (props.job != undefined) {
     return (
-      <View>
-        {props.job.map((file) => {
-          file.JobNum = props.jobNum;
-          if (file.Type === "OQ")
-            return (
-              <View style={styles.container} key={file.baseId}>
-                <View style={styles.existingJob} key={file.baseId}>
-                  <Button
-                    color="white"
-                    style={styles.existingJobBtn}
-                    onPress={() => props.navigation.navigate("OQ", { file })}
-                    title={file.name}
-                  ></Button>
-                </View>
-                {visible ? (
-                  <View style={styles.existingJob2} key={file.baseId + "2"}>
-                    <Button
-                      style={styles.existingJobBtn}
-                      onPress={() => Delete(file)}
-                      title={"X"}
-                      color="white"
-                    ></Button>
+      <View style={styles.Cont} key={1}>
+        <View style={styles.globalFiles} key={2}>
+          {props.job.map((file) => {
+            file.JobNum = props.jobNum;
+            if (file.Type === "OQ")
+              return (
+                <View style={styles.gc} key={file.baseId}>
+                  <View style={styles.container} key={file.baseId}>
+                    <View style={styles.existingJob} key={file.baseId}>
+                      <TouchableHighlight
+                        underlayColor="#272727"
+                        onPressIn={() => setBtnColor("lightgrey")}
+                        onPressOut={() => setBtnColor("black")}
+                        style={styles.existingJobBtn}
+                        onPress={() =>
+                          props.navigation.navigate("OQ", { file })
+                        }
+                      >
+                        <Text style={{ color: BtnColor }}>{file.name}</Text>
+                      </TouchableHighlight>
+                    </View>
+                    {visible ? (
+                      <View style={styles.existingJob2} key={file.baseId + "2"}>
+                        <Button
+                          style={styles.existingJobBtn}
+                          onPress={() => Delete(file)}
+                          title={"-"}
+                          color="white"
+                        ></Button>
+                      </View>
+                    ) : (
+                      <View></View>
+                    )}
                   </View>
-                ) : (
-                  <View></View>
-                )}
-              </View>
-            );
-        })}
-
+                </View>
+              );
+          })}
+        </View>
         <View style={styles.Edit} key={1}>
           <TouchableHighlight
             activeOpacity={0.99}
@@ -96,13 +108,24 @@ export default function AllOQ(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: "95%",
-    backgroundColor: "white",
+  gc: {
     alignItems: "center",
-    justifyContent: "flex-end",
+    margin: "1.665%",
+    aspectRatio: 1 / 1,
+    flexBasis: "30%",
+  },
+  Cont: {
+    flexDirection: "column",
+  },
+  globalFiles: {
+    flex: 1,
+    flexWrap: "wrap",
     flexDirection: "row",
-    marginLeft: "2.5%",
+  },
+  container: {
+    width: "100%",
+    height: "100%",
+    flexDirection: "row",
   },
   Edit: {
     flexDirection: "row",
@@ -117,14 +140,16 @@ const styles = StyleSheet.create({
     marginRight: "2.5%",
   },
   existingJob: {
-    flex: 20,
-    height: 70,
-    backgroundColor: "#272727",
+    flexDirection: "row",
+    height: "100%",
+    aspectRatio: 1 / 1,
+    backgroundColor: "lightgrey",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 5,
-    alignItems: "center",
-    justifyContent: "center",
+    flex: 20,
+    borderRadius: windowWidth * 0.02,
+    flex: 1,
   },
   fileTypeBtn: {
     width: "100%",
@@ -137,23 +162,28 @@ const styles = StyleSheet.create({
   },
 
   existingJob2: {
+    position: "absolute",
+    flexDirection: "row",
+    backgroundColor: "grey",
     alignItems: "center",
     justifyContent: "center",
-    height: 70,
-    backgroundColor: "red",
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 5,
+    marginTop: 0,
     flex: 1,
+    width: windowWidth * 0.06,
+    height: windowWidth * 0.06,
+    borderRadius: (windowWidth * 0.2) / 2,
+    right: 0,
   },
   btn: {
     height: 100,
     width: 100,
   },
   existingJobBtn: {
-    width: "100%",
-    height: 70,
-    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+    alignSelf: "stretch",
+    borderRadius: windowWidth * 0.02,
   },
   Text: {
     color: "white",

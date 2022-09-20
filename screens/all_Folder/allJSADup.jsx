@@ -1,5 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Button,
+  TouchableHighlight,
+} from "react-native";
 import React, { setState, useState, useEffect } from "react";
 import Duplicate from "../FileTypes/Dups/DupJSA";
 
@@ -13,12 +20,12 @@ export default function AllJSADup(props) {
             <View key={1}>
               <View style={styles.container} key={file.baseId}>
                 <View style={styles.existingJob} key={file.baseId}>
-                  <Button
-                    color="white"
+                  <TouchableHighlight
                     style={styles.existingJobBtn}
                     onPress={() => props.navigation.navigate("JSA", { file })}
-                    title={file.TypeExtra}
-                  ></Button>
+                  >
+                    <Text style={{ color: "white" }}>{file.TypeExtra}</Text>
+                  </TouchableHighlight>
                 </View>
               </View>
               <View key={2}>
@@ -26,6 +33,7 @@ export default function AllJSADup(props) {
                   jobNum={file.JobNum}
                   tempKey={file.baseId}
                   file={file}
+                  job={props.job}
                 />
               </View>
             </View>
@@ -67,9 +75,10 @@ const styles = StyleSheet.create({
     width: 100,
   },
   existingJobBtn: {
-    width: "100%",
-    height: 70,
-    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+    alignSelf: "stretch",
   },
   Text: {
     color: "white",

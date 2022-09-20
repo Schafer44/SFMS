@@ -6,36 +6,15 @@ import React, { setState, useState, useEffect } from "react";
 export default function Search(props) {
   return (
     <View style={styles.container}>
-      <View
-        style={
-          !props.clicked
-            ? styles.searchBar__unclicked
-            : styles.searchBar__clicked
-        }
-      >
-        {/* Input field */}
+      <View style={styles.searchBar}>
         <TextInput
+          placeholderTextColor="darkgrey"
           style={styles.input}
           placeholder="Search"
           value={props.searchPhrase}
           onChangeText={props.setSearchPhrase}
-          onFocus={() => {
-            props.setClicked(true);
-          }}
         />
       </View>
-      {/* cancel button, depending on whether the search bar is clicked or not */}
-      {props.clicked && (
-        <View>
-          <Button
-            title="Cancel"
-            onPress={() => {
-              Keyboard.dismiss();
-              props.setClicked(false);
-            }}
-          ></Button>
-        </View>
-      )}
     </View>
   );
 }
@@ -46,6 +25,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     alignItems: "center",
     justifyContent: "flex-end",
+    color: "black",
   },
   Text: {
     color: "black",
@@ -54,8 +34,10 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     borderRadius: 20,
     padding: 15,
+    color: "black",
   },
   Search: {
+    color: "black",
     width: "100%",
     height: 70,
     backgroundColor: "white",
@@ -65,16 +47,16 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 4,
     borderRadius: 20,
-    margin: "2.5%",
   },
   container: {
     margin: 15,
-    justifyContent: "flex-start",
+    justifyContent: "flex-end",
     alignItems: "center",
     flexDirection: "row",
     width: "90%",
+    color: "black",
   },
-  searchBar__unclicked: {
+  searchBar: {
     marginTop: 15,
     padding: 10,
     paddingLeft: 1,
@@ -83,18 +65,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#d9dbda",
     borderRadius: 15,
     alignItems: "center",
-  },
-  searchBar__clicked: {
-    marginTop: 15,
-    padding: 10,
-    flexDirection: "row",
-    width: "90%",
-    backgroundColor: "#d9dbda",
-    borderRadius: 15,
-    alignItems: "center",
-    justifyContent: "space-evenly",
+    color: "black",
   },
   input: {
+    color: "black",
     fontSize: 20,
     padding: 5,
     marginLeft: 10,
