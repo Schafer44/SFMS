@@ -27,6 +27,7 @@ export default function Jobs(props) {
         style: "destructive",
         onPress: async () => {
           await db.collection(props.company).doc(temp.baseid).delete();
+          await deleteCollection(temp.JobNum);
         },
       },
       {
@@ -39,6 +40,15 @@ export default function Jobs(props) {
     ]);
     //await db.collection("PLEnerserv").doc(temp.baseid).delete();
     //await db.collection().delete();
+  };
+  const deleteCollection = async (path) => {
+    db.collection(path)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.docs.forEach((snapshot) => {
+          snapshot.ref.delete();
+        });
+      });
   };
   useEffect(() => {
     onSnapshot(
@@ -54,7 +64,9 @@ export default function Jobs(props) {
     <View>
       {Jobs.map((job) => {
         if (
-          job.JobNum.toLowerCase().includes(props.searchPhrase.toLowerCase())
+          job.JobNum.toLowerCase()
+            .split("_")[0]
+            .includes(props.searchPhrase.toLowerCase())
         ) {
           job.user = props.user;
           return (
