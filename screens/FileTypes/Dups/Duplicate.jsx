@@ -45,7 +45,7 @@ export default class Duplicate extends React.Component {
             style={styles.existingJobBtn}
             onPress={() => DoBoth()}
           >
-            <Text style={{ color: "white" }}>Duplicate Templete</Text>
+            <Text style={{ color: "white" }}>Duplicate template</Text>
           </TouchableHighlight>
         </View>
       </View>

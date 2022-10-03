@@ -58,7 +58,7 @@ export default class NewTimesheet extends React.Component {
               baseId: docRef.id,
               signature: "",
               lastUpdatedBy: "Admin",
-              TypeExtra: "Templete",
+              TypeExtra: "template",
               id: 0,
             });
           });
@@ -71,7 +71,7 @@ export default class NewTimesheet extends React.Component {
             console.log("121", docRef.id);
             setDoc(docRef, {
               Type: "Foreman Report",
-              TypeExtra: "Templete",
+              TypeExtra: "template",
               baseId: docRef.id,
               Header: [{ Line0: {} }],
               T1: [{ Line0: {} }, { Line1: {} }],
@@ -93,7 +93,7 @@ export default class NewTimesheet extends React.Component {
             console.log("121", docRef.id);
             setDoc(docRef, {
               Type: "JSA",
-              TypeExtra: "Templete",
+              TypeExtra: "template",
               baseId: docRef.id,
               T1: [{ Table: {} }],
               T2: [{ Table: {} }],

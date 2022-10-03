@@ -15,7 +15,7 @@ export default function AllTimesheetDup(props) {
     return props.job.map((file) => {
       file.JobNum = props.jobNum;
       if (file.Type === "Timesheet") {
-        if (file.TypeExtra === "Templete") {
+        if (file.TypeExtra === "template") {
           return (
             <View key={1}>
               <View style={styles.container} key={file.baseId}>

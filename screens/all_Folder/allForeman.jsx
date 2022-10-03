@@ -48,7 +48,7 @@ export default function AllForeman(props) {
             file.JobNum = props.jobNum;
             file.user = props.user;
             if (file.Type === "Foreman Report") {
-              if (file.TypeExtra !== "Templete") {
+              if (file.TypeExtra !== "template") {
                 if (
                   file.Header[0].Line0.Date !== undefined &&
                   file.Header[0].Line0.Date !== null &&
