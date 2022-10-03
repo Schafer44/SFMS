@@ -52,7 +52,7 @@ export default class DupJSA extends React.Component {
             style={styles.existingJobBtn}
             onPress={() => DoBoth()}
           >
-            <Text style={{ color: "white" }}>Duplicate template</Text>
+            <Text style={{ color: "white" }}>Duplicate Template</Text>
           </TouchableHighlight>
         </View>
       </View>

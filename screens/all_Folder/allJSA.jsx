@@ -44,7 +44,7 @@ export default function AllJSA(props) {
             file.JobNum = props.jobNum;
             file.user = props.user;
             if (file.Type === "JSA") {
-              if (file.TypeExtra !== "template") {
+              if (file.TypeExtra !== "Template") {
                 if (file.T1[0].Table.Date !== undefined) {
                   if (
                     (

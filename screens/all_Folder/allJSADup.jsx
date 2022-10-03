@@ -15,7 +15,7 @@ export default function AllJSADup(props) {
     return props.job.map((file) => {
       file.JobNum = props.jobNum;
       if (file.Type === "JSA") {
-        if (file.TypeExtra === "template") {
+        if (file.TypeExtra === "Template") {
           return (
             <View key={1}>
               <View style={styles.container} key={file.baseId}>
