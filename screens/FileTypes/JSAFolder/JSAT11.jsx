@@ -128,6 +128,13 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 1,
   },
+
+  textInputTest: {
+    paddingLeft: 5,
+    width: "100%",
+    height: "100%",
+    flex: 1,
+  },
   Row: {
     flex: 1,
     borderStyle: "solid",

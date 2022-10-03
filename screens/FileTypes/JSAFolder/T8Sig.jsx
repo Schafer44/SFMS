@@ -42,10 +42,9 @@ export default function T8Sig(props) {
         </TouchableOpacity>
       ) : (
         <View>
+          {console.log("here")}
           <TouchableOpacity
             style={styles.SubBtn}
-            title="Submit"
-            underlayColor="#fff"
             onPress={() => setVisible(!visible)}
           ></TouchableOpacity>
         </View>
@@ -70,9 +69,8 @@ const styles = StyleSheet.create({
   RowJSA8: {
     borderStyle: "solid",
     borderWidth: 1,
-    justifyContent: "center",
-    alignContent: "center",
     height: 50,
+    flex: 1,
   },
   test101: {
     width: "100%",
@@ -87,8 +85,10 @@ const styles = StyleSheet.create({
   SubBtn: {
     width: "100%",
     height: "100%",
+    height: 50,
     flex: 1,
     justifyContent: "center",
     alignContent: "center",
+    position: "absolute",
   },
 });

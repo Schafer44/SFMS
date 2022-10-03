@@ -44,11 +44,23 @@ export default function OQ(props) {
 
 const styles = StyleSheet.create({
   GC: { height: "100%", width: "100%" },
-  prev: { height: "95%", width: "100%" },
+  prev: { height: "100%", width: "100%" },
   SubBtn: {
-    width: "100%",
+    position: "absolute",
+    width: "15%",
+    height: 50,
     backgroundColor: "green",
     justifyContent: "center",
     alignContent: "center",
+    textAlign: "center",
+    bottom: 10,
+    left: 10,
+    borderRadius: 20,
+  },
+  loginText: {
+    color: "white",
+    justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
   },
 });

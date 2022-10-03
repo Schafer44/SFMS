@@ -144,7 +144,12 @@ const styles = StyleSheet.create({
     alignContent: "center",
     textAlign: "center",
   },
-
+  textInputTest: {
+    paddingLeft: 5,
+    width: "100%",
+    height: "100%",
+    flex: 1,
+  },
   prev: {
     width: "100%",
     height: "100%",
