@@ -39,7 +39,7 @@ export default function FRT6(props) {
     <View style={styles.GC}>
       <View style={styles.ColumnTitle}>
         <View style={styles.Title}>
-          <Text style={styles.TitleText1}>Test</Text>
+          <Text style={styles.TitleText1}>Unit Items</Text>
         </View>
       </View>
       <View style={styles.body}>
@@ -73,7 +73,7 @@ export default function FRT6(props) {
               placeholder=""
               value={Line2.Item1}
               onChange={(event) => {
-                setLine2({ ...Line2, Item2: event.nativeEvent.text });
+                setLine2({ ...Line2, Item1: event.nativeEvent.text });
               }}
             />
           </View>

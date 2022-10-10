@@ -25,7 +25,7 @@ export default function FRT7(props) {
     <View style={styles.GC}>
       <View style={styles.ColumnTitle}>
         <View style={styles.Title}>
-          <Text style={styles.TitleText1}>Test</Text>
+          <Text style={styles.TitleText1}></Text>
         </View>
       </View>
       <View style={styles.body}>

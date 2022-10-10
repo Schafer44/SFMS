@@ -39,7 +39,7 @@ export default function FRT1(props) {
     <View style={styles.GC}>
       <View style={styles.ColumnTitle}>
         <View style={styles.Title}>
-          <Text style={styles.TitleText1}>Test</Text>
+          <Text style={styles.TitleText1}>Progress</Text>
         </View>
       </View>
       <View style={styles.body}>
