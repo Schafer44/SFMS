@@ -217,7 +217,7 @@ export default function FRT2(props) {
                 placeholder=""
                 value={Line1.Type2}
                 onChange={(event) => {
-                  setLine1({ ...Line2, Type2: event.nativeEvent.text });
+                  setLine1({ ...Line1, Type2: event.nativeEvent.text });
                 }}
               /> */}
               <TouchableOpacity
@@ -344,7 +344,7 @@ export default function FRT2(props) {
                 placeholder=""
                 value={Line1.Type3}
                 onChange={(event) => {
-                  setLine1({ ...Line2, Type3: event.nativeEvent.text });
+                  setLine1({ ...Line1, Type3: event.nativeEvent.text });
                 }}
               />*/}
               <TouchableOpacity
@@ -471,7 +471,7 @@ export default function FRT2(props) {
                 placeholder=""
                 value={Line1.Type4}
                 onChange={(event) => {
-                  setLine1({ ...Line2, Type4: event.nativeEvent.text });
+                  setLine1({ ...Line1, Type4: event.nativeEvent.text });
                 }}
               />*/}
               <TouchableOpacity
@@ -574,7 +574,7 @@ export default function FRT2(props) {
                 placeholder=""
                 value={Line1.Quantity}
                 onChange={(event) => {
-                  setLine1({ ...Line2, Quantity: event.nativeEvent.text });
+                  setLine1({ ...Line1, Quantity: event.nativeEvent.text });
                 }}
               />
             </View>
@@ -611,7 +611,7 @@ export default function FRT2(props) {
                 placeholder=""
                 value={Line1.Diameter}
                 onChange={(event) => {
-                  setLine1({ ...Line2, Diameter: event.nativeEvent.text });
+                  setLine1({ ...Line1, Diameter: event.nativeEvent.text });
                 }}
               />
             </View>
