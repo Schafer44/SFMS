@@ -19,6 +19,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import TimesheetBody from "./TimesheetBody";
 import { useHeaderHeight } from "@react-navigation/elements";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Timesheet(props, jobNum) {
   const [signature, setSign] = useState(null);
@@ -50,62 +51,104 @@ export default function Timesheet(props, jobNum) {
     });
     //setLines({ Line: props.route.params.file.Timesheet });
   };
-  useEffect(() => {
-    fetchJob();
-    if (props.route.params.file.TimesheetLines !== undefined) {
-      setBody(props.route.params.file.TimesheetLines);
+  const _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@MySuperStore:TS");
+
+      if (value !== null) {
+        // We have data!!
+        const temp = JSON.parse(value);
+        console.log(temp);
+        setBody(temp.TimesheetLines);
+        setHeader(temp.TimesheetHeader);
+        setComment(temp.Comment);
+        setSign(temp.signature);
+      }
+    } catch (error) {
+      console.log(error);
     }
-    if (props.route.params.file.TimesheetHeader !== undefined) {
-      setHeader(props.route.params.file.TimesheetHeader);
-      if (props.route.params.file.TimesheetHeader.Date === undefined) {
-        setHeader({
-          ...Header,
-          Date: new Date().toString(),
-        });
+  };
+  useEffect(() => {
+    if (props.route.params.offline) {
+      console.log("3");
+      setHeader({
+        ...Header,
+        Date: new Date().toString(),
+      });
+    } else {
+      fetchJob();
+      if (props.route.params.file.TimesheetLines !== undefined) {
+        setBody(props.route.params.file.TimesheetLines);
+      }
+      if (props.route.params.file.TimesheetHeader !== undefined) {
+        setHeader(props.route.params.file.TimesheetHeader);
+        if (props.route.params.file.TimesheetHeader.Date === undefined) {
+          setHeader({
+            ...Header,
+            Date: new Date().toString(),
+          });
+        }
+      }
+      if (props.route.params.file.Comment !== undefined) {
+        setComment(props.route.params.file.Comment);
+      }
+      if (props.route.params.file.signature !== undefined) {
+        setSign(props.route.params.file.signature);
       }
     }
-    if (props.route.params.file.Comment !== undefined) {
-      setComment(props.route.params.file.Comment);
-    }
-    if (props.route.params.file.signature !== undefined) {
-      setSign(props.route.params.file.signature);
-    }
   }, []);
-  const createTimesheet = (Timesheet) => {
-    //Job.push(Timesheet);
-    const docRef = doc(
-      db,
-      props.route.params.file.JobNum,
-      props.route.params.file.baseId
-    );
-    //const reference = ref(db, "TestJob101");
-    const docSnap = getDoc(docRef);
-    if (signature === null) {
-      Alert.alert("Signature Required");
-    } else if (
-      Header.Date === undefined ||
-      Header.Date == "" ||
-      Header.Date == null
-    ) {
-      Alert.alert("Date Required");
+  const createTimesheet = async (Timesheet) => {
+    if (props.route.params.offline) {
+      try {
+        await AsyncStorage.setItem(
+          "@MySuperStore:TS",
+          JSON.stringify({
+            TimesheetHeader: Header,
+            TimesheetLines: Body,
+            Comment: Comment,
+            Type: "Timesheet",
+            signature: signature,
+          })
+        );
+      } catch (error) {
+        console.log("Error");
+      }
     } else {
-      setDoc(docRef, {
-        TimesheetHeader: Header,
-        TimesheetLines: Body,
-        Comment: Comment,
-        Type: props.route.params.file.Type,
-        baseId: props.route.params.file.baseId,
-        signature: signature,
-        lastUpdatedBy: props.route.params.file.user,
-        TypeExtra: props.route.params.file.TypeExtra,
-        id: props.route.params.file.id,
-      })
-        .then(() => {
-          Alert.alert("Success");
+      //Job.push(Timesheet);
+      const docRef = doc(
+        db,
+        props.route.params.file.JobNum,
+        props.route.params.file.baseId
+      );
+      //const reference = ref(db, "TestJob101");
+      const docSnap = getDoc(docRef);
+      if (signature === null) {
+        Alert.alert("Signature Required");
+      } else if (
+        Header.Date === undefined ||
+        Header.Date == "" ||
+        Header.Date == null
+      ) {
+        Alert.alert("Date Required");
+      } else {
+        setDoc(docRef, {
+          TimesheetHeader: Header,
+          TimesheetLines: Body,
+          Comment: Comment,
+          Type: props.route.params.file.Type,
+          baseId: props.route.params.file.baseId,
+          signature: signature,
+          lastUpdatedBy: props.route.params.file.user,
+          TypeExtra: props.route.params.file.TypeExtra,
+          id: props.route.params.file.id,
         })
-        .catch((error) => {
-          Alert.alert("Submit Failed");
-        });
+          .then(() => {
+            Alert.alert("Success");
+          })
+          .catch((error) => {
+            Alert.alert("Submit Failed");
+          });
+      }
     }
   };
   const SignInScroll = () => {
@@ -269,6 +312,16 @@ export default function Timesheet(props, jobNum) {
             }}
           >
             <Text style={styles.loginText}>Submit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.SubBtn}
+            title="Submit"
+            underlayColor="#fff"
+            onPress={() => {
+              _retrieveData();
+            }}
+          >
+            <Text style={styles.loginText}>Import file from local device</Text>
           </TouchableOpacity>
         </View>
 

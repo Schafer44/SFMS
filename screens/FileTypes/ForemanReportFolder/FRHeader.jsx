@@ -8,7 +8,15 @@ export default function FRHeader(props) {
   const [Line0, setLine0] = useState({});
   const [Line1, setLine1] = useState({});
   const [Line2, setLine2] = useState({});
+  const [onLoad, setOnLoad] = useState(true);
   useEffect(() => {
+    if (props.offline && onLoad) {
+      setLine0({
+        ...Line0,
+        Date: new Date().toString(),
+      });
+      setOnLoad(false);
+    }
     if (Object.keys(Line0).length !== 0) {
       props.setHeader(props.Header, (props.Header[0] = { Line0 }));
     }

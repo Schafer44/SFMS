@@ -14,6 +14,7 @@ import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { SignatureCapture } from "../SignatureCapture";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import FRHeader from "./FRHeader";
 import FRT1 from "./FRT1";
@@ -40,8 +41,32 @@ export default function ForemanReport(props, jobNum) {
   const [T5, setT5] = useState([]);
   const [T6, setT6] = useState([]);
   const [T7, setT7] = useState([]);
+  const [Id, setId] = useState("");
+  const [User, setUser] = useState("");
   const [headerHeight] = useState(useHeaderHeight());
   const [scrollEnabled, setScrollEnabled] = useState(true);
+  const _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@MySuperStore:FR");
+      if (value !== null) {
+        // We have data!!
+        const temp = JSON.parse(value);
+        console.log("temp", temp);
+        setForemanSign(temp.ForemanSignature);
+        setClientSign(temp.ClientSignature);
+        setHeader(temp.Header);
+        setT1(temp.T1);
+        setT2(temp.T2);
+        setT3(temp.T3);
+        setT4(temp.T4);
+        setT5(temp.T5);
+        setT6(temp.T6);
+        setT7(temp.T7);
+      }
+    } catch (error) {
+      console.log("Error");
+    }
+  };
   const fetchJob = async () => {
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
@@ -56,37 +81,51 @@ export default function ForemanReport(props, jobNum) {
     });
   };
   useEffect(() => {
-    fetchJob();
-    if (props.route.params.file.Header !== undefined) {
-      setHeader(props.route.params.file.Header);
-    }
-    if (props.route.params.file.ForemanSignature !== undefined) {
-      setForemanSign(props.route.params.file.ForemanSignature);
-    }
-    if (props.route.params.file.ClientSignature !== undefined) {
-      setClientSign(props.route.params.file.ClientSignature);
-    }
-    if (props.route.params.file.T1 != undefined) {
-      setT1(props.route.params.file.T1);
-    }
-    if (props.route.params.file.T2 != undefined) {
-      setT2(props.route.params.file.T2);
-    }
-    if (props.route.params.file.T3 != undefined) {
-      setT3(props.route.params.file.T3);
-    }
-    if (props.route.params.file.T4 != undefined) {
-      setT4(props.route.params.file.T4);
-    }
-    if (props.route.params.file.T5 != undefined) {
-      setT5(props.route.params.file.T5);
-    }
-    if (props.route.params.file.T6 != undefined) {
-      setT6(props.route.params.file.T6);
-    }
+    if (props.route.params.offline) {
+      setHeader({
+        ...Header,
+        Date: new Date().toString(),
+      });
+    } else {
+      fetchJob();
+      if (props.route.params.file.Header !== undefined) {
+        setHeader(props.route.params.file.Header);
+      }
+      if (props.route.params.file.ForemanSignature !== undefined) {
+        setForemanSign(props.route.params.file.ForemanSignature);
+      }
+      if (props.route.params.file.ClientSignature !== undefined) {
+        setClientSign(props.route.params.file.ClientSignature);
+      }
+      if (props.route.params.file.T1 != undefined) {
+        setT1(props.route.params.file.T1);
+      }
+      if (props.route.params.file.T2 != undefined) {
+        setT2(props.route.params.file.T2);
+      }
+      if (props.route.params.file.T3 != undefined) {
+        setT3(props.route.params.file.T3);
+      }
+      if (props.route.params.file.T4 != undefined) {
+        setT4(props.route.params.file.T4);
+      }
+      if (props.route.params.file.T5 != undefined) {
+        setT5(props.route.params.file.T5);
+      }
+      if (props.route.params.file.T6 != undefined) {
+        setT6(props.route.params.file.T6);
+      }
 
-    if (props.route.params.file.T7 != undefined) {
-      setT7(props.route.params.file.T7);
+      if (props.route.params.file.T7 != undefined) {
+        setT7(props.route.params.file.T7);
+      }
+
+      if (props.route.params.file.user != undefined) {
+        setUser(props.route.params.file.user);
+      }
+      if (props.route.params.file.id != undefined) {
+        setId(props.route.params.file.id);
+      }
     }
   }, []);
 
@@ -119,7 +158,11 @@ export default function ForemanReport(props, jobNum) {
         <View>
           <View style={styles.RowOne}>
             <View style={styles.Header}>
-              <FRHeader Header={Header} setHeader={setHeader} />
+              <FRHeader
+                Header={Header}
+                setHeader={setHeader}
+                offline={props.route.params.offline}
+              />
             </View>
           </View>
 
@@ -170,8 +213,9 @@ export default function ForemanReport(props, jobNum) {
             setVisible2={setVisible2}
             ForemanSignature={ForemanSignature}
             ClientSignature={ClientSignature}
-            user={props.route.params.file.user}
-            id={props.route.params.file.id}
+            user={User}
+            id={Id}
+            _retrieveData={_retrieveData}
           />
         </View>
       </ScrollView>

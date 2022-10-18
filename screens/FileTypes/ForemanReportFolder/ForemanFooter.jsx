@@ -13,51 +13,74 @@ import {
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ForemanFooter(props) {
-  const createTimesheet = (Timesheet) => {
-    //Job.push(Timesheet);
-    const docRef = doc(
-      db,
-      props.route.params.file.JobNum,
-      props.route.params.file.baseId
-    );
-    //const reference = ref(db, "TestJob101");
-    const docSnap = getDoc(docRef);
-    if (props.ForemanSignature === null) {
-      Alert.alert("Foreman Signature Required");
-    } else if (props.ClientSignature === null) {
-      Alert.alert("Client Signature Required");
-    } else if (
-      props.Header[0].Line0.Date === undefined ||
-      props.Header[0].Line0.Date === null ||
-      props.Header[0].Line0.Date === ""
-    ) {
-      Alert.alert("Date Required");
+  const createTimesheet = async (Timesheet) => {
+    if (props.route.params.offline) {
+      try {
+        await AsyncStorage.setItem(
+          "@MySuperStore:FR",
+          JSON.stringify({
+            ForemanSignature: props.ForemanSignature,
+            ClientSignature: props.ClientSignature,
+            Header: props.Header,
+            T1: props.T1,
+            T2: props.T2,
+            T3: props.T3,
+            T4: props.T4,
+            T5: props.T5,
+            T6: props.T6,
+            T7: props.T7,
+          })
+        );
+      } catch (error) {
+        console.log("Error");
+      }
     } else {
-      setDoc(docRef, {
-        T1: props.T1,
-        T2: props.T2,
-        T3: props.T3,
-        T4: props.T4,
-        T5: props.T5,
-        T6: props.T6,
-        T7: props.T7,
-        Header: props.Header,
-        Type: props.route.params.file.Type,
-        baseId: props.route.params.file.baseId,
-        ForemanSignature: props.ForemanSignature,
-        ClientSignature: props.ClientSignature,
-        TypeExtra: props.route.params.file.TypeExtra,
-        lastUpdatedBy: props.user,
-        id: props.id,
-      })
-        .then(() => {
-          Alert.alert("Success");
+      //Job.push(Timesheet);
+      const docRef = doc(
+        db,
+        props.route.params.file.JobNum,
+        props.route.params.file.baseId
+      );
+      //const reference = ref(db, "TestJob101");
+      const docSnap = getDoc(docRef);
+      if (props.ForemanSignature === null) {
+        Alert.alert("Foreman Signature Required");
+      } else if (props.ClientSignature === null) {
+        Alert.alert("Client Signature Required");
+      } else if (
+        props.Header[0].Line0.Date === undefined ||
+        props.Header[0].Line0.Date === null ||
+        props.Header[0].Line0.Date === ""
+      ) {
+        Alert.alert("Date Required");
+      } else {
+        setDoc(docRef, {
+          T1: props.T1,
+          T2: props.T2,
+          T3: props.T3,
+          T4: props.T4,
+          T5: props.T5,
+          T6: props.T6,
+          T7: props.T7,
+          Header: props.Header,
+          Type: props.route.params.file.Type,
+          baseId: props.route.params.file.baseId,
+          ForemanSignature: props.ForemanSignature,
+          ClientSignature: props.ClientSignature,
+          TypeExtra: props.route.params.file.TypeExtra,
+          lastUpdatedBy: props.user,
+          id: props.id,
         })
-        .catch((error) => {
-          Alert.alert("Submit Failed");
-        });
+          .then(() => {
+            Alert.alert("Success");
+          })
+          .catch((error) => {
+            Alert.alert("Submit Failed");
+          });
+      }
     }
   };
   const toggleOverlay = () => {
@@ -94,6 +117,17 @@ export default function ForemanFooter(props) {
           }}
         >
           <Text style={styles.loginText}>Submit</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.SubBtn}
+          title="Submit"
+          underlayColor="#fff"
+          onPress={() => {
+            props._retrieveData();
+          }}
+        >
+          <Text style={styles.loginText}>Import file from local device</Text>
         </TouchableOpacity>
       </View>
 

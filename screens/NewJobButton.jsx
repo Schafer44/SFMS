@@ -31,6 +31,12 @@ export default class NewTimesheet extends React.Component {
       var Job = [];
       if (this.state.jobNum === "") {
         Alert.alert("Please Insert Job Number");
+      } else if (this.state.jobNum.includes("/")) {
+        Alert.alert("Job number cannot include any /");
+      } else if (this.state.jobNum.includes("%20")) {
+        Alert.alert("Job number cannot include any %20");
+      } else if (this.state.jobNum.includes("_")) {
+        Alert.alert("Job number cannot include any _");
       } else {
         let TempJSA = "";
         let TempFR = "";

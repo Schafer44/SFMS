@@ -14,6 +14,7 @@ import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { SignatureCapture } from "../SignatureCapture";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import JSAT1 from "./JSAT1";
 import JSAT2 from "./JSAT2";
@@ -44,8 +45,36 @@ export default function JSA(props, jobNum) {
   const [T9, setT9] = useState([]);
   const [T10, setT10] = useState([]);
   const [T11, setT11] = useState([]);
+  const [Id, setId] = useState("");
+  const [User, setUser] = useState("");
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [headerHeight] = useState(useHeaderHeight());
+
+  const _retrieveData = async () => {
+    console.log("1");
+    try {
+      const value = await AsyncStorage.getItem("@MySuperStore:JSA");
+      if (value !== null) {
+        // We have data!!
+        const temp = JSON.parse(value);
+        console.log("temp", temp);
+        setSign(temp.signature);
+        setT1(temp.T1);
+        setT2(temp.T2);
+        setT3(temp.T3);
+        setT4(temp.T4);
+        setT5(temp.T5);
+        setT6(temp.T6);
+        setT7(temp.T7);
+        setT8(temp.T8);
+        setT9(temp.T9);
+        setT10(temp.T10);
+        setT11(temp.T11);
+      }
+    } catch (error) {
+      console.log("Error");
+    }
+  };
   const fetchJob = async () => {
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
@@ -60,42 +89,51 @@ export default function JSA(props, jobNum) {
     });
   };
   useEffect(() => {
-    fetchJob();
-    if (props.route.params.file.signature !== undefined) {
-      setSign(props.route.params.file.signature);
-    }
-    if (props.route.params.file.T1 != undefined) {
-      setT1(props.route.params.file.T1);
-    }
-    if (props.route.params.file.T2 != undefined) {
-      setT2(props.route.params.file.T2);
-    }
-    if (props.route.params.file.T3 != undefined) {
-      setT3(props.route.params.file.T3);
-    }
-    if (props.route.params.file.T4 != undefined) {
-      setT4(props.route.params.file.T4);
-    }
-    if (props.route.params.file.T5 != undefined) {
-      setT5(props.route.params.file.T5);
-    }
-    if (props.route.params.file.T6 != undefined) {
-      setT6(props.route.params.file.T6);
-    }
-    if (props.route.params.file.T7 != undefined) {
-      setT7(props.route.params.file.T7);
-    }
-    if (props.route.params.file.T8 != undefined) {
-      setT8(props.route.params.file.T8);
-    }
-    if (props.route.params.file.T9 != undefined) {
-      setT9(props.route.params.file.T9);
-    }
-    if (props.route.params.file.T10 != undefined) {
-      setT10(props.route.params.file.T10);
-    }
-    if (props.route.params.file.T11 != undefined) {
-      setT11(props.route.params.file.T11);
+    if (props.route.params.offline) {
+    } else {
+      fetchJob();
+      if (props.route.params.file.signature !== undefined) {
+        setSign(props.route.params.file.signature);
+      }
+      if (props.route.params.file.T1 != undefined) {
+        setT1(props.route.params.file.T1);
+      }
+      if (props.route.params.file.T2 != undefined) {
+        setT2(props.route.params.file.T2);
+      }
+      if (props.route.params.file.T3 != undefined) {
+        setT3(props.route.params.file.T3);
+      }
+      if (props.route.params.file.T4 != undefined) {
+        setT4(props.route.params.file.T4);
+      }
+      if (props.route.params.file.T5 != undefined) {
+        setT5(props.route.params.file.T5);
+      }
+      if (props.route.params.file.T6 != undefined) {
+        setT6(props.route.params.file.T6);
+      }
+      if (props.route.params.file.T7 != undefined) {
+        setT7(props.route.params.file.T7);
+      }
+      if (props.route.params.file.T8 != undefined) {
+        setT8(props.route.params.file.T8);
+      }
+      if (props.route.params.file.T9 != undefined) {
+        setT9(props.route.params.file.T9);
+      }
+      if (props.route.params.file.T10 != undefined) {
+        setT10(props.route.params.file.T10);
+      }
+      if (props.route.params.file.T11 != undefined) {
+        setT11(props.route.params.file.T11);
+      }
+      if (props.route.params.file.user != undefined) {
+        setUser(props.route.params.file.user);
+      }
+      if (props.route.params.file.id != undefined) {
+        setId(props.route.params.file.id);
+      }
     }
   }, []);
 
@@ -128,7 +166,12 @@ export default function JSA(props, jobNum) {
         <View>
           <View style={styles.RowOne}>
             <View style={styles.Header}>
-              <JSAT1 T1={T1} setT1={setT1} id={0} />
+              <JSAT1
+                T1={T1}
+                setT1={setT1}
+                offline={props.route.params.offline}
+                id={0}
+              />
             </View>
           </View>
           <View style={styles.RowTwo}>
@@ -224,8 +267,9 @@ export default function JSA(props, jobNum) {
             visible={visible}
             setVisible={setVisible}
             signature={signature}
-            user={props.route.params.file.user}
-            id={props.route.params.file.id}
+            user={User}
+            id={Id}
+            _retrieveData={_retrieveData}
           />
         </View>
       </ScrollView>

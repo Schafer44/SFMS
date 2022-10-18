@@ -8,16 +8,22 @@ import {
   TouchableOpacity,
   View,
   Image,
+  TouchableHighlight,
 } from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import authentication from "./FirebaseLink";
 import Logo from "../assets/LoginLogo.png";
 import { fetchUsersCompany } from "./FirebaseLink";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [active, setActive] = useState(false);
+  const toggleOverlay = () => {
+    setActive(!active);
+  };
 
   useEffect(() => {}, []);
   const handleLogin = async () => {
@@ -52,13 +58,50 @@ const LoginScreen = (props) => {
           style={styles.input}
           secureTextEntry
         />
-      </View>
 
-      <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={handleLogin} style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </View>
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={toggleOverlay} style={styles.button}>
+          <Text style={styles.buttonText}>No service?</Text>
+        </TouchableOpacity>
+      </View>
+      {active ? (
+        <>
+          <TouchableHighlight
+            underlayColor="#272727"
+            style={styles.button}
+            onPress={() =>
+              props.navigation.navigate("Timesheet", { offline: true })
+            }
+          >
+            <Text style={styles.buttonText}>Timesheet</Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight
+            underlayColor="#272727"
+            style={styles.button}
+            onPress={() => props.navigation.navigate("JSA", { offline: true })}
+          >
+            <Text style={styles.buttonText}>JSA</Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight
+            underlayColor="#272727"
+            style={styles.button}
+            onPress={() =>
+              props.navigation.navigate("Foreman Report", { offline: true })
+            }
+          >
+            <Text style={styles.buttonText}>Foreman Report</Text>
+          </TouchableHighlight>
+        </>
+      ) : (
+        <></>
+      )}
     </KeyboardAvoidingView>
   );
 };
