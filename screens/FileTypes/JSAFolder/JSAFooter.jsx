@@ -17,14 +17,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function JSAFooter(props) {
   const createTimesheet = async (Timesheet) => {
-    console.log(props);
-    if (props.route.params.offline) {
+    if (props.route.params.offline === true) {
       try {
         await AsyncStorage.setItem(
           "@MySuperStore:JSA",
           JSON.stringify({
             signature: props.signature,
-            Header: props.Header,
             T1: props.T1,
             T2: props.T2,
             T3: props.T3,

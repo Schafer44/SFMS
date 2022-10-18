@@ -8,7 +8,9 @@ export default function JSAT1(props) {
   const [Table, setTable] = useState({});
   const [onLoad, setOnLoad] = useState(true);
   useEffect(() => {
-    if (props.offline && onLoad) {
+    console.log("props", props);
+    if (props.offline === true && onLoad) {
+      console.log("here");
       setTable({
         ...Table,
         Date: new Date().toString(),

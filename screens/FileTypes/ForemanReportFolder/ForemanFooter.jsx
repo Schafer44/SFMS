@@ -17,10 +17,24 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ForemanFooter(props) {
   const createTimesheet = async (Timesheet) => {
-    if (props.route.params.offline) {
+    if (props.route.params.offline === true) {
       try {
         await AsyncStorage.setItem(
           "@MySuperStore:FR",
+          JSON.stringify({
+            ForemanSignature: props.ForemanSignature,
+            ClientSignature: props.ClientSignature,
+            Header: props.Header,
+            T1: props.T1,
+            T2: props.T2,
+            T3: props.T3,
+            T4: props.T4,
+            T5: props.T5,
+            T6: props.T6,
+            T7: props.T7,
+          })
+        );
+        console.log(
           JSON.stringify({
             ForemanSignature: props.ForemanSignature,
             ClientSignature: props.ClientSignature,

@@ -82,10 +82,6 @@ export default function ForemanReport(props, jobNum) {
   };
   useEffect(() => {
     if (props.route.params.offline) {
-      setHeader({
-        ...Header,
-        Date: new Date().toString(),
-      });
     } else {
       fetchJob();
       if (props.route.params.file.Header !== undefined) {
