@@ -24,6 +24,9 @@ import AllOQ from "./all_Folder/allOQ";
 import NewForemanReport from "./NewForemanReport";
 import NewJSA from "./NewJSA";
 import NewTimesheet from "./NewTimesheet";
+import NewTimesheetFE from "./NewExistingTS";
+import NewJSAFE from "./NewExistingJSA";
+import NewForemanReportFE from "./NewExistingFR";
 import NewOQ from "./NewOQ";
 import AllTimesheetDup from "./all_Folder/allTimesheetDup";
 import AllForemanDup from "./all_Folder/AllForemanDup";
@@ -97,6 +100,11 @@ export const Job = (props) => {
                 tempKey={1}
                 job={Job}
               />
+              <NewTimesheetFE
+                jobNum={props.route.params.job.JobNum}
+                tempKey={1}
+                job={Job}
+              />
               <AllTimesheetDup
                 job={Job}
                 navigation={props.navigation}
@@ -128,6 +136,11 @@ export const Job = (props) => {
                 tempKey={2}
                 job={Job}
               />
+              <NewJSAFE
+                jobNum={props.route.params.job.JobNum}
+                tempKey={2}
+                job={Job}
+              />
               <AllJSADup
                 job={Job}
                 navigation={props.navigation}
@@ -155,6 +168,11 @@ export const Job = (props) => {
                 searchPhrase={searchPhrase}
               />
               <NewForemanReport
+                jobNum={props.route.params.job.JobNum}
+                tempKey={3}
+                job={Job}
+              />
+              <NewForemanReportFE
                 jobNum={props.route.params.job.JobNum}
                 tempKey={3}
                 job={Job}

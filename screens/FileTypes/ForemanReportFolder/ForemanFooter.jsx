@@ -18,6 +18,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function ForemanFooter(props) {
   const createTimesheet = async (Timesheet) => {
     if (props.route.params.offline === true) {
+      console.log(props.T2);
       try {
         await AsyncStorage.setItem(
           "@MySuperStore:FR",
@@ -35,6 +36,7 @@ export default function ForemanFooter(props) {
           })
         );
         console.log(
+          "ttftftft",
           JSON.stringify({
             ForemanSignature: props.ForemanSignature,
             ClientSignature: props.ClientSignature,
@@ -71,6 +73,7 @@ export default function ForemanFooter(props) {
       ) {
         Alert.alert("Date Required");
       } else {
+        console.log(props.T2);
         setDoc(docRef, {
           T1: props.T1,
           T2: props.T2,
@@ -131,17 +134,6 @@ export default function ForemanFooter(props) {
           }}
         >
           <Text style={styles.loginText}>Submit</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.SubBtn}
-          title="Submit"
-          underlayColor="#fff"
-          onPress={() => {
-            props._retrieveData();
-          }}
-        >
-          <Text style={styles.loginText}>Import file from local device</Text>
         </TouchableOpacity>
       </View>
 
