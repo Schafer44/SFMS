@@ -17,17 +17,17 @@ export default class NewForemanReportFE extends React.Component {
     this.state = {
       jobNum: "",
       company: props.company,
-      Header: {},
-      T1: {},
-      T2: {},
-      T3: {},
-      T4: {},
-      T5: {},
-      T6: {},
-      T7: {},
+      Type: "Foreman Report",
+      TypeExtra: null,
+      Header: [{ Line0: {} }],
+      T1: [{ Line0: {} }, { Line1: {} }],
+      T2: [{ Line0: {} }],
+      T3: [{ Line0: {} }],
+      T4: [{ Line0: {} }],
+      T5: [{ Line0: {} }],
+      T6: [{ Line0: {} }, { Line1: {} }],
+      T7: [{ Line0: {} }],
       id: this.props.job.length,
-      ForemanSignature: "",
-      ClientSignature: "",
     };
   }
 

@@ -14,20 +14,28 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default class NewJSAFE extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      jobNum: "",
+      company: props.company,
+      id: this.props.job.length,
+      Type: "JSA",
+      TypeExtra: null,
+      T1: [{ Table: {} }],
+      T2: [{ Table: {} }],
+      T3: [{ Table: {} }],
+      T4: [{ Table: {} }],
+      T5: [{ Table: {} }],
+      T6: [{ Table: {} }],
+      T7: [{ Table: {} }],
+      T8: [{ Table: {} }],
+      T9: [{ Line0: {} }],
+      T10: [{ Line0: {} }],
+      T11: [{ Line0: {} }],
+      id: this.props.job.length,
+      sig: null,
+    };
   }
   render() {
-    const [signature, setSign] = useState(null);
-    const [T1, setT1] = useState([]);
-    const [T2, setT2] = useState([]);
-    const [T3, setT3] = useState([]);
-    const [T4, setT4] = useState([]);
-    const [T5, setT5] = useState([]);
-    const [T6, setT6] = useState([]);
-    const [T7, setT7] = useState([]);
-    const [T8, setT8] = useState([]);
-    const [T9, setT9] = useState([]);
-    const [T10, setT10] = useState([]);
-    const [T11, setT11] = useState([]);
     const _retrieveData = async () => {
       console.log("1");
       try {
@@ -36,24 +44,25 @@ export default class NewJSAFE extends React.Component {
           // We have data!!
           const temp = JSON.parse(value);
           console.log("temp", temp);
-          setSign(temp.signature);
-          setT1(temp.T1);
-          setT2(temp.T2);
-          setT3(temp.T3);
-          setT4(temp.T4);
-          setT5(temp.T5);
-          setT6(temp.T6);
-          setT7(temp.T7);
-          setT8(temp.T8);
-          setT9(temp.T9);
-          setT10(temp.T10);
-          setT11(temp.T11);
+          this.state.sig = temp.signature;
+          this.state.T1 = temp.T1;
+          this.state.T2 = temp.T2;
+          this.state.T3 = temp.T3;
+          this.state.T4 = temp.T4;
+          this.state.T5 = temp.T5;
+          this.state.T6 = temp.T6;
+          this.state.T7 = temp.T7;
+          this.state.T8 = temp.T8;
+          this.state.T9 = temp.T9;
+          this.state.T10 = temp.T10;
+          this.state.T11 = temp.T11;
         }
       } catch (error) {
         console.log("Error");
       }
     };
     const DoBoth = async () => {
+      await _retrieveData();
       const Ref = await NewJSA();
     };
     const NewJSA = async () => {
@@ -66,19 +75,19 @@ export default class NewJSAFE extends React.Component {
           Type: "JSA",
           TypeExtra: "null",
           baseId: ref._delegate._key.path.segments[1],
-          T1: T1,
-          T2: T2,
-          T3: T3,
-          T4: T4,
-          T5: T5,
-          T6: T6,
-          T7: T7,
-          T8: T8,
-          T9: T9,
-          T10: T10,
-          T11: T11,
+          T1: this.state.T1,
+          T2: this.state.T2,
+          T3: this.state.T3,
+          T4: this.state.T4,
+          T5: this.state.T5,
+          T6: this.state.T6,
+          T7: this.state.T7,
+          T8: this.state.T8,
+          T9: this.state.T9,
+          T10: this.state.T10,
+          T11: this.state.T11,
           id: this.props.job.length,
-          signature: signature,
+          signature: this.state.sig,
         });
       /*const ehehe = await response.add({
         Type: "Timesheet",

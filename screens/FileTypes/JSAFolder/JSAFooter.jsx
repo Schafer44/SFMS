@@ -110,17 +110,6 @@ export default function JSAFooter(props) {
         >
           <Text style={styles.loginText}>Submit</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.SubBtn}
-          title="Submit"
-          underlayColor="#fff"
-          onPress={() => {
-            props._retrieveData();
-          }}
-        >
-          <Text style={styles.loginText}>Import file from local device</Text>
-        </TouchableOpacity>
       </View>
       <Image
         resizeMode={"contain"}

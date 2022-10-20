@@ -50,31 +50,6 @@ export default function JSA(props, jobNum) {
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [headerHeight] = useState(useHeaderHeight());
 
-  const _retrieveData = async () => {
-    console.log("1");
-    try {
-      const value = await AsyncStorage.getItem("@MySuperStore:JSA");
-      if (value !== null) {
-        // We have data!!
-        const temp = JSON.parse(value);
-        console.log("temp", temp);
-        setSign(temp.signature);
-        setT1(temp.T1);
-        setT2(temp.T2);
-        setT3(temp.T3);
-        setT4(temp.T4);
-        setT5(temp.T5);
-        setT6(temp.T6);
-        setT7(temp.T7);
-        setT8(temp.T8);
-        setT9(temp.T9);
-        setT10(temp.T10);
-        setT11(temp.T11);
-      }
-    } catch (error) {
-      console.log("Error");
-    }
-  };
   const fetchJob = async () => {
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
@@ -90,6 +65,18 @@ export default function JSA(props, jobNum) {
   };
   useEffect(() => {
     if (props.route.params.offline) {
+      setT1([{ Table: {} }]);
+      setT2([{ Table: {} }]);
+      setT3([{ Table: {} }]);
+      setT4([{ Table: {} }]);
+      setT5([{ Table: {} }]);
+      setT6([{ Table: {} }]);
+      setT7([{ Table: {} }]);
+      setT8([{ Table: {} }]);
+      setT9([{ Line0: {} }]);
+      setT10([{ Line0: {} }]);
+      setT11([{ Line0: {} }]);
+      setSign(null);
     } else {
       fetchJob();
       if (props.route.params.file.signature !== undefined) {
@@ -269,7 +256,6 @@ export default function JSA(props, jobNum) {
             signature={signature}
             user={User}
             id={Id}
-            _retrieveData={_retrieveData}
           />
         </View>
       </ScrollView>

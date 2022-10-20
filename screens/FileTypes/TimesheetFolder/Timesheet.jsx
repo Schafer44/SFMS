@@ -51,30 +51,15 @@ export default function Timesheet(props, jobNum) {
     });
     //setLines({ Line: props.route.params.file.Timesheet });
   };
-  const _retrieveData = async () => {
-    try {
-      const value = await AsyncStorage.getItem("@MySuperStore:TS");
-
-      if (value !== null) {
-        // We have data!!
-        const temp = JSON.parse(value);
-        console.log(temp);
-        setBody(temp.TimesheetLines);
-        setHeader(temp.TimesheetHeader);
-        setComment(temp.Comment);
-        setSign(temp.signature);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
   useEffect(() => {
     if (props.route.params.offline) {
-      console.log("3");
       setHeader({
         ...Header,
         Date: new Date().toString(),
       });
+      setBody({});
+      setComment("");
+      setSign(null);
     } else {
       fetchJob();
       if (props.route.params.file.TimesheetLines !== undefined) {
@@ -312,16 +297,6 @@ export default function Timesheet(props, jobNum) {
             }}
           >
             <Text style={styles.loginText}>Submit</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.SubBtn}
-            title="Submit"
-            underlayColor="#fff"
-            onPress={() => {
-              _retrieveData();
-            }}
-          >
-            <Text style={styles.loginText}>Import file from local device</Text>
           </TouchableOpacity>
         </View>
 

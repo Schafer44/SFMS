@@ -14,48 +14,56 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default class NewTimesheetFE extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      Type: "Timesheet",
+      TypeExtra: "null",
+      TimesheetLines: {},
+      TimesheetHeader: {},
+      id: this.props.job.length,
+      Sig: null,
+    };
   }
   render() {
-    const [signature, setSign] = useState(null);
-    const [Comment, setComment] = useState("");
-    const [Header, setHeader] = useState([]);
-    const [Body, setBody] = useState([]);
     const _retrieveData = async () => {
       try {
         const value = await AsyncStorage.getItem("@MySuperStore:TS");
 
         if (value !== null) {
+          console.log(temp);
           // We have data!!
           const temp = JSON.parse(value);
           console.log(temp);
-          setBody(temp.TimesheetLines);
-          setHeader(temp.TimesheetHeader);
-          setComment(temp.Comment);
-          setSign(temp.signature);
+          this.state.TimesheetLines = temp.TimesheetLines;
+          this.state.Header = temp.TimesheetHeader;
+          this.state.Comment = temp.Comment;
+          this.state.Sig = temp.signature;
         }
       } catch (error) {
         console.log(error);
       }
     };
     const DoBoth = async () => {
+      await _retrieveData();
       const Ref = await NewTimesheet();
     };
 
     const NewTimesheet = async () => {
+      console.log(this.state);
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
+      console.log();
       const ehehe = await db
         .collection(this.props.jobNum)
         .doc(ref._delegate._key.path.segments[1])
         .set({
           Type: "Timesheet",
-          TypeExtra: "null",
+          TypeExtra: null,
           baseId: ref._delegate._key.path.segments[1],
-          TimesheetLines: Body,
-          TimesheetHeader: Header,
+          TimesheetLines: this.state.TimesheetLines,
+          TimesheetHeader: this.state.Header,
           id: this.props.job.length,
-          signature: signature,
-          Comment: Comment,
+          signature: this.state.Sig,
+          Comment: this.state.Comment,
         });
       /*const ehehe = await response.add({
         Type: "Timesheet",

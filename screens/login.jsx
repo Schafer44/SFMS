@@ -50,12 +50,14 @@ const LoginScreen = (props) => {
           value={email}
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
+          placeholderTextColor="darkgrey"
         />
         <TextInput
           placeholder="Password"
           value={password}
           onChangeText={(text) => setPassword(text)}
           style={styles.input}
+          placeholderTextColor="darkgrey"
           secureTextEntry
         />
 
@@ -71,33 +73,44 @@ const LoginScreen = (props) => {
       </View>
       {active ? (
         <>
-          <TouchableHighlight
-            underlayColor="#272727"
-            style={styles.button}
-            onPress={() =>
-              props.navigation.navigate("Timesheet", { offline: true })
-            }
-          >
-            <Text style={styles.buttonText}>Timesheet</Text>
-          </TouchableHighlight>
+          <View style={styles.OfflineBtnCont}>
+            <TouchableHighlight
+              underlayColor="#272727"
+              style={styles.button}
+              onPress={() =>
+                props.navigation.navigate("Timesheet", { offline: true })
+              }
+            >
+              <Text style={styles.buttonText}>Timesheet</Text>
+            </TouchableHighlight>
 
-          <TouchableHighlight
-            underlayColor="#272727"
-            style={styles.button}
-            onPress={() => props.navigation.navigate("JSA", { offline: true })}
-          >
-            <Text style={styles.buttonText}>JSA</Text>
-          </TouchableHighlight>
+            <TouchableHighlight
+              underlayColor="#272727"
+              style={styles.button}
+              onPress={() =>
+                props.navigation.navigate("JSA", { offline: true })
+              }
+            >
+              <Text style={styles.buttonText}>JSA</Text>
+            </TouchableHighlight>
 
-          <TouchableHighlight
-            underlayColor="#272727"
-            style={styles.button}
-            onPress={() =>
-              props.navigation.navigate("Foreman Report", { offline: true })
-            }
-          >
-            <Text style={styles.buttonText}>Foreman Report</Text>
-          </TouchableHighlight>
+            <TouchableHighlight
+              underlayColor="#272727"
+              style={styles.button}
+              onPress={() =>
+                props.navigation.navigate("Foreman Report", { offline: true })
+              }
+            >
+              <Text style={styles.buttonText}>Foreman Report</Text>
+            </TouchableHighlight>
+
+            <TouchableOpacity
+              onPress={toggleOverlay}
+              style={styles.buttonSmall}
+            >
+              <Text style={styles.buttonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
         </>
       ) : (
         <></>
@@ -112,9 +125,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    justifyContent: "center",
+  },
+  OfflineBtnCont: {
+    width: 305,
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    padding: 10,
+    aspectRatio: 1 / 1,
+    borderColor: "lightgray",
+    borderWidth: 2,
+    borderRadius: 20,
   },
   Logo: {
-    marginTop: "15%",
     marginBottom: "5%",
     width: "50%",
     height: "40%",
@@ -130,6 +155,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 10,
     marginTop: 5,
+    color: "black",
   },
   buttonContainer: {
     width: "60%",
@@ -143,7 +169,22 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "green",
+    margin: "1%",
+    height: 65,
+  },
+
+  buttonSmall: {
+    backgroundColor: "#0782F9",
+    width: "50%",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "green",
+    margin: "1%",
+    height: 65,
   },
   buttonOutline: {
     backgroundColor: "white",
