@@ -56,7 +56,7 @@ export const Job = (props) => {
   const [fileType, setFileType] = useState("");
   const [Job, setJobs] = useState([]);
   useEffect(() => {
-    onSnapshot(
+    const unsubscribe = onSnapshot(
       query(
         collection(db, props.route.params.job.JobNum),
         orderBy("id", "desc")
@@ -65,6 +65,10 @@ export const Job = (props) => {
         setJobs(snapshot.docs.map((doc) => doc.data()));
       }
     );
+
+    return () => {
+      unsubscribe();
+    };
     //fetchJobs();
   }, []);
 

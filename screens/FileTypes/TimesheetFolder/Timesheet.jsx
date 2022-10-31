@@ -52,35 +52,42 @@ export default function Timesheet(props, jobNum) {
     //setLines({ Line: props.route.params.file.Timesheet });
   };
   useEffect(() => {
-    if (props.route.params.offline) {
-      setHeader({
-        ...Header,
-        Date: new Date().toString(),
-      });
-      setBody({});
-      setComment("");
-      setSign(null);
-    } else {
-      fetchJob();
-      if (props.route.params.file.TimesheetLines !== undefined) {
-        setBody(props.route.params.file.TimesheetLines);
-      }
-      if (props.route.params.file.TimesheetHeader !== undefined) {
-        setHeader(props.route.params.file.TimesheetHeader);
-        if (props.route.params.file.TimesheetHeader.Date === undefined) {
-          setHeader({
-            ...Header,
-            Date: new Date().toString(),
-          });
+    let isSubscribed = true;
+    if (isSubscribed) {
+      if (props.route.params.offline) {
+        setHeader({
+          ...Header,
+          Date: new Date().toString(),
+        });
+        setBody({});
+        setComment("");
+        setSign(null);
+      } else {
+        fetchJob();
+        if (props.route.params.file.TimesheetLines !== undefined) {
+          setBody(props.route.params.file.TimesheetLines);
+        }
+        if (props.route.params.file.TimesheetHeader !== undefined) {
+          setHeader(props.route.params.file.TimesheetHeader);
+          if (props.route.params.file.TimesheetHeader.Date === undefined) {
+            setHeader({
+              ...Header,
+              Date: new Date().toString(),
+            });
+          }
+        }
+        if (props.route.params.file.Comment !== undefined) {
+          setComment(props.route.params.file.Comment);
+        }
+        if (props.route.params.file.signature !== undefined) {
+          setSign(props.route.params.file.signature);
         }
       }
-      if (props.route.params.file.Comment !== undefined) {
-        setComment(props.route.params.file.Comment);
-      }
-      if (props.route.params.file.signature !== undefined) {
-        setSign(props.route.params.file.signature);
-      }
     }
+    return () => {
+      // cancel the subscription
+      isSubscribed = false;
+    };
   }, []);
   const createTimesheet = async (Timesheet) => {
     if (props.route.params.offline) {

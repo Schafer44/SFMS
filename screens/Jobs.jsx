@@ -51,12 +51,16 @@ export default function Jobs(props) {
       });
   };
   useEffect(() => {
-    onSnapshot(
+    const unsubscribe = onSnapshot(
       query(collection(db, props.company), orderBy("JobNum")),
       (snapshot) => {
         setJobs(snapshot.docs.map((doc) => doc.data()));
       }
     );
+
+    return () => {
+      unsubscribe();
+    };
     //fetchJobs();
   }, []);
 

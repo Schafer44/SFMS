@@ -60,58 +60,65 @@ export default function ForemanReport(props, jobNum) {
     });
   };
   useEffect(() => {
-    if (props.route.params.offline) {
-      setHeader([{ Line0: {} }]);
-      setForemanSign(null);
-      setClientSign(null);
-      setT1([{ Line0: {} }, { Line1: {} }]);
-      setT2([{ Line0: {} }]);
-      setT3([{ Line0: {} }]);
-      setT4([{ Line0: {} }]);
-      setT5([{ Line0: {} }]);
-      setT6([{ Line0: {} }, { Line1: {} }]);
-      setT7([{ Line0: {} }]);
-    } else {
-      fetchJob();
-      if (props.route.params.file.Header !== undefined) {
-        setHeader(props.route.params.file.Header);
-      }
-      if (props.route.params.file.ForemanSignature !== undefined) {
-        setForemanSign(props.route.params.file.ForemanSignature);
-      }
-      if (props.route.params.file.ClientSignature !== undefined) {
-        setClientSign(props.route.params.file.ClientSignature);
-      }
-      if (props.route.params.file.T1 != undefined) {
-        setT1(props.route.params.file.T1);
-      }
-      if (props.route.params.file.T2 != undefined) {
-        setT2(props.route.params.file.T2);
-      }
-      if (props.route.params.file.T3 != undefined) {
-        setT3(props.route.params.file.T3);
-      }
-      if (props.route.params.file.T4 != undefined) {
-        setT4(props.route.params.file.T4);
-      }
-      if (props.route.params.file.T5 != undefined) {
-        setT5(props.route.params.file.T5);
-      }
-      if (props.route.params.file.T6 != undefined) {
-        setT6(props.route.params.file.T6);
-      }
+    let isSubscribed = true;
+    if (isSubscribed) {
+      if (props.route.params.offline) {
+        setHeader([{ Line0: {} }]);
+        setForemanSign(null);
+        setClientSign(null);
+        setT1([{ Line0: {} }, { Line1: {} }]);
+        setT2([{ Line0: {} }]);
+        setT3([{ Line0: {} }]);
+        setT4([{ Line0: {} }]);
+        setT5([{ Line0: {} }]);
+        setT6([{ Line0: {} }, { Line1: {} }]);
+        setT7([{ Line0: {} }]);
+      } else {
+        fetchJob();
+        if (props.route.params.file.Header !== undefined) {
+          setHeader(props.route.params.file.Header);
+        }
+        if (props.route.params.file.ForemanSignature !== undefined) {
+          setForemanSign(props.route.params.file.ForemanSignature);
+        }
+        if (props.route.params.file.ClientSignature !== undefined) {
+          setClientSign(props.route.params.file.ClientSignature);
+        }
+        if (props.route.params.file.T1 != undefined) {
+          setT1(props.route.params.file.T1);
+        }
+        if (props.route.params.file.T2 != undefined) {
+          setT2(props.route.params.file.T2);
+        }
+        if (props.route.params.file.T3 != undefined) {
+          setT3(props.route.params.file.T3);
+        }
+        if (props.route.params.file.T4 != undefined) {
+          setT4(props.route.params.file.T4);
+        }
+        if (props.route.params.file.T5 != undefined) {
+          setT5(props.route.params.file.T5);
+        }
+        if (props.route.params.file.T6 != undefined) {
+          setT6(props.route.params.file.T6);
+        }
 
-      if (props.route.params.file.T7 != undefined) {
-        setT7(props.route.params.file.T7);
-      }
+        if (props.route.params.file.T7 != undefined) {
+          setT7(props.route.params.file.T7);
+        }
 
-      if (props.route.params.file.user != undefined) {
-        setUser(props.route.params.file.user);
-      }
-      if (props.route.params.file.id != undefined) {
-        setId(props.route.params.file.id);
+        if (props.route.params.file.user != undefined) {
+          setUser(props.route.params.file.user);
+        }
+        if (props.route.params.file.id != undefined) {
+          setId(props.route.params.file.id);
+        }
       }
     }
+    return () => {
+      // cancel the subscription
+      isSubscribed = false;
+    };
   }, []);
 
   const SignInScroll = () => {

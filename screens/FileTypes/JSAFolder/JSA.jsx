@@ -64,64 +64,71 @@ export default function JSA(props, jobNum) {
     });
   };
   useEffect(() => {
-    if (props.route.params.offline) {
-      setT1([{ Table: {} }]);
-      setT2([{ Table: {} }]);
-      setT3([{ Table: {} }]);
-      setT4([{ Table: {} }]);
-      setT5([{ Table: {} }]);
-      setT6([{ Table: {} }]);
-      setT7([{ Table: {} }]);
-      setT8([{ Table: {} }]);
-      setT9([{ Line0: {} }]);
-      setT10([{ Line0: {} }]);
-      setT11([{ Line0: {} }]);
-      setSign(null);
-    } else {
-      fetchJob();
-      if (props.route.params.file.signature !== undefined) {
-        setSign(props.route.params.file.signature);
-      }
-      if (props.route.params.file.T1 != undefined) {
-        setT1(props.route.params.file.T1);
-      }
-      if (props.route.params.file.T2 != undefined) {
-        setT2(props.route.params.file.T2);
-      }
-      if (props.route.params.file.T3 != undefined) {
-        setT3(props.route.params.file.T3);
-      }
-      if (props.route.params.file.T4 != undefined) {
-        setT4(props.route.params.file.T4);
-      }
-      if (props.route.params.file.T5 != undefined) {
-        setT5(props.route.params.file.T5);
-      }
-      if (props.route.params.file.T6 != undefined) {
-        setT6(props.route.params.file.T6);
-      }
-      if (props.route.params.file.T7 != undefined) {
-        setT7(props.route.params.file.T7);
-      }
-      if (props.route.params.file.T8 != undefined) {
-        setT8(props.route.params.file.T8);
-      }
-      if (props.route.params.file.T9 != undefined) {
-        setT9(props.route.params.file.T9);
-      }
-      if (props.route.params.file.T10 != undefined) {
-        setT10(props.route.params.file.T10);
-      }
-      if (props.route.params.file.T11 != undefined) {
-        setT11(props.route.params.file.T11);
-      }
-      if (props.route.params.file.user != undefined) {
-        setUser(props.route.params.file.user);
-      }
-      if (props.route.params.file.id != undefined) {
-        setId(props.route.params.file.id);
+    let isSubscribed = true;
+    if (isSubscribed) {
+      if (props.route.params.offline) {
+        setT1([{ Table: {} }]);
+        setT2([{ Table: {} }]);
+        setT3([{ Table: {} }]);
+        setT4([{ Table: {} }]);
+        setT5([{ Table: {} }]);
+        setT6([{ Table: {} }]);
+        setT7([{ Table: {} }]);
+        setT8([{ Table: {} }]);
+        setT9([{ Line0: {} }]);
+        setT10([{ Line0: {} }]);
+        setT11([{ Line0: {} }]);
+        setSign(null);
+      } else {
+        fetchJob();
+        if (props.route.params.file.signature !== undefined) {
+          setSign(props.route.params.file.signature);
+        }
+        if (props.route.params.file.T1 != undefined) {
+          setT1(props.route.params.file.T1);
+        }
+        if (props.route.params.file.T2 != undefined) {
+          setT2(props.route.params.file.T2);
+        }
+        if (props.route.params.file.T3 != undefined) {
+          setT3(props.route.params.file.T3);
+        }
+        if (props.route.params.file.T4 != undefined) {
+          setT4(props.route.params.file.T4);
+        }
+        if (props.route.params.file.T5 != undefined) {
+          setT5(props.route.params.file.T5);
+        }
+        if (props.route.params.file.T6 != undefined) {
+          setT6(props.route.params.file.T6);
+        }
+        if (props.route.params.file.T7 != undefined) {
+          setT7(props.route.params.file.T7);
+        }
+        if (props.route.params.file.T8 != undefined) {
+          setT8(props.route.params.file.T8);
+        }
+        if (props.route.params.file.T9 != undefined) {
+          setT9(props.route.params.file.T9);
+        }
+        if (props.route.params.file.T10 != undefined) {
+          setT10(props.route.params.file.T10);
+        }
+        if (props.route.params.file.T11 != undefined) {
+          setT11(props.route.params.file.T11);
+        }
+        if (props.route.params.file.user != undefined) {
+          setUser(props.route.params.file.user);
+        }
+        if (props.route.params.file.id != undefined) {
+          setId(props.route.params.file.id);
+        }
       }
     }
+    return () => {
+      // cancel the subscription
+      isSubscribed = false;
+    };
   }, []);
 
   const SignInScroll = () => {
