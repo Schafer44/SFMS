@@ -14,9 +14,13 @@ import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Loading from "../../Loading";
 
 export default function ForemanFooter(props) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const createTimesheet = async (Timesheet) => {
+    setIsLoading(true);
     if (props.route.params.offline === true) {
       console.log(props.T2);
       try {
@@ -99,6 +103,7 @@ export default function ForemanFooter(props) {
           });
       }
     }
+    setIsLoading(false);
   };
   const toggleOverlay = () => {
     props.setVisible(!props.visible);
@@ -108,6 +113,7 @@ export default function ForemanFooter(props) {
   };
   return (
     <View style={styles.footerPage}>
+      {isLoading ? <Loading /> : <View></View>}
       <View style={styles.footerPageSig}>
         <TouchableOpacity
           title="Signature"

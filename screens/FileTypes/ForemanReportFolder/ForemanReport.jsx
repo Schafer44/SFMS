@@ -26,6 +26,7 @@ import FRT6 from "./FRT6";
 import FRT7 from "./FRT7";
 import ForemanFooter from "./ForemanFooter";
 import { useHeaderHeight } from "@react-navigation/elements";
+import Loading from "../../Loading";
 
 export default function ForemanReport(props, jobNum) {
   const [Job, setJob] = useState([]);
@@ -45,8 +46,10 @@ export default function ForemanReport(props, jobNum) {
   const [User, setUser] = useState("");
   const [headerHeight] = useState(useHeaderHeight());
   const [scrollEnabled, setScrollEnabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchJob = async () => {
+    setIsLoading(true);
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
     const data = await response.get();
@@ -58,6 +61,7 @@ export default function ForemanReport(props, jobNum) {
     data.docs.forEach((item) => {
       setJob([...Job]);
     });
+    setIsLoading(false);
   };
   useEffect(() => {
     let isSubscribed = true;
@@ -148,6 +152,7 @@ export default function ForemanReport(props, jobNum) {
     >
       <ScrollView scrollEnabled={scrollEnabled} style={styles.body}>
         <View>
+          {isLoading ? <Loading /> : <View></View>}
           <View style={styles.RowOne}>
             <View style={styles.Header}>
               <FRHeader

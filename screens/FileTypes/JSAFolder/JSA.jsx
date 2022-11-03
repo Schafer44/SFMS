@@ -29,6 +29,7 @@ import JSAT10 from "./JSAT10";
 import JSAT11 from "./JSAT11";
 import JSAFooter from "./JSAFooter";
 import { useHeaderHeight } from "@react-navigation/elements";
+import Loading from "../../Loading";
 
 export default function JSA(props, jobNum) {
   const [Job, setJob] = useState([]);
@@ -49,8 +50,10 @@ export default function JSA(props, jobNum) {
   const [User, setUser] = useState("");
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [headerHeight] = useState(useHeaderHeight());
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchJob = async () => {
+    setIsLoading(true);
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
     const data = await response.get();
@@ -62,6 +65,7 @@ export default function JSA(props, jobNum) {
     data.docs.forEach((item) => {
       setJob([...Job]);
     });
+    setIsLoading(false);
   };
   useEffect(() => {
     let isSubscribed = true;
@@ -158,6 +162,7 @@ export default function JSA(props, jobNum) {
       </TouchableOpacity>
       <ScrollView scrollEnabled={scrollEnabled} style={styles.body}>
         <View>
+          {isLoading ? <Loading /> : <View></View>}
           <View style={styles.RowOne}>
             <View style={styles.Header}>
               <JSAT1

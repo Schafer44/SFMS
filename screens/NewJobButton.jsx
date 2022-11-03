@@ -12,6 +12,7 @@ import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { doc, getDoc, setDoc, addDoc, collection } from "firebase/firestore";
 import { TextInput } from "react-native-paper";
+import Loading from "./Loading";
 
 export default class NewTimesheet extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ export default class NewTimesheet extends React.Component {
     console.log(props);
     this.state = {
       jobNum: "",
+      isLoading: false,
       company: props.company,
     };
   }
@@ -38,6 +40,9 @@ export default class NewTimesheet extends React.Component {
       } else if (this.state.jobNum.includes("_")) {
         Alert.alert("Job number cannot include any _");
       } else {
+        this.setState({
+          isLoading: true,
+        });
         let TempJSA = "";
         let TempFR = "";
         let TempTS = "";
@@ -52,76 +57,89 @@ export default class NewTimesheet extends React.Component {
           });*/
         await db
           .collection(this.state.jobNum + "_" + this.state.company)
-          .add({})
-          .then((docRef) => {
-            TempTS = docRef.id;
-            console.log("121", docRef.id);
-            setDoc(docRef, {
-              TimesheetHeader: {},
-              TimesheetLines: {},
-              Comment: "",
-              Type: "Timesheet",
-              baseId: docRef.id,
-              signature: "",
-              lastUpdatedBy: "Admin",
-              TypeExtra: "Template",
-              id: 0,
-            });
-          });
+          .limit(1)
+          .get()
+          .then(async (snapshot) => {
+            if (snapshot.size === 0) {
+              await db
+                .collection(this.state.jobNum + "_" + this.state.company)
+                .add({})
+                .then((docRef) => {
+                  TempTS = docRef.id;
+                  console.log("121", docRef.id);
+                  setDoc(docRef, {
+                    TimesheetHeader: {},
+                    TimesheetLines: {},
+                    Comment: "",
+                    Type: "Timesheet",
+                    baseId: docRef.id,
+                    signature: "",
+                    lastUpdatedBy: "Admin",
+                    TypeExtra: "Template",
+                    id: 0,
+                  });
+                });
 
-        await db
-          .collection(this.state.jobNum + "_" + this.state.company)
-          .add({})
-          .then((docRef) => {
-            TempFR = docRef.id;
-            console.log("121", docRef.id);
-            setDoc(docRef, {
-              Type: "Foreman Report",
-              TypeExtra: "Template",
-              baseId: docRef.id,
-              Header: [{ Line0: {} }],
-              T1: [{ Line0: {} }, { Line1: {} }],
-              T2: [{ Line0: {} }],
-              T3: [{ Line0: {} }],
-              T4: [{ Line0: {} }],
-              T5: [{ Line0: {} }],
-              T6: [{ Line0: {} }, { Line1: {} }],
-              T7: [{ Line0: {} }],
-              id: 1,
-            });
-          });
+              await db
+                .collection(this.state.jobNum + "_" + this.state.company)
+                .add({})
+                .then((docRef) => {
+                  TempFR = docRef.id;
+                  console.log("121", docRef.id);
+                  setDoc(docRef, {
+                    Type: "Foreman Report",
+                    TypeExtra: "Template",
+                    baseId: docRef.id,
+                    Header: [{ Line0: {} }],
+                    T1: [{ Line0: {} }, { Line1: {} }],
+                    T2: [{ Line0: {} }],
+                    T3: [{ Line0: {} }],
+                    T4: [{ Line0: {} }],
+                    T5: [{ Line0: {} }],
+                    T6: [{ Line0: {} }, { Line1: {} }],
+                    T7: [{ Line0: {} }],
+                    id: 1,
+                  });
+                });
 
-        await db
-          .collection(this.state.jobNum + "_" + this.state.company)
-          .add({})
-          .then((docRef) => {
-            TempJSA = docRef.id;
-            console.log("121", docRef.id);
-            setDoc(docRef, {
-              Type: "JSA",
-              TypeExtra: "Template",
-              baseId: docRef.id,
-              T1: [{ Table: {} }],
-              T2: [{ Table: {} }],
-              T3: [{ Table: {} }],
-              T4: [{ Table: {} }],
-              T5: [{ Table: {} }],
-              T6: [{ Table: {} }],
-              T7: [{ Table: {} }],
-              T8: [{ Table: {} }],
-              T9: [{ Line0: {} }],
-              T10: [{ Line0: {} }],
-              T11: [{ Line0: {} }],
-              id: 2,
-            });
-          });
-        console.log("Test1", ref._delegate._key.path.segments[1]);
-        await db
-          .collection(this.state.company)
-          .doc(ref._delegate._key.path.segments[1])
-          .set({
-            JobNum: this.state.jobNum + "_" + this.state.company,
-            baseid: ref._delegate._key.path.segments[1],
+              await db
+                .collection(this.state.jobNum + "_" + this.state.company)
+                .add({})
+                .then((docRef) => {
+                  TempJSA = docRef.id;
+                  console.log("121", docRef.id);
+                  setDoc(docRef, {
+                    Type: "JSA",
+                    TypeExtra: "Template",
+                    baseId: docRef.id,
+                    T1: [{ Table: {} }],
+                    T2: [{ Table: {} }],
+                    T3: [{ Table: {} }],
+                    T4: [{ Table: {} }],
+                    T5: [{ Table: {} }],
+                    T6: [{ Table: {} }],
+                    T7: [{ Table: {} }],
+                    T8: [{ Table: {} }],
+                    T9: [{ Line0: {} }],
+                    T10: [{ Line0: {} }],
+                    T11: [{ Line0: {} }],
+                    id: 2,
+                  });
+                });
+              console.log("Test1", ref._delegate._key.path.segments[1]);
+              await db
+                .collection(this.state.company)
+                .doc(ref._delegate._key.path.segments[1])
+                .set({
+                  JobNum: this.state.jobNum + "_" + this.state.company,
+                  baseid: ref._delegate._key.path.segments[1],
+                });
+              this.setState({
+                isLoading: false,
+              });
+            } else {
+              Alert.alert("Job already exists");
+            }
           });
       } /*else {
         const ref = db.collection(props.company).doc();
@@ -140,6 +158,7 @@ export default class NewTimesheet extends React.Component {
     };
     return (
       <View style={styles.container} key={1}>
+        {this.state.isLoading ? <Loading /> : <View></View>}
         <View style={styles.newJob} key={1}>
           <TouchableOpacity
             key={1}

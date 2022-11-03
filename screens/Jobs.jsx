@@ -17,9 +17,12 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
+import Loading from "./Loading";
+
 export default function Jobs(props) {
   const [Jobs, setJobs] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const Delete = async (temp) => {
     Alert.alert("Delete Job", "Are you sure you want to delete this job?", [
       {
@@ -54,10 +57,11 @@ export default function Jobs(props) {
     const unsubscribe = onSnapshot(
       query(collection(db, props.company), orderBy("JobNum")),
       (snapshot) => {
+        setIsLoading(true);
         setJobs(snapshot.docs.map((doc) => doc.data()));
+        setIsLoading(false);
       }
     );
-
     return () => {
       unsubscribe();
     };
@@ -109,6 +113,8 @@ export default function Jobs(props) {
           <Text style={styles.Text}>Toggle Deletion</Text>
         </TouchableHighlight>
       </View>
+
+      {isLoading ? <Loading /> : <View></View>}
     </View>
   );
 }

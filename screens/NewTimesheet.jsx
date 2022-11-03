@@ -9,16 +9,23 @@ import {
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import Loading from "./Loading";
 
 export default class NewTimesheet extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+    this.state = {
+      isLoading: false,
+    };
   }
   render() {
     const DoBoth = async () => {
       const Ref = await NewTimesheet();
     };
     const NewTimesheet = async () => {
+      this.setState({
+        isLoading: true,
+      });
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
       const ehehe = await db
@@ -36,9 +43,13 @@ export default class NewTimesheet extends React.Component {
         Type: "Timesheet",
         baseId: ref._delegate._key.path.segments[1],
       });*/
+      this.setState({
+        isLoading: false,
+      });
     };
     return (
       <View style={styles.container} key={1}>
+        {this.state.isLoading ? <Loading /> : <View></View>}
         <View style={styles.newJob} key={1}>
           <TouchableHighlight
             activeOpacity={0.99}

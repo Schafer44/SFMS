@@ -20,6 +20,7 @@ import TimesheetBody from "./TimesheetBody";
 import { useHeaderHeight } from "@react-navigation/elements";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Loading from "../../Loading";
 
 export default function Timesheet(props, jobNum) {
   const [signature, setSign] = useState(null);
@@ -31,6 +32,8 @@ export default function Timesheet(props, jobNum) {
   const [Job, setJob] = useState([]);
   const [visible, setVisible] = useState(false);
   const [headerHeight] = useState(useHeaderHeight());
+  const [isLoading, setIsLoading] = useState(false);
+
   const toggleOverlay = () => {
     setVisible(!visible);
   };
@@ -90,6 +93,7 @@ export default function Timesheet(props, jobNum) {
     };
   }, []);
   const createTimesheet = async (Timesheet) => {
+    setIsLoading(true);
     if (props.route.params.offline) {
       try {
         await AsyncStorage.setItem(
@@ -142,6 +146,7 @@ export default function Timesheet(props, jobNum) {
           });
       }
     }
+    setIsLoading(false);
   };
   const SignInScroll = () => {
     setScrollEnabled(!scrollEnabled);
@@ -161,6 +166,7 @@ export default function Timesheet(props, jobNum) {
       keyboardVerticalOffset={headerHeight}
     >
       <View style={styles.header}>
+        {isLoading ? <Loading /> : <View></View>}
         <View style={styles.hGridTitles}>
           <View style={styles.TextInputTwo}>
             <Text style={styles.textInputHeader}>Project: </Text>

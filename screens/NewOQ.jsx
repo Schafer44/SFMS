@@ -11,11 +11,15 @@ import * as DocumentPicker from "expo-document-picker";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getStorage } from "firebase/storage";
 import { db, firebaseApp } from "./FirebaseLink";
+import Loading from "./Loading";
 
 export default class NewOQ extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { url: "" };
+    this.state = {
+      isLoading: false,
+      url: "",
+    };
   }
   render() {
     const FilePicker = async () => {
@@ -59,6 +63,9 @@ export default class NewOQ extends React.Component {
     };
 
     const NewOQ = async (temp, name) => {
+      this.setState({
+        isLoading: true,
+      });
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
       const ehehe = await db
@@ -71,9 +78,13 @@ export default class NewOQ extends React.Component {
           name: name,
           id: this.props.job.length,
         });
+      this.setState({
+        isLoading: false,
+      });
     };
     return (
       <View style={styles.container} key={1}>
+        {this.state.isLoading ? <Loading /> : <View></View>}
         <View style={styles.newJob} key={1}>
           <TouchableHighlight
             activeOpacity={0.99}

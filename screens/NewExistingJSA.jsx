@@ -10,11 +10,13 @@ import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Loading from "./Loading";
 
 export default class NewJSAFE extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: false,
       jobNum: "",
       company: props.company,
       id: this.props.job.length,
@@ -66,6 +68,9 @@ export default class NewJSAFE extends React.Component {
       const Ref = await NewJSA();
     };
     const NewJSA = async () => {
+      this.setState({
+        isLoading: true,
+      });
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
       const ehehe = await db
@@ -89,6 +94,9 @@ export default class NewJSAFE extends React.Component {
           id: this.props.job.length,
           signature: this.state.sig,
         });
+      this.setState({
+        isLoading: false,
+      });
       /*const ehehe = await response.add({
         Type: "Timesheet",
         baseId: ref._delegate._key.path.segments[1],
@@ -96,6 +104,7 @@ export default class NewJSAFE extends React.Component {
     };
     return (
       <View style={styles.container} key={1}>
+        {this.state.isLoading ? <Loading /> : <View></View>}
         <View style={styles.newJob} key={1}>
           <TouchableHighlight
             activeOpacity={0.99}

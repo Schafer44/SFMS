@@ -3,11 +3,14 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
+import Loading from "../../Loading";
 
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 
 export default function OQ(props) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const download = async () => {
     const downloadPath = FileSystem.cacheDirectory + "fileName.pdf";
     const { uri: localUrl } = await FileSystem.downloadAsync(
