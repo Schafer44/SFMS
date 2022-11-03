@@ -89,6 +89,8 @@ export default class NewTimesheet extends React.Component {
                   setDoc(docRef, {
                     Type: "Foreman Report",
                     TypeExtra: "Template",
+                    ForemanSignature: "",
+                    ClientSignature: "",
                     baseId: docRef.id,
                     Header: [{ Line0: {} }],
                     T1: [{ Line0: {} }, { Line1: {} }],
@@ -111,6 +113,7 @@ export default class NewTimesheet extends React.Component {
                   setDoc(docRef, {
                     Type: "JSA",
                     TypeExtra: "Template",
+                    signature: "",
                     baseId: docRef.id,
                     T1: [{ Table: {} }],
                     T2: [{ Table: {} }],
