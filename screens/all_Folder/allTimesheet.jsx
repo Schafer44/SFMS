@@ -49,7 +49,10 @@ export default function AllTimesheet(props) {
             file.user = props.user;
             if (file.Type === "Timesheet") {
               if (file.TypeExtra !== "Template") {
-                if (file.TimesheetHeader.Date !== undefined) {
+                if (
+                  file.TimesheetHeader.Date !== undefined &&
+                  file.hasBeenUpdated === "yes"
+                ) {
                   if (
                     (
                       file.TimesheetHeader.Date.split(" ")[1] +
@@ -119,7 +122,9 @@ export default function AllTimesheet(props) {
                             }
                           >
                             <Text style={{ color: BtnColor }}>
-                              New Timesheet
+                              {file.hasBeenUpdated === "dup"
+                                ? "Duplicate"
+                                : "New Timesheet"}
                             </Text>
                           </TouchableHighlight>
                         </View>
