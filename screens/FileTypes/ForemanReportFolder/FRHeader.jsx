@@ -11,7 +11,6 @@ export default function FRHeader(props) {
   const [onLoad, setOnLoad] = useState(true);
   useEffect(() => {
     if (props.offline === true && onLoad) {
-      console.log("here");
       setLine0({
         ...Line0,
         Date: new Date().toString(),

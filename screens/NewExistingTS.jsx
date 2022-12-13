@@ -31,10 +31,8 @@ export default class NewTimesheetFE extends React.Component {
         const value = await AsyncStorage.getItem("@MySuperStore:TS");
 
         if (value !== null) {
-          console.log(temp);
           // We have data!!
           const temp = JSON.parse(value);
-          console.log(temp);
           this.state.TimesheetLines = temp.TimesheetLines;
           this.state.Header = temp.TimesheetHeader;
           this.state.Comment = temp.Comment;
@@ -55,7 +53,7 @@ export default class NewTimesheetFE extends React.Component {
       });
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
-      console.log();
+
       const ehehe = await db
         .collection(this.props.jobNum)
         .doc(ref._delegate._key.path.segments[1])

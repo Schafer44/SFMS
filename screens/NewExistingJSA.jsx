@@ -39,13 +39,11 @@ export default class NewJSAFE extends React.Component {
   }
   render() {
     const _retrieveData = async () => {
-      console.log("1");
       try {
         const value = await AsyncStorage.getItem("@MySuperStore:JSA");
         if (value !== null) {
           // We have data!!
           const temp = JSON.parse(value);
-          console.log("temp", temp);
           this.state.sig = temp.signature;
           this.state.T1 = temp.T1;
           this.state.T2 = temp.T2;

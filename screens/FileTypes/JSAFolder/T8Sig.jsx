@@ -42,7 +42,6 @@ export default function T8Sig(props) {
         </TouchableOpacity>
       ) : (
         <View>
-          {console.log("here")}
           <TouchableOpacity
             style={styles.SubBtn}
             onPress={() => setVisible(!visible)}

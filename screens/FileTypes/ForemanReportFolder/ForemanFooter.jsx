@@ -22,7 +22,6 @@ export default function ForemanFooter(props) {
   const createTimesheet = async (Timesheet) => {
     setIsLoading(true);
     if (props.route.params.offline === true) {
-      console.log(props.T2);
       try {
         await AsyncStorage.setItem(
           "@MySuperStore:FR",
@@ -77,7 +76,6 @@ export default function ForemanFooter(props) {
       ) {
         Alert.alert("Date Required");
       } else {
-        console.log(props.T2);
         setDoc(docRef, {
           T1: props.T1,
           T2: props.T2,

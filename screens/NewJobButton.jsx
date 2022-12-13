@@ -17,7 +17,6 @@ import Loading from "./Loading";
 export default class NewTimesheet extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       jobNum: "",
       isLoading: false,
@@ -66,7 +65,6 @@ export default class NewTimesheet extends React.Component {
                 .add({})
                 .then((docRef) => {
                   TempTS = docRef.id;
-                  console.log("121", docRef.id);
                   setDoc(docRef, {
                     TimesheetHeader: {},
                     TimesheetLines: {},
@@ -85,7 +83,6 @@ export default class NewTimesheet extends React.Component {
                 .add({})
                 .then((docRef) => {
                   TempFR = docRef.id;
-                  console.log("121", docRef.id);
                   setDoc(docRef, {
                     Type: "Foreman Report",
                     TypeExtra: "Template",
@@ -109,7 +106,6 @@ export default class NewTimesheet extends React.Component {
                 .add({})
                 .then((docRef) => {
                   TempJSA = docRef.id;
-                  console.log("121", docRef.id);
                   setDoc(docRef, {
                     Type: "JSA",
                     TypeExtra: "Template",
@@ -129,7 +125,6 @@ export default class NewTimesheet extends React.Component {
                     id: 2,
                   });
                 });
-              console.log("Test1", ref._delegate._key.path.segments[1]);
               await db
                 .collection(this.state.company)
                 .doc(ref._delegate._key.path.segments[1])

@@ -40,7 +40,6 @@ export default class NewForemanReportFE extends React.Component {
         if (value !== null) {
           // We have data!!
           const temp = JSON.parse(value);
-          console.log("temp", temp);
           this.state.Header = temp.Header;
           this.state.ClientSignature = temp.ClientSignature;
           this.state.ForemanSignature = temp.ForemanSignature;
@@ -66,7 +65,7 @@ export default class NewForemanReportFE extends React.Component {
       });
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
-      console.log("state", this.state);
+
       const ehehe = await db
         .collection(this.props.jobNum)
         .doc(ref._delegate._key.path.segments[1])

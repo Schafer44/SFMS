@@ -36,7 +36,6 @@ const authentication = getAuth(firebaseApp);
 export default authentication;
 
 export const fetchUsersCompany = async (email) => {
-  console.log("Test fetchUserCompany");
   const response = db.collection("Users");
   const snapshot = await response.get();
   const users = snapshot.docs.map((doc) => ({
@@ -44,9 +43,7 @@ export const fetchUsersCompany = async (email) => {
   }));
   let temp = "";
   users.forEach((item) => {
-    console.log("Test ForEach", item);
     if (item.Email.toLowerCase() === email.toLowerCase()) {
-      console.log("test Company", item.Company);
       temp = item.Company;
     }
   });
