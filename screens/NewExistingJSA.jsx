@@ -29,12 +29,13 @@ export default class NewJSAFE extends React.Component {
       T5: [{ Table: {} }],
       T6: [{ Table: {} }],
       T7: [{ Table: {} }],
-      T8: [{ Table: {} }],
-      T9: [{ Line0: {} }],
-      T10: [{ Line0: {} }],
-      T11: [{ Line0: {} }],
+      T8: [{ Table: { Row0: ["", ""] } }],
+      T9: [{ Line0: { Row0: [""] } }],
+      T10: [{ Line0: { Row0: [""] } }],
+      T11: [{ Line0: { Row0: ["", "", ""] } }],
       id: this.props.job.length,
       sig: null,
+      hasBeenUpdated: "yes",
     };
   }
   render() {

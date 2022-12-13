@@ -30,6 +30,7 @@ export default class NewForemanReportFE extends React.Component {
       T6: [{ Line0: {} }, { Line1: {} }],
       T7: [{ Line0: {} }],
       id: this.props.job.length,
+      hasBeenUpdated: "yes",
     };
   }
 

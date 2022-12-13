@@ -23,6 +23,7 @@ export default class NewTimesheetFE extends React.Component {
       TimesheetHeader: {},
       id: this.props.job.length,
       Sig: null,
+      hasBeenUpdated: "yes",
     };
   }
   render() {
