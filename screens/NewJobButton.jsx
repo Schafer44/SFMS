@@ -55,13 +55,13 @@ export default class NewTimesheet extends React.Component {
             baseid: ref._delegate._key.path.segments[1],
           });*/
         await db
-          .collection(this.state.jobNum + "_" + this.state.company)
+          .collection(this.state.company + "_" + this.state.jobNum)
           .limit(1)
           .get()
           .then(async (snapshot) => {
             if (snapshot.size === 0) {
               await db
-                .collection(this.state.jobNum + "_" + this.state.company)
+                .collection(this.state.company + "_" + this.state.jobNum)
                 .add({})
                 .then((docRef) => {
                   TempTS = docRef.id;
@@ -79,7 +79,7 @@ export default class NewTimesheet extends React.Component {
                 });
 
               await db
-                .collection(this.state.jobNum + "_" + this.state.company)
+                .collection(this.state.company + "_" + this.state.jobNum)
                 .add({})
                 .then((docRef) => {
                   TempFR = docRef.id;
@@ -102,7 +102,7 @@ export default class NewTimesheet extends React.Component {
                 });
 
               await db
-                .collection(this.state.jobNum + "_" + this.state.company)
+                .collection(this.state.company + "_" + this.state.jobNum)
                 .add({})
                 .then((docRef) => {
                   TempJSA = docRef.id;
@@ -129,7 +129,7 @@ export default class NewTimesheet extends React.Component {
                 .collection(this.state.company)
                 .doc(ref._delegate._key.path.segments[1])
                 .set({
-                  JobNum: this.state.jobNum + "_" + this.state.company,
+                  JobNum: this.state.company + "_" + this.state.jobNum,
                   baseid: ref._delegate._key.path.segments[1],
                 });
               this.setState({

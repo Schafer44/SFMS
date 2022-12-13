@@ -84,7 +84,7 @@ export default function Jobs(props) {
                 style={styles.existingJobBtn}
               >
                 <Text style={styles.Text}>
-                  {job.JobNum.split("_" + props.company)[0]}
+                  {job.JobNum.split(props.company + "_")}
                 </Text>
               </TouchableHighlight>
               {visible ? (
