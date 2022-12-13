@@ -137,6 +137,7 @@ export default function Timesheet(props, jobNum) {
           lastUpdatedBy: props.route.params.file.user,
           TypeExtra: props.route.params.file.TypeExtra,
           id: props.route.params.file.id,
+          hasBeenUpdated: "yes",
         })
           .then(() => {
             Alert.alert("Success");
