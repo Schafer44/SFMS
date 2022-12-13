@@ -287,6 +287,12 @@ const styles = StyleSheet.create({
     alignContent: "center",
     textAlign: "center",
   },
+  textInputTest: {
+    paddingLeft: 5,
+    width: "100%",
+    height: "100%",
+    flex: 1,
+  },
   Column: { flex: 1 },
   Column2: { flex: 1 },
   ColumnTitle: { flex: 0.3, borderStyle: "solid", borderWidth: 1 },

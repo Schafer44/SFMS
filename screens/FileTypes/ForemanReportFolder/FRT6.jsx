@@ -36,278 +36,282 @@ export default function FRT6(props) {
     }
   }, [props, Line0, Line1, Line2, Line3]);
   return (
-    <View style={styles.body}>
+    <View style={styles.GC}>
       <View style={styles.ColumnTitle}>
-        <View style={styles.Title}></View>
-      </View>
-      <View style={styles.Column1}>
         <View style={styles.Title}>
-          <Text style={styles.TitleText1}>ITEM</Text>
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line0.Item1}
-            onChange={(event) => {
-              setLine0({ ...Line0, Item1: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line1.Item1}
-            onChange={(event) => {
-              setLine1({ ...Line1, Item1: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line2.Item1}
-            onChange={(event) => {
-              setLine2({ ...Line2, Item2: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line3.Item1}
-            onChange={(event) => {
-              setLine3({ ...Line3, Item1: event.nativeEvent.text });
-            }}
-          />
+          <Text style={styles.TitleText1}>Unit Items</Text>
         </View>
       </View>
-      <View style={styles.Column2}>
-        <View style={styles.Title}>
-          <Text style={styles.TitleText1}>QTY</Text>
+      <View style={styles.body}>
+        <View style={styles.Column1}>
+          <View style={styles.Title}>
+            <Text style={styles.TitleText1}>ITEM</Text>
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line0.Item1}
+              onChange={(event) => {
+                setLine0({ ...Line0, Item1: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line1.Item1}
+              onChange={(event) => {
+                setLine1({ ...Line1, Item1: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line2.Item1}
+              onChange={(event) => {
+                setLine2({ ...Line2, Item1: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line3.Item1}
+              onChange={(event) => {
+                setLine3({ ...Line3, Item1: event.nativeEvent.text });
+              }}
+            />
+          </View>
         </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line0.Qty1}
-            onChange={(event) => {
-              setLine0({ ...Line0, Qty1: event.nativeEvent.text });
-            }}
-          />
+        <View style={styles.Column2}>
+          <View style={styles.Title}>
+            <Text style={styles.TitleText1}>QTY</Text>
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line0.Qty1}
+              onChange={(event) => {
+                setLine0({ ...Line0, Qty1: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line1.Qty1}
+              onChange={(event) => {
+                setLine1({ ...Line1, Qty1: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line2.Qty1}
+              onChange={(event) => {
+                setLine2({ ...Line2, Qty1: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line3.Qty1}
+              onChange={(event) => {
+                setLine3({ ...Line3, Qty1: event.nativeEvent.text });
+              }}
+            />
+          </View>
         </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line1.Qty1}
-            onChange={(event) => {
-              setLine1({ ...Line1, Qty1: event.nativeEvent.text });
-            }}
-          />
+        <View style={styles.Column1}>
+          <View style={styles.Title}>
+            <Text style={styles.TitleText1}>ITEM</Text>
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line0.Item2}
+              onChange={(event) => {
+                setLine0({ ...Line0, Item2: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line1.Item2}
+              onChange={(event) => {
+                setLine1({ ...Line1, Item2: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line2.Item2}
+              onChange={(event) => {
+                setLine2({ ...Line2, Item2: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line3.Item2}
+              onChange={(event) => {
+                setLine3({ ...Line3, Item2: event.nativeEvent.text });
+              }}
+            />
+          </View>
         </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line2.Qty1}
-            onChange={(event) => {
-              setLine2({ ...Line2, Qty1: event.nativeEvent.text });
-            }}
-          />
+        <View style={styles.Column2}>
+          <View style={styles.Title}>
+            <Text style={styles.TitleText1}>QTY</Text>
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line0.Qty2}
+              onChange={(event) => {
+                setLine0({ ...Line0, Qty2: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line1.Qty2}
+              onChange={(event) => {
+                setLine1({ ...Line1, Qty2: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line2.Qty2}
+              onChange={(event) => {
+                setLine2({ ...Line2, Qty2: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line3.Qty2}
+              onChange={(event) => {
+                setLine3({ ...Line3, Qty2: event.nativeEvent.text });
+              }}
+            />
+          </View>
         </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line3.Qty1}
-            onChange={(event) => {
-              setLine3({ ...Line3, Qty1: event.nativeEvent.text });
-            }}
-          />
+        <View style={styles.Column1}>
+          <View style={styles.Title}>
+            <Text style={styles.TitleText1}>ITEM</Text>
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line0.Item3}
+              onChange={(event) => {
+                setLine0({ ...Line0, Item3: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line1.Item3}
+              onChange={(event) => {
+                setLine1({ ...Line1, Item3: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line2.Item3}
+              onChange={(event) => {
+                setLine2({ ...Line2, Item3: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line3.Item3}
+              onChange={(event) => {
+                setLine3({ ...Line3, Item3: event.nativeEvent.text });
+              }}
+            />
+          </View>
         </View>
-      </View>
-      <View style={styles.Column1}>
-        <View style={styles.Title}>
-          <Text style={styles.TitleText1}>ITEM</Text>
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line0.Item2}
-            onChange={(event) => {
-              setLine0({ ...Line0, Item2: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line1.Item2}
-            onChange={(event) => {
-              setLine1({ ...Line1, Item2: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line2.Item2}
-            onChange={(event) => {
-              setLine2({ ...Line2, Item2: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line3.Item2}
-            onChange={(event) => {
-              setLine3({ ...Line3, Item2: event.nativeEvent.text });
-            }}
-          />
-        </View>
-      </View>
-      <View style={styles.Column2}>
-        <View style={styles.Title}>
-          <Text style={styles.TitleText1}>QTY</Text>
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line0.Qty2}
-            onChange={(event) => {
-              setLine0({ ...Line0, Qty2: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line1.Qty2}
-            onChange={(event) => {
-              setLine1({ ...Line1, Qty2: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line2.Qty2}
-            onChange={(event) => {
-              setLine2({ ...Line2, Qty2: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line3.Qty2}
-            onChange={(event) => {
-              setLine3({ ...Line3, Qty2: event.nativeEvent.text });
-            }}
-          />
-        </View>
-      </View>
-      <View style={styles.Column1}>
-        <View style={styles.Title}>
-          <Text style={styles.TitleText1}>ITEM</Text>
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line0.Item3}
-            onChange={(event) => {
-              setLine0({ ...Line0, Item3: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line1.Item3}
-            onChange={(event) => {
-              setLine1({ ...Line1, Item3: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line2.Item3}
-            onChange={(event) => {
-              setLine2({ ...Line2, Item3: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line3.Item3}
-            onChange={(event) => {
-              setLine3({ ...Line3, Item3: event.nativeEvent.text });
-            }}
-          />
-        </View>
-      </View>
-      <View style={styles.Column2}>
-        <View style={styles.Title}>
-          <Text style={styles.TitleText1}>QTY</Text>
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line0.Qty3}
-            onChange={(event) => {
-              setLine0({ ...Line0, Qty3: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line1.Qty3}
-            onChange={(event) => {
-              setLine1({ ...Line1, Qty3: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line2.Qty3}
-            onChange={(event) => {
-              setLine2({ ...Line2, Qty3: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line3.Qty3}
-            onChange={(event) => {
-              setLine3({ ...Line3, Qty3: event.nativeEvent.text });
-            }}
-          />
+        <View style={styles.Column2}>
+          <View style={styles.Title}>
+            <Text style={styles.TitleText1}>QTY</Text>
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line0.Qty3}
+              onChange={(event) => {
+                setLine0({ ...Line0, Qty3: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line1.Qty3}
+              onChange={(event) => {
+                setLine1({ ...Line1, Qty3: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line2.Qty3}
+              onChange={(event) => {
+                setLine2({ ...Line2, Qty3: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line3.Qty3}
+              onChange={(event) => {
+                setLine3({ ...Line3, Qty3: event.nativeEvent.text });
+              }}
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -316,8 +320,6 @@ export default function FRT6(props) {
 
 const styles = StyleSheet.create({
   body: {
-    width: "100%",
-    height: "100%",
     flexDirection: "row",
   },
   Title: {

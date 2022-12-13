@@ -6,11 +6,16 @@ import {
   ScrollView,
   Button,
   Alert,
+  TouchableHighlight,
 } from "react-native";
 import React, { setState, useState, useEffect } from "react";
 import { db } from "../FirebaseLink";
+import { Dimensions } from "react-native";
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 export default function AllJSA(props) {
+  const [BtnColor, setBtnColor] = useState("black");
   const [visible, setVisible] = useState(false);
   const Delete = async (temp) => {
     Alert.alert("Delete JSA?", "Are you sure you wish to delete this JSA?", [
@@ -33,85 +38,117 @@ export default function AllJSA(props) {
   };
   if (props.job != undefined) {
     return (
-      <View>
-        {props.job.map((file) => {
-          file.JobNum = props.jobNum;
-          file.user = props.user;
-          if (file.Type === "JSA") {
-            if (file.TypeExtra !== "Templete") {
-              if (file.T1[0].Table.Date !== undefined) {
-                return (
-                  <View style={styles.gc} key={file.baseId}>
-                    <View style={styles.container} key={file.baseId}>
-                      <View style={styles.existingJob} key={file.baseId}>
-                        <Button
-                          style={styles.existingJobBtn}
-                          onPress={() =>
-                            props.navigation.navigate("JSA", { file })
-                          }
-                          title={file.T1[0].Table.Date}
-                        ></Button>
-                      </View>
-                      {visible ? (
-                        <View
-                          style={styles.existingJob2}
-                          key={file.baseId + "2"}
-                        >
-                          <Button
-                            style={styles.existingJobBtn}
-                            onPress={() => Delete(file)}
-                            title={"X"}
-                            color="white"
-                          ></Button>
+      <View style={styles.Cont} key={1}>
+        <View style={styles.globalFiles} key={2}>
+          {props.job.map((file) => {
+            file.JobNum = props.jobNum;
+            file.user = props.user;
+            if (file.Type === "JSA") {
+              if (file.TypeExtra !== "Template") {
+                if (file.T1[0].Table.Date !== undefined) {
+                  if (
+                    (
+                      file.T1[0].Table.Date.split(" ")[1] +
+                      " " +
+                      file.T1[0].Table.Date.split(" ")[2] +
+                      " " +
+                      file.T1[0].Table.Date.split(" ")[3]
+                    )
+                      .toLowerCase()
+                      .includes(props.searchPhrase.toLowerCase())
+                  ) {
+                    return (
+                      <View style={styles.gc} key={file.baseId}>
+                        <View style={styles.container} key={file.baseId}>
+                          <View style={styles.existingJob} key={file.baseId}>
+                            <TouchableHighlight
+                              underlayColor="#272727"
+                              onPressIn={() => setBtnColor("lightgrey")}
+                              onPressOut={() => setBtnColor("black")}
+                              style={styles.existingJobBtn}
+                              onPress={() =>
+                                props.navigation.navigate("JSA", { file })
+                              }
+                            >
+                              <Text style={{ color: BtnColor }}>
+                                {file.T1[0].Table.Date.split(" ")[1] +
+                                  " " +
+                                  file.T1[0].Table.Date.split(" ")[2] +
+                                  " " +
+                                  file.T1[0].Table.Date.split(" ")[3]}
+                              </Text>
+                            </TouchableHighlight>
+                          </View>
+                          {visible ? (
+                            <View
+                              style={styles.existingJob2}
+                              key={file.baseId + "2"}
+                            >
+                              <Button
+                                style={styles.existingJobBtn}
+                                onPress={() => Delete(file)}
+                                title={"-"}
+                                color="white"
+                              ></Button>
+                            </View>
+                          ) : (
+                            <View></View>
+                          )}
                         </View>
-                      ) : (
-                        <View></View>
-                      )}
-                    </View>
-                  </View>
-                );
-              } else {
-                return (
-                  <View style={styles.gc} key={file.baseId}>
-                    <View style={styles.container} key={file.baseId}>
-                      <View style={styles.existingJob} key={file.baseId}>
-                        <Button
-                          style={styles.existingJobBtn}
-                          onPress={() =>
-                            props.navigation.navigate("JSA", { file })
-                          }
-                          title={"New Sheet"}
-                        ></Button>
                       </View>
-                      {visible ? (
-                        <View
-                          style={styles.existingJob2}
-                          key={file.baseId + "2"}
-                        >
-                          <Button
+                    );
+                  } else {
+                    <View></View>;
+                  }
+                } else {
+                  return (
+                    <View style={styles.gc} key={file.baseId}>
+                      <View style={styles.container} key={file.baseId}>
+                        <View style={styles.existingJob} key={file.baseId}>
+                          <TouchableHighlight
+                            underlayColor="#272727"
+                            onPressIn={() => setBtnColor("lightgrey")}
+                            onPressOut={() => setBtnColor("black")}
                             style={styles.existingJobBtn}
-                            onPress={() => Delete(file)}
-                            title={"X"}
-                            color="white"
-                          ></Button>
+                            onPress={() =>
+                              props.navigation.navigate("JSA", { file })
+                            }
+                          >
+                            <Text style={{ color: BtnColor }}>New JSA</Text>
+                          </TouchableHighlight>
                         </View>
-                      ) : (
-                        <View></View>
-                      )}
+                        {visible ? (
+                          <View
+                            style={styles.existingJob2}
+                            key={file.baseId + "2"}
+                          >
+                            <Button
+                              style={styles.existingJobBtn}
+                              onPress={() => Delete(file)}
+                              title={"-"}
+                              color="white"
+                            ></Button>
+                          </View>
+                        ) : (
+                          <View></View>
+                        )}
+                      </View>
                     </View>
-                  </View>
-                );
+                  );
+                }
               }
             }
-          }
-        })}
+          })}
+        </View>
         <View style={styles.Edit} key={1}>
-          <Button
-            style={styles.existingJobBtn}
+          <TouchableHighlight
+            activeOpacity={0.99}
+            underlayColor="darkgreen"
+            style={styles.EditJobBtn}
             onPress={() => setVisible(!visible)}
-            title={"Toggle Deletion"}
-            color="white"
-          ></Button>
+          >
+            <Text style={{ color: "white" }}>Toggle Deletion</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -122,10 +159,19 @@ export default function AllJSA(props) {
 
 const styles = StyleSheet.create({
   gc: {
-    width: "95%",
-    backgroundColor: "white",
     alignItems: "center",
-    marginLeft: "2.5%",
+    margin: "1.665%",
+    aspectRatio: 1 / 1,
+    flexBasis: "30%",
+  },
+  Cont: {
+    flexDirection: "column",
+  },
+
+  globalFiles: {
+    flex: 1,
+    flexWrap: "wrap",
+    flexDirection: "row",
   },
   container: {
     width: "100%",
@@ -134,20 +180,36 @@ const styles = StyleSheet.create({
   existingJob: {
     flexDirection: "row",
     height: 70,
-    backgroundColor: "#272727",
+    aspectRatio: 1 / 1,
+    backgroundColor: "lightgrey",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 5,
     flex: 20,
+    borderRadius: windowWidth * 0.02,
   },
-  existingJob2: {
-    flexDirection: "row",
-    height: 70,
-    backgroundColor: "red",
+
+  existingJobBtn2: {
+    width: "100%",
+    height: 40,
+    backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 5,
+    color: "white",
+  },
+  existingJob2: {
+    position: "absolute",
+    flexDirection: "row",
+    backgroundColor: "grey",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 0,
     flex: 1,
+    width: windowWidth * 0.06,
+    height: windowWidth * 0.06,
+    borderRadius: (windowWidth * 0.2) / 2,
+    right: 0,
   },
   Del: {
     backgroundColor: "red",
@@ -167,16 +229,18 @@ const styles = StyleSheet.create({
     width: 100,
   },
   existingJobBtn: {
-    width: "100%",
-    height: 70,
-    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+    alignSelf: "stretch",
+    borderRadius: windowWidth * 0.02,
   },
   Text: {
     color: "white",
   },
   Edit: {
     flexDirection: "row",
-    height: 70,
+    height: 40,
     width: "95%",
     backgroundColor: "green",
     alignItems: "center",
@@ -185,5 +249,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "flex-end",
     marginRight: "2.5%",
+  },
+  EditJobBtn: {
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

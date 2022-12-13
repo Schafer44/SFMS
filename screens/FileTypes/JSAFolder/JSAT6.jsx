@@ -60,7 +60,9 @@ export default function JSAT6(props) {
             }}
           >
             {Table.FireExtinuishers ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -91,7 +93,9 @@ export default function JSAT6(props) {
             }}
           >
             {Table.GasMonitor ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -125,7 +129,9 @@ export default function JSAT6(props) {
             }}
           >
             {Table.FirstAidKit ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -156,7 +162,9 @@ export default function JSAT6(props) {
             }}
           >
             {Table.Lighting ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -192,7 +200,9 @@ export default function JSAT6(props) {
             }}
           >
             {Table.SaftyDataSheets ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -225,7 +235,9 @@ export default function JSAT6(props) {
             }}
           >
             {Table.StopPaddles ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -256,7 +268,9 @@ export default function JSAT6(props) {
             }}
           >
             {Table.RoadSigns ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -286,7 +300,9 @@ export default function JSAT6(props) {
             }}
           >
             {Table.AirHorn ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -317,7 +333,9 @@ export default function JSAT6(props) {
             }}
           >
             {Table.OneCalls ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -350,7 +368,9 @@ export default function JSAT6(props) {
             }}
           >
             {Table.Slings ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -383,7 +403,9 @@ export default function JSAT6(props) {
             }}
           >
             {Table.Two_Way_Radio ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -414,7 +436,9 @@ export default function JSAT6(props) {
             }}
           >
             {Table.Other ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -469,11 +493,18 @@ const styles = StyleSheet.create({
   true: {
     width: "100%",
     height: "100%",
-    backgroundColor: "yellow",
+    backgroundColor: "green",
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  trueText: {
+    textAlign: "center",
+    fontSize: 20,
+    color: "white",
   },
   false: {
     width: "100%",
     height: "100%",
-    backgroundColor: "red",
+    backgroundColor: "white",
   },
 });

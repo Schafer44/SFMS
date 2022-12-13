@@ -9,14 +9,18 @@ import {
   TextInput,
   Image,
   Alert,
+  KeyboardAvoidingView,
 } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { useState, useEffect } from "react";
 import { SignatureCapture } from "../SignatureCapture";
 import TimesheetLineComment from "./TimesheetComment";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import ExportDataToExcel from "./ExportToExcel";
 import TimesheetBody from "./TimesheetBody";
+import { useHeaderHeight } from "@react-navigation/elements";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Loading from "../../Loading";
 
 export default function Timesheet(props, jobNum) {
   const [signature, setSign] = useState(null);
@@ -27,8 +31,14 @@ export default function Timesheet(props, jobNum) {
   const [Body, setBody] = useState([]);
   const [Job, setJob] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [headerHeight] = useState(useHeaderHeight());
+  const [isLoading, setIsLoading] = useState(false);
+
   const toggleOverlay = () => {
     setVisible(!visible);
+  };
+  const setDate = (event, date) => {
+    console.log(date);
   };
   const fetchJob = async () => {
     var Job = [];
@@ -45,54 +55,98 @@ export default function Timesheet(props, jobNum) {
     //setLines({ Line: props.route.params.file.Timesheet });
   };
   useEffect(() => {
-    fetchJob();
-    if (props.route.params.file.TimesheetLines !== undefined) {
-      setBody(props.route.params.file.TimesheetLines);
-    }
-    if (props.route.params.file.TimesheetHeader !== undefined) {
-      setHeader(props.route.params.file.TimesheetHeader);
-    }
-    if (props.route.params.file.Comment !== undefined) {
-      setComment(props.route.params.file.Comment);
-    }
-    if (props.route.params.file.signature !== undefined) {
-      setSign(props.route.params.file.signature);
-    }
-  }, []);
-  const createTimesheet = (Timesheet) => {
-    //Job.push(Timesheet);
-    const docRef = doc(
-      db,
-      props.route.params.file.JobNum,
-      props.route.params.file.baseId
-    );
-    //const reference = ref(db, "TestJob101");
-    const docSnap = getDoc(docRef);
-    if (signature === null) {
-      Alert.alert("Signature Required");
-    } else if (
-      Header.Date === undefined ||
-      Header.Date == "" ||
-      Header.Date == null
-    ) {
-      Alert.alert("Date Required");
-    } else {
-      setDoc(docRef, {
-        TimesheetHeader: Header,
-        TimesheetLines: Body,
-        Comment: Comment,
-        Type: props.route.params.file.Type,
-        baseId: props.route.params.file.baseId,
-        signature: signature,
-        lastUpdatedBy: props.route.params.file.user,
-      })
-        .then(() => {
-          Alert.alert("Success");
-        })
-        .catch((error) => {
-          Alert.alert("Submit Failed");
+    let isSubscribed = true;
+    if (isSubscribed) {
+      if (props.route.params.offline) {
+        setHeader({
+          ...Header,
+          Date: new Date().toString(),
         });
+        setBody({});
+        setComment("");
+        setSign(null);
+      } else {
+        fetchJob();
+        if (props.route.params.file.TimesheetLines !== undefined) {
+          setBody(props.route.params.file.TimesheetLines);
+        }
+        if (props.route.params.file.TimesheetHeader !== undefined) {
+          setHeader(props.route.params.file.TimesheetHeader);
+          if (props.route.params.file.TimesheetHeader.Date === undefined) {
+            setHeader({
+              ...Header,
+              Date: new Date().toString(),
+            });
+          }
+        }
+        if (props.route.params.file.Comment !== undefined) {
+          setComment(props.route.params.file.Comment);
+        }
+        if (props.route.params.file.signature !== undefined) {
+          setSign(props.route.params.file.signature);
+        }
+      }
     }
+    return () => {
+      // cancel the subscription
+      isSubscribed = false;
+    };
+  }, []);
+  const createTimesheet = async (Timesheet) => {
+    setIsLoading(true);
+    if (props.route.params.offline) {
+      try {
+        await AsyncStorage.setItem(
+          "@MySuperStore:TS",
+          JSON.stringify({
+            TimesheetHeader: Header,
+            TimesheetLines: Body,
+            Comment: Comment,
+            Type: "Timesheet",
+            signature: signature,
+          })
+        );
+      } catch (error) {
+        console.log("Error");
+      }
+    } else {
+      //Job.push(Timesheet);
+      const docRef = doc(
+        db,
+        props.route.params.file.JobNum,
+        props.route.params.file.baseId
+      );
+      //const reference = ref(db, "TestJob101");
+      const docSnap = getDoc(docRef);
+      if (signature === null) {
+        Alert.alert("Signature Required");
+      } else if (
+        Header.Date === undefined ||
+        Header.Date == "" ||
+        Header.Date == null
+      ) {
+        Alert.alert("Date Required");
+      } else {
+        setDoc(docRef, {
+          TimesheetHeader: Header,
+          TimesheetLines: Body,
+          Comment: Comment,
+          Type: props.route.params.file.Type,
+          baseId: props.route.params.file.baseId,
+          signature: signature,
+          lastUpdatedBy: props.route.params.file.user,
+          TypeExtra: props.route.params.file.TypeExtra,
+          id: props.route.params.file.id,
+        })
+          .then(() => {
+            Alert.alert("Success");
+          })
+          .catch((error) => {
+            Alert.alert("Submit Failed");
+          });
+      }
+    }
+    setIsLoading(false);
   };
   const SignInScroll = () => {
     setScrollEnabled(!scrollEnabled);
@@ -106,8 +160,13 @@ export default function Timesheet(props, jobNum) {
       SignInScroll={SignInScroll}
     />
   ) : (
-    <View style={styles.globalContainer}>
+    <KeyboardAvoidingView
+      style={styles.globalContainer}
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      keyboardVerticalOffset={headerHeight}
+    >
       <View style={styles.header}>
+        {isLoading ? <Loading /> : <View></View>}
         <View style={styles.hGridTitles}>
           <View style={styles.TextInputTwo}>
             <Text style={styles.textInputHeader}>Project: </Text>
@@ -134,15 +193,20 @@ export default function Timesheet(props, jobNum) {
               }}
             />
           </View>
-          <View style={styles.TextInputOne}>
-            <TextInput
-              style={styles.textInputTest}
-              placeholder=""
-              value={Header.Date}
-              onChange={(event) => {
-                setHeader({ ...Header, Date: event.nativeEvent.text });
-              }}
-            />
+          <View style={styles.DatePickerCont}>
+            <View style={styles.DatePicker}>
+              <DateTimePicker
+                dateFormat="dayofweek month day year"
+                themeVariant="light"
+                value={new Date(Header.Date)}
+                onChange={(event) => {
+                  setHeader({
+                    ...Header,
+                    Date: new Date(event.nativeEvent.timestamp).toString(),
+                  });
+                }}
+              />
+            </View>
           </View>
           <View style={styles.TextInputOne}>
             <TextInput
@@ -247,12 +311,6 @@ export default function Timesheet(props, jobNum) {
           >
             <Text style={styles.loginText}>Submit</Text>
           </TouchableOpacity>
-          <ExportDataToExcel
-            Header={Header}
-            Comment={Comment}
-            Lines={Body}
-            signature={signature}
-          />
         </View>
 
         <Image
@@ -261,7 +319,7 @@ export default function Timesheet(props, jobNum) {
           source={{ uri: signature }}
         />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -274,7 +332,6 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 2.3,
     backgroundColor: "white",
-    alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
   },
@@ -293,6 +350,24 @@ const styles = StyleSheet.create({
     flex: 5,
     margin: 5,
     alignSelf: "flex-start",
+  },
+
+  DatePicker: {
+    flex: 1,
+    justifyContent: "center",
+    width: 75,
+  },
+  DatePickerCont: {
+    backgroundColor: "white",
+    height: "100%",
+    backgroundColor: "white",
+    paddingRight: 5,
+    borderColor: "#d4d4d4",
+    borderWidth: 2,
+    flex: 1,
+    display: "flex",
+    alignItems: "flex-start",
+    paddingLeft: 5,
   },
   hGridColumns: {
     flex: 1,
@@ -405,7 +480,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     alignItems: "center",
     flex: 1,
-
     alignItems: "center",
     justifyContent: "center",
   },

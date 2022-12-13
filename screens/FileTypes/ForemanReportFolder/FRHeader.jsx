@@ -2,12 +2,21 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function FRHeader(props) {
   const [Line0, setLine0] = useState({});
   const [Line1, setLine1] = useState({});
   const [Line2, setLine2] = useState({});
+  const [onLoad, setOnLoad] = useState(true);
   useEffect(() => {
+    if (props.offline === true && onLoad) {
+      setLine0({
+        ...Line0,
+        Date: new Date().toString(),
+      });
+      setOnLoad(false);
+    }
     if (Object.keys(Line0).length !== 0) {
       props.setHeader(props.Header, (props.Header[0] = { Line0 }));
     }
@@ -19,6 +28,12 @@ export default function FRHeader(props) {
     } else if (props.Header !== undefined) {
       if (props.Header[0] !== undefined) {
         setLine0(props.Header[0].Line0);
+        if (props.Header[0].Line0.Date === undefined) {
+          setLine0({
+            ...Line0,
+            Date: new Date().toString(),
+          });
+        }
       }
       if (props.Header[1] !== undefined) {
         setLine1(props.Header[1].Line1);
@@ -47,15 +62,29 @@ export default function FRHeader(props) {
         <View style={styles.Row}>
           <Text style={styles.TextTitle}>Date:</Text>
         </View>
-        <View style={styles.Row}>
-          <TextInput
+        <View style={styles.DatePickerCont}>
+          <View style={styles.DatePicker}>
+            {/*<TextInput
             style={styles.TextInput}
             placeholder=""
             value={Line0.Date}
             onChange={(event) => {
               setLine0({ ...Line0, Date: event.nativeEvent.text });
             }}
-          />
+          />*/}
+            <DateTimePicker
+              dateFormat="dayofweek month day year"
+              value={new Date(Line0.Date)}
+              themeVariant="light"
+              style={styles.DatePicker}
+              onChange={(event) => {
+                setLine0({
+                  ...Line0,
+                  Date: new Date(event.nativeEvent.timestamp).toString(),
+                });
+              }}
+            />
+          </View>
         </View>
         <View style={styles.Row}>
           <Text style={styles.TextTitle}>Day of Week:</Text>
@@ -164,17 +193,42 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderBottomWidth: 1,
     paddingRight: 5,
+    flex: 1,
+  },
+
+  DatePicker: {
+    flex: 1,
+    justifyContent: "center",
+    width: 75,
+  },
+  DatePickerCont: {
+    height: "100%",
+    borderWidth: 1,
+    flex: 1,
+    display: "flex",
+    alignItems: "flex-start",
   },
   Title: {
+    display: "flex",
     flex: 1.2,
     borderStyle: "solid",
     borderWidth: 1,
+    borderColor: "black",
   },
   Row: {
+    display: "flex",
     flex: 1,
+    height: 50,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "black",
   },
   Row2: {
     flex: 2,
+    height: 50,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "black",
   },
   TitleText1: {
     justifyContent: "center",
@@ -182,5 +236,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   Column2: { flex: 1, flexDirection: "row" },
-  ColumnTitle: { flex: 0.3, borderStyle: "solid", borderWidth: 1 },
+  ColumnTitle: {
+    flex: 0.3,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "black",
+  },
 });

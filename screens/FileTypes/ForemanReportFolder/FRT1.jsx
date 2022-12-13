@@ -36,195 +36,209 @@ export default function FRT1(props) {
     }
   }, [props, Line0, Line1, Line2, Line3]);
   return (
-    <View style={styles.body}>
+    <View style={styles.GC}>
       <View style={styles.ColumnTitle}>
-        <View style={styles.Title}></View>
-      </View>
-      <View style={styles.Column}>
         <View style={styles.Title}>
-          <Text style={styles.TitleText1}>ACTIVITY</Text>
-          <Text style={styles.TitleText1}>
-            (EX: GRADE, EXCAVATING, SEEDING, ETC.)
-          </Text>
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line0.Activity}
-            onChange={(event) => {
-              setLine0({ ...Line0, Activity: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line1.Activity}
-            onChange={(event) => {
-              setLine1({ ...Line1, Activity: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line2.Activity}
-            onChange={(event) => {
-              setLine2({ ...Line2, Activity: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line3.Activity}
-            onChange={(event) => {
-              setLine3({ ...Line3, Activity: event.nativeEvent.text });
-            }}
-          />
+          <Text style={styles.TitleText1}>Progress</Text>
         </View>
       </View>
-      <View style={styles.Column2}>
-        <View style={styles.Title}>
-          <Text style={styles.TitleText1}>BEGIN</Text>
-          <Text style={styles.TitleText1}>STATION</Text>
+      <View style={styles.body}>
+        <View style={styles.Column}>
+          <View style={styles.Title}>
+            <Text style={styles.TitleText1}>
+              ACTIVITY (EX: GRADE, EXCAVATING, SEEDING, ETC.)
+            </Text>
+          </View>
         </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line0.BeginStation}
-            onChange={(event) => {
-              setLine0({ ...Line0, BeginStation: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line1.BeginStation}
-            onChange={(event) => {
-              setLine1({ ...Line1, BeginStation: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line2.BeginStation}
-            onChange={(event) => {
-              setLine2({ ...Line2, BeginStation: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line3.BeginStation}
-            onChange={(event) => {
-              setLine3({ ...Line3, BeginStation: event.nativeEvent.text });
-            }}
-          />
-        </View>
-      </View>
 
-      <View style={styles.Column2}>
-        <View style={styles.Title}>
-          <Text style={styles.TitleText1}>END</Text>
-          <Text style={styles.TitleText1}>STATION</Text>
+        <View style={styles.Column}>
+          <View style={styles.Title}>
+            <Text style={styles.TitleText1}>BEGIN STATION</Text>
+          </View>
         </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line0.EndStation}
-            onChange={(event) => {
-              setLine0({ ...Line0, EndStation: event.nativeEvent.text });
-            }}
-          />
+
+        <View style={styles.Column}>
+          <View style={styles.Title}>
+            <Text style={styles.TitleText1}>END STATION</Text>
+          </View>
         </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line1.EndStation}
-            onChange={(event) => {
-              setLine1({ ...Line1, EndStation: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line2.EndStation}
-            onChange={(event) => {
-              setLine2({ ...Line2, EndStation: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line3.EndStation}
-            onChange={(event) => {
-              setLine3({ ...Line3, EndStation: event.nativeEvent.text });
-            }}
-          />
+
+        <View style={styles.Column}>
+          <View style={styles.Title}>
+            <Text style={styles.TitleText1}>FOOTAGE / AREA</Text>
+          </View>
         </View>
       </View>
+      <View style={styles.body}>
+        <View style={styles.Column}>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line0.Activity}
+              onChange={(event) => {
+                setLine0({ ...Line0, Activity: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line1.Activity}
+              onChange={(event) => {
+                setLine1({ ...Line1, Activity: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line2.Activity}
+              onChange={(event) => {
+                setLine2({ ...Line2, Activity: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line3.Activity}
+              onChange={(event) => {
+                setLine3({ ...Line3, Activity: event.nativeEvent.text });
+              }}
+            />
+          </View>
+        </View>
+        <View style={styles.Column}>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line0.BeginStation}
+              onChange={(event) => {
+                setLine0({ ...Line0, BeginStation: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line1.BeginStation}
+              onChange={(event) => {
+                setLine1({ ...Line1, BeginStation: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line2.BeginStation}
+              onChange={(event) => {
+                setLine2({ ...Line2, BeginStation: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line3.BeginStation}
+              onChange={(event) => {
+                setLine3({ ...Line3, BeginStation: event.nativeEvent.text });
+              }}
+            />
+          </View>
+        </View>
 
-      <View style={styles.Column2}>
-        <View style={styles.Title}>
-          <Text style={styles.TitleText1}>FOOTAGE / AREA</Text>
+        <View style={styles.Column}>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line0.EndStation}
+              onChange={(event) => {
+                setLine0({ ...Line0, EndStation: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line1.EndStation}
+              onChange={(event) => {
+                setLine1({ ...Line1, EndStation: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line2.EndStation}
+              onChange={(event) => {
+                setLine2({ ...Line2, EndStation: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line3.EndStation}
+              onChange={(event) => {
+                setLine3({ ...Line3, EndStation: event.nativeEvent.text });
+              }}
+            />
+          </View>
         </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line0.FOOTAGE}
-            onChange={(event) => {
-              setLine0({ ...Line0, FOOTAGE: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line1.FOOTAGE}
-            onChange={(event) => {
-              setLine1({ ...Line1, FOOTAGE: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line2.FOOTAGE}
-            onChange={(event) => {
-              setLine2({ ...Line2, FOOTAGE: event.nativeEvent.text });
-            }}
-          />
-        </View>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line3.FOOTAGE}
-            onChange={(event) => {
-              setLine3({ ...Line3, FOOTAGE: event.nativeEvent.text });
-            }}
-          />
+
+        <View style={styles.Column}>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line0.FOOTAGE}
+              onChange={(event) => {
+                setLine0({ ...Line0, FOOTAGE: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line1.FOOTAGE}
+              onChange={(event) => {
+                setLine1({ ...Line1, FOOTAGE: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line2.FOOTAGE}
+              onChange={(event) => {
+                setLine2({ ...Line2, FOOTAGE: event.nativeEvent.text });
+              }}
+            />
+          </View>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line3.FOOTAGE}
+              onChange={(event) => {
+                setLine3({ ...Line3, FOOTAGE: event.nativeEvent.text });
+              }}
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -232,15 +246,20 @@ export default function FRT1(props) {
 }
 
 const styles = StyleSheet.create({
-  body: {
+  GC: {
     width: "100%",
-    height: "100%",
+    flexDirection: "column",
+  },
+  body: {
     flexDirection: "row",
   },
   Title: {
+    display: "flex",
     flex: 1.2,
     borderStyle: "solid",
     borderWidth: 1,
+    flexDirection: "column",
+    height: "100%",
   },
   Row: {
     flex: 1,
@@ -248,6 +267,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   TitleText1: {
+    flex: 10,
+    justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
+  },
+  TitleText2: {
+    flex: 1,
     justifyContent: "center",
     alignContent: "center",
     textAlign: "center",

@@ -56,7 +56,9 @@ export default function JSAT5(props) {
             }}
           >
             {Table.ClientWorkPermit ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -90,7 +92,9 @@ export default function JSAT5(props) {
             }}
           >
             {Table.HotWorkPermit ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -124,7 +128,9 @@ export default function JSAT5(props) {
             }}
           >
             {Table.AirMonitoring ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -158,7 +164,9 @@ export default function JSAT5(props) {
             }}
           >
             {Table.GroundDisturbance ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -194,7 +202,9 @@ export default function JSAT5(props) {
             }}
           >
             {Table.ConfinedSpace ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -225,7 +235,9 @@ export default function JSAT5(props) {
             }}
           >
             {Table.Excavation ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -256,7 +268,9 @@ export default function JSAT5(props) {
             }}
           >
             {Table.Other ? (
-              <View style={styles.true}></View>
+              <View style={styles.true}>
+                <Text style={styles.trueText}>X</Text>
+              </View>
             ) : (
               <View style={styles.false}></View>
             )}
@@ -309,11 +323,18 @@ const styles = StyleSheet.create({
   true: {
     width: "100%",
     height: "100%",
-    backgroundColor: "yellow",
+    backgroundColor: "green",
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  trueText: {
+    textAlign: "center",
+    fontSize: 20,
+    color: "white",
   },
   false: {
     width: "100%",
     height: "100%",
-    backgroundColor: "red",
+    backgroundColor: "white",
   },
 });

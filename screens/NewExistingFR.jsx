@@ -9,44 +9,81 @@ import {
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "./Loading";
 
-export default class NewJSA extends React.Component {
-  constructor() {
-    super();
+export default class NewForemanReportFE extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
       isLoading: false,
+      jobNum: "",
+      company: props.company,
+      Type: "Foreman Report",
+      TypeExtra: null,
+      Header: [{ Line0: {} }],
+      T1: [{ Line0: {} }, { Line1: {} }],
+      T2: [{ Line0: {} }],
+      T3: [{ Line0: {} }],
+      T4: [{ Line0: {} }],
+      T5: [{ Line0: {} }],
+      T6: [{ Line0: {} }, { Line1: {} }],
+      T7: [{ Line0: {} }],
+      id: this.props.job.length,
     };
   }
+
   render() {
-    const DoBoth = async () => {
-      const Ref = await NewJSA();
+    const _retrieveData = async () => {
+      try {
+        const value = await AsyncStorage.getItem("@MySuperStore:FR");
+        if (value !== null) {
+          // We have data!!
+          const temp = JSON.parse(value);
+          this.state.Header = temp.Header;
+          this.state.ClientSignature = temp.ClientSignature;
+          this.state.ForemanSignature = temp.ForemanSignature;
+          this.state.T1 = temp.T1;
+          this.state.T2 = temp.T2;
+          this.state.T3 = temp.T3;
+          this.state.T4 = temp.T4;
+          this.state.T5 = temp.T5;
+          this.state.T6 = temp.T6;
+          this.state.T7 = temp.T7;
+        }
+      } catch (error) {
+        console.log("Error");
+      }
     };
-    const NewJSA = async () => {
+    const DoBoth = async () => {
+      await _retrieveData();
+      const Ref = await NewFR();
+    };
+    const NewFR = async () => {
       this.setState({
         isLoading: true,
       });
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
+
       const ehehe = await db
         .collection(this.props.jobNum)
         .doc(ref._delegate._key.path.segments[1])
         .set({
-          Type: "JSA",
+          Type: "Foreman Report",
           TypeExtra: "null",
           baseId: ref._delegate._key.path.segments[1],
-          T1: [{ Table: {} }],
-          T2: [{ Table: {} }],
-          T3: [{ Table: {} }],
-          T4: [{ Table: {} }],
-          T5: [{ Table: {} }],
-          T6: [{ Table: {} }],
-          T7: [{ Table: {} }],
-          T8: [{ Table: {} }],
-          T9: [{ Line0: {} }],
-          T10: [{ Line0: {} }],
-          T11: [{ Line0: {} }],
+          Header: this.state.Header,
+          T1: this.state.T1,
+          T2: this.state.T2,
+          T3: this.state.T3,
+          T4: this.state.T4,
+          T5: this.state.T5,
+          T6: this.state.T6,
+          T7: this.state.T7,
           id: this.props.job.length,
+          ForemanSignature: this.state.ForemanSignature,
+          ClientSignature: this.state.ClientSignature,
         });
       this.setState({
         isLoading: false,
@@ -66,7 +103,9 @@ export default class NewJSA extends React.Component {
             style={styles.EditJobBtn}
             onPress={() => DoBoth()}
           >
-            <Text style={{ color: "white" }}>New JSA</Text>
+            <Text style={{ color: "white" }}>
+              New Foreman Report From Offline File
+            </Text>
           </TouchableHighlight>
         </View>
       </View>

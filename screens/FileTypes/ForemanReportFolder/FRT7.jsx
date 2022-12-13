@@ -1,5 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ScrollView,
+  KeyboardAvoidingView,
+} from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
@@ -15,21 +22,25 @@ export default function FRT7(props) {
     }
   }, [props, Line0]);
   return (
-    <View style={styles.body}>
+    <View style={styles.GC}>
       <View style={styles.ColumnTitle}>
-        <View style={styles.Title}></View>
+        <View style={styles.Title}>
+          <Text style={styles.TitleText1}></Text>
+        </View>
       </View>
-      <View style={styles.Column}>
-        <View style={styles.Row}>
-          <TextInput
-            style={styles.textInputTest}
-            placeholder=""
-            value={Line0.Comment}
-            multiline={true}
-            onChange={(event) => {
-              setLine0({ ...Line0, Comment: event.nativeEvent.text });
-            }}
-          />
+      <View style={styles.body}>
+        <View style={styles.Column}>
+          <View style={styles.Row}>
+            <TextInput
+              style={styles.textInputTest}
+              placeholder=""
+              value={Line0.Comment}
+              multiline={true}
+              onChange={(event) => {
+                setLine0({ ...Line0, Comment: event.nativeEvent.text });
+              }}
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -37,9 +48,8 @@ export default function FRT7(props) {
 }
 
 const styles = StyleSheet.create({
+  GC: { height: "100%", flex: 1 },
   body: {
-    width: "100%",
-    height: "100%",
     flexDirection: "row",
   },
   Title: {
@@ -54,5 +64,5 @@ const styles = StyleSheet.create({
   },
   Column: { flex: 1 },
   ColumnTitle: { flex: 0.05, borderStyle: "solid", borderWidth: 1 },
-  textInputTest: { width: "100%", height: "100%", padding: "1%" },
+  textInputTest: { width: "100%", height: 100, padding: "1%" },
 });

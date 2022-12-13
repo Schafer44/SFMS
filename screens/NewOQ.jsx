@@ -1,14 +1,25 @@
-import { StyleSheet, Text, View, Button, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Alert,
+  TouchableHighlight,
+} from "react-native";
 import React, { setState, useState, useEffect } from "react";
 import * as DocumentPicker from "expo-document-picker";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getStorage } from "firebase/storage";
 import { db, firebaseApp } from "./FirebaseLink";
+import Loading from "./Loading";
 
 export default class NewOQ extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { url: "" };
+    this.state = {
+      isLoading: false,
+      url: "",
+    };
   }
   render() {
     const FilePicker = async () => {
@@ -52,6 +63,9 @@ export default class NewOQ extends React.Component {
     };
 
     const NewOQ = async (temp, name) => {
+      this.setState({
+        isLoading: true,
+      });
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
       const ehehe = await db
@@ -62,18 +76,24 @@ export default class NewOQ extends React.Component {
           baseId: ref._delegate._key.path.segments[1],
           URI: temp,
           name: name,
+          id: this.props.job.length,
         });
+      this.setState({
+        isLoading: false,
+      });
     };
     return (
       <View style={styles.container} key={1}>
+        {this.state.isLoading ? <Loading /> : <View></View>}
         <View style={styles.newJob} key={1}>
-          <Button
-            key={1}
-            style={styles.existingJobBtn}
+          <TouchableHighlight
+            activeOpacity={0.99}
+            underlayColor="darkgreen"
+            style={styles.EditJobBtn}
             onPress={() => DoBoth()}
-            title="New OQ"
-            color="white"
-          ></Button>
+          >
+            <Text style={{ color: "white" }}>New OQ</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -90,11 +110,21 @@ const styles = StyleSheet.create({
     color: "white",
   },
   newJob: {
+    flexDirection: "row",
+    height: 40,
     width: "95%",
-    height: 70,
     backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 5,
+    flex: 1,
+    alignSelf: "flex-end",
+    marginRight: "2.5%",
+  },
+  EditJobBtn: {
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

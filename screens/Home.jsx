@@ -6,18 +6,23 @@ import {
   View,
   Image,
   Button,
+  KeyboardAvoidingView,
 } from "react-native";
 import Jobs from "./Jobs";
 import NewJob from "./NewJobButton";
 import Search from "./Search";
+import { useHeaderHeight } from "@react-navigation/elements";
 import React, { useState, useEffect } from "react";
-
-export default function Home(props) {
+export default function Home(props, props2) {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
-
+  const [headerHeight] = useState(useHeaderHeight());
   return (
-    <View style={styles.Gloablcontainer}>
+    <KeyboardAvoidingView
+      style={styles.Gloablcontainer}
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      keyboardVerticalOffset={headerHeight}
+    >
       <Search
         searchPhrase={searchPhrase}
         setSearchPhrase={setSearchPhrase}
@@ -26,14 +31,19 @@ export default function Home(props) {
       />
       <ScrollView style={styles.Container}>
         <Jobs
+          company={props.route.params[1]}
           searchPhrase={searchPhrase}
           navigation={props.navigation.navigate}
-          user={props.route.params}
+          user={props.route.params[0]}
         />
       </ScrollView>
 
-      <NewJob navigation={props.navigation.navigate} style={styles.blank} />
-    </View>
+      <NewJob
+        navigation={props.navigation.navigate}
+        style={styles.blank}
+        company={props.route.params[1]}
+      />
+    </KeyboardAvoidingView>
   );
 }
 
@@ -41,8 +51,6 @@ const styles = StyleSheet.create({
   Gloablcontainer: {
     flex: 1,
     backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "flex-end",
   },
   blank: {
     width: "100%",

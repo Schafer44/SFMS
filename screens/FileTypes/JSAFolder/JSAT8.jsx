@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import T8Sig from "./T8Sig";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { SignatureCapture } from "../SignatureCapture";
@@ -49,30 +50,28 @@ export default function JSAT8(props) {
         {Object.keys(Table)
           .sort()
           .map((Keys, r) => (
-            <View key={Keys}>
-              <View style={styles.Row}>
-                <TextInput
-                  style={styles.textInputTest}
-                  placeholder=""
-                  value={Table[Keys][0]}
-                  onChange={(event) => {
-                    var temp = Keys;
-                    var temp2;
-                    //[temp] = [event];
-                    var [temp] = [event.nativeEvent.text, "dsfsdf"];
-                    temp2 = [temp];
-                    if (Table[Keys][1] !== undefined) {
-                      temp2[1] = Table[Keys][1];
-                    } else {
-                      temp2[1] = "";
-                    }
-                    setTable({
-                      ...Table,
-                      [Keys]: temp2,
-                    });
-                  }}
-                />
-              </View>
+            <View style={styles.Row} key={Keys}>
+              <TextInput
+                style={styles.textInputTest}
+                placeholder=""
+                value={Table[Keys][0]}
+                onChange={(event) => {
+                  var temp = Keys;
+                  var temp2;
+                  //[temp] = [event];
+                  var [temp] = [event.nativeEvent.text, "dsfsdf"];
+                  temp2 = [temp];
+                  if (Table[Keys][1] !== undefined) {
+                    temp2[1] = Table[Keys][1];
+                  } else {
+                    temp2[1] = "";
+                  }
+                  setTable({
+                    ...Table,
+                    [Keys]: temp2,
+                  });
+                }}
+              />
             </View>
           ))}
       </View>
@@ -82,45 +81,26 @@ export default function JSAT8(props) {
         </View>
         {Object.keys(Table)
           .sort()
-          .map((Keys, r) =>
-            visible ? (
-              <View style={styles.body2}>
-                <SignatureCapture
-                  Keys={Keys}
-                  setTable={setTable}
-                  Table={Table}
-                  visible={visible}
-                  setVisible={setVisible}
-                  signature={Table[Keys][1]}
-                  SignInScroll={props.SignInScroll}
-                />
-              </View>
-            ) : (
-              <View key={Keys}>
-                <View style={styles.Row}>
-                  <TouchableOpacity
-                    style={styles.SubBtn}
-                    underlayColor="#fff"
-                    onPress={() => setVisible(!visible)}
-                  >
-                    <Image
-                      resizeMode={"contain"}
-                      style={styles.prev}
-                      source={{ uri: Table[Keys][1] }}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            )
-          )}
+          .map((Keys, r) => (
+            <View key={Keys}>
+              <T8Sig
+                Table={Table}
+                setTable={setTable}
+                Keys={Keys}
+                SignInScroll={props.SignInScroll}
+              />
+            </View>
+          ))}
       </View>
-      <TouchableOpacity
-        style={styles.SubBtn}
-        title="Lock"
-        onPress={() => addRow()}
-      >
-        <Text style={styles.LockText}>Add Row</Text>
-      </TouchableOpacity>
+      <View style={styles.addBtn}>
+        <TouchableOpacity
+          style={styles.SubBtn}
+          title="Lock"
+          onPress={() => addRow()}
+        >
+          <Text style={styles.LockText}>Add Row</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -148,6 +128,7 @@ const styles = StyleSheet.create({
   },
   Row: {
     flex: 1,
+    height: 50,
     borderStyle: "solid",
     borderWidth: 1,
   },
@@ -163,7 +144,12 @@ const styles = StyleSheet.create({
     alignContent: "center",
     textAlign: "center",
   },
-
+  textInputTest: {
+    paddingLeft: 5,
+    width: "100%",
+    height: "100%",
+    flex: 1,
+  },
   prev: {
     width: "100%",
     height: "100%",
@@ -174,8 +160,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignContent: "center",
+    backgroundColor: "green",
+    color: "white",
   },
   TitleText2: {
+    justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
+  },
+  LockText: {
+    color: "white",
+    width: "100%",
+    justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
+  },
+  addBtn: {
+    flex: 0.3,
     justifyContent: "center",
     alignContent: "center",
     textAlign: "center",

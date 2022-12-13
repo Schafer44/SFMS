@@ -13,58 +13,90 @@ import {
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Loading from "../../Loading";
 
 export default function JSAFooter(props) {
-  const createTimesheet = (Timesheet) => {
-    //Job.push(Timesheet);
-    const docRef = doc(
-      db,
-      props.route.params.file.JobNum,
-      props.route.params.file.baseId
-    );
-    //const reference = ref(db, "TestJob101");
-    const docSnap = getDoc(docRef);
+  const [isLoading, setIsLoading] = useState(false);
 
-    if (props.signature === null) {
-      Alert.alert("Signature Required");
-    } else if (
-      props.T1[0].Table.Date === undefined ||
-      props.T1[0].Table.Date === null ||
-      props.T1[0].Table.Date === ""
-    ) {
-      Alert.alert("Date Required");
+  const createTimesheet = async (Timesheet) => {
+    setIsLoading(true);
+    if (props.route.params.offline === true) {
+      try {
+        await AsyncStorage.setItem(
+          "@MySuperStore:JSA",
+          JSON.stringify({
+            signature: props.signature,
+            T1: props.T1,
+            T2: props.T2,
+            T3: props.T3,
+            T4: props.T4,
+            T5: props.T5,
+            T6: props.T6,
+            T7: props.T7,
+            T8: props.T8,
+            T9: props.T9,
+            T10: props.T10,
+            T11: props.T11,
+          })
+        );
+      } catch (error) {
+        console.log(error);
+      }
     } else {
-      setDoc(docRef, {
-        T1: props.T1,
-        T2: props.T2,
-        T3: props.T3,
-        T4: props.T4,
-        T5: props.T5,
-        T6: props.T6,
-        T7: props.T7,
-        T8: props.T8,
-        T9: props.T9,
-        T10: props.T10,
-        T11: props.T11,
-        Type: props.route.params.file.Type,
-        baseId: props.route.params.file.baseId,
-        signature: props.signature,
-        TypeExtra: props.route.params.file.TypeExtra,
-        lastUpdatedBy: props.user,
-      })
-        .then(() => {
-          Alert.alert("Success");
+      //Job.push(Timesheet);
+      const docRef = doc(
+        db,
+        props.route.params.file.JobNum,
+        props.route.params.file.baseId
+      );
+      //const reference = ref(db, "TestJob101");
+      const docSnap = getDoc(docRef);
+
+      if (props.signature === null) {
+        Alert.alert("Signature Required");
+      } else if (
+        props.T1[0].Table.Date === undefined ||
+        props.T1[0].Table.Date === null ||
+        props.T1[0].Table.Date === ""
+      ) {
+        Alert.alert("Date Required");
+      } else {
+        setDoc(docRef, {
+          T1: props.T1,
+          T2: props.T2,
+          T3: props.T3,
+          T4: props.T4,
+          T5: props.T5,
+          T6: props.T6,
+          T7: props.T7,
+          T8: props.T8,
+          T9: props.T9,
+          T10: props.T10,
+          T11: props.T11,
+          Type: props.route.params.file.Type,
+          baseId: props.route.params.file.baseId,
+          signature: props.signature,
+          TypeExtra: props.route.params.file.TypeExtra,
+          lastUpdatedBy: props.user,
+          id: props.id,
         })
-        .catch((error) => {
-          Alert.alert("Submit Failed");
-        });
+          .then(() => {
+            Alert.alert("Success");
+          })
+          .catch((error) => {
+            Alert.alert("Submit Failed");
+          });
+      }
     }
+    setIsLoading(false);
   };
   const toggleOverlay = () => {
     props.setVisible(!props.visible);
   };
   return (
     <View style={styles.footerPage}>
+      {isLoading ? <Loading /> : <View></View>}
       <View style={styles.footerPageSig}>
         <TouchableOpacity
           title="Signature"
@@ -84,7 +116,6 @@ export default function JSAFooter(props) {
         >
           <Text style={styles.loginText}>Submit</Text>
         </TouchableOpacity>
-        <ExportDataToExcel />
       </View>
       <Image
         resizeMode={"contain"}

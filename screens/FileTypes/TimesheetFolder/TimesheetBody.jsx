@@ -140,7 +140,9 @@ export default function TimesheetBody(props) {
                     }}
                   >
                     {Table[Keys][3] ? (
-                      <View style={styles.true}></View>
+                      <View style={styles.true}>
+                        <Text style={styles.trueText}>X</Text>
+                      </View>
                     ) : (
                       <View style={styles.false}></View>
                     )}
@@ -194,7 +196,9 @@ export default function TimesheetBody(props) {
                     }}
                   >
                     {Table[Keys][5] ? (
-                      <View style={styles.true}></View>
+                      <View style={styles.true}>
+                        <Text style={styles.trueText}>X</Text>
+                      </View>
                     ) : (
                       <View style={styles.false}></View>
                     )}
@@ -267,7 +271,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderColor: "#d4d4d4",
   },
-
+  textInputTest: {
+    width: "100%",
+    height: "100%",
+    marginLeft: 5,
+  },
   bodyScroll: {
     width: "100%",
     height: "90%",
@@ -358,11 +366,18 @@ const styles = StyleSheet.create({
   true: {
     width: "100%",
     height: "100%",
-    backgroundColor: "yellow",
+    backgroundColor: "green",
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  trueText: {
+    textAlign: "center",
+    fontSize: 20,
+    color: "white",
   },
   false: {
     width: "100%",
     height: "100%",
-    backgroundColor: "red",
+    backgroundColor: "white",
   },
 });

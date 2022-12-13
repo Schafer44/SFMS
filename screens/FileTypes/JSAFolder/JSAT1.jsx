@@ -2,15 +2,30 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function JSAT1(props) {
   const [Table, setTable] = useState({});
+  const [onLoad, setOnLoad] = useState(true);
   useEffect(() => {
+    if (props.offline === true && onLoad) {
+      setTable({
+        ...Table,
+        Date: new Date().toString(),
+      });
+      setOnLoad(false);
+    }
     if (Object.keys(Table).length !== 0) {
       props.setT1(props.T1, (props.T1[0] = { Table }));
     } else if (props.T1 !== undefined) {
       if (props.T1[0] !== undefined) {
         setTable(props.T1[0].Table);
+        if (props.T1[0].Table.Date === undefined) {
+          setTable({
+            ...Table,
+            Date: new Date().toString(),
+          });
+        }
       }
     }
   }, [props, Table]);
@@ -20,15 +35,28 @@ export default function JSAT1(props) {
         <View style={styles.Row}>
           <Text style={styles.TitleText2}>Date:</Text>
         </View>
-        <View style={styles.Row}>
-          <TextInput
+        <View style={styles.DatePickerCont}>
+          <View style={styles.DatePicker}>
+            {/* <TextInput
             style={styles.textInputTest}
             placeholder=""
             value={Table.Date}
             onChange={(event) => {
               setTable({ ...Table, Date: event.nativeEvent.text });
             }}
-          />
+          />*/}
+            <DateTimePicker
+              dateFormat="dayofweek month day year"
+              themeVariant="light"
+              value={new Date(Table.Date)}
+              onChange={(event) => {
+                setTable({
+                  ...Table,
+                  Date: new Date(event.nativeEvent.timestamp).toString(),
+                });
+              }}
+            />
+          </View>
         </View>
 
         <View style={styles.Row}>
@@ -220,6 +248,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: "center",
     alignContent: "center",
+    height: 50,
   },
   Column: { flex: 1, flexDirection: "row" },
   ColumnTitle: {
@@ -238,4 +267,17 @@ const styles = StyleSheet.create({
     alignContent: "center",
     textAlign: "center",
   },
+  DatePicker: {
+    flex: 1,
+    justifyContent: "center",
+    width: 75,
+  },
+  DatePickerCont: {
+    height: "100%",
+    borderWidth: 1,
+    flex: 1,
+    display: "flex",
+    alignItems: "flex-start",
+  },
+  textInputTest: { paddingLeft: 5 },
 });

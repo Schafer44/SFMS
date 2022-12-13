@@ -8,11 +8,13 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  KeyboardAvoidingView,
 } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { SignatureCapture } from "../SignatureCapture";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import JSAT1 from "./JSAT1";
 import JSAT2 from "./JSAT2";
@@ -26,6 +28,8 @@ import JSAT9 from "./JSAT9";
 import JSAT10 from "./JSAT10";
 import JSAT11 from "./JSAT11";
 import JSAFooter from "./JSAFooter";
+import { useHeaderHeight } from "@react-navigation/elements";
+import Loading from "../../Loading";
 
 export default function JSA(props, jobNum) {
   const [Job, setJob] = useState([]);
@@ -42,8 +46,14 @@ export default function JSA(props, jobNum) {
   const [T9, setT9] = useState([]);
   const [T10, setT10] = useState([]);
   const [T11, setT11] = useState([]);
+  const [Id, setId] = useState("");
+  const [User, setUser] = useState("");
   const [scrollEnabled, setScrollEnabled] = useState(true);
+  const [headerHeight] = useState(useHeaderHeight());
+  const [isLoading, setIsLoading] = useState(false);
+
   const fetchJob = async () => {
+    setIsLoading(true);
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
     const data = await response.get();
@@ -55,45 +65,74 @@ export default function JSA(props, jobNum) {
     data.docs.forEach((item) => {
       setJob([...Job]);
     });
+    setIsLoading(false);
   };
   useEffect(() => {
-    fetchJob();
-    if (props.route.params.file.signature !== undefined) {
-      setSign(props.route.params.file.signature);
+    let isSubscribed = true;
+    if (isSubscribed) {
+      if (props.route.params.offline) {
+        setT1([{ Table: {} }]);
+        setT2([{ Table: {} }]);
+        setT3([{ Table: {} }]);
+        setT4([{ Table: {} }]);
+        setT5([{ Table: {} }]);
+        setT6([{ Table: {} }]);
+        setT7([{ Table: {} }]);
+        setT8([{ Table: {} }]);
+        setT9([{ Line0: {} }]);
+        setT10([{ Line0: {} }]);
+        setT11([{ Line0: {} }]);
+        setSign(null);
+      } else {
+        fetchJob();
+        if (props.route.params.file.signature !== undefined) {
+          setSign(props.route.params.file.signature);
+        }
+        if (props.route.params.file.T1 != undefined) {
+          setT1(props.route.params.file.T1);
+        }
+        if (props.route.params.file.T2 != undefined) {
+          setT2(props.route.params.file.T2);
+        }
+        if (props.route.params.file.T3 != undefined) {
+          setT3(props.route.params.file.T3);
+        }
+        if (props.route.params.file.T4 != undefined) {
+          setT4(props.route.params.file.T4);
+        }
+        if (props.route.params.file.T5 != undefined) {
+          setT5(props.route.params.file.T5);
+        }
+        if (props.route.params.file.T6 != undefined) {
+          setT6(props.route.params.file.T6);
+        }
+        if (props.route.params.file.T7 != undefined) {
+          setT7(props.route.params.file.T7);
+        }
+        if (props.route.params.file.T8 != undefined) {
+          setT8(props.route.params.file.T8);
+        }
+        if (props.route.params.file.T9 != undefined) {
+          setT9(props.route.params.file.T9);
+        }
+        if (props.route.params.file.T10 != undefined) {
+          setT10(props.route.params.file.T10);
+        }
+        if (props.route.params.file.T11 != undefined) {
+          setT11(props.route.params.file.T11);
+        }
+        if (props.route.params.file.user != undefined) {
+          setUser(props.route.params.file.user);
+        }
+        if (props.route.params.file.id != undefined) {
+          setId(props.route.params.file.id);
+        }
+      }
     }
-    if (props.route.params.file.T1 != undefined) {
-      setT1(props.route.params.file.T1);
-    }
-    if (props.route.params.file.T2 != undefined) {
-      setT2(props.route.params.file.T2);
-    }
-    if (props.route.params.file.T3 != undefined) {
-      setT3(props.route.params.file.T3);
-    }
-    if (props.route.params.file.T4 != undefined) {
-      setT4(props.route.params.file.T4);
-    }
-    if (props.route.params.file.T5 != undefined) {
-      setT5(props.route.params.file.T5);
-    }
-    if (props.route.params.file.T6 != undefined) {
-      setT6(props.route.params.file.T6);
-    }
-    if (props.route.params.file.T7 != undefined) {
-      setT7(props.route.params.file.T7);
-    }
-    if (props.route.params.file.T8 != undefined) {
-      setT8(props.route.params.file.T8);
-    }
-    if (props.route.params.file.T9 != undefined) {
-      setT9(props.route.params.file.T9);
-    }
-    if (props.route.params.file.T10 != undefined) {
-      setT10(props.route.params.file.T10);
-    }
-    if (props.route.params.file.T11 != undefined) {
-      setT11(props.route.params.file.T11);
-    }
+    return () => {
+      // cancel the subscription
+      isSubscribed = false;
+    };
   }, []);
 
   const SignInScroll = () => {
@@ -108,7 +147,11 @@ export default function JSA(props, jobNum) {
       SignInScroll={SignInScroll}
     />
   ) : (
-    <View style={styles.globalContainer}>
+    <KeyboardAvoidingView
+      style={styles.globalContainer}
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      keyboardVerticalOffset={headerHeight}
+    >
       <TouchableOpacity
         style={styles.SubBtn}
         title="Lock"
@@ -117,11 +160,17 @@ export default function JSA(props, jobNum) {
       >
         <Text style={styles.LockText}>Lock Scroll</Text>
       </TouchableOpacity>
-      <ScrollView scrollEnabled={scrollEnabled}>
+      <ScrollView scrollEnabled={scrollEnabled} style={styles.body}>
         <View>
+          {isLoading ? <Loading /> : <View></View>}
           <View style={styles.RowOne}>
             <View style={styles.Header}>
-              <JSAT1 T1={T1} setT1={setT1} id={0} />
+              <JSAT1
+                T1={T1}
+                setT1={setT1}
+                offline={props.route.params.offline}
+                id={0}
+              />
             </View>
           </View>
           <View style={styles.RowTwo}>
@@ -217,11 +266,12 @@ export default function JSA(props, jobNum) {
             visible={visible}
             setVisible={setVisible}
             signature={signature}
-            user={props.route.params.file.user}
+            user={User}
+            id={Id}
           />
         </View>
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -229,8 +279,10 @@ const styles = StyleSheet.create({
   globalContainer: {
     width: "100%",
     flexGrow: 1,
-    paddingBottom: "3%",
+    paddingBottom: "4.2%",
+    height: "100%",
   },
+  body: { height: "100%" },
   RowOne: { flex: 1.2 },
   Header: {
     flex: 1,

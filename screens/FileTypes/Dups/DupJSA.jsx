@@ -1,18 +1,31 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TouchableHighlight,
+} from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import Loading from "../../Loading";
 
 export default class DupJSA extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+    this.state = {
+      isLoading: false,
+    };
   }
   render() {
     const DoBoth = async () => {
       const Ref = await NewJSA();
     };
     const NewJSA = async () => {
+      this.setState({
+        isLoading: true,
+      });
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
       const ehehe = await db
@@ -34,17 +47,24 @@ export default class DupJSA extends React.Component {
           signature: this.props.file.signature,
           TypeExtra: "null",
           baseId: ref._delegate._key.path.segments[1],
+          id: this.props.job.length,
         });
+      this.setState({
+        isLoading: false,
+      });
     };
     return (
       <View style={styles.container} key={1}>
+        {this.state.isLoading ? <Loading /> : <View></View>}
         <View style={styles.newJob} key={1}>
-          <Button
+          <TouchableHighlight
+            activeOpacity={0.99}
+            underlayColor="darkgreen"
             style={styles.existingJobBtn}
             onPress={() => DoBoth()}
-            title="Duplicate Templete"
-            color="white"
-          ></Button>
+          >
+            <Text style={{ color: "white" }}>Duplicate Template</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -61,14 +81,22 @@ const styles = StyleSheet.create({
     color: "white",
   },
   newJob: {
+    flexDirection: "row",
+    height: 40,
     width: "95%",
-    height: 70,
     backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 5,
+    flex: 1,
+    alignSelf: "flex-end",
+    marginRight: "2.5%",
   },
   existingJobBtn: {
     color: "white",
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

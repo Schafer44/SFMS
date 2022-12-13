@@ -6,20 +6,31 @@ import {
   ScrollView,
   Button,
   Alert,
+  TouchableHighlight,
 } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
-import { onSnapshot, doc, collection } from "firebase/firestore";
+import {
+  onSnapshot,
+  doc,
+  collection,
+  query,
+  orderBy,
+} from "firebase/firestore";
+import Loading from "./Loading";
+
 export default function Jobs(props) {
   const [Jobs, setJobs] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const Delete = async (temp) => {
     Alert.alert("Delete Job", "Are you sure you want to delete this job?", [
       {
         text: "Delete",
         style: "destructive",
         onPress: async () => {
-          await db.collection("PLEnerserv").doc(temp.baseid).delete();
+          await db.collection(props.company).doc(temp.baseid).delete();
+          await deleteCollection(temp.JobNum);
         },
       },
       {
@@ -33,10 +44,27 @@ export default function Jobs(props) {
     //await db.collection("PLEnerserv").doc(temp.baseid).delete();
     //await db.collection().delete();
   };
+  const deleteCollection = async (path) => {
+    db.collection(path)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.docs.forEach((snapshot) => {
+          snapshot.ref.delete();
+        });
+      });
+  };
   useEffect(() => {
-    onSnapshot(collection(db, "PLEnerserv"), (snapshot) => {
-      setJobs(snapshot.docs.map((doc) => doc.data()));
-    });
+    const unsubscribe = onSnapshot(
+      query(collection(db, props.company), orderBy("JobNum")),
+      (snapshot) => {
+        setIsLoading(true);
+        setJobs(snapshot.docs.map((doc) => doc.data()));
+        setIsLoading(false);
+      }
+    );
+    return () => {
+      unsubscribe();
+    };
     //fetchJobs();
   }, []);
 
@@ -44,25 +72,30 @@ export default function Jobs(props) {
     <View>
       {Jobs.map((job) => {
         if (
-          job.JobNum.toLowerCase().includes(props.searchPhrase.toLowerCase())
+          job.JobNum.toLowerCase()
+            .split("_")[0]
+            .includes(props.searchPhrase.toLowerCase())
         ) {
           job.user = props.user;
           return (
             <View style={styles.existingJob} key={job.JobNum}>
-              <Button
-                style={styles.existingJobBtn}
+              <TouchableHighlight
                 onPress={() => props.navigation("Job", { job })}
-                title={job.JobNum}
-                key={job.JobNum}
-              ></Button>
+                style={styles.existingJobBtn}
+              >
+                <Text style={styles.Text}>
+                  {job.JobNum.split("_" + props.company)[0]}
+                </Text>
+              </TouchableHighlight>
               {visible ? (
                 <View style={styles.existingJob2} key={job + "2"}>
-                  <Button
-                    style={styles.existingJobBtn}
+                  <TouchableHighlight
+                    underlayColor="darkred"
                     onPress={() => Delete(job)}
-                    title={"X"}
-                    color="white"
-                  ></Button>
+                    style={styles.existingJob2}
+                  >
+                    <Text style={styles.Text}>X</Text>
+                  </TouchableHighlight>
                 </View>
               ) : (
                 <View></View>
@@ -72,13 +105,16 @@ export default function Jobs(props) {
         }
       })}
       <View style={styles.Edit} key={1}>
-        <Button
-          style={styles.existingJobBtn}
+        <TouchableHighlight
+          underlayColor="darkgreen"
           onPress={() => setVisible(!visible)}
-          title={"Toggle Deletion"}
-          color="white"
-        ></Button>
+          style={styles.EditJobBtn}
+        >
+          <Text style={styles.Text}>Toggle Deletion</Text>
+        </TouchableHighlight>
       </View>
+
+      {isLoading ? <Loading /> : <View></View>}
     </View>
   );
 }
@@ -91,11 +127,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 5,
+    display: "flex",
+    flexDirection: "row",
+  },
+  existingJob2: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "red",
+    alignItems: "center",
+    justifyContent: "center",
   },
   existingJobBtn: {
+    flex: 10,
     width: "100%",
     height: 70,
-    backgroundColor: "white",
+    backgroundColor: "#272727",
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
   },
   Text: {
     color: "white",
@@ -111,5 +161,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "flex-end",
     marginRight: "2.5%",
+  },
+  EditJobBtn: {
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

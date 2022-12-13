@@ -1,8 +1,21 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ScrollView, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Button,
+  TouchableHighlight,
+} from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
-import { onSnapshot, doc, collection } from "firebase/firestore";
+import {
+  onSnapshot,
+  doc,
+  collection,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import Timesheet from "./FileTypes/TimesheetFolder/Timesheet";
 import AllTimesheet from "./all_Folder/allTimesheet";
 import AllForeman from "./all_Folder/allForeman";
@@ -11,16 +24,22 @@ import AllOQ from "./all_Folder/allOQ";
 import NewForemanReport from "./NewForemanReport";
 import NewJSA from "./NewJSA";
 import NewTimesheet from "./NewTimesheet";
+import NewTimesheetFE from "./NewExistingTS";
+import NewJSAFE from "./NewExistingJSA";
+import NewForemanReportFE from "./NewExistingFR";
 import NewOQ from "./NewOQ";
 import AllTimesheetDup from "./all_Folder/allTimesheetDup";
 import AllForemanDup from "./all_Folder/AllForemanDup";
 import AllJSADup from "./all_Folder/allJSADup";
+import Search from "./Search";
 
 export const Job = (props) => {
   const [contentT, setContentTimesheet] = useState(false);
   const [contentJ, setContentJSA] = useState(false);
   const [contentO, setContentOQ] = useState(false);
   const [contentF, setContentFR] = useState(false);
+  const [searchPhrase, setSearchPhrase] = useState("");
+  const [clicked, setClicked] = useState(false);
   const componentHideAndShowTimesheet = () => {
     setContentTimesheet(!contentT);
   };
@@ -37,22 +56,39 @@ export const Job = (props) => {
   const [fileType, setFileType] = useState("");
   const [Job, setJobs] = useState([]);
   useEffect(() => {
-    onSnapshot(collection(db, props.route.params.job.JobNum), (snapshot) => {
-      setJobs(snapshot.docs.map((doc) => doc.data()));
-    });
+    const unsubscribe = onSnapshot(
+      query(
+        collection(db, props.route.params.job.JobNum),
+        orderBy("id", "desc")
+      ),
+      (snapshot) => {
+        setJobs(snapshot.docs.map((doc) => doc.data()));
+      }
+    );
+
+    return () => {
+      unsubscribe();
+    };
     //fetchJobs();
   }, []);
 
   return (
     <View style={styles.GC}>
+      <Search
+        searchPhrase={searchPhrase}
+        setSearchPhrase={setSearchPhrase}
+        clicked={clicked}
+        setClicked={setClicked}
+      />
       <ScrollView style={styles.Scroll}>
         <View>
           <View style={styles.existingJob}>
-            <Button
-              title="Timesheet"
+            <TouchableHighlight
               onPress={componentHideAndShowTimesheet}
               style={styles.existingJobBtn}
-            />
+            >
+              <Text style={styles.Text}>Timesheets</Text>
+            </TouchableHighlight>
           </View>
           {contentT ? (
             <View>
@@ -61,10 +97,17 @@ export const Job = (props) => {
                 navigation={props.navigation}
                 jobNum={props.route.params.job.JobNum}
                 user={props.route.params.job.user}
+                searchPhrase={searchPhrase}
               />
               <NewTimesheet
                 jobNum={props.route.params.job.JobNum}
                 tempKey={1}
+                job={Job}
+              />
+              <NewTimesheetFE
+                jobNum={props.route.params.job.JobNum}
+                tempKey={1}
+                job={Job}
               />
               <AllTimesheetDup
                 job={Job}
@@ -76,11 +119,12 @@ export const Job = (props) => {
         </View>
         <View>
           <View style={styles.existingJob}>
-            <Button
-              title="JSA"
+            <TouchableHighlight
               onPress={componentHideAndShowJSA}
               style={styles.existingJobBtn}
-            />
+            >
+              <Text style={styles.Text}>JSAs</Text>
+            </TouchableHighlight>
           </View>
           {contentJ ? (
             <View>
@@ -89,8 +133,18 @@ export const Job = (props) => {
                 navigation={props.navigation}
                 jobNum={props.route.params.job.JobNum}
                 user={props.route.params.job.user}
+                searchPhrase={searchPhrase}
               />
-              <NewJSA jobNum={props.route.params.job.JobNum} tempKey={2} />
+              <NewJSA
+                jobNum={props.route.params.job.JobNum}
+                tempKey={2}
+                job={Job}
+              />
+              <NewJSAFE
+                jobNum={props.route.params.job.JobNum}
+                tempKey={2}
+                job={Job}
+              />
               <AllJSADup
                 job={Job}
                 navigation={props.navigation}
@@ -101,11 +155,12 @@ export const Job = (props) => {
         </View>
         <View>
           <View style={styles.existingJob}>
-            <Button
-              title="Foreman Report"
+            <TouchableHighlight
               onPress={componentHideAndShowFR}
               style={styles.existingJobBtn}
-            />
+            >
+              <Text style={styles.Text}>Foreman Reports</Text>
+            </TouchableHighlight>
           </View>
           {contentF ? (
             <View>
@@ -114,10 +169,17 @@ export const Job = (props) => {
                 navigation={props.navigation}
                 jobNum={props.route.params.job.JobNum}
                 user={props.route.params.job.user}
+                searchPhrase={searchPhrase}
               />
               <NewForemanReport
                 jobNum={props.route.params.job.JobNum}
                 tempKey={3}
+                job={Job}
+              />
+              <NewForemanReportFE
+                jobNum={props.route.params.job.JobNum}
+                tempKey={3}
+                job={Job}
               />
               <AllForemanDup
                 job={Job}
@@ -129,11 +191,12 @@ export const Job = (props) => {
         </View>
         <View>
           <View style={styles.existingJob}>
-            <Button
-              title="OQ"
+            <TouchableHighlight
               onPress={componentHideAndShowOQ}
               style={styles.existingJobBtn}
-            />
+            >
+              <Text style={styles.Text}>OQs</Text>
+            </TouchableHighlight>
           </View>
           {contentO ? (
             <View>
@@ -143,7 +206,11 @@ export const Job = (props) => {
                 jobNum={props.route.params.job.JobNum}
               />
 
-              <NewOQ jobNum={props.route.params.job.JobNum} tempKey={1} />
+              <NewOQ
+                jobNum={props.route.params.job.JobNum}
+                tempKey={1}
+                job={Job}
+              />
             </View>
           ) : null}
         </View>
@@ -177,7 +244,10 @@ const styles = StyleSheet.create({
   existingJobBtn: {
     width: "100%",
     height: 100,
-    backgroundColor: "white",
+    backgroundColor: "#272727",
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
   },
   Text: {
     color: "white",

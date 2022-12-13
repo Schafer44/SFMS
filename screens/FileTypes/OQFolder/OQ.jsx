@@ -3,11 +3,14 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
+import Loading from "../../Loading";
 
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 
 export default function OQ(props) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const download = async () => {
     const downloadPath = FileSystem.cacheDirectory + "fileName.pdf";
     const { uri: localUrl } = await FileSystem.downloadAsync(
@@ -44,11 +47,23 @@ export default function OQ(props) {
 
 const styles = StyleSheet.create({
   GC: { height: "100%", width: "100%" },
-  prev: { height: "95%", width: "100%" },
+  prev: { height: "100%", width: "100%" },
   SubBtn: {
-    width: "100%",
+    position: "absolute",
+    width: "15%",
+    height: 50,
     backgroundColor: "green",
     justifyContent: "center",
     alignContent: "center",
+    textAlign: "center",
+    bottom: 10,
+    left: 10,
+    borderRadius: 20,
+  },
+  loginText: {
+    color: "white",
+    justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
   },
 });

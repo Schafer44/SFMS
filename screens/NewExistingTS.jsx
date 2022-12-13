@@ -6,49 +6,74 @@ import {
   Button,
   TouchableHighlight,
 } from "react-native";
-import { db } from "../../FirebaseLink";
+import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import Loading from "../../Loading";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Loading from "./Loading";
 
-export default class DupFR extends React.Component {
-  constructor() {
-    super();
+export default class NewTimesheetFE extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
       isLoading: false,
+      Type: "Timesheet",
+      TypeExtra: "null",
+      TimesheetLines: {},
+      TimesheetHeader: {},
+      id: this.props.job.length,
+      Sig: null,
     };
   }
   render() {
-    const DoBoth = async () => {
-      const Ref = await NewFR();
+    const _retrieveData = async () => {
+      try {
+        const value = await AsyncStorage.getItem("@MySuperStore:TS");
+
+        if (value !== null) {
+          // We have data!!
+          const temp = JSON.parse(value);
+          this.state.TimesheetLines = temp.TimesheetLines;
+          this.state.Header = temp.TimesheetHeader;
+          this.state.Comment = temp.Comment;
+          this.state.Sig = temp.signature;
+        }
+      } catch (error) {
+        console.log(error);
+      }
     };
-    const NewFR = async () => {
+    const DoBoth = async () => {
+      await _retrieveData();
+      const Ref = await NewTimesheet();
+    };
+
+    const NewTimesheet = async () => {
       this.setState({
         isLoading: true,
       });
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
+
       const ehehe = await db
         .collection(this.props.jobNum)
         .doc(ref._delegate._key.path.segments[1])
         .set({
-          Header: this.props.file.Header,
-          T1: this.props.file.T1,
-          T2: this.props.file.T2,
-          T3: this.props.file.T3,
-          T4: this.props.file.T4,
-          T5: this.props.file.T5,
-          T6: this.props.file.T6,
-          T7: this.props.file.T7,
-          Type: this.props.file.Type,
-          signature: this.props.file.signature,
-          TypeExtra: "null",
+          Type: "Timesheet",
+          TypeExtra: null,
           baseId: ref._delegate._key.path.segments[1],
+          TimesheetLines: this.state.TimesheetLines,
+          TimesheetHeader: this.state.Header,
           id: this.props.job.length,
+          signature: this.state.Sig,
+          Comment: this.state.Comment,
         });
       this.setState({
         isLoading: false,
       });
+      /*const ehehe = await response.add({
+        Type: "Timesheet",
+        baseId: ref._delegate._key.path.segments[1],
+      });*/
     };
     return (
       <View style={styles.container} key={1}>
@@ -57,10 +82,12 @@ export default class DupFR extends React.Component {
           <TouchableHighlight
             activeOpacity={0.99}
             underlayColor="darkgreen"
-            style={styles.existingJobBtn}
+            style={styles.EditJobBtn}
             onPress={() => DoBoth()}
           >
-            <Text style={{ color: "white" }}>Duplicate Template</Text>
+            <Text style={{ color: "white" }}>
+              New Timesheet From Offline File
+            </Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -78,21 +105,16 @@ const styles = StyleSheet.create({
     color: "white",
   },
   newJob: {
-    flexDirection: "row",
-    height: 40,
     width: "95%",
+    height: 40,
     backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 5,
-    flex: 1,
-    alignSelf: "flex-end",
-    marginRight: "2.5%",
   },
-  existingJobBtn: {
-    color: "white",
-    width: "100%",
+  EditJobBtn: {
     height: "100%",
+    width: "100%",
     alignItems: "center",
     justifyContent: "center",
   },
