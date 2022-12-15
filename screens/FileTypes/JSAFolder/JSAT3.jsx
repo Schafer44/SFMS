@@ -18,7 +18,7 @@ export default function JSAT3(props) {
     <View style={styles.body}>
       <View style={styles.Column}>
         <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Topics discussed for tallgate:</Text>
+          <Text style={styles.TitleText2}>Topics discussed for tailgate:</Text>
         </View>
       </View>
       <View style={styles.Column}>

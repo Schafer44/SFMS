@@ -103,7 +103,7 @@ export default function FRHeader(props) {
 
       <View style={styles.Column2}>
         <View style={styles.Row}>
-          <Text style={styles.TextTitle}>ProjectID:</Text>
+          <Text style={styles.TextTitle}>Project ID:</Text>
         </View>
         <View style={styles.Row}>
           <TextInput

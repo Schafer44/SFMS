@@ -415,7 +415,7 @@ export default function JSAT4(props) {
         </View>
 
         <View style={styles.Row}>
-          <Text>Metalarsal Guards</Text>
+          <Text>Metatarsal Guards</Text>
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
