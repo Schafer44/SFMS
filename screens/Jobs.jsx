@@ -113,7 +113,7 @@ export default function Jobs(props) {
           onPress={() => setVisible(!visible)}
           style={styles.EditJobBtn}
         >
-          <Text style={styles.Text}>Toggle Deletion</Text>
+          <Text style={styles.Text}>Edit</Text>
         </TouchableHighlight>
       </View>
 
