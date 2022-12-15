@@ -24,23 +24,26 @@ export default function Jobs(props) {
   const [visible, setVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const Delete = async (temp) => {
-    Alert.alert("Delete Job", "Are you sure you want to delete this job?", [
-      {
-        text: "Delete",
-        style: "destructive",
-        onPress: async () => {
-          await db.collection(props.company).doc(temp.baseid).delete();
-          await deleteCollection(temp.JobNum);
+    // here Need user baseID
+    if (props.Admin === true) {
+      Alert.alert("Delete Job", "Are you sure you want to delete this job?", [
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: async () => {
+            await db.collection(props.company).doc(temp.baseid).delete();
+            await deleteCollection(temp.JobNum);
+          },
         },
-      },
-      {
-        text: "Cancel",
-        style: "cancel",
-        // If the user confirmed, then we dispatch the action we blocked earlier
-        // This will continue the action that had triggered the removal of the screen
-        onPress: async () => {},
-      },
-    ]);
+        {
+          text: "Cancel",
+          style: "cancel",
+          // If the user confirmed, then we dispatch the action we blocked earlier
+          // This will continue the action that had triggered the removal of the screen
+          onPress: async () => {},
+        },
+      ]);
+    }
     //await db.collection("PLEnerserv").doc(temp.baseid).delete();
     //await db.collection().delete();
   };

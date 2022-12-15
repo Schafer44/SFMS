@@ -35,6 +35,7 @@ export default function Home(props, props2) {
           searchPhrase={searchPhrase}
           navigation={props.navigation.navigate}
           user={props.route.params[0]}
+          Admin={props.route.params[2]}
         />
       </ScrollView>
 

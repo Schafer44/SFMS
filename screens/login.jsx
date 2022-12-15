@@ -30,9 +30,12 @@ const LoginScreen = (props) => {
     setEmail("tanner44schafer@gmail.com");
     signInWithEmailAndPassword(authentication, email, /*password*/ "444444")
       .then(async (userCredentials) => {
-        const company = await fetchUsersCompany(email);
+        const item = await fetchUsersCompany(email);
+        const company = item.company;
+        console.log(item);
+        const Admin = item.Admin;
         const user = userCredentials.user;
-        const tempArr = [email, company];
+        const tempArr = [email, company, Admin];
         props.navigation.navigate("Home", tempArr);
       })
       .catch((userCredentials) => console.log(userCredentials));

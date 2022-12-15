@@ -44,7 +44,7 @@ export const fetchUsersCompany = async (email) => {
   let temp = "";
   users.forEach((item) => {
     if (item.Email.toLowerCase() === email.toLowerCase()) {
-      temp = item.Company;
+      temp = item; // here
     }
   });
   return temp;
