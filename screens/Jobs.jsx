@@ -57,6 +57,7 @@ export default function Jobs(props) {
       });
   };
   useEffect(() => {
+    console.log("2", props);
     const unsubscribe = onSnapshot(
       query(collection(db, props.company), orderBy("JobNum")),
       (snapshot) => {

@@ -31,7 +31,7 @@ const LoginScreen = (props) => {
     signInWithEmailAndPassword(authentication, email, /*password*/ "444444")
       .then(async (userCredentials) => {
         const item = await fetchUsersCompany(email);
-        const company = item.company;
+        const company = item.Company;
         console.log(item);
         const Admin = item.Admin;
         const user = userCredentials.user;
