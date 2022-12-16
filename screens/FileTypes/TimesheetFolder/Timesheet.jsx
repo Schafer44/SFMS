@@ -23,19 +23,29 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../../Loading";
 
 export default function Timesheet(props, jobNum) {
-  const [signature, setSign] = useState(null);
+  const [FRsignature, setFRSign] = useState(null);
+  const [CRsignature, setCRSign] = useState(null);
+  const [Csignature, setCSign] = useState(null);
   const [Comment, setComment] = useState("");
   const [Lines, setLines] = useState([]);
   const [Header, setHeader] = useState([]);
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [Body, setBody] = useState([]);
   const [Job, setJob] = useState([]);
-  const [visible, setVisible] = useState(false);
   const [headerHeight] = useState(useHeaderHeight());
   const [isLoading, setIsLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [visible2, setVisible2] = useState(false);
+  const [visible3, setVisible3] = useState(false);
 
   const toggleOverlay = () => {
     setVisible(!visible);
+  };
+  const toggleOverlay2 = () => {
+    setVisible2(!visible2);
+  };
+  const toggleOverlay3 = () => {
+    setVisible3(!visible3);
   };
   const setDate = (event, date) => {
     console.log(date);
@@ -64,7 +74,9 @@ export default function Timesheet(props, jobNum) {
         });
         setBody({});
         setComment("");
-        setSign(null);
+        setFRSign(null);
+        setCSign(null);
+        setCRSign(null);
       } else {
         fetchJob();
         if (props.route.params.file.TimesheetLines !== undefined) {
@@ -82,8 +94,14 @@ export default function Timesheet(props, jobNum) {
         if (props.route.params.file.Comment !== undefined) {
           setComment(props.route.params.file.Comment);
         }
-        if (props.route.params.file.signature !== undefined) {
-          setSign(props.route.params.file.signature);
+        if (file.FRsignature !== undefined) {
+          setFRSign(file.FRsignature);
+        }
+        if (file.CRsignature !== undefined) {
+          setCRSign(file.CRsignature);
+        }
+        if (file.Csignature !== undefined) {
+          setCSign(file.Csignature);
         }
       }
     }
@@ -103,7 +121,9 @@ export default function Timesheet(props, jobNum) {
             TimesheetLines: Body,
             Comment: Comment,
             Type: "Timesheet",
-            signature: signature,
+            CRsignature: CRsignature,
+            Csignature: Csignature,
+            FRsignature: FRsignature,
           })
         );
       } catch (error) {
@@ -118,8 +138,8 @@ export default function Timesheet(props, jobNum) {
       );
       //const reference = ref(db, "TestJob101");
       const docSnap = getDoc(docRef);
-      if (signature === null) {
-        Alert.alert("Signature Required");
+      if (FRsignature === null) {
+        Alert.alert("Foreman Signature Required");
       } else if (
         Header.Date === undefined ||
         Header.Date == "" ||
@@ -133,7 +153,9 @@ export default function Timesheet(props, jobNum) {
           Comment: Comment,
           Type: props.route.params.file.Type,
           baseId: props.route.params.file.baseId,
-          signature: signature,
+          FRsignature: FRsignature,
+          CRsignature: CRsignature,
+          Csignature: Csignature,
           lastUpdatedBy: props.route.params.file.user,
           TypeExtra: props.route.params.file.TypeExtra,
           id: props.route.params.file.id,
@@ -156,9 +178,22 @@ export default function Timesheet(props, jobNum) {
     <SignatureCapture
       visible={visible}
       setVisible={setVisible}
-      signature={signature}
-      setSign={setSign}
-      SignInScroll={SignInScroll}
+      Sign={FRsignature}
+      setSign={setFRSign}
+    />
+  ) : visible2 ? (
+    <SignatureCapture
+      visible={visible2}
+      setVisible={setVisible2}
+      Sign={CRsignature}
+      setSign={setCRSign}
+    />
+  ) : visible3 ? (
+    <SignatureCapture
+      visible={visible3}
+      setVisible={setVisible3}
+      Sign={Csignature}
+      setSign={setCSign}
     />
   ) : (
     <KeyboardAvoidingView
@@ -296,7 +331,25 @@ export default function Timesheet(props, jobNum) {
             style={styles.SubBtn}
             onPress={() => toggleOverlay()}
           >
-            <Text style={styles.loginText}>Signature</Text>
+            <Text style={styles.loginText}>Foreman Signature</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            title="Signature"
+            underlayColor="#fff"
+            style={styles.SubBtn}
+            onPress={() => toggleOverlay2()}
+          >
+            <Text style={styles.loginText}>
+              Client Representative Signature
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            title="Signature"
+            underlayColor="#fff"
+            style={styles.SubBtn}
+            onPress={() => toggleOverlay3()}
+          >
+            <Text style={styles.loginText}>Company Signature</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.SubBtn}
