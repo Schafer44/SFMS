@@ -64,10 +64,20 @@ export default function Timesheet(props, jobNum) {
     });
     //setLines({ Line: props.route.params.file.Timesheet });
   };
-  useEffect(() => {
-    let isSubscribed = true;
-    if (isSubscribed) {
-      if (props.route.params.offline) {
+  const _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@MySuperStore:TS");
+      console.log(value);
+      if (value !== null) {
+        // We have data!!
+        const temp = JSON.parse(value);
+        setBody(temp.TimesheetLines);
+        setHeader(temp.TimesheetHeader);
+        setComment(temp.Comment);
+        setFRSign(temp.FRsignature);
+        setCSign(temp.Csignature);
+        setCRSign(temp.CRsignature);
+      } else {
         setHeader({
           ...Header,
           Date: new Date().toString(),
@@ -77,6 +87,25 @@ export default function Timesheet(props, jobNum) {
         setFRSign(null);
         setCSign(null);
         setCRSign(null);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    let isSubscribed = true;
+    if (isSubscribed) {
+      if (props.route.params.offline) {
+        /*setHeader({
+          ...Header,
+          Date: new Date().toString(),
+        });
+        setBody({});
+        setComment("");
+        setFRSign(null);
+        setCSign(null);
+        setCRSign(null);*/
+        _retrieveData();
       } else {
         fetchJob();
         if (props.route.params.file.TimesheetLines !== undefined) {
@@ -94,14 +123,14 @@ export default function Timesheet(props, jobNum) {
         if (props.route.params.file.Comment !== undefined) {
           setComment(props.route.params.file.Comment);
         }
-        if (file.FRsignature !== undefined) {
-          setFRSign(file.FRsignature);
+        if (props.route.params.file.FRsignature !== undefined) {
+          setFRSign(props.route.params.file.FRsignature);
         }
-        if (file.CRsignature !== undefined) {
-          setCRSign(file.CRsignature);
+        if (props.route.params.file.CRsignature !== undefined) {
+          setCRSign(props.route.params.file.CRsignature);
         }
-        if (file.Csignature !== undefined) {
-          setCSign(file.Csignature);
+        if (props.route.params.file.Csignature !== undefined) {
+          setCSign(props.route.params.file.Csignature);
         }
       }
     }
@@ -370,7 +399,19 @@ export default function Timesheet(props, jobNum) {
         <Image
           resizeMode={"contain"}
           style={styles.prev}
-          source={{ uri: signature }}
+          source={{ uri: FRsignature }}
+        />
+
+        <Image
+          resizeMode={"contain"}
+          style={styles.prev}
+          source={{ uri: CRsignature }}
+        />
+
+        <Image
+          resizeMode={"contain"}
+          style={styles.prev}
+          source={{ uri: Csignature }}
         />
       </View>
     </KeyboardAvoidingView>

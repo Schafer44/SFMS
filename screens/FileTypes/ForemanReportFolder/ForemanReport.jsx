@@ -63,6 +63,38 @@ export default function ForemanReport(props, jobNum) {
     });
     setIsLoading(false);
   };
+  const _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@MySuperStore:FR");
+      if (value !== null) {
+        // We have data!!
+        const temp = JSON.parse(value);
+        setHeader(temp.Header);
+        setClientSign(temp.ClientSignature);
+        setForemanSign(temp.ForemanSignature);
+        setT1(temp.T1);
+        setT2(temp.T2);
+        setT3(temp.T3);
+        setT4(temp.T4);
+        setT5(temp.T5);
+        setT6(temp.T6);
+        setT7(temp.T7);
+      } else {
+        setHeader([{ Line0: {} }]);
+        setForemanSign(null);
+        setClientSign(null);
+        setT1([{ Line0: {} }, { Line1: {} }]);
+        setT2([{ Line0: {} }]);
+        setT3([{ Line0: {} }]);
+        setT4([{ Line0: {} }]);
+        setT5([{ Line0: {} }]);
+        setT6([{ Line0: {} }, { Line1: {} }]);
+        setT7([{ Line0: {} }]);
+      }
+    } catch (error) {
+      console.log("Error");
+    }
+  };
   useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
