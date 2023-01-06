@@ -18,6 +18,7 @@ import {
   orderBy,
 } from "firebase/firestore";
 import Loading from "./Loading";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function Jobs(props) {
   const [Jobs, setJobs] = useState([]);
@@ -87,9 +88,17 @@ export default function Jobs(props) {
                 onPress={() => props.navigation("Job", { job })}
                 style={styles.existingJobBtn}
               >
-                <Text style={styles.Text}>
-                  {job.JobNum.split(props.company + "_")}
-                </Text>
+                <View style={styles.existingJobBtnView}>
+                  <Ionicons
+                    name="menu"
+                    size={32}
+                    color="white"
+                    style={styles.existingJobBtnViewTextIcon}
+                  />
+                  <Text style={styles.Text}>
+                    {job.JobNum.split(props.company + "_")}
+                  </Text>
+                </View>
               </TouchableHighlight>
               {visible ? (
                 <View style={styles.existingJob2} key={job + "2"}>
@@ -151,8 +160,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  Text: {
+  existingJobBtnView: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#272727",
     color: "white",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  Text: {
+    marginTop: 27,
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+    color: "white",
+    fontSize: 16,
+  },
+  existingJobBtnViewTextIcon: {
+    position: "absolute",
+    left: 10,
   },
   Edit: {
     flexDirection: "row",

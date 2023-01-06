@@ -32,6 +32,11 @@ import AllTimesheetDup from "./all_Folder/allTimesheetDup";
 import AllForemanDup from "./all_Folder/AllForemanDup";
 import AllJSADup from "./all_Folder/allJSADup";
 import Search from "./Search";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { JobTimesheetCol } from "./JobCol/JobTimesheetCol";
+import { JobOQCol } from "./JobCol/JobOQCol";
+import { JobJSACol } from "./JobCol/JobJSACol";
+import { JobFRCol } from "./JobCol/JobFRCol";
 
 export const Job = (props) => {
   const [contentT, setContentTimesheet] = useState(false);
@@ -40,18 +45,57 @@ export const Job = (props) => {
   const [contentF, setContentFR] = useState(false);
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
-  const componentHideAndShowTimesheet = () => {
-    setContentTimesheet(!contentT);
-  };
+
   const componentHideAndShowJSA = () => {
     setContentJSA(!contentJ);
+    //handleAnimation(contentJ);
   };
   const componentHideAndShowOQ = () => {
     setContentOQ(!contentO);
+    // handleAnimation(contentO);
   };
   const componentHideAndShowFR = () => {
     setContentFR(!contentF);
+    // handleAnimation(contentF);
   };
+  //
+  /*const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
+  const handleAnimation = (prop) => {
+    if (prop) {
+      Animated.timing(rotateAnimation, {
+        toValue: 0,
+        duration: 400,
+        useNativeDriver: true,
+      }).start(() => {
+        rotateAnimation.setValue(0);
+      });
+    } else {
+      Animated.timing(rotateAnimation, {
+        toValue: 1,
+        duration: 400,
+        useNativeDriver: true,
+      }).start(() => {
+        rotateAnimation.setValue(1);
+      });
+    }
+  };
+  const interpolateRotating = rotateAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "90deg"],
+  });
+  const animatedStyle = {
+    backgroundColor: "red",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    left: 20,
+    transform: [
+      {
+        rotate: interpolateRotating,
+      },
+    ],
+  };*/
+  //
   //const [Job, setJobs] = useState([]);
   const [fileType, setFileType] = useState("");
   const [Job, setJobs] = useState([]);
@@ -81,13 +125,58 @@ export const Job = (props) => {
         setClicked={setClicked}
       />
       <ScrollView style={styles.Scroll}>
+        <JobTimesheetCol
+          contentT={contentT}
+          setContentTimesheet={setContentTimesheet}
+          searchPhrase={searchPhrase}
+          setSearchPhrase={setSearchPhrase}
+          navigation={props.navigation}
+          route={props.route}
+          Job={Job}
+        />
+        <JobJSACol
+          contentJ={contentJ}
+          setContentJSA={setContentJSA}
+          searchPhrase={searchPhrase}
+          setSearchPhrase={setSearchPhrase}
+          navigation={props.navigation}
+          route={props.route}
+          Job={Job}
+        />
+        <JobFRCol
+          contentF={contentF}
+          setContentFR={setContentFR}
+          searchPhrase={searchPhrase}
+          setSearchPhrase={setSearchPhrase}
+          navigation={props.navigation}
+          route={props.route}
+          Job={Job}
+        />
+        <JobOQCol
+          contentO={contentO}
+          setContentOQ={setContentOQ}
+          searchPhrase={searchPhrase}
+          setSearchPhrase={setSearchPhrase}
+          navigation={props.navigation}
+          route={props.route}
+          Job={Job}
+        />
+        {/*
         <View>
           <View style={styles.existingJob}>
             <TouchableHighlight
               onPress={componentHideAndShowTimesheet}
               style={styles.existingJobBtn}
             >
-              <Text style={styles.Text}>Timesheets</Text>
+              <View style={styles.existingJobBtnView}>
+                <Ionicons
+                  name="menu"
+                  size={32}
+                  color="white"
+                  style={[styles.existingJobBtnViewTextIcon1]}
+                />
+                <Text style={styles.Text}>Timesheets</Text>
+              </View>
             </TouchableHighlight>
           </View>
           {contentT ? (
@@ -116,14 +205,22 @@ export const Job = (props) => {
               />
             </View>
           ) : null}
-        </View>
+          </View>
         <View>
           <View style={styles.existingJob}>
             <TouchableHighlight
               onPress={componentHideAndShowJSA}
               style={styles.existingJobBtn}
             >
-              <Text style={styles.Text}>JSAs</Text>
+              <View style={styles.existingJobBtnView}>
+                <Ionicons
+                  name="menu"
+                  size={32}
+                  color="white"
+                  style={[styles.existingJobBtnViewTextIcon1]}
+                />
+                <Text style={styles.Text}>JSAs</Text>
+              </View>
             </TouchableHighlight>
           </View>
           {contentJ ? (
@@ -159,7 +256,19 @@ export const Job = (props) => {
               onPress={componentHideAndShowFR}
               style={styles.existingJobBtn}
             >
-              <Text style={styles.Text}>Foreman Reports</Text>
+              <View style={styles.existingJobBtnView}>
+                <Ionicons
+                  name="menu"
+                  size={32}
+                  color="white"
+                  style={[
+                    contentF
+                      ? styles.existingJobBtnViewTextIcon2
+                      : styles.existingJobBtnViewTextIcon1,
+                  ]}
+                />
+                <Text style={styles.Text}>Foreman Reports</Text>
+              </View>
             </TouchableHighlight>
           </View>
           {contentF ? (
@@ -195,7 +304,19 @@ export const Job = (props) => {
               onPress={componentHideAndShowOQ}
               style={styles.existingJobBtn}
             >
-              <Text style={styles.Text}>OQs</Text>
+              <View style={styles.existingJobBtnView}>
+                <Ionicons
+                  name="menu"
+                  size={32}
+                  color="white"
+                  style={[
+                    contentO
+                      ? styles.existingJobBtnViewTextIcon2
+                      : styles.existingJobBtnViewTextIcon1,
+                  ]}
+                />
+                <Text style={styles.Text}>OQs</Text>
+              </View>
             </TouchableHighlight>
           </View>
           {contentO ? (
@@ -213,7 +334,7 @@ export const Job = (props) => {
               />
             </View>
           ) : null}
-        </View>
+          </View>*/}
       </ScrollView>
     </View>
   );
@@ -243,14 +364,35 @@ const styles = StyleSheet.create({
   },
   existingJobBtn: {
     width: "100%",
-    height: 100,
+    height: 70,
+    backgroundColor: "#272727",
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  existingJobBtnView: {
+    width: "100%",
+    height: "100%",
     backgroundColor: "#272727",
     color: "white",
     alignItems: "center",
     justifyContent: "center",
   },
   Text: {
+    marginTop: 27,
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
     color: "white",
+    fontSize: 16,
+  },
+  existingJobBtnViewTextIcon1: {
+    position: "absolute",
+    marginLeft: 10,
+  },
+  existingJobBtnViewTextIcon2: {
+    position: "absolute",
+    transform: [{ rotateZ: "90deg" }],
   },
   Scroll: {
     maxHeight: "100%",
