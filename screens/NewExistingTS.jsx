@@ -22,7 +22,9 @@ export default class NewTimesheetFE extends React.Component {
       TimesheetLines: {},
       TimesheetHeader: {},
       id: this.props.job.length,
-      Sig: null,
+      CSig: null,
+      CRSig: null,
+      FRSig: null,
       hasBeenUpdated: "yes",
     };
   }
@@ -37,7 +39,9 @@ export default class NewTimesheetFE extends React.Component {
           this.state.TimesheetLines = temp.TimesheetLines;
           this.state.Header = temp.TimesheetHeader;
           this.state.Comment = temp.Comment;
-          this.state.Sig = temp.signature;
+          this.state.CRSig = temp.CRsignature;
+          this.state.CSig = temp.Csignature;
+          this.state.FRSig = temp.FRsignature;
         }
       } catch (error) {
         console.log(error);
@@ -54,7 +58,7 @@ export default class NewTimesheetFE extends React.Component {
       });
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
-
+      console.log(this.state);
       const ehehe = await db
         .collection(this.props.jobNum)
         .doc(ref._delegate._key.path.segments[1])
@@ -65,7 +69,9 @@ export default class NewTimesheetFE extends React.Component {
           TimesheetLines: this.state.TimesheetLines,
           TimesheetHeader: this.state.Header,
           id: this.props.job.length,
-          signature: this.state.Sig,
+          CRsignature: this.state.CRSig,
+          Csignature: this.state.CSig,
+          FRsignature: this.state.FRSig,
           Comment: this.state.Comment,
         });
       this.setState({

@@ -96,6 +96,36 @@ export default function Timesheet(props, jobNum) {
     let isSubscribed = true;
     if (isSubscribed) {
       if (props.route.params.offline) {
+        setHeader({
+          ...Header,
+          Date: new Date().toString(),
+        });
+        Alert.alert(
+          "Existing File Detected",
+          "We found an existing offline timesheet, do you wish to edit it or start fresh?",
+          [
+            {
+              text: "Edit Existing",
+              style: "cancel",
+              onPress: async () => {
+                _retrieveData();
+              },
+            },
+            {
+              text: "Start Fresh",
+              style: "cancel",
+              // If the user confirmed, then we dispatch the action we blocked earlier
+              // This will continue the action that had triggered the removal of the screen
+              onPress: async () => {
+                setBody({ line0: ["", "", "", "", "", "", ""] });
+                setComment("");
+                setFRSign(null);
+                setCSign(null);
+                setCRSign(null);
+              },
+            },
+          ]
+        );
         /*setHeader({
           ...Header,
           Date: new Date().toString(),
@@ -105,7 +135,7 @@ export default function Timesheet(props, jobNum) {
         setFRSign(null);
         setCSign(null);
         setCRSign(null);*/
-        _retrieveData();
+        //_retrieveData();
       } else {
         fetchJob();
         if (props.route.params.file.TimesheetLines !== undefined) {
@@ -209,6 +239,7 @@ export default function Timesheet(props, jobNum) {
       setVisible={setVisible}
       Sign={FRsignature}
       setSign={setFRSign}
+      SignInScroll={SignInScroll}
     />
   ) : visible2 ? (
     <SignatureCapture
@@ -216,6 +247,7 @@ export default function Timesheet(props, jobNum) {
       setVisible={setVisible2}
       Sign={CRsignature}
       setSign={setCRSign}
+      SignInScroll={SignInScroll}
     />
   ) : visible3 ? (
     <SignatureCapture
@@ -223,6 +255,7 @@ export default function Timesheet(props, jobNum) {
       setVisible={setVisible3}
       Sign={Csignature}
       setSign={setCSign}
+      SignInScroll={SignInScroll}
     />
   ) : (
     <KeyboardAvoidingView

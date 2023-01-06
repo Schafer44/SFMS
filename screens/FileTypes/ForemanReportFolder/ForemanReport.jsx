@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  Alert,
   KeyboardAvoidingView,
 } from "react-native";
 import { db } from "../../FirebaseLink";
@@ -99,7 +100,41 @@ export default function ForemanReport(props, jobNum) {
     let isSubscribed = true;
     if (isSubscribed) {
       if (props.route.params.offline) {
-        setHeader([{ Line0: {} }]);
+        setT1({
+          ...T1,
+          Date: new Date().toString(),
+        });
+        Alert.alert(
+          "Existing File Detected",
+          "We found an existing offline JSA, do you wish to edit it or start fresh?",
+          [
+            {
+              text: "Edit Existing",
+              style: "cancel",
+              onPress: async () => {
+                _retrieveData();
+              },
+            },
+            {
+              text: "Start Fresh",
+              style: "cancel",
+              // If the user confirmed, then we dispatch the action we blocked earlier
+              // This will continue the action that had triggered the removal of the screen
+              onPress: async () => {
+                setForemanSign(null);
+                setClientSign(null);
+                setT1([{ Line0: {} }, { Line1: {} }]);
+                setT2([{ Line0: {} }]);
+                setT3([{ Line0: {} }]);
+                setT4([{ Line0: {} }]);
+                setT5([{ Line0: {} }]);
+                setT6([{ Line0: {} }, { Line1: {} }]);
+                setT7([{ Line0: {} }]);
+              },
+            },
+          ]
+        );
+        /*setHeader([{ Line0: {} }]);
         setForemanSign(null);
         setClientSign(null);
         setT1([{ Line0: {} }, { Line1: {} }]);
@@ -108,7 +143,7 @@ export default function ForemanReport(props, jobNum) {
         setT4([{ Line0: {} }]);
         setT5([{ Line0: {} }]);
         setT6([{ Line0: {} }, { Line1: {} }]);
-        setT7([{ Line0: {} }]);
+        setT7([{ Line0: {} }]);*/
       } else {
         fetchJob();
         if (props.route.params.file.Header !== undefined) {

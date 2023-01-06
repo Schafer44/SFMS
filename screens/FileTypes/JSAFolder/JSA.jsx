@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  Alert,
   KeyboardAvoidingView,
 } from "react-native";
 import { db } from "../../FirebaseLink";
@@ -108,6 +109,43 @@ export default function JSA(props, jobNum) {
     let isSubscribed = true;
     if (isSubscribed) {
       if (props.route.params.offline) {
+        setT1({
+          ...T1,
+          Date: new Date().toString(),
+        });
+        Alert.alert(
+          "Existing File Detected",
+          "We found an existing offline JSA, do you wish to edit it or start fresh?",
+          [
+            {
+              text: "Edit Existing",
+              style: "cancel",
+              onPress: async () => {
+                _retrieveData();
+              },
+            },
+            {
+              text: "Start Fresh",
+              style: "cancel",
+              // If the user confirmed, then we dispatch the action we blocked earlier
+              // This will continue the action that had triggered the removal of the screen
+              onPress: async () => {
+                setT1([{ Table: {} }]);
+                setT2([{ Table: {} }]);
+                setT3([{ Table: {} }]);
+                setT4([{ Table: {} }]);
+                setT5([{ Table: {} }]);
+                setT6([{ Table: {} }]);
+                setT7([{ Table: {} }]);
+                setT8([{ Table: {} }]);
+                setT9([{ Line0: {} }]);
+                setT10([{ Line0: {} }]);
+                setT11([{ Line0: {} }]);
+                setSign(null);
+              },
+            },
+          ]
+        );
         /*setT1([{ Table: {} }]);
         setT2([{ Table: {} }]);
         setT3([{ Table: {} }]);
@@ -120,7 +158,7 @@ export default function JSA(props, jobNum) {
         setT10([{ Line0: {} }]);
         setT11([{ Line0: {} }]);
         setSign(null);*/
-        _retrieveData();
+        //_retrieveData();
       } else {
         fetchJob();
         if (props.route.params.file.signature !== undefined) {
