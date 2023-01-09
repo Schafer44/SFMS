@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function FRT2(props) {
   const [Line0, setLine0] = useState({});
@@ -75,7 +76,13 @@ export default function FRT2(props) {
               >
                 {Line0.Type1 ? (
                   <View style={styles.true}>
-                    <Text style={styles.trueText}>X</Text>
+                    <Ionicons
+                      name="checkmark"
+                      size={32}
+                      color="green"
+                      style={[styles.trueText]}
+                    />
+                    {/*<Text style={styles.trueText}>X</Text>*/}
                   </View>
                 ) : (
                   <View style={styles.false}></View>
@@ -110,7 +117,13 @@ export default function FRT2(props) {
               >
                 {Line1.Type1 ? (
                   <View style={styles.true}>
-                    <Text style={styles.trueText}>X</Text>
+                    <Ionicons
+                      name="checkmark"
+                      size={32}
+                      color="green"
+                      style={[styles.trueText]}
+                    />
+                    {/*<Text style={styles.trueText}>X</Text>*/}
                   </View>
                 ) : (
                   <View style={styles.false}></View>
@@ -145,7 +158,13 @@ export default function FRT2(props) {
               >
                 {Line2.Type1 ? (
                   <View style={styles.true}>
-                    <Text style={styles.trueText}>X</Text>
+                    <Ionicons
+                      name="checkmark"
+                      size={32}
+                      color="green"
+                      style={[styles.trueText]}
+                    />
+                    {/*<Text style={styles.trueText}>X</Text>*/}
                   </View>
                 ) : (
                   <View style={styles.false}></View>
@@ -204,7 +223,13 @@ export default function FRT2(props) {
               >
                 {Line0.Type2 ? (
                   <View style={styles.true}>
-                    <Text style={styles.trueText}>X</Text>
+                    <Ionicons
+                      name="checkmark"
+                      size={32}
+                      color="green"
+                      style={[styles.trueText]}
+                    />
+                    {/*<Text style={styles.trueText}>X</Text>*/}
                   </View>
                 ) : (
                   <View style={styles.false}></View>
@@ -238,7 +263,13 @@ export default function FRT2(props) {
               >
                 {Line1.Type2 ? (
                   <View style={styles.true}>
-                    <Text style={styles.trueText}>X</Text>
+                    <Ionicons
+                      name="checkmark"
+                      size={32}
+                      color="green"
+                      style={[styles.trueText]}
+                    />
+                    {/*<Text style={styles.trueText}>X</Text>*/}
                   </View>
                 ) : (
                   <View style={styles.false}></View>
@@ -272,7 +303,13 @@ export default function FRT2(props) {
               >
                 {Line2.Type2 ? (
                   <View style={styles.true}>
-                    <Text style={styles.trueText}>X</Text>
+                    <Ionicons
+                      name="checkmark"
+                      size={32}
+                      color="green"
+                      style={[styles.trueText]}
+                    />
+                    {/*<Text style={styles.trueText}>X</Text>*/}
                   </View>
                 ) : (
                   <View style={styles.false}></View>
@@ -331,7 +368,13 @@ export default function FRT2(props) {
               >
                 {Line0.Type3 ? (
                   <View style={styles.true}>
-                    <Text style={styles.trueText}>X</Text>
+                    <Ionicons
+                      name="checkmark"
+                      size={32}
+                      color="green"
+                      style={[styles.trueText]}
+                    />
+                    {/*<Text style={styles.trueText}>X</Text>*/}
                   </View>
                 ) : (
                   <View style={styles.false}></View>
@@ -365,7 +408,13 @@ export default function FRT2(props) {
               >
                 {Line1.Type3 ? (
                   <View style={styles.true}>
-                    <Text style={styles.trueText}>X</Text>
+                    <Ionicons
+                      name="checkmark"
+                      size={32}
+                      color="green"
+                      style={[styles.trueText]}
+                    />
+                    {/*<Text style={styles.trueText}>X</Text>*/}
                   </View>
                 ) : (
                   <View style={styles.false}></View>
@@ -399,7 +448,13 @@ export default function FRT2(props) {
               >
                 {Line2.Type3 ? (
                   <View style={styles.true}>
-                    <Text style={styles.trueText}>X</Text>
+                    <Ionicons
+                      name="checkmark"
+                      size={32}
+                      color="green"
+                      style={[styles.trueText]}
+                    />
+                    {/*<Text style={styles.trueText}>X</Text>*/}
                   </View>
                 ) : (
                   <View style={styles.false}></View>
@@ -458,7 +513,13 @@ export default function FRT2(props) {
               >
                 {Line0.Type4 ? (
                   <View style={styles.true}>
-                    <Text style={styles.trueText}>X</Text>
+                    <Ionicons
+                      name="checkmark"
+                      size={32}
+                      color="green"
+                      style={[styles.trueText]}
+                    />
+                    {/*<Text style={styles.trueText}>X</Text>*/}
                   </View>
                 ) : (
                   <View style={styles.false}></View>
@@ -492,7 +553,13 @@ export default function FRT2(props) {
               >
                 {Line1.Type4 ? (
                   <View style={styles.true}>
-                    <Text style={styles.trueText}>X</Text>
+                    <Ionicons
+                      name="checkmark"
+                      size={32}
+                      color="green"
+                      style={[styles.trueText]}
+                    />
+                    {/*<Text style={styles.trueText}>X</Text>*/}
                   </View>
                 ) : (
                   <View style={styles.false}></View>
@@ -526,7 +593,13 @@ export default function FRT2(props) {
               >
                 {Line2.Type4 ? (
                   <View style={styles.true}>
-                    <Text style={styles.trueText}>X</Text>
+                    <Ionicons
+                      name="checkmark"
+                      size={32}
+                      color="green"
+                      style={[styles.trueText]}
+                    />
+                    {/*<Text style={styles.trueText}>X</Text>*/}
                   </View>
                 ) : (
                   <View style={styles.false}></View>

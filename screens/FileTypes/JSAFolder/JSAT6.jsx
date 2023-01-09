@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function JSAT6(props) {
   const [Table, setTable] = useState({});
@@ -61,7 +62,13 @@ export default function JSAT6(props) {
           >
             {Table.FireExtinuishers ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -94,7 +101,13 @@ export default function JSAT6(props) {
           >
             {Table.GasMonitor ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -130,7 +143,13 @@ export default function JSAT6(props) {
           >
             {Table.FirstAidKit ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -163,7 +182,13 @@ export default function JSAT6(props) {
           >
             {Table.Lighting ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -201,7 +226,13 @@ export default function JSAT6(props) {
           >
             {Table.SaftyDataSheets ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -236,7 +267,13 @@ export default function JSAT6(props) {
           >
             {Table.StopPaddles ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -269,7 +306,13 @@ export default function JSAT6(props) {
           >
             {Table.RoadSigns ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -301,7 +344,13 @@ export default function JSAT6(props) {
           >
             {Table.AirHorn ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -334,7 +383,13 @@ export default function JSAT6(props) {
           >
             {Table.OneCalls ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -369,7 +424,13 @@ export default function JSAT6(props) {
           >
             {Table.Slings ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -404,7 +465,13 @@ export default function JSAT6(props) {
           >
             {Table.Two_Way_Radio ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -437,7 +504,13 @@ export default function JSAT6(props) {
           >
             {Table.Other ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
