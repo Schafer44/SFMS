@@ -228,6 +228,7 @@ export default function JSA(props, jobNum) {
       behavior={Platform.OS === "ios" ? "padding" : null}
       keyboardVerticalOffset={headerHeight}
     >
+      {/*}
       <TouchableOpacity
         style={styles.SubBtn}
         title="Lock"
@@ -235,7 +236,7 @@ export default function JSA(props, jobNum) {
         onPress={() => SignInScroll()}
       >
         <Text style={styles.LockText}>Lock Scroll</Text>
-      </TouchableOpacity>
+  </TouchableOpacity>*/}
       <ScrollView scrollEnabled={scrollEnabled} style={styles.body}>
         <View>
           {isLoading ? <Loading /> : <View></View>}

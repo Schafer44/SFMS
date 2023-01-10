@@ -26,6 +26,7 @@ export default function JSAT3(props) {
           <TextInput
             style={styles.textInputTest}
             placeholder=""
+            multiline={true}
             value={Table.Topics}
             onChange={(event) => {
               setTable({ ...Table, Topics: event.nativeEvent.text });
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
   textInputTest: {
     paddingLeft: 5,
     width: "100%",
-    height: "100%",
+    height: 100,
     flex: 1,
   },
   Row: {
