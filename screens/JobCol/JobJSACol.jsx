@@ -168,7 +168,5 @@ const styles = StyleSheet.create({
   Scroll: {
     maxHeight: "100%",
   },
-  GC: {
-    maxHeight: "100%",
-  },
+  GC: {},
 });

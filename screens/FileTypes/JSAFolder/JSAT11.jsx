@@ -169,7 +169,7 @@ export default function JSAT11(props) {
         title="Add Row"
         onPress={() => addRow()}
       >
-        <Text className="LockText">Add Row</Text>
+        <Text style={styles.LockText}>Add Row</Text>
       </TouchableOpacity>
     </View>
   );
@@ -194,10 +194,12 @@ const styles = StyleSheet.create({
   },
   SubBtn: {
     width: "100%",
+    height: 50,
     flex: 1,
     justifyContent: "center",
     alignContent: "center",
     backgroundColor: "green",
+    color: "white",
   },
   prev: {
     width: "100%",
@@ -230,4 +232,10 @@ const styles = StyleSheet.create({
   Column: { flex: 3 },
   Column2: { flex: 1 },
   ColumnTitle: { flex: 0.3, borderStyle: "solid", borderWidth: 1 },
+  LockText: {
+    color: "white",
+    justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
+  },
 });
