@@ -387,66 +387,74 @@ export default function Timesheet(props, jobNum) {
       </View>
       <View style={styles.footerPage}>
         <View style={styles.footerPageSig}>
-          <TouchableOpacity
-            title="Signature"
-            underlayColor="#fff"
-            style={styles.SubBtn}
-            onPress={() => toggleOverlay()}
-          >
-            <Text style={styles.loginText}>Foreman Signature</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            title="Signature"
-            underlayColor="#fff"
-            style={styles.SubBtn}
-            onPress={() => toggleOverlay2()}
-          >
-            <Text style={styles.loginText}>
-              Client Representative Signature
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            title="Signature"
-            underlayColor="#fff"
-            style={styles.SubBtn}
-            onPress={() => toggleOverlay3()}
-          >
-            <Text style={styles.loginText}>Company Signature</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.SubBtn}
-            title="Submit"
-            underlayColor="#fff"
-            onPress={() => {
-              createTimesheet({
-                TempName: "TestTimesheet",
-                TempBaseId: "001",
-                TempId: "1",
-              });
-            }}
-          >
-            <Text style={styles.loginText}>Submit</Text>
-          </TouchableOpacity>
+          <View style={styles.SigView}>
+            <TouchableOpacity
+              title="Signature"
+              underlayColor="#fff"
+              style={styles.SubBtn}
+              onPress={() => toggleOverlay()}
+            >
+              <Text style={styles.loginText}>Foreman Signature</Text>
+            </TouchableOpacity>
+
+            <Image
+              resizeMode={"contain"}
+              style={styles.prev}
+              source={{ uri: FRsignature }}
+            />
+          </View>
+
+          <View style={styles.SigView}>
+            <TouchableOpacity
+              title="Signature"
+              underlayColor="#fff"
+              style={styles.SubBtn}
+              onPress={() => toggleOverlay2()}
+            >
+              <Text style={styles.loginText}>
+                Client Representative Signature
+              </Text>
+            </TouchableOpacity>
+
+            <Image
+              resizeMode={"contain"}
+              style={styles.prev}
+              source={{ uri: CRsignature }}
+            />
+          </View>
+
+          <View style={styles.SigView}>
+            <TouchableOpacity
+              title="Signature"
+              underlayColor="#fff"
+              style={styles.SubBtn}
+              onPress={() => toggleOverlay3()}
+            >
+              <Text style={styles.loginText}>Company Signature</Text>
+            </TouchableOpacity>
+
+            <Image
+              resizeMode={"contain"}
+              style={styles.prev}
+              source={{ uri: Csignature }}
+            />
+          </View>
         </View>
-
-        <Image
-          resizeMode={"contain"}
-          style={styles.prev}
-          source={{ uri: FRsignature }}
-        />
-
-        <Image
-          resizeMode={"contain"}
-          style={styles.prev}
-          source={{ uri: CRsignature }}
-        />
-
-        <Image
-          resizeMode={"contain"}
-          style={styles.prev}
-          source={{ uri: Csignature }}
-        />
       </View>
+      <TouchableOpacity
+        style={styles.SubBtn}
+        title="Submit"
+        underlayColor="#fff"
+        onPress={() => {
+          createTimesheet({
+            TempName: "TestTimesheet",
+            TempBaseId: "001",
+            TempId: "1",
+          });
+        }}
+      >
+        <Text style={styles.loginText}>Submit</Text>
+      </TouchableOpacity>
     </KeyboardAvoidingView>
   );
 }
@@ -495,7 +503,7 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     alignItems: "flex-start",
-    paddingLeft: 5,
+    paddingLeft: 0,
   },
   hGridColumns: {
     flex: 1,
@@ -527,7 +535,7 @@ const styles = StyleSheet.create({
   footerPage: {
     flexDirection: "row",
     width: "100%",
-    flex: 1,
+    flex: 1.5,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -536,7 +544,7 @@ const styles = StyleSheet.create({
   },
   SubBtn: {
     width: "100%",
-    flex: 1,
+    flex: 0.75,
     backgroundColor: "green",
     justifyContent: "center",
     alignContent: "center",
@@ -654,7 +662,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   prev: {
-    flex: 1,
+    flex: 2,
     height: "100%",
     width: "100%",
   },
@@ -666,7 +674,11 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   footerPageSig: {
+    flex: 3,
+    flexDirection: "row",
+  },
+  SigView: {
+    height: "100%",
     flex: 2,
-    flexDirection: "column",
   },
 });
