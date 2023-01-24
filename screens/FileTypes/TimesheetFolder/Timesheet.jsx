@@ -296,7 +296,7 @@ export default function Timesheet(props, jobNum) {
               <DateTimePicker
                 dateFormat="dayofweek month day year"
                 themeVariant="light"
-                value={new Date(Header.Date)}
+                value={new Date(Header.Date !== undefined ? Header.Date : 1)}
                 onChange={(event) => {
                   setHeader({
                     ...Header,

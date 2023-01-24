@@ -48,7 +48,7 @@ export default function JSAT1(props) {
             <DateTimePicker
               dateFormat="dayofweek month day year"
               themeVariant="light"
-              value={new Date(Table.Date)}
+              value={new Date(Table.Date !== undefined ? Table.Date : 1)}
               onChange={(event) => {
                 setTable({
                   ...Table,

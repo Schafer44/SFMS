@@ -74,7 +74,7 @@ export default function FRHeader(props) {
           />*/}
             <DateTimePicker
               dateFormat="dayofweek month day year"
-              value={new Date(Line0.Date)}
+              value={new Date(Line0.Date !== undefined ? Line0.Date : 1)}
               themeVariant="light"
               style={styles.DatePicker}
               onChange={(event) => {
