@@ -133,7 +133,7 @@ export default function JSAT9(props) {
     <View style={styles.body}>
       <View style={styles.Column}>
         <View style={styles.Row}>
-          <Text>Print Name:</Text>
+          <Text>Saftey Representatives:</Text>
         </View>
         <View style={styles.Row}>
           <TextInput

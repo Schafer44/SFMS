@@ -186,7 +186,7 @@ export default function JSAT10(props) {
     <View style={styles.body}>
       <View style={styles.Column}>
         <View style={styles.Row}>
-          <Text>Print Name:</Text>
+          <Text>Inspectors:</Text>
         </View>
         <View style={styles.Row}>
           <TextInput
