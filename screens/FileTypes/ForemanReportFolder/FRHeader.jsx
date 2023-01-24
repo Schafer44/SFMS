@@ -111,7 +111,7 @@ export default function FRHeader(props) {
             placeholder=""
             value={Line1.ProjectID}
             onChange={(event) => {
-              setLine1({ ...Line0, ProjectID: event.nativeEvent.text });
+              setLine1({ ...Line1, ProjectID: event.nativeEvent.text });
             }}
           />
         </View>
@@ -124,7 +124,7 @@ export default function FRHeader(props) {
             placeholder=""
             value={Line1.ProjectName}
             onChange={(event) => {
-              setLine1({ ...Line0, ProjectName: event.nativeEvent.text });
+              setLine1({ ...Line1, ProjectName: event.nativeEvent.text });
             }}
           />
         </View>
@@ -137,7 +137,7 @@ export default function FRHeader(props) {
             placeholder=""
             value={Line1.Weather}
             onChange={(event) => {
-              setLine1({ ...Line0, Weather: event.nativeEvent.text });
+              setLine1({ ...Line1, Weather: event.nativeEvent.text });
             }}
           />
         </View>
@@ -155,7 +155,7 @@ export default function FRHeader(props) {
             placeholder=""
             value={Line2.RainOut}
             onChange={(event) => {
-              setLine2({ ...Line0, RainOut: event.nativeEvent.text });
+              setLine2({ ...Line2, RainOut: event.nativeEvent.text });
             }}
           />
         </View>
@@ -168,7 +168,7 @@ export default function FRHeader(props) {
             placeholder=""
             value={Line2.Extra}
             onChange={(event) => {
-              setLine2({ ...Line0, Extra: event.nativeEvent.text });
+              setLine2({ ...Line2, Extra: event.nativeEvent.text });
             }}
           />
         </View>

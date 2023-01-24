@@ -67,11 +67,10 @@ export default class NewTimesheet extends React.Component {
                   TempTS = docRef.id;
                   setDoc(docRef, {
                     TimesheetHeader: {},
-                    TimesheetLines: {},
+                    TimesheetLines: { line0: ["", "", "", "", "", "", ""] },
                     Comment: "",
                     Type: "Timesheet",
                     baseId: docRef.id,
-                    signature: "",
                     lastUpdatedBy: "Admin",
                     TypeExtra: "Template",
                     id: 0,
@@ -86,8 +85,6 @@ export default class NewTimesheet extends React.Component {
                   setDoc(docRef, {
                     Type: "Foreman Report",
                     TypeExtra: "Template",
-                    ForemanSignature: "",
-                    ClientSignature: "",
                     baseId: docRef.id,
                     Header: [{ Line0: {} }],
                     T1: [{ Line0: {} }, { Line1: {} }],
@@ -109,7 +106,6 @@ export default class NewTimesheet extends React.Component {
                   setDoc(docRef, {
                     Type: "JSA",
                     TypeExtra: "Template",
-                    signature: "",
                     baseId: docRef.id,
                     T1: [{ Table: {} }],
                     T2: [{ Table: {} }],
@@ -118,10 +114,10 @@ export default class NewTimesheet extends React.Component {
                     T5: [{ Table: {} }],
                     T6: [{ Table: {} }],
                     T7: [{ Table: {} }],
-                    T8: [{ Table: {} }],
-                    T9: [{ Line0: {} }],
-                    T10: [{ Line0: {} }],
-                    T11: [{ Line0: {} }],
+                    T8: [{ Table: { Row0: ["", ""] } }],
+                    T9: [{ Line0: { Row0: [""] } }],
+                    T10: [{ Line0: { Row0: [""] } }],
+                    T11: [{ Line0: { Row0: ["", "", ""] } }],
                     id: 2,
                   });
                 });

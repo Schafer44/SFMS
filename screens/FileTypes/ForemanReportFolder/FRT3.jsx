@@ -74,7 +74,7 @@ export default function FRT3(props) {
             placeholder=""
             value={Line0.Quantity}
             onChange={(event) => {
-              setLine0({ ...Line0, Diameter: event.nativeEvent.text });
+              setLine0({ ...Line0, Quantity: event.nativeEvent.text });
             }}
           />
         </View>
@@ -96,7 +96,7 @@ export default function FRT3(props) {
             placeholder=""
             value={Line1.Quantity}
             onChange={(event) => {
-              setLine1({ ...Line1, Diameter: event.nativeEvent.text });
+              setLine1({ ...Line1, Quantity: event.nativeEvent.text });
             }}
           />
         </View>
@@ -118,7 +118,7 @@ export default function FRT3(props) {
             placeholder=""
             value={Line2.Quantity}
             onChange={(event) => {
-              setLine2({ ...Line2, Diameter: event.nativeEvent.text });
+              setLine2({ ...Line2, Quantity: event.nativeEvent.text });
             }}
           />
         </View>
@@ -140,7 +140,7 @@ export default function FRT3(props) {
             placeholder=""
             value={Line3.Quantity}
             onChange={(event) => {
-              setLine3({ ...Line3, Diameter: event.nativeEvent.text });
+              setLine3({ ...Line3, Quantity: event.nativeEvent.text });
             }}
           />
         </View>
@@ -162,7 +162,7 @@ export default function FRT3(props) {
             placeholder=""
             value={Line4.Quantity}
             onChange={(event) => {
-              setLine4({ ...Line4, Diameter: event.nativeEvent.text });
+              setLine4({ ...Line4, Quantity: event.nativeEvent.text });
             }}
           />
         </View>
