@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function JSAT7(props) {
   const [Table, setTable] = useState({});
@@ -54,7 +55,13 @@ export default function JSAT7(props) {
           >
             {Table.Dry ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -86,7 +93,13 @@ export default function JSAT7(props) {
           >
             {Table.Rocky ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -119,7 +132,13 @@ export default function JSAT7(props) {
           >
             {Table.Muddy ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -152,7 +171,13 @@ export default function JSAT7(props) {
           >
             {Table.Sandy ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -185,7 +210,13 @@ export default function JSAT7(props) {
           >
             {Table.Ice_Snow ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -218,7 +249,13 @@ export default function JSAT7(props) {
           >
             {Table.SteepSlope ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>

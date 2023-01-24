@@ -80,6 +80,7 @@ export default function JSAFooter(props) {
           TypeExtra: props.route.params.file.TypeExtra,
           lastUpdatedBy: props.user,
           id: props.id,
+          hasBeenUpdated: "yes",
         })
           .then(() => {
             Alert.alert("Success");
@@ -106,30 +107,32 @@ export default function JSAFooter(props) {
         >
           <Text style={styles.loginText}>Signature</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.SubBtn}
-          title="Submit"
-          underlayColor="#fff"
-          onPress={() => {
-            createTimesheet({});
-          }}
-        >
-          <Text style={styles.loginText}>Submit</Text>
-        </TouchableOpacity>
+
+        <Image
+          resizeMode={"contain"}
+          style={styles.prev}
+          source={{ uri: props.signature }}
+        />
       </View>
-      <Image
-        resizeMode={"contain"}
-        style={styles.prev}
-        source={{ uri: props.signature }}
-      />
+      <TouchableOpacity
+        style={styles.SubBtn}
+        title="Submit"
+        underlayColor="#fff"
+        onPress={() => {
+          createTimesheet({});
+        }}
+      >
+        <Text style={styles.loginText}>Submit</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   footerPage: {
-    flexDirection: "row",
+    flexDirection: "column",
     width: "100%",
+    height: 200,
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -137,6 +140,7 @@ const styles = StyleSheet.create({
   footerPageSig: {
     flex: 2,
     flexDirection: "column",
+    width: "100%",
   },
   SubBtn: {
     width: "100%",

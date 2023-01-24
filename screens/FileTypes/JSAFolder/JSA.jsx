@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  Alert,
   KeyboardAvoidingView,
 } from "react-native";
 import { db } from "../../FirebaseLink";
@@ -67,10 +68,26 @@ export default function JSA(props, jobNum) {
     });
     setIsLoading(false);
   };
-  useEffect(() => {
-    let isSubscribed = true;
-    if (isSubscribed) {
-      if (props.route.params.offline) {
+
+  const _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@MySuperStore:JSA");
+      if (value !== null) {
+        // We have data!!
+        const temp = JSON.parse(value);
+        setSign(temp.signature);
+        setT1(temp.T1);
+        setT2(temp.T2);
+        setT3(temp.T3);
+        setT4(temp.T4);
+        setT5(temp.T5);
+        setT6(temp.T6);
+        setT7(temp.T7);
+        setT8(temp.T8);
+        setT9(temp.T9);
+        setT10(temp.T10);
+        setT11(temp.T11);
+      } else {
         setT1([{ Table: {} }]);
         setT2([{ Table: {} }]);
         setT3([{ Table: {} }]);
@@ -83,6 +100,65 @@ export default function JSA(props, jobNum) {
         setT10([{ Line0: {} }]);
         setT11([{ Line0: {} }]);
         setSign(null);
+      }
+    } catch (error) {
+      console.log("Error");
+    }
+  };
+  useEffect(() => {
+    let isSubscribed = true;
+    if (isSubscribed) {
+      if (props.route.params.offline) {
+        setT1({
+          ...T1,
+          Date: new Date().toString(),
+        });
+        Alert.alert(
+          "Existing File Detected",
+          "We found an existing offline JSA, do you wish to edit it or start fresh?",
+          [
+            {
+              text: "Edit Existing",
+              style: "cancel",
+              onPress: async () => {
+                _retrieveData();
+              },
+            },
+            {
+              text: "Start Fresh",
+              style: "cancel",
+              // If the user confirmed, then we dispatch the action we blocked earlier
+              // This will continue the action that had triggered the removal of the screen
+              onPress: async () => {
+                setT1([{ Table: {} }]);
+                setT2([{ Table: {} }]);
+                setT3([{ Table: {} }]);
+                setT4([{ Table: {} }]);
+                setT5([{ Table: {} }]);
+                setT6([{ Table: {} }]);
+                setT7([{ Table: {} }]);
+                setT8([{ Table: {} }]);
+                setT9([{ Line0: {} }]);
+                setT10([{ Line0: {} }]);
+                setT11([{ Line0: {} }]);
+                setSign(null);
+              },
+            },
+          ]
+        );
+        /*setT1([{ Table: {} }]);
+        setT2([{ Table: {} }]);
+        setT3([{ Table: {} }]);
+        setT4([{ Table: {} }]);
+        setT5([{ Table: {} }]);
+        setT6([{ Table: {} }]);
+        setT7([{ Table: {} }]);
+        setT8([{ Table: {} }]);
+        setT9([{ Line0: {} }]);
+        setT10([{ Line0: {} }]);
+        setT11([{ Line0: {} }]);
+        setSign(null);*/
+        //_retrieveData();
       } else {
         fetchJob();
         if (props.route.params.file.signature !== undefined) {
@@ -152,6 +228,7 @@ export default function JSA(props, jobNum) {
       behavior={Platform.OS === "ios" ? "padding" : null}
       keyboardVerticalOffset={headerHeight}
     >
+      {/*}
       <TouchableOpacity
         style={styles.SubBtn}
         title="Lock"
@@ -159,7 +236,7 @@ export default function JSA(props, jobNum) {
         onPress={() => SignInScroll()}
       >
         <Text style={styles.LockText}>Lock Scroll</Text>
-      </TouchableOpacity>
+  </TouchableOpacity>*/}
       <ScrollView scrollEnabled={scrollEnabled} style={styles.body}>
         <View>
           {isLoading ? <Loading /> : <View></View>}

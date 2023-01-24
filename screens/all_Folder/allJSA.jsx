@@ -45,7 +45,10 @@ export default function AllJSA(props) {
             file.user = props.user;
             if (file.Type === "JSA") {
               if (file.TypeExtra !== "Template") {
-                if (file.T1[0].Table.Date !== undefined) {
+                if (
+                  file.T1[0].Table.Date !== undefined &&
+                  file.hasBeenUpdated === "yes"
+                ) {
                   if (
                     (
                       file.T1[0].Table.Date.split(" ")[1] +
@@ -114,7 +117,11 @@ export default function AllJSA(props) {
                               props.navigation.navigate("JSA", { file })
                             }
                           >
-                            <Text style={{ color: BtnColor }}>New JSA</Text>
+                            <Text style={{ color: BtnColor }}>
+                              {file.hasBeenUpdated === "dup"
+                                ? "Duplicate"
+                                : "New JSA"}
+                            </Text>
                           </TouchableHighlight>
                         </View>
                         {visible ? (
@@ -147,7 +154,7 @@ export default function AllJSA(props) {
             style={styles.EditJobBtn}
             onPress={() => setVisible(!visible)}
           >
-            <Text style={{ color: "white" }}>Toggle Deletion</Text>
+            <Text style={{ color: "white" }}>Edit</Text>
           </TouchableHighlight>
         </View>
       </View>

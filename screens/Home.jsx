@@ -17,6 +17,7 @@ export default function Home(props, props2) {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
   const [headerHeight] = useState(useHeaderHeight());
+  console.log("1", props.route.params);
   return (
     <KeyboardAvoidingView
       style={styles.Gloablcontainer}
@@ -35,6 +36,7 @@ export default function Home(props, props2) {
           searchPhrase={searchPhrase}
           navigation={props.navigation.navigate}
           user={props.route.params[0]}
+          Admin={props.route.params[2]}
         />
       </ScrollView>
 

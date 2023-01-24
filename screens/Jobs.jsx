@@ -18,29 +18,33 @@ import {
   orderBy,
 } from "firebase/firestore";
 import Loading from "./Loading";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function Jobs(props) {
   const [Jobs, setJobs] = useState([]);
   const [visible, setVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const Delete = async (temp) => {
-    Alert.alert("Delete Job", "Are you sure you want to delete this job?", [
-      {
-        text: "Delete",
-        style: "destructive",
-        onPress: async () => {
-          await db.collection(props.company).doc(temp.baseid).delete();
-          await deleteCollection(temp.JobNum);
+    // here Need user baseID
+    if (props.Admin === true) {
+      Alert.alert("Delete Job", "Are you sure you want to delete this job?", [
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: async () => {
+            await db.collection(props.company).doc(temp.baseid).delete();
+            await deleteCollection(temp.JobNum);
+          },
         },
-      },
-      {
-        text: "Cancel",
-        style: "cancel",
-        // If the user confirmed, then we dispatch the action we blocked earlier
-        // This will continue the action that had triggered the removal of the screen
-        onPress: async () => {},
-      },
-    ]);
+        {
+          text: "Cancel",
+          style: "cancel",
+          // If the user confirmed, then we dispatch the action we blocked earlier
+          // This will continue the action that had triggered the removal of the screen
+          onPress: async () => {},
+        },
+      ]);
+    }
     //await db.collection("PLEnerserv").doc(temp.baseid).delete();
     //await db.collection().delete();
   };
@@ -54,6 +58,7 @@ export default function Jobs(props) {
       });
   };
   useEffect(() => {
+    console.log("2", props);
     const unsubscribe = onSnapshot(
       query(collection(db, props.company), orderBy("JobNum")),
       (snapshot) => {
@@ -83,9 +88,17 @@ export default function Jobs(props) {
                 onPress={() => props.navigation("Job", { job })}
                 style={styles.existingJobBtn}
               >
-                <Text style={styles.Text}>
-                  {job.JobNum.split("_" + props.company)[0]}
-                </Text>
+                <View style={styles.existingJobBtnView}>
+                  <Ionicons
+                    name="menu"
+                    size={32}
+                    color="white"
+                    style={styles.existingJobBtnViewTextIcon}
+                  />
+                  <Text style={styles.Text}>
+                    {job.JobNum.split(props.company + "_")}
+                  </Text>
+                </View>
               </TouchableHighlight>
               {visible ? (
                 <View style={styles.existingJob2} key={job + "2"}>
@@ -110,7 +123,7 @@ export default function Jobs(props) {
           onPress={() => setVisible(!visible)}
           style={styles.EditJobBtn}
         >
-          <Text style={styles.Text}>Toggle Deletion</Text>
+          <Text style={styles.Text}>Edit</Text>
         </TouchableHighlight>
       </View>
 
@@ -147,8 +160,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  Text: {
+  existingJobBtnView: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#272727",
     color: "white",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  Text: {
+    marginTop: 27,
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+    color: "white",
+    fontSize: 16,
+  },
+  existingJobBtnViewTextIcon: {
+    position: "absolute",
+    left: 10,
   },
   Edit: {
     flexDirection: "row",

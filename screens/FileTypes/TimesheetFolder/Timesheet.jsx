@@ -23,19 +23,29 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../../Loading";
 
 export default function Timesheet(props, jobNum) {
-  const [signature, setSign] = useState(null);
+  const [FRsignature, setFRSign] = useState(null);
+  const [CRsignature, setCRSign] = useState(null);
+  const [Csignature, setCSign] = useState(null);
   const [Comment, setComment] = useState("");
   const [Lines, setLines] = useState([]);
   const [Header, setHeader] = useState([]);
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [Body, setBody] = useState([]);
   const [Job, setJob] = useState([]);
-  const [visible, setVisible] = useState(false);
   const [headerHeight] = useState(useHeaderHeight());
   const [isLoading, setIsLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [visible2, setVisible2] = useState(false);
+  const [visible3, setVisible3] = useState(false);
 
   const toggleOverlay = () => {
     setVisible(!visible);
+  };
+  const toggleOverlay2 = () => {
+    setVisible2(!visible2);
+  };
+  const toggleOverlay3 = () => {
+    setVisible3(!visible3);
   };
   const setDate = (event, date) => {
     console.log(date);
@@ -54,6 +64,34 @@ export default function Timesheet(props, jobNum) {
     });
     //setLines({ Line: props.route.params.file.Timesheet });
   };
+  const _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@MySuperStore:TS");
+      console.log(value);
+      if (value !== null) {
+        // We have data!!
+        const temp = JSON.parse(value);
+        setBody(temp.TimesheetLines);
+        setHeader(temp.TimesheetHeader);
+        setComment(temp.Comment);
+        setFRSign(temp.FRsignature);
+        setCSign(temp.Csignature);
+        setCRSign(temp.CRsignature);
+      } else {
+        setHeader({
+          ...Header,
+          Date: new Date().toString(),
+        });
+        setBody({});
+        setComment("");
+        setFRSign(null);
+        setCSign(null);
+        setCRSign(null);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
@@ -62,9 +100,42 @@ export default function Timesheet(props, jobNum) {
           ...Header,
           Date: new Date().toString(),
         });
+        Alert.alert(
+          "Existing File Detected",
+          "We found an existing offline timesheet, do you wish to edit it or start fresh?",
+          [
+            {
+              text: "Edit Existing",
+              style: "cancel",
+              onPress: async () => {
+                _retrieveData();
+              },
+            },
+            {
+              text: "Start Fresh",
+              style: "cancel",
+              // If the user confirmed, then we dispatch the action we blocked earlier
+              // This will continue the action that had triggered the removal of the screen
+              onPress: async () => {
+                setBody({ line0: ["", "", "", "", "", "", ""] });
+                setComment("");
+                setFRSign(null);
+                setCSign(null);
+                setCRSign(null);
+              },
+            },
+          ]
+        );
+        /*setHeader({
+          ...Header,
+          Date: new Date().toString(),
+        });
         setBody({});
         setComment("");
-        setSign(null);
+        setFRSign(null);
+        setCSign(null);
+        setCRSign(null);*/
+        //_retrieveData();
       } else {
         fetchJob();
         if (props.route.params.file.TimesheetLines !== undefined) {
@@ -82,8 +153,14 @@ export default function Timesheet(props, jobNum) {
         if (props.route.params.file.Comment !== undefined) {
           setComment(props.route.params.file.Comment);
         }
-        if (props.route.params.file.signature !== undefined) {
-          setSign(props.route.params.file.signature);
+        if (props.route.params.file.FRsignature !== undefined) {
+          setFRSign(props.route.params.file.FRsignature);
+        }
+        if (props.route.params.file.CRsignature !== undefined) {
+          setCRSign(props.route.params.file.CRsignature);
+        }
+        if (props.route.params.file.Csignature !== undefined) {
+          setCSign(props.route.params.file.Csignature);
         }
       }
     }
@@ -103,7 +180,9 @@ export default function Timesheet(props, jobNum) {
             TimesheetLines: Body,
             Comment: Comment,
             Type: "Timesheet",
-            signature: signature,
+            CRsignature: CRsignature,
+            Csignature: Csignature,
+            FRsignature: FRsignature,
           })
         );
       } catch (error) {
@@ -118,8 +197,8 @@ export default function Timesheet(props, jobNum) {
       );
       //const reference = ref(db, "TestJob101");
       const docSnap = getDoc(docRef);
-      if (signature === null) {
-        Alert.alert("Signature Required");
+      if (FRsignature === null) {
+        Alert.alert("Foreman Signature Required");
       } else if (
         Header.Date === undefined ||
         Header.Date == "" ||
@@ -133,10 +212,13 @@ export default function Timesheet(props, jobNum) {
           Comment: Comment,
           Type: props.route.params.file.Type,
           baseId: props.route.params.file.baseId,
-          signature: signature,
+          FRsignature: FRsignature,
+          CRsignature: CRsignature,
+          Csignature: Csignature,
           lastUpdatedBy: props.route.params.file.user,
           TypeExtra: props.route.params.file.TypeExtra,
           id: props.route.params.file.id,
+          hasBeenUpdated: "yes",
         })
           .then(() => {
             Alert.alert("Success");
@@ -155,8 +237,24 @@ export default function Timesheet(props, jobNum) {
     <SignatureCapture
       visible={visible}
       setVisible={setVisible}
-      signature={signature}
-      setSign={setSign}
+      Sign={FRsignature}
+      setSign={setFRSign}
+      SignInScroll={SignInScroll}
+    />
+  ) : visible2 ? (
+    <SignatureCapture
+      visible={visible2}
+      setVisible={setVisible2}
+      Sign={CRsignature}
+      setSign={setCRSign}
+      SignInScroll={SignInScroll}
+    />
+  ) : visible3 ? (
+    <SignatureCapture
+      visible={visible3}
+      setVisible={setVisible3}
+      Sign={Csignature}
+      setSign={setCSign}
       SignInScroll={SignInScroll}
     />
   ) : (
@@ -289,36 +387,74 @@ export default function Timesheet(props, jobNum) {
       </View>
       <View style={styles.footerPage}>
         <View style={styles.footerPageSig}>
-          <TouchableOpacity
-            title="Signature"
-            underlayColor="#fff"
-            style={styles.SubBtn}
-            onPress={() => toggleOverlay()}
-          >
-            <Text style={styles.loginText}>Signature</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.SubBtn}
-            title="Submit"
-            underlayColor="#fff"
-            onPress={() => {
-              createTimesheet({
-                TempName: "TestTimesheet",
-                TempBaseId: "001",
-                TempId: "1",
-              });
-            }}
-          >
-            <Text style={styles.loginText}>Submit</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.SigView}>
+            <TouchableOpacity
+              title="Signature"
+              underlayColor="#fff"
+              style={styles.SubBtn}
+              onPress={() => toggleOverlay()}
+            >
+              <Text style={styles.loginText}>Foreman Signature</Text>
+            </TouchableOpacity>
 
-        <Image
-          resizeMode={"contain"}
-          style={styles.prev}
-          source={{ uri: signature }}
-        />
+            <Image
+              resizeMode={"contain"}
+              style={styles.prev}
+              source={{ uri: FRsignature }}
+            />
+          </View>
+
+          <View style={styles.SigView}>
+            <TouchableOpacity
+              title="Signature"
+              underlayColor="#fff"
+              style={styles.SubBtn}
+              onPress={() => toggleOverlay2()}
+            >
+              <Text style={styles.loginText}>
+                Client Representative Signature
+              </Text>
+            </TouchableOpacity>
+
+            <Image
+              resizeMode={"contain"}
+              style={styles.prev}
+              source={{ uri: CRsignature }}
+            />
+          </View>
+
+          <View style={styles.SigView}>
+            <TouchableOpacity
+              title="Signature"
+              underlayColor="#fff"
+              style={styles.SubBtn}
+              onPress={() => toggleOverlay3()}
+            >
+              <Text style={styles.loginText}>Company Signature</Text>
+            </TouchableOpacity>
+
+            <Image
+              resizeMode={"contain"}
+              style={styles.prev}
+              source={{ uri: Csignature }}
+            />
+          </View>
+        </View>
       </View>
+      <TouchableOpacity
+        style={styles.SubBtn}
+        title="Submit"
+        underlayColor="#fff"
+        onPress={() => {
+          createTimesheet({
+            TempName: "TestTimesheet",
+            TempBaseId: "001",
+            TempId: "1",
+          });
+        }}
+      >
+        <Text style={styles.loginText}>Submit</Text>
+      </TouchableOpacity>
     </KeyboardAvoidingView>
   );
 }
@@ -367,7 +503,7 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     alignItems: "flex-start",
-    paddingLeft: 5,
+    paddingLeft: 0,
   },
   hGridColumns: {
     flex: 1,
@@ -399,7 +535,7 @@ const styles = StyleSheet.create({
   footerPage: {
     flexDirection: "row",
     width: "100%",
-    flex: 1,
+    flex: 1.5,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -408,7 +544,7 @@ const styles = StyleSheet.create({
   },
   SubBtn: {
     width: "100%",
-    flex: 1,
+    flex: 0.75,
     backgroundColor: "green",
     justifyContent: "center",
     alignContent: "center",
@@ -526,7 +662,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   prev: {
-    flex: 1,
+    flex: 2,
     height: "100%",
     width: "100%",
   },
@@ -538,7 +674,11 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   footerPageSig: {
+    flex: 3,
+    flexDirection: "row",
+  },
+  SigView: {
+    height: "100%",
     flex: 2,
-    flexDirection: "column",
   },
 });

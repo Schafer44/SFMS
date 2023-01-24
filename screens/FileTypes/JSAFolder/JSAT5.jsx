@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function JSAT5(props) {
   const [Table, setTable] = useState({});
@@ -57,7 +58,13 @@ export default function JSAT5(props) {
           >
             {Table.ClientWorkPermit ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -93,7 +100,13 @@ export default function JSAT5(props) {
           >
             {Table.HotWorkPermit ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -129,7 +142,13 @@ export default function JSAT5(props) {
           >
             {Table.AirMonitoring ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -165,7 +184,13 @@ export default function JSAT5(props) {
           >
             {Table.GroundDisturbance ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -203,7 +228,13 @@ export default function JSAT5(props) {
           >
             {Table.ConfinedSpace ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -236,7 +267,13 @@ export default function JSAT5(props) {
           >
             {Table.Excavation ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -269,7 +306,13 @@ export default function JSAT5(props) {
           >
             {Table.Other ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>

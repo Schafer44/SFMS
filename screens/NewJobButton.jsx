@@ -55,23 +55,22 @@ export default class NewTimesheet extends React.Component {
             baseid: ref._delegate._key.path.segments[1],
           });*/
         await db
-          .collection(this.state.jobNum + "_" + this.state.company)
+          .collection(this.state.company + "_" + this.state.jobNum)
           .limit(1)
           .get()
           .then(async (snapshot) => {
             if (snapshot.size === 0) {
               await db
-                .collection(this.state.jobNum + "_" + this.state.company)
+                .collection(this.state.company + "_" + this.state.jobNum)
                 .add({})
                 .then((docRef) => {
                   TempTS = docRef.id;
                   setDoc(docRef, {
                     TimesheetHeader: {},
-                    TimesheetLines: {},
+                    TimesheetLines: { line0: ["", "", "", "", "", "", ""] },
                     Comment: "",
                     Type: "Timesheet",
                     baseId: docRef.id,
-                    signature: "",
                     lastUpdatedBy: "Admin",
                     TypeExtra: "Template",
                     id: 0,
@@ -79,15 +78,13 @@ export default class NewTimesheet extends React.Component {
                 });
 
               await db
-                .collection(this.state.jobNum + "_" + this.state.company)
+                .collection(this.state.company + "_" + this.state.jobNum)
                 .add({})
                 .then((docRef) => {
                   TempFR = docRef.id;
                   setDoc(docRef, {
                     Type: "Foreman Report",
                     TypeExtra: "Template",
-                    ForemanSignature: "",
-                    ClientSignature: "",
                     baseId: docRef.id,
                     Header: [{ Line0: {} }],
                     T1: [{ Line0: {} }, { Line1: {} }],
@@ -102,14 +99,13 @@ export default class NewTimesheet extends React.Component {
                 });
 
               await db
-                .collection(this.state.jobNum + "_" + this.state.company)
+                .collection(this.state.company + "_" + this.state.jobNum)
                 .add({})
                 .then((docRef) => {
                   TempJSA = docRef.id;
                   setDoc(docRef, {
                     Type: "JSA",
                     TypeExtra: "Template",
-                    signature: "",
                     baseId: docRef.id,
                     T1: [{ Table: {} }],
                     T2: [{ Table: {} }],
@@ -118,10 +114,10 @@ export default class NewTimesheet extends React.Component {
                     T5: [{ Table: {} }],
                     T6: [{ Table: {} }],
                     T7: [{ Table: {} }],
-                    T8: [{ Table: {} }],
-                    T9: [{ Line0: {} }],
-                    T10: [{ Line0: {} }],
-                    T11: [{ Line0: {} }],
+                    T8: [{ Table: { Row0: ["", ""] } }],
+                    T9: [{ Line0: { Row0: [""] } }],
+                    T10: [{ Line0: { Row0: [""] } }],
+                    T11: [{ Line0: { Row0: ["", "", ""] } }],
                     id: 2,
                   });
                 });
@@ -129,7 +125,7 @@ export default class NewTimesheet extends React.Component {
                 .collection(this.state.company)
                 .doc(ref._delegate._key.path.segments[1])
                 .set({
-                  JobNum: this.state.jobNum + "_" + this.state.company,
+                  JobNum: this.state.company + "_" + this.state.jobNum,
                   baseid: ref._delegate._key.path.segments[1],
                 });
               this.setState({

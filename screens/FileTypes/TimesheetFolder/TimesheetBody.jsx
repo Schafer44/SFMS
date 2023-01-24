@@ -11,6 +11,7 @@ import {
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import { SignatureCapture } from "../SignatureCapture";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function TimesheetBody(props) {
   const [Table, setTable] = useState({});
@@ -141,7 +142,13 @@ export default function TimesheetBody(props) {
                   >
                     {Table[Keys][3] ? (
                       <View style={styles.true}>
-                        <Text style={styles.trueText}>X</Text>
+                        <Ionicons
+                          name="checkmark"
+                          size={32}
+                          color="green"
+                          style={[styles.trueText]}
+                        />
+                        {/*<Text style={styles.trueText}>X</Text>*/}
                       </View>
                     ) : (
                       <View style={styles.false}></View>
@@ -197,7 +204,13 @@ export default function TimesheetBody(props) {
                   >
                     {Table[Keys][5] ? (
                       <View style={styles.true}>
-                        <Text style={styles.trueText}>X</Text>
+                        <Ionicons
+                          name="checkmark"
+                          size={32}
+                          color="green"
+                          style={[styles.trueText]}
+                        />
+                        {/*<Text style={styles.trueText}>X</Text>*/}
                       </View>
                     ) : (
                       <View style={styles.false}></View>
@@ -372,7 +385,6 @@ const styles = StyleSheet.create({
   },
   trueText: {
     textAlign: "center",
-    fontSize: 20,
     color: "white",
   },
   false: {

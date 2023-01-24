@@ -97,7 +97,7 @@ export default function AllOQ(props) {
             style={styles.EditJobBtn}
             onPress={() => setVisible(!visible)}
           >
-            <Text style={{ color: "white" }}>Toggle Deletion</Text>
+            <Text style={{ color: "white" }}>Edit</Text>
           </TouchableHighlight>
         </View>
       </View>

@@ -41,6 +41,7 @@ export default class Duplicate extends React.Component {
           TypeExtra: "null",
           baseId: ref._delegate._key.path.segments[1],
           id: this.props.job.length,
+          hasBeenUpdated: "dup",
         });
       this.setState({
         isLoading: false,

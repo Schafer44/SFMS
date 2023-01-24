@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function JSAT4(props) {
   const [Table, setTable] = useState({});
@@ -57,7 +58,13 @@ export default function JSAT4(props) {
           >
             {Table.SafetyGlasses ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -89,7 +96,13 @@ export default function JSAT4(props) {
           >
             {Table.HardHat ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -122,7 +135,13 @@ export default function JSAT4(props) {
           >
             {Table.SafetyVest ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -158,7 +177,13 @@ export default function JSAT4(props) {
           >
             {Table.SafetyToeBoots ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -191,7 +216,13 @@ export default function JSAT4(props) {
           >
             {Table.Gloves ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -226,7 +257,13 @@ export default function JSAT4(props) {
           >
             {Table.FRClothing ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -261,7 +298,13 @@ export default function JSAT4(props) {
           >
             {Table.FallProtection ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -297,7 +340,13 @@ export default function JSAT4(props) {
           >
             {Table.WinterFootwear ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -332,7 +381,13 @@ export default function JSAT4(props) {
           >
             {Table.HearingProtection ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -368,7 +423,13 @@ export default function JSAT4(props) {
           >
             {Table.ResporatoryProtection ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -406,7 +467,13 @@ export default function JSAT4(props) {
           >
             {Table.ChainsawChaps ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -415,7 +482,7 @@ export default function JSAT4(props) {
         </View>
 
         <View style={styles.Row}>
-          <Text>Metalarsal Guards</Text>
+          <Text>Metatarsal Guards</Text>
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
@@ -442,7 +509,13 @@ export default function JSAT4(props) {
           >
             {Table.MetalarsalGuards ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -474,7 +547,13 @@ export default function JSAT4(props) {
           >
             {Table.LifeVest ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -509,7 +588,13 @@ export default function JSAT4(props) {
           >
             {Table.FaceShielding ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>
@@ -542,7 +627,13 @@ export default function JSAT4(props) {
           >
             {Table.Other ? (
               <View style={styles.true}>
-                <Text style={styles.trueText}>X</Text>
+                <Ionicons
+                  name="checkmark"
+                  size={32}
+                  color="green"
+                  style={[styles.trueText]}
+                />
+                {/*<Text style={styles.trueText}>X</Text>*/}
               </View>
             ) : (
               <View style={styles.false}></View>

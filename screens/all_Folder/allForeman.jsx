@@ -52,7 +52,8 @@ export default function AllForeman(props) {
                 if (
                   file.Header[0].Line0.Date !== undefined &&
                   file.Header[0].Line0.Date !== null &&
-                  file.Header[0].Line0.Date !== ""
+                  file.Header[0].Line0.Date !== "" &&
+                  file.hasBeenUpdated === "yes"
                 ) {
                   if (
                     (
@@ -127,7 +128,9 @@ export default function AllForeman(props) {
                             }
                           >
                             <Text style={{ color: BtnColor }}>
-                              New Foreman Report
+                              {file.hasBeenUpdated === "dup"
+                                ? "Duplicate"
+                                : "New Report"}
                             </Text>
                           </TouchableHighlight>
                         </View>
@@ -161,7 +164,7 @@ export default function AllForeman(props) {
             style={styles.EditJobBtn}
             onPress={() => setVisible(!visible)}
           >
-            <Text style={{ color: "white" }}>Toggle Deletion</Text>
+            <Text style={{ color: "white" }}>Edit</Text>
           </TouchableHighlight>
         </View>
       </View>

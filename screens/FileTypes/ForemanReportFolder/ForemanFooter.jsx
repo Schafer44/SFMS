@@ -92,6 +92,7 @@ export default function ForemanFooter(props) {
           TypeExtra: props.route.params.file.TypeExtra,
           lastUpdatedBy: props.user,
           id: props.id,
+          hasBeenUpdated: "yes",
         })
           .then(() => {
             Alert.alert("Success");
@@ -113,59 +114,66 @@ export default function ForemanFooter(props) {
     <View style={styles.footerPage}>
       {isLoading ? <Loading /> : <View></View>}
       <View style={styles.footerPageSig}>
-        <TouchableOpacity
-          title="Signature"
-          underlayColor="#fff"
-          style={styles.SubBtn}
-          onPress={() => toggleOverlay2()}
-        >
-          <Text style={styles.loginText}>Client Rep Signature</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          title="Signature"
-          underlayColor="#fff"
-          style={styles.SubBtn}
-          onPress={() => toggleOverlay()}
-        >
-          <Text style={styles.loginText}>Foreman Signature</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.SubBtn}
-          title="Submit"
-          underlayColor="#fff"
-          onPress={() => {
-            createTimesheet({});
-          }}
-        >
-          <Text style={styles.loginText}>Submit</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.SigView}>
+          <TouchableOpacity
+            title="Signature"
+            underlayColor="#fff"
+            style={styles.SubBtn}
+            onPress={() => toggleOverlay2()}
+          >
+            <Text style={styles.loginText}>Client Rep Signature</Text>
+          </TouchableOpacity>
 
-      <Image
-        resizeMode={"contain"}
-        style={styles.prev}
-        source={{ uri: props.ForemanSignature }}
-      />
-      <Image
-        resizeMode={"contain"}
-        style={styles.prev}
-        source={{ uri: props.ClientSignature }}
-      />
+          <Image
+            resizeMode={"contain"}
+            style={styles.prev}
+            source={{ uri: props.ClientSignature }}
+          />
+        </View>
+
+        <View style={styles.SigView}>
+          <TouchableOpacity
+            title="Signature"
+            underlayColor="#fff"
+            style={styles.SubBtn}
+            onPress={() => toggleOverlay()}
+          >
+            <Text style={styles.loginText}>Foreman Signature</Text>
+          </TouchableOpacity>
+
+          <Image
+            resizeMode={"contain"}
+            style={styles.prev}
+            source={{ uri: props.ForemanSignature }}
+          />
+        </View>
+      </View>
+      <TouchableOpacity
+        style={styles.SubBtn}
+        title="Submit"
+        underlayColor="#fff"
+        onPress={() => {
+          createTimesheet({});
+        }}
+      >
+        <Text style={styles.loginText}>Submit</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   footerPage: {
-    flexDirection: "row",
+    flexDirection: "column",
     width: "100%",
+    height: 200,
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
   footerPageSig: {
     flex: 2,
-    flexDirection: "column",
+    flexDirection: "row",
   },
   SubBtn: {
     width: "100%",
@@ -182,5 +190,9 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%",
     width: "100%",
+  },
+  SigView: {
+    height: "100%",
+    flex: 2,
   },
 });
