@@ -25,7 +25,7 @@ export default function FRT7(props) {
     <View style={styles.GC}>
       <View style={styles.ColumnTitle}>
         <View style={styles.Title}>
-          <Text style={styles.TitleText1}></Text>
+          <Text style={styles.TitleText1}>Overview of Progress</Text>
         </View>
       </View>
       <View style={styles.body}>
@@ -65,4 +65,9 @@ const styles = StyleSheet.create({
   Column: { flex: 1 },
   ColumnTitle: { flex: 0.05, borderStyle: "solid", borderWidth: 1 },
   textInputTest: { width: "100%", height: 100, padding: "1%" },
+  TitleText1: {
+    justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
+  },
 });
