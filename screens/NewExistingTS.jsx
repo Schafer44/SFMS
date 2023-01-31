@@ -58,7 +58,6 @@ export default class NewTimesheetFE extends React.Component {
       });
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
-      console.log(this.state);
       const ehehe = await db
         .collection(this.props.jobNum)
         .doc(ref._delegate._key.path.segments[1])

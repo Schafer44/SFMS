@@ -20,7 +20,7 @@ export default class NewForemanReportFE extends React.Component {
       jobNum: "",
       company: props.company,
       Type: "Foreman Report",
-      TypeExtra: null,
+      TypeExtra: "null",
       Header: [{ Line0: {} }],
       T1: [{ Line0: {} }, { Line1: {} }],
       T2: [{ Line0: {} }],
@@ -53,7 +53,6 @@ export default class NewForemanReportFE extends React.Component {
           this.state.T7 = temp.T7;
         }
       } catch (error) {
-        console.log("Error");
       }
     };
     const DoBoth = async () => {

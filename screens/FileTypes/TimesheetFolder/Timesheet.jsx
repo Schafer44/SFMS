@@ -47,9 +47,7 @@ export default function Timesheet(props, jobNum) {
   const toggleOverlay3 = () => {
     setVisible3(!visible3);
   };
-  const setDate = (event, date) => {
-    console.log(date);
-  };
+  const setDate = (event, date) => {};
   const fetchJob = async () => {
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
@@ -67,7 +65,7 @@ export default function Timesheet(props, jobNum) {
   const _retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem("@MySuperStore:TS");
-      console.log(value);
+
       if (value !== null) {
         // We have data!!
         const temp = JSON.parse(value);
@@ -184,7 +182,7 @@ export default function Timesheet(props, jobNum) {
             Csignature: Csignature,
             FRsignature: FRsignature,
           })
-        );
+        ).then(Alert.alert("Success"));
       } catch (error) {
         console.log("Error");
       }

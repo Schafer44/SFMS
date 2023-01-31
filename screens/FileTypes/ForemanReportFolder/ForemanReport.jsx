@@ -81,7 +81,7 @@ export default function ForemanReport(props, jobNum) {
         setT6(temp.T6);
         setT7(temp.T7);
       } else {
-        setHeader([{ Line0: {} }]);
+        setHeader([{ Line0: {} }], [{ Line1: {} }], [{ Line2: {} }]);
         setForemanSign(null);
         setClientSign(null);
         setT1([{ Line0: {} }, { Line1: {} }]);

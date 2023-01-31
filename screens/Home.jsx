@@ -17,7 +17,6 @@ export default function Home(props, props2) {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
   const [headerHeight] = useState(useHeaderHeight());
-  console.log("1", props.route.params);
   return (
     <KeyboardAvoidingView
       style={styles.Gloablcontainer}

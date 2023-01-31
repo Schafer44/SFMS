@@ -35,10 +35,10 @@ export default function FRHeader(props) {
           });
         }
       }
-      if (props.Header[1] !== undefined) {
+      if (props.Header[1] !== undefined && props.Header[1] !== null) {
         setLine1(props.Header[1].Line1);
       }
-      if (props.Header[2] !== undefined) {
+      if (props.Header[2] !== undefined && props.Header[2] !== null) {
         setLine2(props.Header[2].Line2);
       }
     }

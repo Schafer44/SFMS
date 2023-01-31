@@ -35,7 +35,7 @@ export default class NewTimesheet extends React.Component {
           Type: "Timesheet",
           TypeExtra: "null",
           baseId: ref._delegate._key.path.segments[1],
-          TimesheetLines: { line0: ["", "", "", "", "", "", ""] },
+          TimesheetLines: { Line0: ["", "", "", "", "", "", ""] },
           TimesheetHeader: {},
           id: this.props.job.length,
           hasBeenUpdated: "no",

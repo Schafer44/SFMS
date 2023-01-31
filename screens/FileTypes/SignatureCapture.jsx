@@ -48,7 +48,7 @@ export const SignatureCapture = (props) => {
       height:90%;
     }`;
   return (
-    <View style={{ width: "100%", height: "100%" }}>
+    <View style={styles.GC}>
       <View style={styles.preview}>
         {props.signature ? (
           <Image
@@ -80,6 +80,12 @@ export const SignatureCapture = (props) => {
 };
 
 const styles = StyleSheet.create({
+  GC: {
+    position: "absolute",
+    top: 0,
+    width: "100%",
+    height: "100%",
+  },
   preview: {
     width: "100%",
     height: "40%",

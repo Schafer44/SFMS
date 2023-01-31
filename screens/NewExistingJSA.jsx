@@ -21,7 +21,7 @@ export default class NewJSAFE extends React.Component {
       company: props.company,
       id: this.props.job.length,
       Type: "JSA",
-      TypeExtra: null,
+      TypeExtra: "null",
       T1: [{ Table: {} }],
       T2: [{ Table: {} }],
       T3: [{ Table: {} }],

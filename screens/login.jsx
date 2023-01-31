@@ -32,7 +32,6 @@ const LoginScreen = (props) => {
       .then(async (userCredentials) => {
         const item = await fetchUsersCompany(email);
         const company = item.Company;
-        console.log(item);
         const Admin = item.Admin;
         const user = userCredentials.user;
         const tempArr = [email, company, Admin];
