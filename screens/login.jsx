@@ -21,14 +21,33 @@ const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [active, setActive] = useState(false);
+  const [stayLoggedIn, setStayLoggedIn] = useState(false);
   const toggleOverlay = () => {
     setActive(!active);
   };
+  const handleStay = () => {
+    setStayLoggedIn(!stayLoggedIn);
+  };
+  const getItem = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@MySuperStore:Login");
 
-  useEffect(() => {}, []);
+      if (value !== null) {
+        setEmail(value);
+        setStayLoggedIn(true);
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+  useEffect(() => {
+    getItem();
+  }, []);
   const handleLogin = async () => {
-    setEmail("tanner44schafer@gmail.com");
-    signInWithEmailAndPassword(authentication, email, /*password*/ "444444")
+    signInWithEmailAndPassword(authentication, email, password)
       .then(async (userCredentials) => {
         const item = await fetchUsersCompany(email);
         const company = item.Company;
@@ -36,6 +55,11 @@ const LoginScreen = (props) => {
         const user = userCredentials.user;
         const tempArr = [email, company, Admin];
         props.navigation.navigate("Home", tempArr);
+        if (stayLoggedIn) {
+          await AsyncStorage.setItem("@MySuperStore:Login", email);
+        } else {
+          await AsyncStorage.setItem("@MySuperStore:Login", "");
+        }
       })
       .catch((userCredentials) => console.log(userCredentials));
   };
@@ -62,7 +86,16 @@ const LoginScreen = (props) => {
           placeholderTextColor="darkgrey"
           secureTextEntry
         />
-
+        <View style={styles.button}>
+          <Text style={styles.buttonText}>Save Email?</Text>
+          <TouchableOpacity onPress={handleStay} style={styles.smallBtn}>
+            {stayLoggedIn ? (
+              <Text style={styles.buttonText}>X</Text>
+            ) : (
+              <Text style={styles.buttonText}></Text>
+            )}
+          </TouchableOpacity>
+        </View>
         <TouchableOpacity onPress={handleLogin} style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
@@ -176,7 +209,15 @@ const styles = StyleSheet.create({
     margin: "1%",
     height: 65,
   },
-
+  smallBtn: {
+    backgroundColor: "#0782F9",
+    width: 30,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    color: "white",
+    height: 30,
+  },
   buttonSmall: {
     backgroundColor: "#0782F9",
     width: "50%",
