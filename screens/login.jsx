@@ -16,6 +16,7 @@ import authentication from "./FirebaseLink";
 import Logo from "../assets/LoginLogo.png";
 import { fetchUsersCompany } from "./FirebaseLink";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
@@ -86,15 +87,21 @@ const LoginScreen = (props) => {
           placeholderTextColor="darkgrey"
           secureTextEntry
         />
-        <View style={styles.button}>
-          <Text style={styles.buttonText}>Save Email?</Text>
-          <TouchableOpacity onPress={handleStay} style={styles.smallBtn}>
-            {stayLoggedIn ? (
-              <Text style={styles.buttonText}>X</Text>
-            ) : (
-              <Text style={styles.buttonText}></Text>
-            )}
-          </TouchableOpacity>
+        <View style={styles.StayCont}>
+          <View style={styles.buttonContainerSmall}>
+            <Text style={styles.buttonTextBlack}>Save Email</Text>
+            <TouchableOpacity onPress={handleStay} style={styles.smallBtn}>
+              {stayLoggedIn ? (
+                <View style={styles.true}>
+                  <View style={styles.Circle}></View>
+                </View>
+              ) : (
+                <View style={styles.false}>
+                  <View style={styles.Circle}></View>
+                </View>
+              )}
+            </TouchableOpacity>
+          </View>
         </View>
         <TouchableOpacity onPress={handleLogin} style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
@@ -198,6 +205,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 40,
   },
+  buttonContainerSmall: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+  },
   button: {
     backgroundColor: "#0782F9",
     width: "100%",
@@ -210,13 +223,15 @@ const styles = StyleSheet.create({
     height: 65,
   },
   smallBtn: {
-    backgroundColor: "#0782F9",
-    width: 30,
-    borderRadius: 10,
+    backgroundColor: "green",
+    width: 60,
+    borderRadius: 16,
     alignItems: "center",
     justifyContent: "center",
     color: "white",
     height: 30,
+    borderWidth: 2,
+    borderColor: "#d4d4d4",
   },
   buttonSmall: {
     backgroundColor: "#0782F9",
@@ -240,9 +255,57 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 16,
   },
+  buttonTextBlack: {
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginTop: 5,
+    color: "black",
+  },
+  buttonTextGreen: {
+    color: "Green",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "green",
+    fontSize: 26,
+  },
   buttonOutlineText: {
     color: "#0782F9",
     fontWeight: "700",
     fontSize: 16,
+  },
+  StayCont: {
+    width: "100%",
+    padding: 15,
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+  },
+  true: {
+    borderRadius: 15,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "green",
+    justifyContent: "center",
+    alignContent: "flex-end",
+    alignItems: "flex-end",
+  },
+  trueText: {
+    textAlign: "center",
+    color: "white",
+    fontSize: 20,
+  },
+  false: {
+    borderRadius: 15,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "white",
+    justifyContent: "center",
+  },
+  Circle: {
+    marginLeft: 1,
+    height: 26,
+    width: 26,
+    borderRadius: 26,
+    backgroundColor: "#e3e3e3",
   },
 });
