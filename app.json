@@ -2,10 +2,10 @@
   "expo": {
     "name": "Schafer File Management",
     "slug": "schaferfilemanagement",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "privacy": "unlisted",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/SFMIcon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -31,6 +31,11 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "",
+    "extra": {
+      "eas": {
+        "projectId": "65c916fc-ea2d-4575-9c85-c58b4163addd"
+      }
+    }
   }
 }
