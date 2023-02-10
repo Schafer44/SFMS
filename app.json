@@ -2,10 +2,10 @@
   "expo": {
     "name": "Schafer File Management",
     "slug": "schaferfilemanagement",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "privacy": "unlisted",
-    "icon": "./assets/SFMIcon.png",
+    "icon": "./assets/SFMIcon.jpg",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

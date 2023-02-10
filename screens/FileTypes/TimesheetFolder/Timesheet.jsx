@@ -326,52 +326,6 @@ export default function Timesheet(props, jobNum) {
           </View>
         </View>
       </View>
-      <View style={styles.bodyHeader}>
-        <View style={styles.bodyHeaderBody}>
-          <View style={styles.bGridLarge}>
-            <View style={styles.bGridColumns}>
-              <Text style={styles.textInputHeaderHeader}>Name</Text>
-            </View>
-          </View>
-          <View style={styles.bGridSmall}>
-            <View style={styles.bGridColumns}>
-              <Text style={styles.textInputHeaderHeader}>Occ</Text>
-            </View>
-          </View>
-          <View style={styles.bGridSmall}>
-            <View style={styles.bGridColumns}>
-              <Text style={styles.textInputHeaderHeader}>Hrs.</Text>
-            </View>
-          </View>
-          <View style={styles.bGridSmall}>
-            <View style={styles.bGridColumns}>
-              <Text style={styles.textInputHeaderHeader}>P/U</Text>
-            </View>
-          </View>
-          <View style={styles.bGridSmall}>
-            <View style={styles.bGridColumns}>
-              <Text style={styles.textInputHeaderHeader}>Rig</Text>
-            </View>
-          </View>
-          <View style={styles.bGridSmall}>
-            <View style={styles.bGridColumns}>
-              <Text style={styles.textInputHeaderHeader}>P/D</Text>
-            </View>
-          </View>
-          <View style={styles.bGridMedium}>
-            <View style={styles.bGridColumns}>
-              <Text style={styles.textInputHeaderHeader}>Equip No.</Text>
-            </View>
-          </View>
-          <View style={styles.bGridLarge}>
-            <View style={styles.bGridColumns}>
-              <Text style={styles.textInputHeaderHeader}>
-                Equip Description
-              </Text>
-            </View>
-          </View>
-        </View>
-      </View>
       <View style={styles.body}>
         <TimesheetBody T8={Body} setT8={setBody} />
       </View>
@@ -383,16 +337,19 @@ export default function Timesheet(props, jobNum) {
           <TimesheetLineComment Comment={Comment} setComment={setComment} />
         </View>
       </View>
+      <View style={styles.TitleTextBox}>
+        <Text style={styles.TitleText}>Signatures</Text>
+      </View>
       <View style={styles.footerPage}>
         <View style={styles.footerPageSig}>
-          <View style={styles.SigView}>
+          <View style={styles.SigViewLeft}>
             <TouchableOpacity
               title="Signature"
               underlayColor="#fff"
-              style={styles.SubBtn}
+              style={styles.SignBtn}
               onPress={() => toggleOverlay()}
             >
-              <Text style={styles.loginText}>Foreman Signature</Text>
+              <Text style={styles.loginText}>Foreman</Text>
             </TouchableOpacity>
 
             <Image
@@ -402,16 +359,14 @@ export default function Timesheet(props, jobNum) {
             />
           </View>
 
-          <View style={styles.SigView}>
+          <View style={styles.SigViewMiddle}>
             <TouchableOpacity
               title="Signature"
               underlayColor="#fff"
-              style={styles.SubBtn}
+              style={styles.SignBtn}
               onPress={() => toggleOverlay2()}
             >
-              <Text style={styles.loginText}>
-                Client Representative Signature
-              </Text>
+              <Text style={styles.loginText}>Client Rep</Text>
             </TouchableOpacity>
 
             <Image
@@ -421,14 +376,14 @@ export default function Timesheet(props, jobNum) {
             />
           </View>
 
-          <View style={styles.SigView}>
+          <View style={styles.SigViewRight}>
             <TouchableOpacity
               title="Signature"
               underlayColor="#fff"
-              style={styles.SubBtn}
+              style={styles.SignBtn}
               onPress={() => toggleOverlay3()}
             >
-              <Text style={styles.loginText}>Company Signature</Text>
+              <Text style={styles.loginText}>Company</Text>
             </TouchableOpacity>
 
             <Image
@@ -461,6 +416,15 @@ const styles = StyleSheet.create({
   globalContainer: {
     width: "100%",
     flex: 1,
+  },
+  TitleTextBox: {
+    justifyContent: "center",
+    backgroundColor: "white",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  TitleText: {
+    color: "black",
   },
   header: {
     width: "100%",
@@ -543,6 +507,13 @@ const styles = StyleSheet.create({
   SubBtn: {
     width: "100%",
     flex: 0.75,
+    backgroundColor: "green",
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  SignBtn: {
+    width: "100%",
+    flex: 1,
     backgroundColor: "green",
     justifyContent: "center",
     alignContent: "center",
@@ -674,9 +645,26 @@ const styles = StyleSheet.create({
   footerPageSig: {
     flex: 3,
     flexDirection: "row",
+    justifyContent: "space-between",
   },
-  SigView: {
+  SigViewLeft: {
     height: "100%",
-    flex: 2,
+    flex: 1,
+    borderWidth: 1,
+    borderLeftWidth: 0,
+    borderColor: "#d4d4d4",
+  },
+  SigViewMiddle: {
+    height: "100%",
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "#d4d4d4",
+  },
+  SigViewRight: {
+    height: "100%",
+    flex: 1,
+    borderWidth: 1,
+    borderRightWidth: 0,
+    borderColor: "#d4d4d4",
   },
 });
