@@ -31,6 +31,8 @@ import JSAT11 from "./JSAT11";
 import JSAFooter from "./JSAFooter";
 import { useHeaderHeight } from "@react-navigation/elements";
 import Loading from "../../Loading";
+import "@expo/match-media";
+import { useMediaQuery } from "react-responsive";
 
 export default function JSA(props, jobNum) {
   const [Job, setJob] = useState([]);
@@ -52,6 +54,10 @@ export default function JSA(props, jobNum) {
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [headerHeight] = useState(useHeaderHeight());
   const [isLoading, setIsLoading] = useState(false);
+  const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
+  const isMobileDevice = useMediaQuery({
+    query: "(max-device-width: 600px)",
+  });
 
   const fetchJob = async () => {
     setIsLoading(true);
@@ -247,6 +253,8 @@ export default function JSA(props, jobNum) {
                 setT1={setT1}
                 offline={props.route.params.offline}
                 id={0}
+                isBigScreen={isBigScreen}
+                isMobileDevice={isMobileDevice}
               />
             </View>
           </View>
@@ -262,23 +270,47 @@ export default function JSA(props, jobNum) {
           </View>
           <View style={styles.RowFour}>
             <View style={styles.BJSAT3}>
-              <JSAT4 T4={T4} setT4={setT4} id={3} />
+              <JSAT4
+                T4={T4}
+                setT4={setT4}
+                id={3}
+                isBigScreen={isBigScreen}
+                isMobileDevice={isMobileDevice}
+              />
             </View>
           </View>
           <View style={styles.RowFive}>
             <View style={styles.BJSAT4}>
-              <JSAT5 T5={T5} setT5={setT5} id={4} />
+              <JSAT5
+                T5={T5}
+                setT5={setT5}
+                id={4}
+                isBigScreen={isBigScreen}
+                isMobileDevice={isMobileDevice}
+              />
             </View>
           </View>
 
           <View style={styles.RowSix}>
             <View style={styles.BJSAT5}>
-              <JSAT6 T6={T6} setT6={setT6} id={5} />
+              <JSAT6
+                T6={T6}
+                setT6={setT6}
+                id={5}
+                isBigScreen={isBigScreen}
+                isMobileDevice={isMobileDevice}
+              />
             </View>
           </View>
           <View style={styles.RowSeven}>
             <View style={styles.BJSAT6}>
-              <JSAT7 T7={T7} setT7={setT7} id={6} />
+              <JSAT7
+                T7={T7}
+                setT7={setT7}
+                id={6}
+                isBigScreen={isBigScreen}
+                isMobileDevice={isMobileDevice}
+              />
             </View>
           </View>
           <View style={styles.RowEight}>

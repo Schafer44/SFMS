@@ -31,7 +31,7 @@ export default function JSAT1(props) {
   }, [props, Table]);
   return (
     <View style={styles.body}>
-      <View style={styles.Column}>
+      <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>
         <View style={styles.Row}>
           <Text style={styles.TitleText2}>Date:</Text>
         </View>
@@ -89,7 +89,7 @@ export default function JSAT1(props) {
         </View>
       </View>
 
-      <View style={styles.Column}>
+      <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>
         <View style={styles.Row}>
           <Text style={styles.TitleText2}>Client:</Text>
         </View>
@@ -131,7 +131,7 @@ export default function JSAT1(props) {
         </View>
       </View>
 
-      <View style={styles.Column}>
+      <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>
         <View style={styles.Row}>
           <Text style={styles.TitleText2}>GPS Coord:</Text>
         </View>
@@ -162,7 +162,7 @@ export default function JSAT1(props) {
           />
         </View>
       </View>
-      <View style={styles.Column}>
+      <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>
         <View style={styles.Row}>
           <Text style={styles.TitleText2}>First Aid Person:</Text>
         </View>
@@ -190,7 +190,7 @@ export default function JSAT1(props) {
           />
         </View>
       </View>
-      <View style={styles.Column}>
+      <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>
         <View style={styles.Row}>
           <Text style={styles.TitleText2}>Who will transport injured?</Text>
         </View>
@@ -218,7 +218,7 @@ export default function JSAT1(props) {
           />
         </View>
       </View>
-      <View style={styles.Column}>
+      <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>
         <View style={styles.Row}>
           <Text style={styles.TitleText2}>
             FOR EMERGENCIES OR LIFE-THREATENING INJURIES,CALL 911*****
@@ -251,6 +251,7 @@ const styles = StyleSheet.create({
     height: 50,
   },
   Column: { flex: 1, flexDirection: "row" },
+  ColumnPhone: { flex: 1, flexDirection: "column" },
   ColumnTitle: {
     flex: 2,
     borderStyle: "solid",

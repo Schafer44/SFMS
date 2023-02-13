@@ -29,7 +29,9 @@ export default function JSAT6(props) {
           <Text style={styles.TitleText1}>Other Equipment:</Text>
         </View>
       </View>
-      <View style={styles.Column}>
+      <View style={
+                    props.isBigScreen ? styles.Column : styles.ColumnPhone
+                  }>
         <View style={styles.Row}>
           <Text></Text>
         </View>
@@ -39,7 +41,9 @@ export default function JSAT6(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={
+                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
+                  }
             title="Lock"
             onPress={() => {
               if (
@@ -81,7 +85,9 @@ export default function JSAT6(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={
+                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
+                  }
             title="Lock"
             onPress={() => {
               if (Table.GasMonitor !== null || Table.GasMonitor !== undefined) {
@@ -120,7 +126,9 @@ export default function JSAT6(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={
+                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
+                  }
             title="Lock"
             onPress={() => {
               if (
@@ -162,7 +170,9 @@ export default function JSAT6(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={
+                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
+                  }
             title="Lock"
             onPress={() => {
               if (Table.Lighting !== null || Table.Lighting !== undefined) {
@@ -197,13 +207,17 @@ export default function JSAT6(props) {
         </View>
       </View>
 
-      <View style={styles.Column}>
+      <View style={
+                    props.isBigScreen ? styles.Column : styles.ColumnPhone
+                  }>
         <View style={styles.Row}>
           <Text>Safety Data Sheets</Text>
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={
+                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
+                  }
             title="Lock"
             onPress={() => {
               if (
@@ -244,7 +258,9 @@ export default function JSAT6(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={
+                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
+                  }
             title="Lock"
             onPress={() => {
               if (
@@ -286,7 +302,9 @@ export default function JSAT6(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={
+                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
+                  }
             title="Lock"
             onPress={() => {
               if (Table.RoadSigns !== null || Table.RoadSigns !== undefined) {
@@ -324,7 +342,9 @@ export default function JSAT6(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={
+                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
+                  }
             title="Lock"
             onPress={() => {
               if (Table.AirHorn !== null || Table.AirHorn !== undefined) {
@@ -363,7 +383,9 @@ export default function JSAT6(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={
+                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
+                  }
             title="Lock"
             onPress={() => {
               if (Table.OneCalls !== null || Table.OneCalls !== undefined) {
@@ -398,13 +420,17 @@ export default function JSAT6(props) {
         </View>
       </View>
 
-      <View style={styles.Column}>
+      <View style={
+                    props.isBigScreen ? styles.Column : styles.ColumnPhone
+                  }>
         <View style={styles.Row}>
           <Text>Slings/Chains</Text>
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={
+                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
+                  }
             title="Lock"
             onPress={() => {
               if (Table.Slings !== null || Table.Slings !== undefined) {
@@ -442,7 +468,9 @@ export default function JSAT6(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={
+                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
+                  }
             title="Lock"
             onPress={() => {
               if (
@@ -484,7 +512,9 @@ export default function JSAT6(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={
+                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
+                  }
             title="Lock"
             onPress={() => {
               if (Table.Other !== null || Table.Other !== undefined) {
@@ -547,6 +577,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   Column: { flex: 1, flexDirection: "row" },
+  ColumnPhone: { flex: 1, flexDirection: "column" },
   ColumnTitle: {
     flex: 2,
     borderStyle: "solid",
@@ -580,4 +611,5 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "white",
   },
+  SubBtnPhone: { height: 20 },
 });

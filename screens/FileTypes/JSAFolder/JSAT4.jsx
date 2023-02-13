@@ -29,13 +29,13 @@ export default function JSAT4(props) {
           <Text style={styles.TitleText1}>PPE Required:</Text>
         </View>
       </View>
-      <View style={styles.Column}>
+      <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>
         <View style={styles.Row}>
           <Text>Safety Glasses</Text>
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (
@@ -76,7 +76,7 @@ export default function JSAT4(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (Table.HardHat !== null || Table.HardHat !== undefined) {
@@ -115,7 +115,7 @@ export default function JSAT4(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (Table.SafetyVest !== null || Table.SafetyVest !== undefined) {
@@ -154,7 +154,7 @@ export default function JSAT4(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (
@@ -196,7 +196,7 @@ export default function JSAT4(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (Table.Gloves !== null || Table.Gloves !== undefined) {
@@ -231,13 +231,13 @@ export default function JSAT4(props) {
         </View>
       </View>
 
-      <View style={styles.Column}>
+      <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>
         <View style={styles.Row}>
           <Text>FR Clothing</Text>
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (Table.FRClothing !== null || Table.FRClothing !== undefined) {
@@ -275,7 +275,7 @@ export default function JSAT4(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (
@@ -317,7 +317,7 @@ export default function JSAT4(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (
@@ -358,7 +358,7 @@ export default function JSAT4(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (
@@ -400,7 +400,7 @@ export default function JSAT4(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (
@@ -438,13 +438,13 @@ export default function JSAT4(props) {
         </View>
       </View>
 
-      <View style={styles.Column}>
+      <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>
         <View style={styles.Row}>
           <Text>Chain Saw Chaps</Text>
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (
@@ -486,7 +486,7 @@ export default function JSAT4(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (
@@ -527,7 +527,7 @@ export default function JSAT4(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (Table.LifeVest !== null || Table.LifeVest !== undefined) {
@@ -565,7 +565,7 @@ export default function JSAT4(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (
@@ -607,7 +607,7 @@ export default function JSAT4(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (Table.Other !== null || Table.Other !== undefined) {
@@ -665,6 +665,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   Column: { flex: 1, flexDirection: "row" },
+  ColumnPhone: { flex: 1, flexDirection: "column" },
   ColumnTitle: {
     flex: 2,
     borderStyle: "solid",
@@ -698,4 +699,5 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "white",
   },
+  SubBtnPhone: { height: 20 },
 });
