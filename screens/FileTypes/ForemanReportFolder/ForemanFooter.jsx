@@ -37,7 +37,7 @@ export default function ForemanFooter(props) {
             T6: props.T6,
             T7: props.T7,
           })
-        ).then(Alert.alert("Success"));
+        ).then(Alert.alert("successfully saved to local device"));
       } catch (error) {
         console.log("Error");
       }

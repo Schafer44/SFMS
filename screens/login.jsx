@@ -9,6 +9,7 @@ import {
   View,
   Image,
   TouchableHighlight,
+  Alert,
 } from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -62,7 +63,9 @@ const LoginScreen = (props) => {
           await AsyncStorage.setItem("@MySuperStore:Login", "");
         }
       })
-      .catch((userCredentials) => console.log(userCredentials));
+      .catch((userCredentials) =>
+        Alert.alert("You have entered an invalid email or password")
+      );
   };
 
   return (

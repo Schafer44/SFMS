@@ -39,7 +39,7 @@ export default function JSAFooter(props) {
             T10: props.T10,
             T11: props.T11,
           })
-        ).then(Alert.alert("Success"));
+        ).then(Alert.alert("successfully saved to local device"));
       } catch (error) {
         console.log(error);
       }

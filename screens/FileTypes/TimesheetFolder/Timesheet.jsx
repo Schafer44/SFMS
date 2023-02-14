@@ -10,6 +10,7 @@ import {
   Image,
   Alert,
   KeyboardAvoidingView,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { useState, useEffect } from "react";
@@ -182,7 +183,7 @@ export default function Timesheet(props, jobNum) {
             Csignature: Csignature,
             FRsignature: FRsignature,
           })
-        ).then(Alert.alert("Success"));
+        ).then(Alert.alert("successfully saved to local device"));
       } catch (error) {
         console.log("Error");
       }
