@@ -32,8 +32,12 @@ export default function JSAT1(props) {
   return (
     <View style={styles.body}>
       <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>
-        <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Date:</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            Date:
+          </Text>
         </View>
         <View style={styles.DatePickerCont}>
           <View style={styles.DatePicker}>
@@ -59,11 +63,15 @@ export default function JSAT1(props) {
           </View>
         </View>
 
-        <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Project #:</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            Project #:
+          </Text>
         </View>
 
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
@@ -74,10 +82,14 @@ export default function JSAT1(props) {
           />
         </View>
 
-        <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Work Location:</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            Work Location:
+          </Text>
         </View>
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
@@ -90,10 +102,14 @@ export default function JSAT1(props) {
       </View>
 
       <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>
-        <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Client:</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            Client:
+          </Text>
         </View>
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
@@ -103,10 +119,14 @@ export default function JSAT1(props) {
             }}
           />
         </View>
-        <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Foreman/Supervisor:</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            Foreman/Supervisor:
+          </Text>
         </View>
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
@@ -116,10 +136,14 @@ export default function JSAT1(props) {
             }}
           />
         </View>
-        <View style={styles.Row}>
-          <Text style={styles.TitleText2}># in Crew:</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            # in Crew:
+          </Text>
         </View>
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
@@ -132,10 +156,14 @@ export default function JSAT1(props) {
       </View>
 
       <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>
-        <View style={styles.Row}>
-          <Text style={styles.TitleText2}>GPS Coord:</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            GPS Coord:
+          </Text>
         </View>
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
@@ -145,10 +173,14 @@ export default function JSAT1(props) {
             }}
           />
         </View>
-        <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Nearest Intersection:</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            Nearest Intersection:
+          </Text>
         </View>
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
@@ -163,10 +195,14 @@ export default function JSAT1(props) {
         </View>
       </View>
       <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>
-        <View style={styles.Row}>
-          <Text style={styles.TitleText2}>First Aid Person:</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            First Aid Person:
+          </Text>
         </View>
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
@@ -176,10 +212,14 @@ export default function JSAT1(props) {
             }}
           />
         </View>
-        <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Competent Person:</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            Competent Person:
+          </Text>
         </View>
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
@@ -191,10 +231,14 @@ export default function JSAT1(props) {
         </View>
       </View>
       <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>
-        <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Who will transport injured?</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            Who will transport injured?
+          </Text>
         </View>
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
@@ -204,10 +248,14 @@ export default function JSAT1(props) {
             }}
           />
         </View>
-        <View style={styles.Row}>
-          <Text style={styles.TitleText2}>Current Weather:</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            Current Weather:
+          </Text>
         </View>
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.textInputTest}
             placeholder=""
@@ -220,7 +268,9 @@ export default function JSAT1(props) {
       </View>
       <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>
         <View style={styles.Row}>
-          <Text style={styles.TitleText2}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
             FOR EMERGENCIES OR LIFE-THREATENING INJURIES,CALL 911*****
           </Text>
         </View>
@@ -249,6 +299,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     height: 50,
+  },
+  RowPhone: {
+    display: "flex",
+    flex: 1,
+    height: 30,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "black",
   },
   Column: { flex: 1, flexDirection: "row" },
   ColumnPhone: { flex: 1, flexDirection: "column" },

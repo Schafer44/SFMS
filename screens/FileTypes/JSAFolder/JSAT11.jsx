@@ -59,7 +59,7 @@ export default function JSAT11(props) {
       <View style={styles.body}>
         <View style={styles.Column}>
           <View style={styles.Row}>
-            <Text>Task / Job Steps</Text>
+            <Text>Task/ Job Steps</Text>
           </View>
           {Object.keys(Line0)
             .sort()

@@ -5,7 +5,7 @@
     "version": "1.0.2",
     "orientation": "portrait",
     "privacy": "unlisted",
-    "icon": "./assets/SFMIcon.png",
+    "icon": "./assets/SFMIconNew.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

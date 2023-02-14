@@ -45,11 +45,15 @@ export default function FRHeader(props) {
   }, [props, Line0, Line1, Line2]);
   return (
     <View style={styles.body}>
-      <View style={styles.Column2}>
-        <View style={styles.Row}>
-          <Text style={styles.TextTitle}>Foreman:</Text>
+      <View style={props.isBigScreen ? styles.Column2 : styles.ColumnPhone}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            Foreman:
+          </Text>
         </View>
-        <View style={styles.Row2}>
+        <View style={props.isBigScreen ? styles.Row2 : styles.RowPhone}>
           <TextInput
             style={styles.TextInput}
             placeholder=""
@@ -59,8 +63,12 @@ export default function FRHeader(props) {
             }}
           />
         </View>
-        <View style={styles.Row}>
-          <Text style={styles.TextTitle}>Date:</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            Date:
+          </Text>
         </View>
         <View style={styles.DatePickerCont}>
           <View style={styles.DatePicker}>
@@ -86,10 +94,14 @@ export default function FRHeader(props) {
             />
           </View>
         </View>
-        <View style={styles.Row}>
-          <Text style={styles.TextTitle}>Day of Week:</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            Day of Week:
+          </Text>
         </View>
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.TextInput}
             placeholder=""
@@ -101,11 +113,15 @@ export default function FRHeader(props) {
         </View>
       </View>
 
-      <View style={styles.Column2}>
-        <View style={styles.Row}>
-          <Text style={styles.TextTitle}>Project ID:</Text>
+      <View style={props.isBigScreen ? styles.Column2 : styles.ColumnPhone}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            Project ID:
+          </Text>
         </View>
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.TextInput}
             placeholder=""
@@ -115,10 +131,14 @@ export default function FRHeader(props) {
             }}
           />
         </View>
-        <View style={styles.Row}>
-          <Text style={styles.TextTitle}>Project Name:</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            Project Name:
+          </Text>
         </View>
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.TextInput}
             placeholder=""
@@ -128,10 +148,14 @@ export default function FRHeader(props) {
             }}
           />
         </View>
-        <View style={styles.Row}>
-          <Text style={styles.TextTitle}>Weather:</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            Weather:
+          </Text>
         </View>
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.TextInput}
             placeholder=""
@@ -143,13 +167,15 @@ export default function FRHeader(props) {
         </View>
       </View>
 
-      <View style={styles.Column2}>
-        <View style={styles.Row2}>
-          <Text style={styles.TextTitle}>
+      <View style={props.isBigScreen ? styles.Column2 : styles.ColumnPhone}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
             Did your crew rain/snow out today (Yes or No)
           </Text>
         </View>
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.TextInput}
             placeholder=""
@@ -159,10 +185,14 @@ export default function FRHeader(props) {
             }}
           />
         </View>
-        <View style={styles.Row}>
-          <Text style={styles.TextTitle}>Extra Work (Yes or No)</Text>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
+          <Text
+            style={props.isBigScreen ? styles.TextTitle : styles.TextTitlePhone}
+          >
+            Extra Work (Yes or No)
+          </Text>
         </View>
-        <View style={styles.Row}>
+        <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
           <TextInput
             style={styles.TextInput}
             placeholder=""
@@ -223,6 +253,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
   },
+  RowPhone: {
+    display: "flex",
+    flex: 1,
+    height: 30,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "black",
+  },
   Row2: {
     flex: 2,
     height: 50,
@@ -242,4 +280,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
   },
+  ColumnPhone: { flex: 1, flexDirection: "column" },
+  SubBtnPhone: { height: 20 },
 });

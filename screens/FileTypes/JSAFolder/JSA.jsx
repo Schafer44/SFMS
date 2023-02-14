@@ -120,8 +120,8 @@ export default function JSA(props, jobNum) {
           Date: new Date().toString(),
         });
         Alert.alert(
-          "Existing File Detected",
-          "We found an existing offline JSA, do you wish to edit it or start fresh?",
+          "Existing Offline File?",
+          "Do you wish to use a previously created offline file or start fresh?",
           [
             {
               text: "Edit Existing",

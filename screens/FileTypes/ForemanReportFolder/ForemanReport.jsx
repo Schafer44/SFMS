@@ -28,6 +28,8 @@ import FRT7 from "./FRT7";
 import ForemanFooter from "./ForemanFooter";
 import { useHeaderHeight } from "@react-navigation/elements";
 import Loading from "../../Loading";
+import "@expo/match-media";
+import { useMediaQuery } from "react-responsive";
 
 export default function ForemanReport(props, jobNum) {
   const [Job, setJob] = useState([]);
@@ -48,6 +50,10 @@ export default function ForemanReport(props, jobNum) {
   const [headerHeight] = useState(useHeaderHeight());
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
+  const isMobileDevice = useMediaQuery({
+    query: "(max-device-width: 600px)",
+  });
 
   const fetchJob = async () => {
     setIsLoading(true);
@@ -105,8 +111,8 @@ export default function ForemanReport(props, jobNum) {
           Date: new Date().toString(),
         });
         Alert.alert(
-          "Existing File Detected",
-          "We found an existing offline JSA, do you wish to edit it or start fresh?",
+          "Existing Offline File?",
+          "Do you wish to use a previously created offline file or start fresh?",
           [
             {
               text: "Edit Existing",
@@ -226,6 +232,7 @@ export default function ForemanReport(props, jobNum) {
                 Header={Header}
                 setHeader={setHeader}
                 offline={props.route.params.offline}
+                isBigScreen={isBigScreen}
               />
             </View>
           </View>
@@ -240,7 +247,7 @@ export default function ForemanReport(props, jobNum) {
               <FRT2 T2={T2} setT2={setT2} id={1} />
             </View>
           </View>
-          <View style={styles.RowFour}>
+          <View style={isBigScreen ? styles.RowFour : styles.RowFourPhone}>
             <View style={styles.BT3}>
               <FRT3 T3={T3} setT3={setT3} id={2} />
             </View>
@@ -315,6 +322,7 @@ const styles = StyleSheet.create({
   },
 
   RowFour: { flex: 2.4, flexDirection: "row" },
+  RowFourPhone: { flex: 2.4, flexDirection: "column" },
   BT3: {
     flex: 1,
     margin: "1%",

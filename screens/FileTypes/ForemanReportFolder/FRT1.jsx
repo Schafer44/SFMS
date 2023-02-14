@@ -65,7 +65,7 @@ export default function FRT1(props) {
 
         <View style={styles.Column}>
           <View style={styles.Title}>
-            <Text style={styles.TitleText1}>FOOTAGE / AREA</Text>
+            <Text style={styles.TitleText1}>FOOTAGE/ AREA</Text>
           </View>
         </View>
       </View>

@@ -41,7 +41,7 @@ export default function FRT6(props) {
         <View style={styles.Title}>
           <Text style={styles.TitleText1}>General Unit Items</Text>
           <Text style={styles.TitleText2}>
-            (Ex. Silt Fence, Hay Bales, Mats, Concrete, Site Rock, Site Fill,
+            (Ex: Silt Fence, Hay Bales, Mats, Concrete, Site Rock, Site Fill,
             Excavation Amount, Construction Entrances, Orange Fence, Goal Post,
             Test Stations, etc.)
           </Text>
