@@ -307,6 +307,8 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 1,
     borderColor: "black",
+    justifyContent: "center",
+    alignContent: "center",
   },
   Column: { flex: 1, flexDirection: "row" },
   ColumnPhone: { flex: 1, flexDirection: "column" },
