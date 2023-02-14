@@ -257,87 +257,94 @@ export default function Timesheet(props, jobNum) {
       SignInScroll={SignInScroll}
     />
   ) : (
-    <KeyboardAvoidingView
-      style={styles.globalContainer}
-      behavior={Platform.OS === "ios" ? "padding" : null}
-      keyboardVerticalOffset={headerHeight}
-    >
-      <View style={styles.header}>
-        {isLoading ? <Loading /> : <View></View>}
-        <View style={styles.hGridTitles}>
-          <View style={styles.TextInputTwo}>
-            <Text style={styles.textInputHeader}>Project: </Text>
+    <View style={styles.globalContainer}>
+      <KeyboardAvoidingView
+        style={styles.Top}
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        keyboardVerticalOffset={headerHeight + 40}
+      >
+        <View style={styles.header}>
+          {isLoading ? <Loading /> : <View></View>}
+          <View style={styles.hGridTitles}>
+            <View style={styles.TextInputTwo}>
+              <Text style={styles.textInputHeader}>Project: </Text>
+            </View>
+            <View style={styles.TextInputTwo}>
+              <Text style={styles.textInputHeader}>Date: </Text>
+            </View>
+            <View style={styles.TextInputTwo}>
+              <Text style={styles.textInputHeader}>Day: </Text>
+            </View>
+            <View style={styles.TextInputTwo}>
+              <Text style={styles.textInputHeader}>Crew #: </Text>
+            </View>
           </View>
-          <View style={styles.TextInputTwo}>
-            <Text style={styles.textInputHeader}>Date: </Text>
-          </View>
-          <View style={styles.TextInputTwo}>
-            <Text style={styles.textInputHeader}>Day: </Text>
-          </View>
-          <View style={styles.TextInputTwo}>
-            <Text style={styles.textInputHeader}>Crew #: </Text>
-          </View>
-        </View>
 
-        <View style={styles.hGridInputs}>
-          <View style={styles.TextInputOne}>
-            <TextInput
-              style={styles.textInputTest}
-              placeholder=""
-              value={Header.Project}
-              onChange={(event) => {
-                setHeader({ ...Header, Project: event.nativeEvent.text });
-              }}
-            />
-          </View>
-          <View style={styles.DatePickerCont}>
-            <View style={styles.DatePicker}>
-              <DateTimePicker
-                dateFormat="dayofweek month day year"
-                themeVariant="light"
-                value={new Date(Header.Date !== undefined ? Header.Date : 1)}
+          <View style={styles.hGridInputs}>
+            <View style={styles.TextInputOne}>
+              <TextInput
+                style={styles.textInputTest}
+                placeholder=""
+                value={Header.Project}
                 onChange={(event) => {
-                  setHeader({
-                    ...Header,
-                    Date: new Date(event.nativeEvent.timestamp).toString(),
-                  });
+                  setHeader({ ...Header, Project: event.nativeEvent.text });
+                }}
+              />
+            </View>
+            <View style={styles.DatePickerCont}>
+              <View style={styles.DatePicker}>
+                <DateTimePicker
+                  dateFormat="dayofweek month day year"
+                  themeVariant="light"
+                  value={new Date(Header.Date !== undefined ? Header.Date : 1)}
+                  onChange={(event) => {
+                    setHeader({
+                      ...Header,
+                      Date: new Date(event.nativeEvent.timestamp).toString(),
+                    });
+                  }}
+                />
+              </View>
+            </View>
+            <View style={styles.TextInputOne}>
+              <TextInput
+                style={styles.textInputTest}
+                placeholder=""
+                value={Header.Day}
+                onChange={(event) => {
+                  setHeader({ ...Header, Day: event.nativeEvent.text });
+                }}
+              />
+            </View>
+            <View style={styles.TextInputOne}>
+              <TextInput
+                style={styles.textInputTest}
+                placeholder=""
+                value={Header.Crew}
+                onChange={(event) => {
+                  setHeader({ ...Header, Crew: event.nativeEvent.text });
                 }}
               />
             </View>
           </View>
-          <View style={styles.TextInputOne}>
-            <TextInput
-              style={styles.textInputTest}
-              placeholder=""
-              value={Header.Day}
-              onChange={(event) => {
-                setHeader({ ...Header, Day: event.nativeEvent.text });
-              }}
-            />
-          </View>
-          <View style={styles.TextInputOne}>
-            <TextInput
-              style={styles.textInputTest}
-              placeholder=""
-              value={Header.Crew}
-              onChange={(event) => {
-                setHeader({ ...Header, Crew: event.nativeEvent.text });
-              }}
-            />
-          </View>
         </View>
-      </View>
-      <View style={styles.body}>
-        <TimesheetBody T8={Body} setT8={setBody} />
-      </View>
-      <View style={styles.footerDoc}>
+        <View style={styles.body}>
+          <TimesheetBody
+            T8={Body}
+            setT8={setBody}
+            Comment={Comment}
+            setComment={setComment}
+          />
+        </View>
+      </KeyboardAvoidingView>
+      {/*<View style={styles.footerDoc}>
         <View style={styles.footerViewTitle}>
           <Text style={styles.footerDocTitle}>Additional Comments</Text>
         </View>
         <View style={styles.footerViewContent}>
           <TimesheetLineComment Comment={Comment} setComment={setComment} />
         </View>
-      </View>
+      </View>*/}
       <View style={styles.TitleTextBox}>
         <Text style={styles.TitleText}>Signatures</Text>
       </View>
@@ -409,7 +416,7 @@ export default function Timesheet(props, jobNum) {
       >
         <Text style={styles.loginText}>Submit</Text>
       </TouchableOpacity>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
@@ -418,6 +425,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 1,
   },
+  Top: { flex: 8 },
   TitleTextBox: {
     justifyContent: "center",
     backgroundColor: "white",

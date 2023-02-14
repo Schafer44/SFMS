@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Keyboard,
 } from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
@@ -101,7 +102,7 @@ export default function TimesheetBody(props) {
       >
         <Text style={styles.LockText}>Add Row</Text>
       </TouchableOpacity>
-      <ScrollView style={styles.bodyScroll}>
+      <ScrollView style={styles.bodyScroll} keyboardShouldPersistTaps="handled">
         <View style={styles.Column}>
           {Object.keys(Table)
             .sort()
@@ -416,6 +417,27 @@ export default function TimesheetBody(props) {
                 </View>
               </View>
             ))}
+          <View style={styles.footerDoc}>
+            <View style={styles.footerViewTitle}>
+              <Text style={styles.footerDocTitle}>Additional Comments</Text>
+            </View>
+            <View style={styles.footerViewContent}>
+              <TextInput
+                style={styles.textInputTestComment}
+                placeholder=""
+                value={props.Comment}
+                onChangeText={props.setComment}
+                multiline={true}
+                maxLength={400}
+                numberOfLines={4}
+                returnKeyType={"done"}
+                blurOnSubmit={true}
+                onSubmitEditing={() => {
+                  Keyboard.dismiss();
+                }}
+              />
+            </View>
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -423,6 +445,33 @@ export default function TimesheetBody(props) {
 }
 
 const styles = StyleSheet.create({
+  footerDoc: {
+    width: "100%",
+    flexDirection: "column",
+    flex: 1,
+    backgroundColor: "white",
+    marginTop: 5,
+    borderWidth: 2,
+  },
+  footerViewTitle: {
+    flex: 1.5,
+    width: "100%",
+    borderBottomWidth: 2,
+    borderColor: "#ededed",
+  },
+
+  footerDocTitle: {
+    paddingLeft: 10,
+    backgroundColor: "white",
+    width: "100%",
+  },
+  textInputTestComment: {
+    height: "100%",
+    fontSize: 15,
+    padding: 5,
+    width: "100%",
+    color: "black",
+  },
   Line: {
     flex: 1,
     height: 75,
