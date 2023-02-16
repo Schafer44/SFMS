@@ -70,7 +70,7 @@ export const JobTimesheetCol = (props) => {
               <Animated.View style={animatedStyle}>
                 <Ionicons
                   name="menu"
-                  size={32}
+                  size={24}
                   color="white"
                   style={[styles.existingJobBtnViewTextIcon1]}
                 />

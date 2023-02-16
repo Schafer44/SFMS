@@ -419,7 +419,9 @@ export default function TimesheetBody(props) {
             ))}
           <View style={styles.footerDoc}>
             <View style={styles.footerViewTitle}>
-              <Text style={styles.footerDocTitle}>Additional Comments</Text>
+              <Text style={styles.textInputHeaderHeader}>
+                Additional Comments
+              </Text>
             </View>
             <View style={styles.footerViewContent}>
               <TextInput
@@ -428,8 +430,6 @@ export default function TimesheetBody(props) {
                 value={props.Comment}
                 onChangeText={props.setComment}
                 multiline={true}
-                maxLength={400}
-                numberOfLines={4}
                 returnKeyType={"done"}
                 blurOnSubmit={true}
                 onSubmitEditing={() => {
@@ -452,6 +452,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginTop: 5,
     borderWidth: 2,
+    borderColor: "#d4d4d4",
   },
   footerViewTitle: {
     flex: 1.5,
@@ -466,7 +467,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   textInputTestComment: {
-    height: "100%",
+    height: 80,
     fontSize: 15,
     padding: 5,
     width: "100%",

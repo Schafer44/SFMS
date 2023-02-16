@@ -72,7 +72,7 @@ export const SignatureCapture = (props) => {
       <Button
         title="Close"
         color="green"
-        style={{ width: 50, height: 50, backgroundColor: "green" }}
+        style={styles.SubBtn}
         onPress={() => toggleOverlay()}
       />
     </View>
@@ -85,6 +85,8 @@ const styles = StyleSheet.create({
     top: 0,
     width: "100%",
     height: "100%",
+    Left: "10%",
+    justifyContent: "center",
   },
   preview: {
     width: "100%",
@@ -105,5 +107,13 @@ const styles = StyleSheet.create({
     width: 120,
     textAlign: "center",
     marginTop: 10,
+  },
+  SubBtn: {
+    justifyContent: "center",
+    alignContent: "center",
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "green",
   },
 });

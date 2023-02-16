@@ -99,7 +99,7 @@ export default function ForemanFooter(props) {
     <View style={styles.footerPage}>
       {isLoading ? <Loading /> : <View></View>}
       <View style={styles.footerPageSig}>
-        <View style={styles.SigView}>
+        <View style={styles.SigViewLeft}>
           <TouchableOpacity
             title="Signature"
             underlayColor="#fff"
@@ -116,7 +116,7 @@ export default function ForemanFooter(props) {
           />
         </View>
 
-        <View style={styles.SigView}>
+        <View style={styles.SigViewRight}>
           <TouchableOpacity
             title="Signature"
             underlayColor="#fff"
@@ -179,5 +179,19 @@ const styles = StyleSheet.create({
   SigView: {
     height: "100%",
     flex: 2,
+  },
+  SigViewLeft: {
+    height: "100%",
+    flex: 1,
+    borderWidth: 1,
+    borderLeftWidth: 0,
+    borderColor: "#d4d4d4",
+  },
+  SigViewRight: {
+    height: "100%",
+    flex: 1,
+    borderWidth: 1,
+    borderRightWidth: 0,
+    borderColor: "#d4d4d4",
   },
 });

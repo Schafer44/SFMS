@@ -182,11 +182,12 @@ export default class NewTimesheet extends React.Component {
 }
 const styles = StyleSheet.create({
   container: {
+    height: "100%",
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: "#d4d4d4",
     justifyContent: "center",
     alignItems: "center",
-    flex: 0.15,
+    flex: 1,
   },
   Text: {
     color: "white",
@@ -204,11 +205,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   newJob: {
-    width: "95%",
+    width: "100%",
     flex: 1,
-    marginTop: 5,
+    marginTop: 1,
     alignItems: "center",
-    marginBottom: 5,
     backgroundColor: "green",
     flexDirection: "row",
   },

@@ -98,7 +98,7 @@ export default function JSAFooter(props) {
   return (
     <View style={styles.footerPage}>
       {isLoading ? <Loading /> : <View></View>}
-      <View style={styles.footerPageSig}>
+      <View style={styles.SigViewMiddle}>
         <TouchableOpacity
           title="Signature"
           underlayColor="#fff"
@@ -157,5 +157,12 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%",
     width: "100%",
+  },
+  SigViewMiddle: {
+    height: "100%",
+    width: "100%",
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "#d4d4d4",
   },
 });

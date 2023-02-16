@@ -396,8 +396,10 @@ const styles = StyleSheet.create({
   },
   Scroll: {
     maxHeight: "100%",
+    height: "100%",
   },
   GC: {
+    height: "100%",
     maxHeight: "100%",
   },
 });

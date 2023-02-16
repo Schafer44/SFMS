@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
     color: "black",
   },
   searchBar: {
-    marginTop: 15,
     padding: 10,
     paddingLeft: 1,
     flexDirection: "row",
