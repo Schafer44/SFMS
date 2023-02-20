@@ -251,6 +251,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "stretch",
     borderRadius: windowWidth * 0.02,
+    color: "white",
   },
   Text: {
     color: "white",

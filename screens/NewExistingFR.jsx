@@ -5,6 +5,7 @@ import {
   View,
   Button,
   TouchableHighlight,
+  Alert,
 } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
@@ -52,12 +53,35 @@ export default class NewForemanReportFE extends React.Component {
           this.state.T6 = temp.T6;
           this.state.T7 = temp.T7;
         }
+        var Job = [];
+        const ref = db.collection(this.props.jobNum).doc();
+
+        const ehehe = await db
+          .collection(this.props.jobNum)
+          .doc(ref._delegate._key.path.segments[1])
+          .set({
+            Type: "Foreman Report",
+            TypeExtra: "null",
+            baseId: ref._delegate._key.path.segments[1],
+            Header: this.state.Header,
+            T1: this.state.T1,
+            T2: this.state.T2,
+            T3: this.state.T3,
+            T4: this.state.T4,
+            T5: this.state.T5,
+            T6: this.state.T6,
+            T7: this.state.T7,
+            id: this.props.job.length,
+            ForemanSignature: this.state.ForemanSignature,
+            ClientSignature: this.state.ClientSignature,
+          });
       } catch (error) {
+        Alert.alert("No local save found");
       }
     };
     const DoBoth = async () => {
       await _retrieveData();
-      const Ref = await NewFR();
+      //const Ref = await NewFR();
     };
     const NewFR = async () => {
       this.setState({

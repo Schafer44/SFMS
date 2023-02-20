@@ -5,6 +5,7 @@ import {
   View,
   Button,
   TouchableHighlight,
+  Alert,
 } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
@@ -58,13 +59,36 @@ export default class NewJSAFE extends React.Component {
           this.state.T10 = temp.T10;
           this.state.T11 = temp.T11;
         }
+        var Job = [];
+        const ref = db.collection(this.props.jobNum).doc();
+        const ehehe = await db
+          .collection(this.props.jobNum)
+          .doc(ref._delegate._key.path.segments[1])
+          .set({
+            Type: "JSA",
+            TypeExtra: "null",
+            baseId: ref._delegate._key.path.segments[1],
+            T1: this.state.T1,
+            T2: this.state.T2,
+            T3: this.state.T3,
+            T4: this.state.T4,
+            T5: this.state.T5,
+            T6: this.state.T6,
+            T7: this.state.T7,
+            T8: this.state.T8,
+            T9: this.state.T9,
+            T10: this.state.T10,
+            T11: this.state.T11,
+            id: this.props.job.length,
+            signature: this.state.sig,
+          });
       } catch (error) {
-        console.log("Error");
+        Alert.alert("No local save found");
       }
     };
     const DoBoth = async () => {
       await _retrieveData();
-      const Ref = await NewJSA();
+      //const Ref = await NewJSA();
     };
     const NewJSA = async () => {
       this.setState({

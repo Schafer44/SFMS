@@ -39,13 +39,13 @@ export const SignatureCapture = (props) => {
   const style = `.m-signature-pad {} 
   .m-signature-pad--body {}
   body,html {
-  width: 90%; height: 80%; }
+  width: 90%; height: 80%; margin-left: 5%;margin-top:10%; }
   .m-signature-pad--footer
     .button {
       background-color: green;
       color: #FFF;
       width:30%;
-      height:90%;
+      height:100%;
     }`;
   return (
     <View style={styles.GC}>
@@ -58,34 +58,45 @@ export const SignatureCapture = (props) => {
           />
         ) : null}
       </View>
-      <Signature
-        onOK={handleOK}
-        onEmpty={handleEmpty}
-        descriptionText="Sign"
-        clearText="Clear"
-        confirmText="Save"
-        webStyle={style}
-        resizeMode={"contain"}
-        onBegin={() => props.SignInScroll()}
-        onEnd={() => props.SignInScroll()}
-      />
-      <Button
-        title="Close"
-        color="green"
-        style={styles.SubBtn}
-        onPress={() => toggleOverlay()}
-      />
+
+      <View
+        style={{
+          left: 0,
+          width: "100%",
+          height: "100%",
+          justifyContent: "center",
+          alignContent: "center",
+        }}
+      >
+        <Signature
+          bgWidth={0}
+          bgHeight={0}
+          onOK={handleOK}
+          onEmpty={handleEmpty}
+          descriptionText="Sign"
+          clearText="Clear"
+          confirmText="Save"
+          webStyle={style}
+          resizeMode={"contain"}
+          onBegin={() => props.SignInScroll()}
+          onEnd={() => props.SignInScroll()}
+        />
+        <Button
+          title="Close"
+          color="green"
+          style={styles.SubBtn}
+          onPress={() => toggleOverlay()}
+        />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   GC: {
-    position: "absolute",
     top: 0,
     width: "100%",
     height: "100%",
-    Left: "10%",
     justifyContent: "center",
   },
   preview: {

@@ -112,7 +112,10 @@ const LoginScreen = (props) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={toggleOverlay} style={styles.button}>
+        <TouchableOpacity
+          onPress={toggleOverlay}
+          style={styles.buttonNoService}
+        >
           <Text style={styles.buttonText}>No service?</Text>
         </TouchableOpacity>
       </View>
@@ -151,7 +154,7 @@ const LoginScreen = (props) => {
 
             <TouchableOpacity
               onPress={toggleOverlay}
-              style={styles.buttonSmall}
+              style={styles.buttonClose}
             >
               <Text style={styles.buttonText}>Close</Text>
             </TouchableOpacity>
@@ -224,6 +227,26 @@ const styles = StyleSheet.create({
     backgroundColor: "green",
     margin: "1%",
     height: 65,
+  },
+  buttonNoService: {
+    backgroundColor: "#0782F9",
+    width: "100%",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "green",
+    margin: "1%",
+    height: 40,
+  },
+  buttonClose: {
+    backgroundColor: "#0782F9",
+    width: "50%",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "green",
+    margin: "1%",
+    height: 40,
   },
   smallBtn: {
     backgroundColor: "green",
