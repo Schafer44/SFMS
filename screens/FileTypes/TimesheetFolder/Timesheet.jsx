@@ -13,7 +13,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { db } from "../../FirebaseLink";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { SignatureCapture } from "../SignatureCapture";
 import TimesheetLineComment from "./TimesheetComment";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -91,7 +91,7 @@ export default function Timesheet(props, jobNum) {
       console.log(error);
     }
   };
-  useEffect(() => {
+  const component = useMemo(() => {
     let isSubscribed = true;
     if (isSubscribed) {
       if (props.route.params.offline) {
@@ -125,16 +125,75 @@ export default function Timesheet(props, jobNum) {
             },
           ]
         );
-        /*setHeader({
+      } else {
+        fetchJob();
+        console.log("Crit Error");
+        if (props.route.params.file.TimesheetLines !== undefined) {
+          setBody(props.route.params.file.TimesheetLines);
+        }
+        if (props.route.params.file.TimesheetHeader !== undefined) {
+          setHeader(props.route.params.file.TimesheetHeader);
+          if (props.route.params.file.TimesheetHeader.Date === undefined) {
+            setHeader({
+              ...Header,
+              Date: new Date().toString(),
+            });
+          }
+        }
+        if (props.route.params.file.Comment !== undefined) {
+          setComment(props.route.params.file.Comment);
+        }
+        if (props.route.params.file.FRsignature !== undefined) {
+          setFRSign(props.route.params.file.FRsignature);
+        }
+        if (props.route.params.file.CRsignature !== undefined) {
+          setCRSign(props.route.params.file.CRsignature);
+        }
+        if (props.route.params.file.Csignature !== undefined) {
+          setCSign(props.route.params.file.Csignature);
+        }
+      }
+    }
+    return () => {
+      // cancel the subscription
+      isSubscribed = false;
+    };
+  }, [props.route.params]);
+  useEffect(component, []);
+  /*useEffect(() => {
+    let isSubscribed = true;
+    if (isSubscribed) {
+      if (props.route.params.offline) {
+        setHeader({
           ...Header,
           Date: new Date().toString(),
         });
-        setBody({});
-        setComment("");
-        setFRSign(null);
-        setCSign(null);
-        setCRSign(null);*/
-        //_retrieveData();
+        Alert.alert(
+          "Existing Offline File?",
+          "Do you wish to use a previously created offline file or start fresh?",
+          [
+            {
+              text: "Edit Existing",
+              style: "cancel",
+              onPress: async () => {
+                _retrieveData();
+              },
+            },
+            {
+              text: "Start Fresh",
+              style: "cancel",
+              // If the user confirmed, then we dispatch the action we blocked earlier
+              // This will continue the action that had triggered the removal of the screen
+              onPress: async () => {
+                setBody({ line0: ["", "", "", "", "", "", ""] });
+                setComment("");
+                setFRSign(null);
+                setCSign(null);
+                setCRSign(null);
+              },
+            },
+          ]
+        );
       } else {
         fetchJob();
         if (props.route.params.file.TimesheetLines !== undefined) {
@@ -167,7 +226,7 @@ export default function Timesheet(props, jobNum) {
       // cancel the subscription
       isSubscribed = false;
     };
-  }, []);
+  }, []);*/
   const createTimesheet = async (Timesheet) => {
     setIsLoading(true);
     if (props.route.params.offline) {

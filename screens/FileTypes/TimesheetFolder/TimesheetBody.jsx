@@ -25,7 +25,6 @@ export default function TimesheetBody(props) {
   const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
 
   useEffect(() => {
-    console.log(isBigScreen, isMobile);
     if (Object.keys(Table).length !== 0) {
       props.setT8(Table);
     } else if (props.T8 !== undefined) {
