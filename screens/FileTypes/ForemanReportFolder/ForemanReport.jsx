@@ -55,7 +55,7 @@ export default function ForemanReport(props, jobNum) {
     query: "(max-device-width: 600px)",
   });
 
-  const fetchJob = async () => {
+  /*const fetchJob = async () => {
     setIsLoading(true);
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
@@ -69,7 +69,7 @@ export default function ForemanReport(props, jobNum) {
       setJob([...Job]);
     });
     setIsLoading(false);
-  };
+  };*/
   const _retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem("@MySuperStore:FR");
@@ -103,6 +103,7 @@ export default function ForemanReport(props, jobNum) {
     }
   };
   useEffect(() => {
+    console.log(2);
     let isSubscribed = true;
     if (isSubscribed) {
       if (props.route.params.offline) {
@@ -151,7 +152,7 @@ export default function ForemanReport(props, jobNum) {
         setT6([{ Line0: {} }, { Line1: {} }]);
         setT7([{ Line0: {} }]);*/
       } else {
-        fetchJob();
+        //fetchJob();
         if (props.route.params.file.Header !== undefined) {
           setHeader(props.route.params.file.Header);
         }

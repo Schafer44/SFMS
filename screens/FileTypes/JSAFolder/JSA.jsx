@@ -35,7 +35,7 @@ import "@expo/match-media";
 import { useMediaQuery } from "react-responsive";
 
 export default function JSA(props, jobNum) {
-  const [Job, setJob] = useState([]);
+  //const [Job, setJob] = useState([]);
   const [signature, setSign] = useState(null);
   const [visible, setVisible] = useState(false);
   const [T1, setT1] = useState([]);
@@ -59,7 +59,7 @@ export default function JSA(props, jobNum) {
     query: "(max-device-width: 600px)",
   });
 
-  const fetchJob = async () => {
+  /*const fetchJob = async () => {
     setIsLoading(true);
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
@@ -73,7 +73,7 @@ export default function JSA(props, jobNum) {
       setJob([...Job]);
     });
     setIsLoading(false);
-  };
+  };*/
 
   const _retrieveData = async () => {
     try {
@@ -111,7 +111,7 @@ export default function JSA(props, jobNum) {
       console.log("Error");
     }
   };
-  const component = useMemo(() => {
+  useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
       if (props.route.params.offline) {
@@ -166,7 +166,7 @@ export default function JSA(props, jobNum) {
         setSign(null);*/
         //_retrieveData();
       } else {
-        fetchJob();
+        //fetchJob();
         if (props.route.params.file.signature !== undefined) {
           setSign(props.route.params.file.signature);
         }
@@ -215,8 +215,7 @@ export default function JSA(props, jobNum) {
       // cancel the subscription
       isSubscribed = false;
     };
-  }, [props.route.params]);
-  useEffect(component, []);
+  }, []);
   /*useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {

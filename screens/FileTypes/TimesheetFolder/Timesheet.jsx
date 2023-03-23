@@ -28,11 +28,11 @@ export default function Timesheet(props, jobNum) {
   const [CRsignature, setCRSign] = useState(null);
   const [Csignature, setCSign] = useState(null);
   const [Comment, setComment] = useState("");
-  const [Lines, setLines] = useState([]);
+  //const [Lines, setLines] = useState([]);
   const [Header, setHeader] = useState([]);
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [Body, setBody] = useState([]);
-  const [Job, setJob] = useState([]);
+  //const [Job, setJob] = useState([]);
   const [headerHeight] = useState(useHeaderHeight());
   const [isLoading, setIsLoading] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -49,7 +49,7 @@ export default function Timesheet(props, jobNum) {
     setVisible3(!visible3);
   };
   const setDate = (event, date) => {};
-  const fetchJob = async () => {
+  /*const fetchJob = async () => {
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
     const data = await response.get();
@@ -62,7 +62,7 @@ export default function Timesheet(props, jobNum) {
       setJob([...Job]);
     });
     //setLines({ Line: props.route.params.file.Timesheet });
-  };
+  };*/
   const _retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem("@MySuperStore:TS");
@@ -91,7 +91,7 @@ export default function Timesheet(props, jobNum) {
       console.log(error);
     }
   };
-  const component = useMemo(() => {
+  useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
       if (props.route.params.offline) {
@@ -126,8 +126,7 @@ export default function Timesheet(props, jobNum) {
           ]
         );
       } else {
-        fetchJob();
-        console.log("Crit Error");
+        //fetchJob();
         if (props.route.params.file.TimesheetLines !== undefined) {
           setBody(props.route.params.file.TimesheetLines);
         }
@@ -158,8 +157,7 @@ export default function Timesheet(props, jobNum) {
       // cancel the subscription
       isSubscribed = false;
     };
-  }, [props.route.params]);
-  useEffect(component, []);
+  }, []);
   /*useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
