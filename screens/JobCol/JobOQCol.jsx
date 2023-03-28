@@ -82,11 +82,11 @@ export const JobOQCol = (props) => {
             <AllOQ
               job={props.Job}
               navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
             />
 
             <NewOQ
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
               tempKey={1}
               job={props.Job}
             />

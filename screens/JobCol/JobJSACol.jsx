@@ -84,24 +84,24 @@ export const JobJSACol = (props) => {
             <AllJSA
               job={props.Job}
               navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
               user={props.route.params.job.user}
               searchPhrase={props.searchPhrase}
             />
             <NewJSA
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
               tempKey={2}
               job={props.Job}
             />
             <NewJSAFE
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
               tempKey={2}
               job={props.Job}
             />
             <AllJSADup
               job={props.Job}
               navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
             />
           </View>
         ) : null}

@@ -84,24 +84,24 @@ export const JobFRCol = (props) => {
             <AllForeman
               job={props.Job}
               navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
               user={props.route.params.job.user}
               searchPhrase={props.searchPhrase}
             />
             <NewForemanReport
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
               tempKey={3}
               job={props.Job}
             />
             <NewForemanReportFE
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
               tempKey={3}
               job={props.Job}
             />
             <AllForemanDup
               job={props.Job}
               navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
             />
           </View>
         ) : null}

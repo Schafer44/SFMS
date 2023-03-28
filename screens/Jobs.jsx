@@ -16,6 +16,7 @@ import {
   collection,
   query,
   orderBy,
+  setDoc,
 } from "firebase/firestore";
 import Loading from "./Loading";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -36,8 +37,14 @@ export default function Jobs(props) {
           text: "Delete",
           style: "destructive",
           onPress: async () => {
-            await db.collection(props.company).doc(temp.baseid).delete();
-            await deleteCollection(temp.JobNum);
+            const updatedJobs = Jobs.filter((job) => job !== temp);
+            // Updating the Jobs state with the updatedJobs array
+            setJobs(updatedJobs);
+
+            const docRef = doc(db, props.company, "master");
+            setDoc(docRef, { Jobs: updatedJobs });
+            //await db.collection(props.company).doc(temp.baseid).delete();
+            await deleteCollection(temp);
           },
         },
         {
@@ -52,8 +59,8 @@ export default function Jobs(props) {
     //await db.collection("PLEnerserv").doc(temp.baseid).delete();
     //await db.collection().delete();
   };
-  const deleteCollection = async (path) => {
-    db.collection(path)
+  const deleteCollection = async (jobNum) => {
+    db.collection(jobNum)
       .get()
       .then((querySnapshot) => {
         querySnapshot.docs.forEach((snapshot) => {
@@ -63,10 +70,13 @@ export default function Jobs(props) {
   };
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(collection(db, props.company), orderBy("JobNum")),
+      query(doc(db, props.company, "master")),
       (snapshot) => {
         setIsLoading(true);
-        setJobs(snapshot.docs.map((doc) => doc.data()));
+        //const tempAry = snapshot.docs.map((doc) => doc.data());
+        console.log(snapshot.data().Jobs);
+        setJobs(snapshot.data().Jobs);
+        console.log("2", Jobs);
         setIsLoading(false);
       }
     );
@@ -81,13 +91,14 @@ export default function Jobs(props) {
       <View style={styles.JobCont}>
         {Jobs.map((job) => {
           if (
-            job.JobNum.toLowerCase()
+            job
+              .toLowerCase()
               .split("_")[0]
               .includes(props.searchPhrase.toLowerCase())
           ) {
             job.user = props.user;
             return (
-              <View style={styles.existingJob} key={job.JobNum}>
+              <View style={styles.existingJob} key={job}>
                 <TouchableHighlight
                   onPress={() => props.navigation("Job", { job })}
                   style={styles.existingJobBtn}
@@ -105,7 +116,7 @@ export default function Jobs(props) {
                       }}
                     >
                       <Text style={styles.Text}>
-                        {job.JobNum.split(props.company + "_")}
+                        {job.split(props.company + "_")}
                       </Text>
                     </View>
                   </View>

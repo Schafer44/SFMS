@@ -48,63 +48,18 @@ export const Job = (props) => {
 
   const componentHideAndShowJSA = () => {
     setContentJSA(!contentJ);
-    //handleAnimation(contentJ);
   };
   const componentHideAndShowOQ = () => {
     setContentOQ(!contentO);
-    // handleAnimation(contentO);
   };
   const componentHideAndShowFR = () => {
     setContentFR(!contentF);
-    // handleAnimation(contentF);
   };
-  //
-  /*const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
-  const handleAnimation = (prop) => {
-    if (prop) {
-      Animated.timing(rotateAnimation, {
-        toValue: 0,
-        duration: 400,
-        useNativeDriver: true,
-      }).start(() => {
-        rotateAnimation.setValue(0);
-      });
-    } else {
-      Animated.timing(rotateAnimation, {
-        toValue: 1,
-        duration: 400,
-        useNativeDriver: true,
-      }).start(() => {
-        rotateAnimation.setValue(1);
-      });
-    }
-  };
-  const interpolateRotating = rotateAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: ["0deg", "90deg"],
-  });
-  const animatedStyle = {
-    backgroundColor: "red",
-    alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    left: 20,
-    transform: [
-      {
-        rotate: interpolateRotating,
-      },
-    ],
-  };*/
-  //
-  //const [Job, setJobs] = useState([]);
   const [fileType, setFileType] = useState("");
   const [Job, setJobs] = useState([]);
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(
-        collection(db, props.route.params.job.JobNum),
-        orderBy("id", "desc")
-      ),
+      query(collection(db, props.route.params.job), orderBy("id", "desc")),
       (snapshot) => {
         setJobs(snapshot.docs.map((doc) => doc.data()));
       }
@@ -113,7 +68,6 @@ export const Job = (props) => {
     return () => {
       unsubscribe();
     };
-    //fetchJobs();
   }, []);
 
   return (
@@ -161,180 +115,6 @@ export const Job = (props) => {
           route={props.route}
           Job={Job}
         />
-        {/*
-        <View>
-          <View style={styles.existingJob}>
-            <TouchableHighlight
-              onPress={componentHideAndShowTimesheet}
-              style={styles.existingJobBtn}
-            >
-              <View style={styles.existingJobBtnView}>
-                <Ionicons
-                  name="menu"
-                  size={32}
-                  color="white"
-                  style={[styles.existingJobBtnViewTextIcon1]}
-                />
-                <Text style={styles.Text}>Timesheets</Text>
-              </View>
-            </TouchableHighlight>
-          </View>
-          {contentT ? (
-            <View>
-              <AllTimesheet
-                job={Job}
-                navigation={props.navigation}
-                jobNum={props.route.params.job.JobNum}
-                user={props.route.params.job.user}
-                searchPhrase={searchPhrase}
-              />
-              <NewTimesheet
-                jobNum={props.route.params.job.JobNum}
-                tempKey={1}
-                job={Job}
-              />
-              <NewTimesheetFE
-                jobNum={props.route.params.job.JobNum}
-                tempKey={1}
-                job={Job}
-              />
-              <AllTimesheetDup
-                job={Job}
-                navigation={props.navigation}
-                jobNum={props.route.params.job.JobNum}
-              />
-            </View>
-          ) : null}
-          </View>
-        <View>
-          <View style={styles.existingJob}>
-            <TouchableHighlight
-              onPress={componentHideAndShowJSA}
-              style={styles.existingJobBtn}
-            >
-              <View style={styles.existingJobBtnView}>
-                <Ionicons
-                  name="menu"
-                  size={32}
-                  color="white"
-                  style={[styles.existingJobBtnViewTextIcon1]}
-                />
-                <Text style={styles.Text}>JSAs</Text>
-              </View>
-            </TouchableHighlight>
-          </View>
-          {contentJ ? (
-            <View>
-              <AllJSA
-                job={Job}
-                navigation={props.navigation}
-                jobNum={props.route.params.job.JobNum}
-                user={props.route.params.job.user}
-                searchPhrase={searchPhrase}
-              />
-              <NewJSA
-                jobNum={props.route.params.job.JobNum}
-                tempKey={2}
-                job={Job}
-              />
-              <NewJSAFE
-                jobNum={props.route.params.job.JobNum}
-                tempKey={2}
-                job={Job}
-              />
-              <AllJSADup
-                job={Job}
-                navigation={props.navigation}
-                jobNum={props.route.params.job.JobNum}
-              />
-            </View>
-          ) : null}
-        </View>
-        <View>
-          <View style={styles.existingJob}>
-            <TouchableHighlight
-              onPress={componentHideAndShowFR}
-              style={styles.existingJobBtn}
-            >
-              <View style={styles.existingJobBtnView}>
-                <Ionicons
-                  name="menu"
-                  size={32}
-                  color="white"
-                  style={[
-                    contentF
-                      ? styles.existingJobBtnViewTextIcon2
-                      : styles.existingJobBtnViewTextIcon1,
-                  ]}
-                />
-                <Text style={styles.Text}>Foreman Reports</Text>
-              </View>
-            </TouchableHighlight>
-          </View>
-          {contentF ? (
-            <View>
-              <AllForeman
-                job={Job}
-                navigation={props.navigation}
-                jobNum={props.route.params.job.JobNum}
-                user={props.route.params.job.user}
-                searchPhrase={searchPhrase}
-              />
-              <NewForemanReport
-                jobNum={props.route.params.job.JobNum}
-                tempKey={3}
-                job={Job}
-              />
-              <NewForemanReportFE
-                jobNum={props.route.params.job.JobNum}
-                tempKey={3}
-                job={Job}
-              />
-              <AllForemanDup
-                job={Job}
-                navigation={props.navigation}
-                jobNum={props.route.params.job.JobNum}
-              />
-            </View>
-          ) : null}
-        </View>
-        <View>
-          <View style={styles.existingJob}>
-            <TouchableHighlight
-              onPress={componentHideAndShowOQ}
-              style={styles.existingJobBtn}
-            >
-              <View style={styles.existingJobBtnView}>
-                <Ionicons
-                  name="menu"
-                  size={32}
-                  color="white"
-                  style={[
-                    contentO
-                      ? styles.existingJobBtnViewTextIcon2
-                      : styles.existingJobBtnViewTextIcon1,
-                  ]}
-                />
-                <Text style={styles.Text}>OQs</Text>
-              </View>
-            </TouchableHighlight>
-          </View>
-          {contentO ? (
-            <View>
-              <AllOQ
-                job={Job}
-                navigation={props.navigation}
-                jobNum={props.route.params.job.JobNum}
-              />
-
-              <NewOQ
-                jobNum={props.route.params.job.JobNum}
-                tempKey={1}
-                job={Job}
-              />
-            </View>
-          ) : null}
-          </View>*/}
       </ScrollView>
     </View>
   );

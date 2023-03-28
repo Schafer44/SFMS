@@ -84,24 +84,24 @@ export const JobTimesheetCol = (props) => {
             <AllTimesheet
               job={props.Job}
               navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
               user={props.route.params.job.user}
               searchPhrase={props.searchPhrase}
             />
             <NewTimesheet
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
               tempKey={1}
               job={props.Job}
             />
             <NewTimesheetFE
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
               tempKey={1}
               job={props.Job}
             />
             <AllTimesheetDup
               job={props.Job}
               navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
             />
           </View>
         ) : null}

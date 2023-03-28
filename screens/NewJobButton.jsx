@@ -45,7 +45,7 @@ export default class NewTimesheet extends React.Component {
         let TempJSA = "";
         let TempFR = "";
         let TempTS = "";
-        const ref = db.collection(this.state.company).doc();
+        //const ref = db.collection(this.state.company).doc();
         /*await db
           .collection(props.company)
           .doc(ref._delegate._key.path.segments[1])
@@ -121,13 +121,20 @@ export default class NewTimesheet extends React.Component {
                     id: 2,
                   });
                 });
-              await db
+              /*await db
                 .collection(this.state.company)
                 .doc(ref._delegate._key.path.segments[1])
                 .set({
                   JobNum: this.state.company + "_" + this.state.jobNum,
                   baseid: ref._delegate._key.path.segments[1],
-                });
+                });*/
+              const docRef = doc(db, this.state.company, "master");
+              temp = await getDoc(docRef);
+              console.log("Test 1", temp.data());
+              let tempAry = temp.data().Jobs;
+              tempAry.push(this.state.company + "_" + this.state.jobNum);
+              console.log("Test 2", tempAry);
+              setDoc(docRef, { Jobs: tempAry });
               this.setState({
                 isLoading: false,
               });
