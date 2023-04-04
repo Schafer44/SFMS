@@ -163,6 +163,15 @@ const LoginScreen = (props) => {
       ) : (
         <></>
       )}
+      <View>
+        <TouchableOpacity
+          underlayColor="#272727"
+          style={styles.buttonTerms}
+          onPress={() => props.navigation.navigate("Terms and Conditions")}
+        >
+          <Text style={styles.buttonTextTerms}>Terms and Conditions</Text>
+        </TouchableOpacity>
+      </View>
     </KeyboardAvoidingView>
   );
 };
@@ -247,6 +256,18 @@ const styles = StyleSheet.create({
     backgroundColor: "green",
     margin: "1%",
     height: 40,
+  },
+  buttonTerms: {
+    width: "50%",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    margin: "1%",
+    height: 40,
+  },
+  buttonTextTerms: {
+    color: "black",
+    textDecorationLine: "underline",
   },
   smallBtn: {
     backgroundColor: "green",

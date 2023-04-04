@@ -13,7 +13,7 @@ import NewJob from "./NewJobButton";
 import Search from "./Search";
 import { useHeaderHeight } from "@react-navigation/elements";
 import React, { useState, useEffect } from "react";
-export default function Home(props, props2) {
+export default function Home(props) {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
   const [headerHeight] = useState(useHeaderHeight());
