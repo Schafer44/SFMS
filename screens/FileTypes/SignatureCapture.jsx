@@ -36,10 +36,10 @@ export const SignatureCapture = (props) => {
   const toggleOverlay = () => {
     props.setVisible(!props.visible);
   };
-  const style = `.m-signature-pad {} 
-  .m-signature-pad--body {}
-  body,html {
-  width: 90%; height: 80%; margin-left: 5%;margin-top:10%; }
+  const style = `.m-signature-pad {margin-left: 0%;} 
+  .m-signature-pad--body {width: 90%; height: 70%;margin-top:10%;margin-left: 5%;}
+  body,html {width: 100%; height: 100%;margin-left: 0%;
+ }
   .m-signature-pad--footer
     .button {
       background-color: green;
