@@ -78,44 +78,140 @@ export const Job = (props) => {
         clicked={clicked}
         setClicked={setClicked}
       />
-      <ScrollView style={styles.Scroll}>
-        <JobTimesheetCol
-          contentT={contentT}
-          setContentTimesheet={setContentTimesheet}
-          searchPhrase={searchPhrase}
-          setSearchPhrase={setSearchPhrase}
-          navigation={props.navigation}
-          route={props.route}
-          Job={Job}
-        />
-        <JobJSACol
-          contentJ={contentJ}
-          setContentJSA={setContentJSA}
-          searchPhrase={searchPhrase}
-          setSearchPhrase={setSearchPhrase}
-          navigation={props.navigation}
-          route={props.route}
-          Job={Job}
-        />
-        <JobFRCol
-          contentF={contentF}
-          setContentFR={setContentFR}
-          searchPhrase={searchPhrase}
-          setSearchPhrase={setSearchPhrase}
-          navigation={props.navigation}
-          route={props.route}
-          Job={Job}
-        />
-        <JobOQCol
-          contentO={contentO}
-          setContentOQ={setContentOQ}
-          searchPhrase={searchPhrase}
-          setSearchPhrase={setSearchPhrase}
-          navigation={props.navigation}
-          route={props.route}
-          Job={Job}
-        />
-      </ScrollView>
+      <View style={styles.Cont}>
+        <View style={styles.CollectionLeft}>
+          <ScrollView style={styles.Scroll}>
+            <JobTimesheetCol
+              contentT={contentT}
+              setContentTimesheet={setContentTimesheet}
+              searchPhrase={searchPhrase}
+              setSearchPhrase={setSearchPhrase}
+              navigation={props.navigation}
+              route={props.route}
+              Job={Job}
+            />
+            <JobJSACol
+              contentJ={contentJ}
+              setContentJSA={setContentJSA}
+              searchPhrase={searchPhrase}
+              setSearchPhrase={setSearchPhrase}
+              navigation={props.navigation}
+              route={props.route}
+              Job={Job}
+            />
+            <JobFRCol
+              contentF={contentF}
+              setContentFR={setContentFR}
+              searchPhrase={searchPhrase}
+              setSearchPhrase={setSearchPhrase}
+              navigation={props.navigation}
+              route={props.route}
+              Job={Job}
+            />
+            <JobOQCol
+              contentO={contentO}
+              setContentOQ={setContentOQ}
+              searchPhrase={searchPhrase}
+              setSearchPhrase={setSearchPhrase}
+              navigation={props.navigation}
+              route={props.route}
+              Job={Job}
+            />
+          </ScrollView>
+        </View>
+        {contentT || contentJ || contentO || contentF ? (
+          <View style={styles.CollectionRightCont}>
+            {contentT ? (
+              <View style={styles.CollectionRight}>
+                <View style={styles.CollectionRightTitleCont}>
+                  <View style={styles.CollectionRightTitleContTwo}>
+                    <Text style={styles.CollectionRightTitle}>Timesheet</Text>
+                  </View>
+                </View>
+                <NewTimesheet
+                  jobNum={props.route.params.job}
+                  tempKey={1}
+                  job={Job}
+                />
+                <NewTimesheetFE
+                  jobNum={props.route.params.job}
+                  tempKey={1}
+                  job={Job}
+                />
+                <AllTimesheetDup
+                  job={Job}
+                  navigation={props.navigation}
+                  jobNum={props.route.params.job}
+                />
+              </View>
+            ) : (
+              <View style={styles.CollectionRight}></View>
+            )}
+            {contentJ ? (
+              <View style={styles.CollectionRight}>
+                <View style={styles.CollectionRightTitleCont}>
+                  <View style={styles.CollectionRightTitleContTwo}>
+                    <Text style={styles.CollectionRightTitle}>JSA</Text>
+                  </View>
+                </View>
+                <NewJSA jobNum={props.route.params.job} tempKey={1} job={Job} />
+                <NewJSAFE
+                  jobNum={props.route.params.job}
+                  tempKey={1}
+                  job={Job}
+                />
+                <AllJSADup
+                  job={Job}
+                  navigation={props.navigation}
+                  jobNum={props.route.params.job}
+                />
+              </View>
+            ) : (
+              <View style={styles.CollectionRight}></View>
+            )}
+            {contentF ? (
+              <View style={styles.CollectionRight}>
+                <View style={styles.CollectionRightTitleCont}>
+                  <View style={styles.CollectionRightTitleContTwo}>
+                    <Text style={styles.CollectionRightTitle}>
+                      Foreman Report
+                    </Text>
+                  </View>
+                </View>
+                <NewForemanReport
+                  jobNum={props.route.params.job}
+                  tempKey={1}
+                  job={Job}
+                />
+                <NewForemanReportFE
+                  jobNum={props.route.params.job}
+                  tempKey={1}
+                  job={Job}
+                />
+                <AllForemanDup
+                  job={Job}
+                  navigation={props.navigation}
+                  jobNum={props.route.params.job}
+                />
+              </View>
+            ) : (
+              <View style={styles.CollectionRight}></View>
+            )}
+            {contentO ? (
+              <View style={styles.CollectionRight}>
+                <View style={styles.CollectionRightTitleCont}>
+                  <View style={styles.CollectionRightTitleContTwo}>
+                    <Text style={styles.CollectionRightTitle}>OQ</Text>
+                  </View>
+                </View>
+                <NewOQ jobNum={props.route.params.job} tempKey={1} job={Job} />
+              </View>
+            ) : (
+              <View style={styles.CollectionRight}></View>
+            )}
+          </View>
+        ) : null}
+      </View>
     </View>
   );
 };
@@ -181,5 +277,53 @@ const styles = StyleSheet.create({
   GC: {
     height: "100%",
     maxHeight: "100%",
+  },
+  Cont: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  CollectionRight: {
+    height: "22.5%",
+    backgroundColor: "white",
+    margin: "2.5%",
+    display: "flex",
+  },
+  CollectionRightTitleCont: {
+    flex: 1,
+    width: "100%",
+    padding: "0%",
+    alignItems: "center",
+    textAlign: "center",
+    justifyContent: "center",
+    alignContent: "center",
+  },
+
+  CollectionRightTitleContTwo: {
+    width: "95%",
+    flex: 1,
+    width: "95%",
+    padding: "0%",
+    margin: "1%",
+    width: "95%",
+    backgroundColor: "#272727",
+    marginBottom: "1%",
+    alignItems: "center",
+    textAlign: "center",
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  CollectionRightTitle: {
+    color: "white",
+  },
+  CollectionRightCont: {
+    flex: 1,
+    borderLeftWidth: 1,
+    backgroundColor: "#272727",
+    padding: "1%",
+  },
+  CollectionLeft: {
+    flex: 4,
+    maxHeight: "100%",
+    height: "93%",
   },
 });

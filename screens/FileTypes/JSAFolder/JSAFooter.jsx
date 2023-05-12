@@ -97,7 +97,7 @@ export default function JSAFooter(props) {
   };
   return (
     <View style={styles.footerPage}>
-      {isLoading ? <Loading /> : <View></View>}
+      {isLoading ? <Loading /> : null}
       <View style={styles.SigViewMiddle}>
         <TouchableOpacity
           title="Signature"

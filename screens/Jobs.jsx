@@ -157,7 +157,7 @@ export default function Jobs(props) {
         </TouchableHighlight>
       </View>
 
-      {isLoading ? <Loading /> : <View></View>}
+      {isLoading ? <Loading /> : null}
     </View>
   );
 }

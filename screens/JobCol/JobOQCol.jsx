@@ -85,11 +85,11 @@ export const JobOQCol = (props) => {
               jobNum={props.route.params.job}
             />
 
-            <NewOQ
+            {/*<NewOQ
               jobNum={props.route.params.job}
               tempKey={1}
               job={props.Job}
-            />
+        />*/}
           </View>
         ) : null}
       </View>

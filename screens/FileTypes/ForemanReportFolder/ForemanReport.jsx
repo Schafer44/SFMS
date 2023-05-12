@@ -226,7 +226,7 @@ export default function ForemanReport(props, jobNum) {
     >
       <ScrollView scrollEnabled={scrollEnabled} style={styles.body}>
         <View>
-          {isLoading ? <Loading /> : <View></View>}
+          {isLoading ? <Loading /> : null}
           <View style={styles.RowOne}>
             <View style={styles.Header}>
               <FRHeader

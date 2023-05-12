@@ -49,7 +49,7 @@ export default class Duplicate extends React.Component {
     };
     return (
       <View style={styles.container} key={1}>
-        {this.state.isLoading ? <Loading /> : <View></View>}
+        {this.state.isLoading ? <Loading /> : null}
         <View style={styles.newJob} key={1}>
           <TouchableHighlight
             activeOpacity={0.99}
@@ -70,18 +70,19 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "flex-end",
     alignItems: "center",
+    flex: 1,
+    marginBottom: "1%",
   },
   Text: {
     color: "white",
   },
   newJob: {
     flexDirection: "row",
-    height: 40,
+    height: "100%",
     width: "95%",
     backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 5,
     flex: 1,
     alignSelf: "flex-end",
     marginRight: "2.5%",

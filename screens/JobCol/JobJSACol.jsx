@@ -88,7 +88,7 @@ export const JobJSACol = (props) => {
               user={props.route.params.job.user}
               searchPhrase={props.searchPhrase}
             />
-            <NewJSA
+            {/*<NewJSA
               jobNum={props.route.params.job}
               tempKey={2}
               job={props.Job}
@@ -102,7 +102,7 @@ export const JobJSACol = (props) => {
               job={props.Job}
               navigation={props.navigation}
               jobNum={props.route.params.job}
-            />
+        />*/}
           </View>
         ) : null}
       </View>

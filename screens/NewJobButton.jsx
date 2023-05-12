@@ -159,7 +159,7 @@ export default class NewTimesheet extends React.Component {
     };
     return (
       <View style={styles.container} key={1}>
-        {this.state.isLoading ? <Loading /> : <View></View>}
+        {this.state.isLoading ? <Loading /> : null}
         <View style={styles.newJob} key={1}>
           <TouchableOpacity
             key={1}

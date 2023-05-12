@@ -321,7 +321,7 @@ export default function Timesheet(props, jobNum) {
         keyboardVerticalOffset={headerHeight + 40}
       >
         <View style={styles.header}>
-          {isLoading ? <Loading /> : <View></View>}
+          {isLoading ? <Loading /> : null}
           <View style={styles.hGridTitles}>
             <View style={styles.TextInputTwo}>
               <Text style={styles.textInputHeader}>Project: </Text>

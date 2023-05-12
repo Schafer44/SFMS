@@ -97,7 +97,7 @@ export default function ForemanFooter(props) {
   };
   return (
     <View style={styles.footerPage}>
-      {isLoading ? <Loading /> : <View></View>}
+      {isLoading ? <Loading /> : null}
       <View style={styles.footerPageSig}>
         <View style={styles.SigViewLeft}>
           <TouchableOpacity

@@ -4,6 +4,7 @@ import {
   View,
   TouchableHighlight,
   Animated,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import AllTimesheet from "../all_Folder/allTimesheet";
@@ -80,29 +81,16 @@ export const JobTimesheetCol = (props) => {
           </TouchableHighlight>
         </View>
         {props.contentT ? (
-          <View>
-            <AllTimesheet
-              job={props.Job}
-              navigation={props.navigation}
-              jobNum={props.route.params.job}
-              user={props.route.params.job.user}
-              searchPhrase={props.searchPhrase}
-            />
-            <NewTimesheet
-              jobNum={props.route.params.job}
-              tempKey={1}
-              job={props.Job}
-            />
-            <NewTimesheetFE
-              jobNum={props.route.params.job}
-              tempKey={1}
-              job={props.Job}
-            />
-            <AllTimesheetDup
-              job={props.Job}
-              navigation={props.navigation}
-              jobNum={props.route.params.job}
-            />
+          <View style={styles.Collection}>
+            <View style={styles.CollectionRight}>
+              <AllTimesheet
+                job={props.Job}
+                navigation={props.navigation}
+                jobNum={props.route.params.job}
+                user={props.route.params.job.user}
+                searchPhrase={props.searchPhrase}
+              />
+            </View>
           </View>
         ) : null}
       </View>
@@ -169,4 +157,10 @@ const styles = StyleSheet.create({
     maxHeight: "100%",
   },
   GC: {},
+  Collection: { display: "flex", flexDirection: "row-reverse" },
+  CollectionRight: { flex: 3 },
+  CollectionLeft: {
+    flex: 1,
+  },
+  CollectionLeftCont: {},
 });

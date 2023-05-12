@@ -88,7 +88,7 @@ export const JobFRCol = (props) => {
               user={props.route.params.job.user}
               searchPhrase={props.searchPhrase}
             />
-            <NewForemanReport
+            {/*<NewForemanReport
               jobNum={props.route.params.job}
               tempKey={3}
               job={props.Job}
@@ -102,7 +102,7 @@ export const JobFRCol = (props) => {
               job={props.Job}
               navigation={props.navigation}
               jobNum={props.route.params.job}
-            />
+        />*/}
           </View>
         ) : null}
       </View>
