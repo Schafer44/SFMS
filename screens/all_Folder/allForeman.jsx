@@ -42,7 +42,24 @@ export default function AllForeman(props) {
   };
   if (props.job != undefined) {
     return (
-      <View style={styles.Cont} key={1}>
+      <View
+        style={
+          props.isBigScreen
+            ? [
+                styles.Cont,
+                {
+                  marginRight: "20%",
+                },
+              ]
+            : [
+                styles.Cont,
+                {
+                  marginRight: "0%",
+                },
+              ]
+        }
+        key={1}
+      >
         <View style={styles.globalFiles} key={2}>
           {props.job.map((file) => {
             file.JobNum = props.jobNum;
@@ -90,26 +107,26 @@ export default function AllForeman(props) {
                               </Text>
                             </TouchableHighlight>
                           </View>
-                          {visible ? (
-                            <View
-                              style={styles.existingJob2}
-                              key={file.baseId + "2"}
-                            >
-                              <Button
-                                style={styles.existingJobBtn}
-                                onPress={() => Delete(file)}
-                                title={"-"}
-                                color="white"
-                              ></Button>
-                            </View>
-                          ) : (
-                            <View></View>
-                          )}
+                          {
+                            visible ? (
+                              <View
+                                style={styles.existingJob2}
+                                key={file.baseId + "2"}
+                              >
+                                <Button
+                                  style={styles.existingJobBtn}
+                                  onPress={() => Delete(file)}
+                                  title={"-"}
+                                  color="white"
+                                ></Button>
+                              </View>
+                            ) : null //
+                          }
                         </View>
                       </View>
                     );
                   } else {
-                    <View></View>;
+                    null; //View>;
                   }
                 } else {
                   return (
@@ -134,21 +151,21 @@ export default function AllForeman(props) {
                             </Text>
                           </TouchableHighlight>
                         </View>
-                        {visible ? (
-                          <View
-                            style={styles.existingJob2}
-                            key={file.baseId + "2"}
-                          >
-                            <Button
-                              style={styles.existingJobBtn}
-                              onPress={() => Delete(file)}
-                              title={"-"}
-                              color="white"
-                            ></Button>
-                          </View>
-                        ) : (
-                          <View></View>
-                        )}
+                        {
+                          visible ? (
+                            <View
+                              style={styles.existingJob2}
+                              key={file.baseId + "2"}
+                            >
+                              <Button
+                                style={styles.existingJobBtn}
+                                onPress={() => Delete(file)}
+                                title={"-"}
+                                color="white"
+                              ></Button>
+                            </View>
+                          ) : null //View>
+                        }
                       </View>
                     </View>
                   );
@@ -183,6 +200,7 @@ const styles = StyleSheet.create({
   },
   Cont: {
     flexDirection: "column",
+    marginRight: "20%",
   },
 
   globalFiles: {

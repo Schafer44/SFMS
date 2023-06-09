@@ -18,6 +18,7 @@ import React, { setState, useState, useEffect, useMemo } from "react";
 import { SignatureCapture } from "../SignatureCapture";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import JSAT1 from "./JSAT1";
 import JSAT2 from "./JSAT2";
@@ -56,6 +57,7 @@ export default function JSA(props, jobNum) {
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [headerHeight] = useState(useHeaderHeight());
   const [isLoading, setIsLoading] = useState(true);
+  const [visibleDate, setVisibleDate] = useState(false);
   const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
   const isMobileDevice = useMediaQuery({
     query: "(max-device-width: 600px)",
@@ -76,6 +78,11 @@ export default function JSA(props, jobNum) {
     });
     setIsLoading(false);
   };*/
+
+  const toggleOverlayDate = () => {
+    console.log(T1[0].Table.Date);
+    setVisibleDate(!visibleDate);
+  };
 
   const _retrieveData = async () => {
     try {
@@ -245,7 +252,6 @@ export default function JSA(props, jobNum) {
       >
         <Text style={styles.LockText}>Lock Scroll</Text>
   </TouchableOpacity>*/}
-      {console.log(isLoading)}
       {isLoading ? (
         <View
           style={{
@@ -274,6 +280,7 @@ export default function JSA(props, jobNum) {
                   id={0}
                   isBigScreen={isBigScreen}
                   isMobileDevice={isMobileDevice}
+                  toggleOverlayDate={toggleOverlayDate}
                 />
               </View>
             </View>
@@ -400,6 +407,56 @@ export default function JSA(props, jobNum) {
           </View>
         </ScrollView>
       )}
+      {visibleDate ? (
+        <View
+          style={{
+            position: "absolute",
+            bottom: 0,
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              width: "100%",
+              flex: 2,
+              opacity: 0.2,
+              backgroundColor: "grey",
+            }}
+            onPress={() => {
+              toggleOverlayDate();
+            }}
+          />
+          <View
+            style={{
+              width: "100%",
+              flex: 1,
+              backgroundColor: "lightgrey",
+            }}
+          >
+            <DateTimePicker
+              display="spinner"
+              dateFormat="dayofweek month day year"
+              themeVariant="light"
+              value={
+                new Date(T1[0].Table.Date !== undefined ? T1[0].Table.Date : 1)
+              }
+              onChange={(event) => {
+                /*setT1({
+                  ...T1,
+                  Date: new Date(event.nativeEvent.timestamp).toString(),
+                });*/
+                setT1(
+                  T1,
+                  (T1[0].Table.Date = new Date(
+                    event.nativeEvent.timestamp
+                  ).toString())
+                );
+              }}
+            />
+          </View>
+        </View>
+      ) : null}
     </KeyboardAvoidingView>
   );
 }

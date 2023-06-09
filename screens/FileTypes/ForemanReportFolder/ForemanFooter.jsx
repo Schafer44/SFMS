@@ -75,7 +75,7 @@ export default function ForemanFooter(props) {
           ForemanSignature: props.ForemanSignature,
           ClientSignature: props.ClientSignature,
           TypeExtra: props.route.params.file.TypeExtra,
-          lastUpdatedBy: props.user,
+          //lastUpdatedBy: props.user,
           id: props.id,
           hasBeenUpdated: "yes",
         })

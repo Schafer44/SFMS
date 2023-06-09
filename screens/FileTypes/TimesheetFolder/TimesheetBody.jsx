@@ -90,9 +90,8 @@ export default function TimesheetBody(props) {
             </View>
           </View>
         </View>
-      ) : (
-        <View></View>
-      )}
+      ) : null //View>
+      }
 
       <TouchableOpacity
         style={styles.SubBtnAdd}

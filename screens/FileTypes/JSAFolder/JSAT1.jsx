@@ -1,8 +1,14 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
-import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function JSAT1(props) {
   const [Table, setTable] = useState({});
@@ -48,8 +54,9 @@ export default function JSAT1(props) {
             onChange={(event) => {
               setTable({ ...Table, Date: event.nativeEvent.text });
             }}
-          />*/}
+          />
             <DateTimePicker
+              display="spinner"
               dateFormat="dayofweek month day year"
               themeVariant="light"
               value={new Date(Table.Date !== undefined ? Table.Date : 1)}
@@ -59,7 +66,19 @@ export default function JSAT1(props) {
                   Date: new Date(event.nativeEvent.timestamp).toString(),
                 });
               }}
-            />
+            />*/}
+
+            <TouchableOpacity onPress={() => props.toggleOverlayDate()}>
+              <Text>
+                {Table.Date !== undefined
+                  ? Table.Date.split(" ")[1] +
+                    " " +
+                    Table.Date.split(" ")[2] +
+                    " " +
+                    Table.Date.split(" ")[3]
+                  : null}
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -331,7 +350,7 @@ const styles = StyleSheet.create({
   DatePicker: {
     flex: 1,
     justifyContent: "center",
-    width: 75,
+    width: "100%",
   },
   DatePickerCont: {
     height: "100%",

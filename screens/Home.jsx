@@ -23,7 +23,7 @@ export default function Home(props) {
       behavior={Platform.OS === "ios" ? "height" : null}
       keyboardVerticalOffset={headerHeight}
     >
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, marginTop: 15 }}>
         <Search
           searchPhrase={searchPhrase}
           setSearchPhrase={setSearchPhrase}

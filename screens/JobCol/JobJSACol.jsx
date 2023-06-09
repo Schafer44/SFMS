@@ -15,7 +15,9 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 export const JobJSACol = (props) => {
   const componentHideAndShowJSA = () => {
     props.setContentJSA(!props.contentJ);
+    if (props.isBigScreen) props.setSidebar(!props.sidebar);
     handleAnimation(props.contentJ);
+    props.ParentAnimation(props.contentJ);
   };
   //
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
@@ -23,7 +25,7 @@ export const JobJSACol = (props) => {
     if (prop) {
       Animated.timing(rotateAnimation, {
         toValue: 0,
-        duration: 400,
+        duration: 250,
         useNativeDriver: true,
       }).start(() => {
         rotateAnimation.setValue(0);
@@ -31,7 +33,7 @@ export const JobJSACol = (props) => {
     } else {
       Animated.timing(rotateAnimation, {
         toValue: 1,
-        duration: 400,
+        duration: 250,
         useNativeDriver: true,
       }).start(() => {
         rotateAnimation.setValue(1);
@@ -42,6 +44,11 @@ export const JobJSACol = (props) => {
     inputRange: [0, 1],
     outputRange: ["0deg", "90deg"],
   });
+
+  const interpolateMovement = rotateAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -props.moveMargin],
+  });
   const animatedStyle = {
     backgroundColor: "red",
     alignItems: "center",
@@ -51,6 +58,13 @@ export const JobJSACol = (props) => {
     transform: [
       {
         rotate: interpolateRotating,
+      },
+    ],
+  };
+  const animatedStyleII = {
+    transform: [
+      {
+        translateX: interpolateMovement,
       },
     ],
   };
@@ -75,7 +89,10 @@ export const JobJSACol = (props) => {
                   style={[styles.existingJobBtnViewTextIcon1]}
                 />
               </Animated.View>
-              <Text style={styles.Text}>JSAs</Text>
+
+              <Animated.View style={animatedStyleII}>
+                <Text style={styles.Text}>JSAs</Text>
+              </Animated.View>
             </View>
           </TouchableHighlight>
         </View>

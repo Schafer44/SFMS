@@ -13,7 +13,9 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 export const JobOQCol = (props) => {
   const componentHideAndShowOQ = () => {
     props.setContentOQ(!props.contentO);
+    if (props.isBigScreen) props.setSidebar(!props.sidebar);
     handleAnimation(props.contentO);
+    props.ParentAnimation(props.contentO);
   };
   //
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
@@ -21,7 +23,7 @@ export const JobOQCol = (props) => {
     if (prop) {
       Animated.timing(rotateAnimation, {
         toValue: 0,
-        duration: 400,
+        duration: 250,
         useNativeDriver: true,
       }).start(() => {
         rotateAnimation.setValue(0);
@@ -29,7 +31,7 @@ export const JobOQCol = (props) => {
     } else {
       Animated.timing(rotateAnimation, {
         toValue: 1,
-        duration: 400,
+        duration: 250,
         useNativeDriver: true,
       }).start(() => {
         rotateAnimation.setValue(1);
@@ -40,6 +42,12 @@ export const JobOQCol = (props) => {
     inputRange: [0, 1],
     outputRange: ["0deg", "90deg"],
   });
+
+  const interpolateMovement = rotateAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -props.moveMargin],
+  });
+
   const animatedStyle = {
     backgroundColor: "red",
     alignItems: "center",
@@ -49,6 +57,13 @@ export const JobOQCol = (props) => {
     transform: [
       {
         rotate: interpolateRotating,
+      },
+    ],
+  };
+  const animatedStyleII = {
+    transform: [
+      {
+        translateX: interpolateMovement,
       },
     ],
   };
@@ -73,7 +88,10 @@ export const JobOQCol = (props) => {
                   style={[styles.existingJobBtnViewTextIcon1]}
                 />
               </Animated.View>
-              <Text style={styles.Text}>OQs</Text>
+
+              <Animated.View style={animatedStyleII}>
+                <Text style={styles.Text}>OQs</Text>
+              </Animated.View>
             </View>
           </TouchableHighlight>
         </View>

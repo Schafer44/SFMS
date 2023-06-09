@@ -137,9 +137,7 @@ export default function Jobs(props) {
                       </View>
                     </TouchableHighlight>
                   </View>
-                ) : (
-                  <View></View>
-                )}
+                ) : null}
               </View>
             );
           }

@@ -52,7 +52,24 @@ export default function AllOQ(props) {
   };
   if (props.job != undefined) {
     return (
-      <View style={styles.Cont} key={1}>
+      <View
+        style={
+          props.isBigScreen
+            ? [
+                styles.Cont,
+                {
+                  marginRight: "20%",
+                },
+              ]
+            : [
+                styles.Cont,
+                {
+                  marginRight: "0%",
+                },
+              ]
+        }
+        key={1}
+      >
         <View style={styles.globalFiles} key={2}>
           {props.job.map((file) => {
             file.JobNum = props.jobNum;
@@ -82,9 +99,8 @@ export default function AllOQ(props) {
                           color="white"
                         ></Button>
                       </View>
-                    ) : (
-                      <View></View>
-                    )}
+                    ) : null //View>
+                    }
                   </View>
                 </View>
               );
@@ -116,6 +132,7 @@ const styles = StyleSheet.create({
   },
   Cont: {
     flexDirection: "column",
+    marginRight: "20%",
   },
   globalFiles: {
     flex: 1,

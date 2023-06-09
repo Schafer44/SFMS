@@ -38,6 +38,7 @@ export default function Timesheet(props, jobNum) {
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
   const [visible3, setVisible3] = useState(false);
+  const [visibleDate, setVisibleDate] = useState(false);
 
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -47,6 +48,9 @@ export default function Timesheet(props, jobNum) {
   };
   const toggleOverlay3 = () => {
     setVisible3(!visible3);
+  };
+  const toggleOverlayDate = () => {
+    setVisibleDate(!visibleDate);
   };
   const setDate = (event, date) => {};
   /*const fetchJob = async () => {
@@ -271,7 +275,6 @@ export default function Timesheet(props, jobNum) {
           FRsignature: FRsignature,
           CRsignature: CRsignature,
           Csignature: Csignature,
-          lastUpdatedBy: props.route.params.file.user,
           TypeExtra: props.route.params.file.TypeExtra,
           id: props.route.params.file.id,
           hasBeenUpdated: "yes",
@@ -350,17 +353,17 @@ export default function Timesheet(props, jobNum) {
             </View>
             <View style={styles.DatePickerCont}>
               <View style={styles.DatePicker}>
-                <DateTimePicker
-                  dateFormat="dayofweek month day year"
-                  themeVariant="light"
-                  value={new Date(Header.Date !== undefined ? Header.Date : 1)}
-                  onChange={(event) => {
-                    setHeader({
-                      ...Header,
-                      Date: new Date(event.nativeEvent.timestamp).toString(),
-                    });
-                  }}
-                />
+                <TouchableOpacity onPress={() => toggleOverlayDate()}>
+                  <Text>
+                    {Header.Date !== undefined
+                      ? Header.Date.split(" ")[1] +
+                        " " +
+                        Header.Date.split(" ")[2] +
+                        " " +
+                        Header.Date.split(" ")[3]
+                      : null}
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
             <View style={styles.TextInputOne}>
@@ -473,6 +476,48 @@ export default function Timesheet(props, jobNum) {
       >
         <Text style={styles.loginText}>Submit</Text>
       </TouchableOpacity>
+      {visibleDate ? (
+        <View
+          style={{
+            position: "absolute",
+            bottom: 0,
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              width: "100%",
+              flex: 2,
+              opacity: 0.2,
+              backgroundColor: "grey",
+            }}
+            onPress={() => {
+              toggleOverlayDate();
+            }}
+          />
+          <View
+            style={{
+              width: "100%",
+              flex: 1,
+              backgroundColor: "lightgrey",
+            }}
+          >
+            <DateTimePicker
+              display="spinner"
+              dateFormat="dayofweek month day year"
+              themeVariant="light"
+              value={new Date(Header.Date !== undefined ? Header.Date : 1)}
+              onChange={(event) => {
+                setHeader({
+                  ...Header,
+                  Date: new Date(event.nativeEvent.timestamp).toString(),
+                });
+              }}
+            />
+          </View>
+        </View>
+      ) : null}
     </View>
   );
 }
@@ -519,7 +564,7 @@ const styles = StyleSheet.create({
   DatePicker: {
     flex: 1,
     justifyContent: "center",
-    width: 75,
+    width: "100%",
   },
   DatePickerCont: {
     backgroundColor: "white",

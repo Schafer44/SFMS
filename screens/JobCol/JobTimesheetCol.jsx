@@ -16,7 +16,10 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 export const JobTimesheetCol = (props) => {
   const componentHideAndShowTimesheet = () => {
     props.setContentTimesheet(!props.contentT);
+    if (props.isBigScreen) props.setSidebar(!props.sidebar);
     handleAnimation(props.contentT);
+    props.ParentAnimation(props.contentT);
+    console.log(props.contentT);
   };
   //
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
@@ -24,7 +27,7 @@ export const JobTimesheetCol = (props) => {
     if (prop) {
       Animated.timing(rotateAnimation, {
         toValue: 0,
-        duration: 400,
+        duration: 250,
         useNativeDriver: true,
       }).start(() => {
         rotateAnimation.setValue(0);
@@ -32,7 +35,7 @@ export const JobTimesheetCol = (props) => {
     } else {
       Animated.timing(rotateAnimation, {
         toValue: 1,
-        duration: 400,
+        duration: 250,
         useNativeDriver: true,
       }).start(() => {
         rotateAnimation.setValue(1);
@@ -43,6 +46,11 @@ export const JobTimesheetCol = (props) => {
     inputRange: [0, 1],
     outputRange: ["0deg", "90deg"],
   });
+
+  const interpolateMovement = rotateAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -props.moveMargin],
+  });
   const animatedStyle = {
     backgroundColor: "red",
     alignItems: "center",
@@ -52,6 +60,14 @@ export const JobTimesheetCol = (props) => {
     transform: [
       {
         rotate: interpolateRotating,
+      },
+    ],
+  };
+
+  const animatedStyleII = {
+    transform: [
+      {
+        translateX: interpolateMovement,
       },
     ],
   };
@@ -76,7 +92,9 @@ export const JobTimesheetCol = (props) => {
                   style={[styles.existingJobBtnViewTextIcon1]}
                 />
               </Animated.View>
-              <Text style={styles.Text}>Timesheets</Text>
+              <Animated.View style={animatedStyleII}>
+                <Text style={styles.Text}>Timesheets</Text>
+              </Animated.View>
             </View>
           </TouchableHighlight>
         </View>

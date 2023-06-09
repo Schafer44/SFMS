@@ -15,7 +15,9 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 export const JobFRCol = (props) => {
   const componentHideAndShowFR = () => {
     props.setContentFR(!props.contentF);
+    if (props.isBigScreen) props.setSidebar(!props.sidebar);
     handleAnimation(props.contentF);
+    props.ParentAnimation(props.contentF);
   };
   //
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
@@ -23,7 +25,7 @@ export const JobFRCol = (props) => {
     if (prop) {
       Animated.timing(rotateAnimation, {
         toValue: 0,
-        duration: 400,
+        duration: 250,
         useNativeDriver: true,
       }).start(() => {
         rotateAnimation.setValue(0);
@@ -31,7 +33,7 @@ export const JobFRCol = (props) => {
     } else {
       Animated.timing(rotateAnimation, {
         toValue: 1,
-        duration: 400,
+        duration: 250,
         useNativeDriver: true,
       }).start(() => {
         rotateAnimation.setValue(1);
@@ -42,6 +44,11 @@ export const JobFRCol = (props) => {
     inputRange: [0, 1],
     outputRange: ["0deg", "90deg"],
   });
+
+  const interpolateMovement = rotateAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -props.moveMargin],
+  });
   const animatedStyle = {
     backgroundColor: "red",
     alignItems: "center",
@@ -51,6 +58,13 @@ export const JobFRCol = (props) => {
     transform: [
       {
         rotate: interpolateRotating,
+      },
+    ],
+  };
+  const animatedStyleII = {
+    transform: [
+      {
+        translateX: interpolateMovement,
       },
     ],
   };
@@ -75,7 +89,10 @@ export const JobFRCol = (props) => {
                   style={[styles.existingJobBtnViewTextIcon1]}
                 />
               </Animated.View>
-              <Text style={styles.Text}>Foreman Reports</Text>
+
+              <Animated.View style={animatedStyleII}>
+                <Text style={styles.Text}>Foreman Reports</Text>
+              </Animated.View>
             </View>
           </TouchableHighlight>
         </View>

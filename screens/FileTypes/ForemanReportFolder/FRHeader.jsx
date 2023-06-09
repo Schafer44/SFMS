@@ -1,5 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -72,6 +79,17 @@ export default function FRHeader(props) {
         </View>
         <View style={styles.DatePickerCont}>
           <View style={styles.DatePicker}>
+            <TouchableOpacity onPress={() => props.toggleOverlayDate()}>
+              <Text>
+                {Line0.Date !== undefined
+                  ? Line0.Date.split(" ")[1] +
+                    " " +
+                    Line0.Date.split(" ")[2] +
+                    " " +
+                    Line0.Date.split(" ")[3]
+                  : null}
+              </Text>
+            </TouchableOpacity>
             {/*<TextInput
             style={styles.TextInput}
             placeholder=""
@@ -79,8 +97,9 @@ export default function FRHeader(props) {
             onChange={(event) => {
               setLine0({ ...Line0, Date: event.nativeEvent.text });
             }}
-          />*/}
+          />
             <DateTimePicker
+              display="spinner"
               dateFormat="dayofweek month day year"
               value={new Date(Line0.Date !== undefined ? Line0.Date : 1)}
               themeVariant="light"
@@ -91,7 +110,7 @@ export default function FRHeader(props) {
                   Date: new Date(event.nativeEvent.timestamp).toString(),
                 });
               }}
-            />
+            />*/}
           </View>
         </View>
         <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>
@@ -229,7 +248,7 @@ const styles = StyleSheet.create({
   DatePicker: {
     flex: 1,
     justifyContent: "center",
-    width: 75,
+    width: "100%",
   },
   DatePickerCont: {
     height: "100%",

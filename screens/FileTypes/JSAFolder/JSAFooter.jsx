@@ -78,7 +78,7 @@ export default function JSAFooter(props) {
           baseId: props.route.params.file.baseId,
           signature: props.signature,
           TypeExtra: props.route.params.file.TypeExtra,
-          lastUpdatedBy: props.user,
+          //lastUpdatedBy: props.user,
           id: props.id,
           hasBeenUpdated: "yes",
         })
