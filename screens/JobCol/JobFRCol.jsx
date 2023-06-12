@@ -15,7 +15,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 export const JobFRCol = (props) => {
   const componentHideAndShowFR = () => {
     props.setContentFR(!props.contentF);
-    if (props.isBigScreen) props.setSidebar(!props.sidebar);
+    //if (props.isBigScreen) props.setSidebar(!props.sidebar);
     handleAnimation(props.contentF);
     props.ParentAnimation(props.contentF);
   };
@@ -104,6 +104,7 @@ export const JobFRCol = (props) => {
               jobNum={props.route.params.job}
               user={props.route.params.job.user}
               searchPhrase={props.searchPhrase}
+              visible={props.visibleEdit}
             />
             {/*<NewForemanReport
               jobNum={props.route.params.job}

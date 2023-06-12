@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -10,19 +9,9 @@ import {
   Dimensions,
 } from "react-native";
 import { db } from "./FirebaseLink";
-import React, { setState, useState, useEffect } from "react";
-import {
-  onSnapshot,
-  doc,
-  collection,
-  orderBy,
-  query,
-} from "firebase/firestore";
-import Timesheet from "./FileTypes/TimesheetFolder/Timesheet";
-import AllTimesheet from "./all_Folder/allTimesheet";
-import AllForeman from "./all_Folder/allForeman";
-import AllJSA from "./all_Folder/allJSA";
-import AllOQ from "./all_Folder/allOQ";
+import React, { useState, useEffect } from "react";
+import { onSnapshot, collection, orderBy, query } from "firebase/firestore";
+
 import NewForemanReport from "./NewForemanReport";
 import NewJSA from "./NewJSA";
 import NewTimesheet from "./NewTimesheet";
@@ -34,33 +23,38 @@ import AllTimesheetDup from "./all_Folder/allTimesheetDup";
 import AllForemanDup from "./all_Folder/AllForemanDup";
 import AllJSADup from "./all_Folder/allJSADup";
 import Search from "./Search";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { JobTimesheetCol } from "./JobCol/JobTimesheetCol";
 import { JobOQCol } from "./JobCol/JobOQCol";
 import { JobJSACol } from "./JobCol/JobJSACol";
 import { JobFRCol } from "./JobCol/JobFRCol";
 import { useMediaQuery } from "react-responsive";
 import { AntDesign } from "@expo/vector-icons";
+import { useHeaderHeight } from "@react-navigation/elements";
+
+const windowHeight = Dimensions.get("window").height;
 
 export const Job = (props) => {
   const windowWidth = Dimensions.get("window").width;
   const [contentT, setContentTimesheet] = useState(false);
+
   const [contentJ, setContentJSA] = useState(false);
   const [contentO, setContentOQ] = useState(false);
   const [contentF, setContentFR] = useState(false);
+  const [visibleEdit, setVisibleEdit] = useState(false);
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
-  const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
-  const isMobileDevice = useMediaQuery({
-    query: "(max-device-width: 600px)",
-  });
   const [sidebar, setSidebar] = useState(false);
+  const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
 
   const componentHideAndShowTimesheet = () => {
     if (isBigScreen) {
-      handleAnimation(contentT);
-      setContentTimesheet(!contentT);
-      console.log(contentT);
+      if (contentF || contentJ || contentO || contentT) {
+        setSidebar(true);
+        handleAnimation(true);
+      } else {
+        setSidebar(false);
+        handleAnimation(false);
+      }
     }
   };
   const callSetSidebar = () => {
@@ -93,6 +87,7 @@ export const Job = (props) => {
   };
   const handleAnimation = (prop) => {
     var temp = 0;
+    console.log(isBigScreen, contentF, contentT, contentO, contentJ);
     if (isBigScreen) {
       if (prop) {
         if (contentT) {
@@ -107,7 +102,8 @@ export const Job = (props) => {
         if (contentF) {
           temp++;
         }
-        if (temp <= 1) {
+        console.log(temp);
+        if (temp <= 0) {
           Animated.timing(rotateAnimation, {
             toValue: windowWidth,
             duration: 250,
@@ -134,30 +130,16 @@ export const Job = (props) => {
       }
     } else {
       if (prop) {
-        if (contentT) {
-          temp++;
-        }
-        if (contentJ) {
-          temp++;
-        }
-        if (contentO) {
-          temp++;
-        }
-        if (contentF) {
-          temp++;
-        }
-        if (temp <= 1) {
-          Animated.timing(rotateAnimation, {
-            toValue: windowWidth,
-            duration: 250,
-            useNativeDriver: true,
-          }).start();
-          Animated.timing(rotateAnimationII, {
-            toValue: 0,
-            duration: 250,
-            useNativeDriver: true,
-          }).start();
-        }
+        Animated.timing(rotateAnimation, {
+          toValue: windowWidth,
+          duration: 250,
+          useNativeDriver: true,
+        }).start();
+        Animated.timing(rotateAnimationII, {
+          toValue: 0,
+          duration: 250,
+          useNativeDriver: true,
+        }).start();
       } else {
         Animated.timing(rotateAnimation, {
           toValue: windowWidth - windowWidth / 2,
@@ -195,24 +177,39 @@ export const Job = (props) => {
 
   const componentHideAndShowJSA = () => {
     if (isBigScreen) {
-      handleAnimation(contentJ);
-      setContentJSA(!contentJ);
+      if (contentF || contentJ || contentO || contentT) {
+        setSidebar(true);
+        handleAnimation(true);
+      } else {
+        setSidebar(false);
+        handleAnimation(false);
+      }
     }
     //handleAnimation(contentJ);
     //setContentJSA(!contentJ);
   };
   const componentHideAndShowOQ = () => {
     if (isBigScreen) {
-      handleAnimation(contentO);
-      setContentOQ(!contentO);
+      if (contentF || contentJ || contentO || contentT) {
+        setSidebar(true);
+        handleAnimation(true);
+      } else {
+        setSidebar(false);
+        handleAnimation(false);
+      }
     }
     //handleAnimation(contentO);
     //setContentOQ(!contentO);
   };
   const componentHideAndShowFR = () => {
     if (isBigScreen) {
-      handleAnimation(contentF);
-      setContentFR(!contentF);
+      if (contentF || contentJ || contentO || contentT) {
+        setSidebar(true);
+        handleAnimation(true);
+      } else {
+        setSidebar(false);
+        handleAnimation(false);
+      }
     }
     //handleAnimation(contentF);
     //setContentFR(!contentF);
@@ -220,6 +217,9 @@ export const Job = (props) => {
   const [fileType, setFileType] = useState("");
   const [Job, setJobs] = useState([]);
   useEffect(() => {
+    console.log(" ");
+    console.log(" ");
+    console.log(sidebar, "3");
     const unsubscribe = onSnapshot(
       query(collection(db, props.route.params.job), orderBy("id", "desc")),
       (snapshot) => {
@@ -261,6 +261,7 @@ export const Job = (props) => {
               isBigScreen={isBigScreen}
               sidebar={sidebar}
               setSidebar={setSidebar}
+              visibleEdit={visibleEdit}
             />
             <JobJSACol
               moveMargin={isBigScreen ? windowWidth / 10 : 0}
@@ -278,6 +279,7 @@ export const Job = (props) => {
               isBigScreen={isBigScreen}
               sidebar={sidebar}
               setSidebar={setSidebar}
+              visibleEdit={visibleEdit}
             />
             <JobFRCol
               moveMargin={isBigScreen ? windowWidth / 10 : 0}
@@ -295,6 +297,7 @@ export const Job = (props) => {
               isBigScreen={isBigScreen}
               sidebar={sidebar}
               setSidebar={setSidebar}
+              visibleEdit={visibleEdit}
             />
             <JobOQCol
               moveMargin={isBigScreen ? windowWidth / 10 : 0}
@@ -310,10 +313,11 @@ export const Job = (props) => {
               isBigScreen={isBigScreen}
               sidebar={sidebar}
               setSidebar={setSidebar}
+              visibleEdit={visibleEdit}
             />
           </ScrollView>
         </View>
-        {!isBigScreen && (contentF || contentJ || contentO || contentT) ? (
+        {contentF || contentJ || contentO || contentT ? (
           <Animated.View
             style={isBigScreen ? animatedStyle : animatedStyleSmallScreen}
           >
@@ -344,108 +348,107 @@ export const Job = (props) => {
                 </Animated.View>
               </TouchableHighlight>
             ) : null}
-            {sidebar ? (
-              <View style={{ height: "100%" }}>
-                {contentT ? (
-                  <View style={styles.CollectionRight}>
-                    <View style={styles.CollectionRightTitleCont}>
-                      <View style={styles.CollectionRightTitleContTwo}>
-                        <Text style={styles.CollectionRightTitle}>
-                          Timesheet
-                        </Text>
-                      </View>
-                    </View>
-                    <NewTimesheet
-                      jobNum={props.route.params.job}
-                      tempKey={1}
-                      job={Job}
-                    />
-                    <NewTimesheetFE
-                      jobNum={props.route.params.job}
-                      tempKey={1}
-                      job={Job}
-                    />
-                    <AllTimesheetDup
-                      job={Job}
-                      navigation={props.navigation}
-                      jobNum={props.route.params.job}
-                    />
-                  </View>
-                ) : (
-                  <View style={styles.CollectionRightEmpty}></View>
-                )}
-                {contentJ ? (
-                  <View style={styles.CollectionRight}>
-                    <View style={styles.CollectionRightTitleCont}>
-                      <View style={styles.CollectionRightTitleContTwo}>
-                        <Text style={styles.CollectionRightTitle}>JSA</Text>
-                      </View>
-                    </View>
-                    <NewJSA
-                      jobNum={props.route.params.job}
-                      tempKey={1}
-                      job={Job}
-                    />
-                    <NewJSAFE
-                      jobNum={props.route.params.job}
-                      tempKey={1}
-                      job={Job}
-                    />
-                    <AllJSADup
-                      job={Job}
-                      navigation={props.navigation}
-                      jobNum={props.route.params.job}
-                    />
-                  </View>
-                ) : (
-                  <View style={styles.CollectionRightEmpty}></View>
-                )}
-                {contentF ? (
-                  <View style={styles.CollectionRight}>
-                    <View style={styles.CollectionRightTitleCont}>
-                      <View style={styles.CollectionRightTitleContTwo}>
-                        <Text style={styles.CollectionRightTitle}>
-                          Foreman Report
-                        </Text>
-                      </View>
-                    </View>
-                    <NewForemanReport
-                      jobNum={props.route.params.job}
-                      tempKey={1}
-                      job={Job}
-                    />
-                    <NewForemanReportFE
-                      jobNum={props.route.params.job}
-                      tempKey={1}
-                      job={Job}
-                    />
-                    <AllForemanDup
-                      job={Job}
-                      navigation={props.navigation}
-                      jobNum={props.route.params.job}
-                    />
-                  </View>
-                ) : (
-                  <View style={styles.CollectionRightEmpty}></View>
-                )}
-                {contentO ? (
-                  <View style={styles.CollectionRight}>
-                    <View style={styles.CollectionRightTitleCont}>
-                      <View style={styles.CollectionRightTitleContTwo}>
-                        <Text style={styles.CollectionRightTitle}>OQ</Text>
-                      </View>
-                    </View>
-                    <NewOQ
-                      jobNum={props.route.params.job}
-                      tempKey={1}
-                      job={Job}
-                    />
-                  </View>
-                ) : (
-                  <View style={styles.CollectionRightEmpty}></View>
-                )}
+            <View style={{ height: "100%" }}>
+              <Text style={{ color: "white" }}>dfjfhdsjfhsdlf</Text>
+              <View style={styles.Edit} key={1}>
+                <TouchableHighlight
+                  activeOpacity={0.99}
+                  underlayColor="darkgreen"
+                  style={styles.EditJobBtn}
+                  onPress={() => setVisibleEdit(!visibleEdit)}
+                >
+                  <Text style={{ color: "white" }}>Edit</Text>
+                </TouchableHighlight>
               </View>
-            ) : null}
+              {contentT ? (
+                <View style={styles.CollectionRight}>
+                  <View style={styles.CollectionRightTitleCont}>
+                    <View style={styles.CollectionRightTitleContTwo}>
+                      <Text style={styles.CollectionRightTitle}>Timesheet</Text>
+                    </View>
+                  </View>
+                  <NewTimesheet
+                    jobNum={props.route.params.job}
+                    tempKey={1}
+                    job={Job}
+                  />
+                  <NewTimesheetFE
+                    jobNum={props.route.params.job}
+                    tempKey={1}
+                    job={Job}
+                  />
+                  <AllTimesheetDup
+                    job={Job}
+                    navigation={props.navigation}
+                    jobNum={props.route.params.job}
+                  />
+                </View>
+              ) : null}
+              {contentJ ? (
+                <View style={styles.CollectionRight}>
+                  <View style={styles.CollectionRightTitleCont}>
+                    <View style={styles.CollectionRightTitleContTwo}>
+                      <Text style={styles.CollectionRightTitle}>JSA</Text>
+                    </View>
+                  </View>
+                  <NewJSA
+                    jobNum={props.route.params.job}
+                    tempKey={1}
+                    job={Job}
+                  />
+                  <NewJSAFE
+                    jobNum={props.route.params.job}
+                    tempKey={1}
+                    job={Job}
+                  />
+                  <AllJSADup
+                    job={Job}
+                    navigation={props.navigation}
+                    jobNum={props.route.params.job}
+                  />
+                </View>
+              ) : null}
+              {contentF ? (
+                <View style={styles.CollectionRight}>
+                  <View style={styles.CollectionRightTitleCont}>
+                    <View style={styles.CollectionRightTitleContTwo}>
+                      <Text style={styles.CollectionRightTitle}>
+                        Foreman Report
+                      </Text>
+                    </View>
+                  </View>
+                  <NewForemanReport
+                    jobNum={props.route.params.job}
+                    tempKey={1}
+                    job={Job}
+                  />
+                  <NewForemanReportFE
+                    jobNum={props.route.params.job}
+                    tempKey={1}
+                    job={Job}
+                  />
+                  <AllForemanDup
+                    job={Job}
+                    navigation={props.navigation}
+                    jobNum={props.route.params.job}
+                  />
+                </View>
+              ) : null}
+              {contentO ? (
+                <View style={styles.CollectionRight}>
+                  <View style={styles.CollectionRightTitleCont}>
+                    <View style={styles.CollectionRightTitleContTwo}>
+                      <Text style={styles.CollectionRightTitle}>OQ</Text>
+                    </View>
+                  </View>
+                  <NewOQ
+                    jobNum={props.route.params.job}
+                    tempKey={1}
+                    job={Job}
+                  />
+                </View>
+              ) : null}
+            </View>
           </Animated.View>
         ) : null}
       </View>
@@ -491,6 +494,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  Edit: {
+    flexDirection: "row",
+    height: 40,
+    width: "95%",
+    backgroundColor: "green",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 5,
+    alignSelf: "flex-end",
+    marginRight: "2.5%",
+  },
   Text: {
     marginTop: 27,
     alignItems: "center",
@@ -521,7 +535,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   CollectionRight: {
-    height: "22.5%",
+    height: windowHeight / (100 / 18.5) - 10,
     backgroundColor: "white",
     margin: "2.5%",
     display: "flex",

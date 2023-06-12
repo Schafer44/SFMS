@@ -13,7 +13,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 export const JobOQCol = (props) => {
   const componentHideAndShowOQ = () => {
     props.setContentOQ(!props.contentO);
-    if (props.isBigScreen) props.setSidebar(!props.sidebar);
+    //if (props.isBigScreen) props.setSidebar(!props.sidebar);
     handleAnimation(props.contentO);
     props.ParentAnimation(props.contentO);
   };
@@ -101,6 +101,7 @@ export const JobOQCol = (props) => {
               job={props.Job}
               navigation={props.navigation}
               jobNum={props.route.params.job}
+              visable={props.visibleEdit}
             />
 
             {/*<NewOQ

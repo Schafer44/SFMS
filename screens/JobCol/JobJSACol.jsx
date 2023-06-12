@@ -15,7 +15,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 export const JobJSACol = (props) => {
   const componentHideAndShowJSA = () => {
     props.setContentJSA(!props.contentJ);
-    if (props.isBigScreen) props.setSidebar(!props.sidebar);
+    //if (props.isBigScreen) props.setSidebar(!props.sidebar);
     handleAnimation(props.contentJ);
     props.ParentAnimation(props.contentJ);
   };
@@ -104,6 +104,7 @@ export const JobJSACol = (props) => {
               jobNum={props.route.params.job}
               user={props.route.params.job.user}
               searchPhrase={props.searchPhrase}
+              visible={props.visibleEdit}
             />
             {/*<NewJSA
               jobNum={props.route.params.job}

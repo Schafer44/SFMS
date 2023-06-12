@@ -16,7 +16,6 @@ const windowHeight = Dimensions.get("window").height;
 
 export default function AllJSA(props) {
   const [BtnColor, setBtnColor] = useState("black");
-  const [visible, setVisible] = useState(false);
   const Delete = async (temp) => {
     Alert.alert("Delete JSA?", "Are you sure you wish to delete this JSA?", [
       {
@@ -99,19 +98,20 @@ export default function AllJSA(props) {
                               </Text>
                             </TouchableHighlight>
                           </View>
-                          {visible ? (
-                            <View
-                              style={styles.existingJob2}
-                              key={file.baseId + "2"}
-                            >
-                              <Button
-                                style={styles.existingJobBtn}
-                                onPress={() => Delete(file)}
-                                title={"-"}
-                                color="white"
-                              ></Button>
-                            </View>
-                          ) : null //View>
+                          {
+                            props.visible ? (
+                              <View
+                                style={styles.existingJob2}
+                                key={file.baseId + "2"}
+                              >
+                                <Button
+                                  style={styles.existingJobBtn}
+                                  onPress={() => Delete(file)}
+                                  title={"-"}
+                                  color="white"
+                                ></Button>
+                              </View>
+                            ) : null //View>
                           }
                         </View>
                       </View>
@@ -140,19 +140,20 @@ export default function AllJSA(props) {
                             </Text>
                           </TouchableHighlight>
                         </View>
-                        {visible ? (
-                          <View
-                            style={styles.existingJob2}
-                            key={file.baseId + "2"}
-                          >
-                            <Button
-                              style={styles.existingJobBtn}
-                              onPress={() => Delete(file)}
-                              title={"-"}
-                              color="white"
-                            ></Button>
-                          </View>
-                        ) : null //View>
+                        {
+                          props.visible ? (
+                            <View
+                              style={styles.existingJob2}
+                              key={file.baseId + "2"}
+                            >
+                              <Button
+                                style={styles.existingJobBtn}
+                                onPress={() => Delete(file)}
+                                title={"-"}
+                                color="white"
+                              ></Button>
+                            </View>
+                          ) : null //View>
                         }
                       </View>
                     </View>
@@ -161,16 +162,6 @@ export default function AllJSA(props) {
               }
             }
           })}
-        </View>
-        <View style={styles.Edit} key={1}>
-          <TouchableHighlight
-            activeOpacity={0.99}
-            underlayColor="darkgreen"
-            style={styles.EditJobBtn}
-            onPress={() => setVisible(!visible)}
-          >
-            <Text style={{ color: "white" }}>Edit</Text>
-          </TouchableHighlight>
         </View>
       </View>
     );

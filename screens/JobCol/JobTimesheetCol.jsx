@@ -15,11 +15,14 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 export const JobTimesheetCol = (props) => {
   const componentHideAndShowTimesheet = () => {
+    /*props.setContentTimesheet(!props.contentT);
+    handleAnimation(props.contentT);
+    props.ParentAnimation();*/
+
     props.setContentTimesheet(!props.contentT);
-    if (props.isBigScreen) props.setSidebar(!props.sidebar);
+    //if (props.isBigScreen) props.setSidebar(!props.sidebar);
     handleAnimation(props.contentT);
     props.ParentAnimation(props.contentT);
-    console.log(props.contentT);
   };
   //
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
@@ -107,6 +110,7 @@ export const JobTimesheetCol = (props) => {
                 jobNum={props.route.params.job}
                 user={props.route.params.job.user}
                 searchPhrase={props.searchPhrase}
+                visible={props.visibleEdit}
               />
             </View>
           </View>

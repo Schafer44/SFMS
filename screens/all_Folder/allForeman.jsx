@@ -15,7 +15,6 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export default function AllForeman(props) {
-  const [visible, setVisible] = useState(false);
   const [BtnColor, setBtnColor] = useState("black");
   const Delete = async (temp) => {
     Alert.alert(
@@ -108,7 +107,7 @@ export default function AllForeman(props) {
                             </TouchableHighlight>
                           </View>
                           {
-                            visible ? (
+                            props.visible ? (
                               <View
                                 style={styles.existingJob2}
                                 key={file.baseId + "2"}
@@ -152,7 +151,7 @@ export default function AllForeman(props) {
                           </TouchableHighlight>
                         </View>
                         {
-                          visible ? (
+                          props.visible ? (
                             <View
                               style={styles.existingJob2}
                               key={file.baseId + "2"}
@@ -173,16 +172,6 @@ export default function AllForeman(props) {
               }
             }
           })}
-        </View>
-        <View style={styles.Edit} key={1}>
-          <TouchableHighlight
-            activeOpacity={0.99}
-            underlayColor="darkgreen"
-            style={styles.EditJobBtn}
-            onPress={() => setVisible(!visible)}
-          >
-            <Text style={{ color: "white" }}>Edit</Text>
-          </TouchableHighlight>
         </View>
       </View>
     );

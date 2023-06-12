@@ -15,7 +15,6 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export default function AllTimesheet(props) {
-  const [visible, setVisible] = useState(false);
   const [BtnColor, setBtnColor] = useState("black");
   const Delete = async (temp) => {
     Alert.alert(
@@ -103,19 +102,20 @@ export default function AllTimesheet(props) {
                               </Text>
                             </TouchableHighlight>
                           </View>
-                          {visible ? (
-                            <View
-                              style={styles.existingJob2}
-                              key={file.baseId + "2"}
-                            >
-                              <Button
-                                style={styles.existingJobBtn}
-                                onPress={() => Delete(file)}
-                                title={"-"}
-                                color="white"
-                              ></Button>
-                            </View>
-                          ) : null //View>
+                          {
+                            props.visible ? (
+                              <View
+                                style={styles.existingJob2}
+                                key={file.baseId + "2"}
+                              >
+                                <Button
+                                  style={styles.existingJobBtn}
+                                  onPress={() => Delete(file)}
+                                  title={"-"}
+                                  color="white"
+                                ></Button>
+                              </View>
+                            ) : null //View>
                           }
                         </View>
                       </View>
@@ -144,19 +144,20 @@ export default function AllTimesheet(props) {
                             </Text>
                           </TouchableHighlight>
                         </View>
-                        {visible ? (
-                          <View
-                            style={styles.existingJob2}
-                            key={file.baseId + "2"}
-                          >
-                            <Button
-                              style={styles.existingJobBtn}
-                              onPress={() => Delete(file)}
-                              title={"-"}
-                              color="white"
-                            ></Button>
-                          </View>
-                        ) : null //View>
+                        {
+                          props.visible ? (
+                            <View
+                              style={styles.existingJob2}
+                              key={file.baseId + "2"}
+                            >
+                              <Button
+                                style={styles.existingJobBtn}
+                                onPress={() => Delete(file)}
+                                title={"-"}
+                                color="white"
+                              ></Button>
+                            </View>
+                          ) : null //View>
                         }
                       </View>
                     </View>
@@ -165,16 +166,6 @@ export default function AllTimesheet(props) {
               }
             }
           })}
-        </View>
-        <View style={styles.Edit} key={1}>
-          <TouchableHighlight
-            activeOpacity={0.99}
-            underlayColor="darkgreen"
-            style={styles.EditJobBtn}
-            onPress={() => setVisible(!visible)}
-          >
-            <Text style={{ color: "white" }}>Edit</Text>
-          </TouchableHighlight>
         </View>
       </View>
     );

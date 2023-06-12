@@ -24,7 +24,6 @@ import { db, firebaseApp } from "../FirebaseLink";
 
 export default function AllOQ(props) {
   const [BtnColor, setBtnColor] = useState("black");
-  const [visible, setVisible] = useState(false);
   const Delete = async (temp) => {
     Alert.alert("Delete OQ?", "Are you sure you wish to delete this OQ?", [
       {
@@ -90,31 +89,25 @@ export default function AllOQ(props) {
                         <Text style={{ color: BtnColor }}>{file.name}</Text>
                       </TouchableHighlight>
                     </View>
-                    {visible ? (
-                      <View style={styles.existingJob2} key={file.baseId + "2"}>
-                        <Button
-                          style={styles.existingJobBtn}
-                          onPress={() => Delete(file)}
-                          title={"-"}
-                          color="white"
-                        ></Button>
-                      </View>
-                    ) : null //View>
+                    {
+                      props.visible ? (
+                        <View
+                          style={styles.existingJob2}
+                          key={file.baseId + "2"}
+                        >
+                          <Button
+                            style={styles.existingJobBtn}
+                            onPress={() => Delete(file)}
+                            title={"-"}
+                            color="white"
+                          ></Button>
+                        </View>
+                      ) : null //View>
                     }
                   </View>
                 </View>
               );
           })}
-        </View>
-        <View style={styles.Edit} key={1}>
-          <TouchableHighlight
-            activeOpacity={0.99}
-            underlayColor="darkgreen"
-            style={styles.EditJobBtn}
-            onPress={() => setVisible(!visible)}
-          >
-            <Text style={{ color: "white" }}>Edit</Text>
-          </TouchableHighlight>
         </View>
       </View>
     );
