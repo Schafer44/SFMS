@@ -43,7 +43,7 @@ export default function AllJSA(props) {
             ? [
                 styles.Cont,
                 {
-                  marginRight: "20%",
+                  marginRight: "25%",
                 },
               ]
             : [
@@ -263,11 +263,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "flex-end",
     marginRight: "2.5%",
-  },
-  EditJobBtn: {
-    height: "100%",
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });

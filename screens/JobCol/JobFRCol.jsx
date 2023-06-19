@@ -105,6 +105,7 @@ export const JobFRCol = (props) => {
               user={props.route.params.job.user}
               searchPhrase={props.searchPhrase}
               visible={props.visibleEdit}
+              isBigScreen={props.isBigScreen}
             />
             {/*<NewForemanReport
               jobNum={props.route.params.job}

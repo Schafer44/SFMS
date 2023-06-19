@@ -127,8 +127,16 @@ export default class NewForemanReportFE extends React.Component {
             style={styles.EditJobBtn}
             onPress={() => DoBoth()}
           >
-            <Text style={{ color: "white" }}>
-              New Foreman Report From Offline File
+            <Text
+              style={{
+                color: "white",
+                flexWrap: "wrap",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "1%",
+              }}
+            >
+              Copy Offline Foreman Report
             </Text>
           </TouchableHighlight>
         </View>
@@ -142,7 +150,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "flex-end",
     alignItems: "center",
-    flex: 1,
+    flex: 1.5,
   },
   Text: {
     color: "white",
@@ -153,9 +161,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: "1%",
+    borderRadius: 10,
   },
   EditJobBtn: {
-    height: "100%",
+    minHeight: "100%",
     width: "100%",
     alignItems: "center",
     justifyContent: "center",

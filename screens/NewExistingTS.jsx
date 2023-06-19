@@ -109,9 +109,7 @@ export default class NewTimesheetFE extends React.Component {
             style={styles.EditJobBtn}
             onPress={() => DoBoth()}
           >
-            <Text style={{ color: "white" }}>
-              New Timesheet From Offline File
-            </Text>
+            <Text style={{ color: "white" }}>Copy Offline Timesheet</Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -124,7 +122,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "flex-end",
     alignItems: "center",
-    flex: 1,
+    flex: 1.5,
   },
   Text: {
     color: "white",
@@ -135,6 +133,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: "1%",
+    borderRadius: 10,
   },
   EditJobBtn: {
     height: "100%",

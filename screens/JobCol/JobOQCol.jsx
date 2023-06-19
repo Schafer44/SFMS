@@ -102,6 +102,7 @@ export const JobOQCol = (props) => {
               navigation={props.navigation}
               jobNum={props.route.params.job}
               visable={props.visibleEdit}
+              isBigScreen={props.isBigScreen}
             />
 
             {/*<NewOQ

@@ -118,7 +118,7 @@ export const Job = (props) => {
         }
       } else {
         Animated.timing(rotateAnimation, {
-          toValue: windowWidth - windowWidth / 5,
+          toValue: windowWidth - windowWidth / 4,
           duration: 250,
           useNativeDriver: true,
         }).start();
@@ -142,7 +142,7 @@ export const Job = (props) => {
         }).start();
       } else {
         Animated.timing(rotateAnimation, {
-          toValue: windowWidth - windowWidth / 2,
+          toValue: windowWidth - windowWidth / (100 / 60),
           duration: 250,
           useNativeDriver: true,
         }).start();
@@ -160,7 +160,7 @@ export const Job = (props) => {
     borderColor: "white",
     borderLeftWidth: 1,
     padding: "1%",
-    width: "20%",
+    width: "25%",
     position: "absolute",
     height: "100%",
   };
@@ -170,7 +170,7 @@ export const Job = (props) => {
     borderColor: "white",
     borderLeftWidth: 1,
     padding: "1%",
-    width: "50%",
+    width: "60%",
     position: "absolute",
     height: "100%",
   };
@@ -348,107 +348,111 @@ export const Job = (props) => {
                 </Animated.View>
               </TouchableHighlight>
             ) : null}
-            <View style={{ height: "100%" }}>
-              <Text style={{ color: "white" }}>dfjfhdsjfhsdlf</Text>
-              <View style={styles.Edit} key={1}>
-                <TouchableHighlight
-                  activeOpacity={0.99}
-                  underlayColor="darkgreen"
-                  style={styles.EditJobBtn}
-                  onPress={() => setVisibleEdit(!visibleEdit)}
-                >
-                  <Text style={{ color: "white" }}>Edit</Text>
-                </TouchableHighlight>
+
+            <ScrollView>
+              <View style={{ height: "100%" }}>
+                <View style={styles.Edit} key={1}>
+                  <TouchableHighlight
+                    activeOpacity={0.99}
+                    underlayColor="darkgreen"
+                    style={styles.EditJobBtn}
+                    onPress={() => setVisibleEdit(!visibleEdit)}
+                  >
+                    <Text style={{ color: "white" }}>Edit</Text>
+                  </TouchableHighlight>
+                </View>
+                {contentT ? (
+                  <View style={styles.CollectionRight}>
+                    <View style={styles.CollectionRightTitleCont}>
+                      <View style={styles.CollectionRightTitleContTwo}>
+                        <Text style={styles.CollectionRightTitle}>
+                          Timesheet
+                        </Text>
+                      </View>
+                    </View>
+                    <NewTimesheet
+                      jobNum={props.route.params.job}
+                      tempKey={1}
+                      job={Job}
+                    />
+                    <NewTimesheetFE
+                      jobNum={props.route.params.job}
+                      tempKey={1}
+                      job={Job}
+                    />
+                    <AllTimesheetDup
+                      job={Job}
+                      navigation={props.navigation}
+                      jobNum={props.route.params.job}
+                    />
+                  </View>
+                ) : null}
+                {contentJ ? (
+                  <View style={styles.CollectionRight}>
+                    <View style={styles.CollectionRightTitleCont}>
+                      <View style={styles.CollectionRightTitleContTwo}>
+                        <Text style={styles.CollectionRightTitle}>JSA</Text>
+                      </View>
+                    </View>
+                    <NewJSA
+                      jobNum={props.route.params.job}
+                      tempKey={1}
+                      job={Job}
+                    />
+                    <NewJSAFE
+                      jobNum={props.route.params.job}
+                      tempKey={1}
+                      job={Job}
+                    />
+                    <AllJSADup
+                      job={Job}
+                      navigation={props.navigation}
+                      jobNum={props.route.params.job}
+                    />
+                  </View>
+                ) : null}
+                {contentF ? (
+                  <View style={styles.CollectionRight}>
+                    <View style={styles.CollectionRightTitleCont}>
+                      <View style={styles.CollectionRightTitleContTwo}>
+                        <Text style={styles.CollectionRightTitle}>
+                          Foreman Report
+                        </Text>
+                      </View>
+                    </View>
+                    <NewForemanReport
+                      jobNum={props.route.params.job}
+                      tempKey={1}
+                      job={Job}
+                    />
+                    <NewForemanReportFE
+                      jobNum={props.route.params.job}
+                      tempKey={1}
+                      job={Job}
+                    />
+                    <AllForemanDup
+                      job={Job}
+                      navigation={props.navigation}
+                      jobNum={props.route.params.job}
+                    />
+                  </View>
+                ) : null}
+                {contentO ? (
+                  <View style={styles.CollectionRight}>
+                    <View style={styles.CollectionRightTitleCont}>
+                      <View style={styles.CollectionRightTitleContTwo}>
+                        <Text style={styles.CollectionRightTitle}>OQ</Text>
+                      </View>
+                    </View>
+                    <NewOQ
+                      jobNum={props.route.params.job}
+                      tempKey={1}
+                      job={Job}
+                    />
+                  </View>
+                ) : null}
               </View>
-              {contentT ? (
-                <View style={styles.CollectionRight}>
-                  <View style={styles.CollectionRightTitleCont}>
-                    <View style={styles.CollectionRightTitleContTwo}>
-                      <Text style={styles.CollectionRightTitle}>Timesheet</Text>
-                    </View>
-                  </View>
-                  <NewTimesheet
-                    jobNum={props.route.params.job}
-                    tempKey={1}
-                    job={Job}
-                  />
-                  <NewTimesheetFE
-                    jobNum={props.route.params.job}
-                    tempKey={1}
-                    job={Job}
-                  />
-                  <AllTimesheetDup
-                    job={Job}
-                    navigation={props.navigation}
-                    jobNum={props.route.params.job}
-                  />
-                </View>
-              ) : null}
-              {contentJ ? (
-                <View style={styles.CollectionRight}>
-                  <View style={styles.CollectionRightTitleCont}>
-                    <View style={styles.CollectionRightTitleContTwo}>
-                      <Text style={styles.CollectionRightTitle}>JSA</Text>
-                    </View>
-                  </View>
-                  <NewJSA
-                    jobNum={props.route.params.job}
-                    tempKey={1}
-                    job={Job}
-                  />
-                  <NewJSAFE
-                    jobNum={props.route.params.job}
-                    tempKey={1}
-                    job={Job}
-                  />
-                  <AllJSADup
-                    job={Job}
-                    navigation={props.navigation}
-                    jobNum={props.route.params.job}
-                  />
-                </View>
-              ) : null}
-              {contentF ? (
-                <View style={styles.CollectionRight}>
-                  <View style={styles.CollectionRightTitleCont}>
-                    <View style={styles.CollectionRightTitleContTwo}>
-                      <Text style={styles.CollectionRightTitle}>
-                        Foreman Report
-                      </Text>
-                    </View>
-                  </View>
-                  <NewForemanReport
-                    jobNum={props.route.params.job}
-                    tempKey={1}
-                    job={Job}
-                  />
-                  <NewForemanReportFE
-                    jobNum={props.route.params.job}
-                    tempKey={1}
-                    job={Job}
-                  />
-                  <AllForemanDup
-                    job={Job}
-                    navigation={props.navigation}
-                    jobNum={props.route.params.job}
-                  />
-                </View>
-              ) : null}
-              {contentO ? (
-                <View style={styles.CollectionRight}>
-                  <View style={styles.CollectionRightTitleCont}>
-                    <View style={styles.CollectionRightTitleContTwo}>
-                      <Text style={styles.CollectionRightTitle}>OQ</Text>
-                    </View>
-                  </View>
-                  <NewOQ
-                    jobNum={props.route.params.job}
-                    tempKey={1}
-                    job={Job}
-                  />
-                </View>
-              ) : null}
-            </View>
+            </ScrollView>
           </Animated.View>
         ) : null}
       </View>
@@ -576,9 +580,16 @@ const styles = StyleSheet.create({
   CollectionLeft: {
     flex: 4,
     maxHeight: "100%",
-    height: "93%",
+    height: "100%",
   },
   CollectionRightContEmpty: {
     flex: 0,
+  },
+
+  EditJobBtn: {
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

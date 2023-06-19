@@ -37,7 +37,9 @@ export default class Duplicate extends React.Component {
           TimesheetHeader: this.props.file.TimesheetHeader,
           TimesheetLines: this.props.file.TimesheetLines,
           Type: this.props.file.Type,
-          signature: this.props.file.signature,
+          FRsignature: this.props.file.FRsignature,
+          CRsignature: this.props.file.CRsignature,
+          Csignature: this.props.file.Csignature,
           TypeExtra: "null",
           baseId: ref._delegate._key.path.segments[1],
           id: this.props.job.length,
@@ -86,6 +88,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "flex-end",
     marginRight: "2.5%",
+    borderRadius: 10,
   },
   existingJobBtn: {
     color: "white",

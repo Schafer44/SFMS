@@ -57,7 +57,7 @@ export default function AllOQ(props) {
             ? [
                 styles.Cont,
                 {
-                  marginRight: "20%",
+                  marginRight: "25%",
                 },
               ]
             : [

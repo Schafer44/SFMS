@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: "1%",
+    borderRadius: 10,
   },
   EditJobBtn: {
     height: "100%",

@@ -135,7 +135,7 @@ export default class NewJSAFE extends React.Component {
             style={styles.EditJobBtn}
             onPress={() => DoBoth()}
           >
-            <Text style={{ color: "white" }}>New JSA From Offline File</Text>
+            <Text style={{ color: "white" }}>Copy Offline JSA</Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: "1%",
+    borderRadius: 10,
   },
   EditJobBtn: {
     height: "100%",

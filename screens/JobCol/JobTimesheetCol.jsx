@@ -111,6 +111,7 @@ export const JobTimesheetCol = (props) => {
                 user={props.route.params.job.user}
                 searchPhrase={props.searchPhrase}
                 visible={props.visibleEdit}
+                isBigScreen={props.isBigScreen}
               />
             </View>
           </View>

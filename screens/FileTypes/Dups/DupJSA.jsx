@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "flex-end",
     marginRight: "2.5%",
+    borderRadius: 10,
   },
   existingJobBtn: {
     color: "white",

@@ -41,7 +41,8 @@ export default class DupFR extends React.Component {
           T6: this.props.file.T6,
           T7: this.props.file.T7,
           Type: this.props.file.Type,
-          signature: this.props.file.signature,
+          ForemanSignature: this.props.file.ForemanSignature,
+          ClientSignature: this.props.file.ClientSignature,
           TypeExtra: "null",
           baseId: ref._delegate._key.path.segments[1],
           id: this.props.job.length,
@@ -90,6 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "flex-end",
     marginRight: "2.5%",
+    borderRadius: 10,
   },
   existingJobBtn: {
     color: "white",

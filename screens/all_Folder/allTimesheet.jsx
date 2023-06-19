@@ -47,7 +47,7 @@ export default function AllTimesheet(props) {
             ? [
                 styles.Cont,
                 {
-                  marginRight: "20%",
+                  marginRight: "25%",
                 },
               ]
             : [

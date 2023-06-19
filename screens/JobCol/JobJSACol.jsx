@@ -105,6 +105,7 @@ export const JobJSACol = (props) => {
               user={props.route.params.job.user}
               searchPhrase={props.searchPhrase}
               visible={props.visibleEdit}
+              isBigScreen={props.isBigScreen}
             />
             {/*<NewJSA
               jobNum={props.route.params.job}

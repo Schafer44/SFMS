@@ -47,7 +47,7 @@ export default function AllForeman(props) {
             ? [
                 styles.Cont,
                 {
-                  marginRight: "20%",
+                  marginRight: "25%",
                 },
               ]
             : [
