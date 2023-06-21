@@ -39,6 +39,7 @@ export default function Timesheet(props, jobNum) {
   const [visible2, setVisible2] = useState(false);
   const [visible3, setVisible3] = useState(false);
   const [visibleDate, setVisibleDate] = useState(false);
+  const [IsTemplete, setIsTemplete] = useState(false);
 
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -130,6 +131,9 @@ export default function Timesheet(props, jobNum) {
           ]
         );
       } else {
+        if (props.route.params.file.TypeExtra === "Template") {
+          setIsTemplete(true);
+        }
         //fetchJob();
         if (props.route.params.file.TimesheetLines !== undefined) {
           setBody(props.route.params.file.TimesheetLines);
@@ -243,6 +247,7 @@ export default function Timesheet(props, jobNum) {
             CRsignature: CRsignature,
             Csignature: Csignature,
             FRsignature: FRsignature,
+            TypeExtra: "null",
           })
         ).then(Alert.alert("successfully saved to local device"));
       } catch (error) {
@@ -257,34 +262,64 @@ export default function Timesheet(props, jobNum) {
       );
       //const reference = ref(db, "TestJob101");
       const docSnap = getDoc(docRef);
-      if (FRsignature === null) {
-        Alert.alert("Foreman Signature Required");
-      } else if (
-        Header.Date === undefined ||
-        Header.Date == "" ||
-        Header.Date == null
-      ) {
-        Alert.alert("Date Required");
-      } else {
-        setDoc(docRef, {
-          TimesheetHeader: Header,
-          TimesheetLines: Body,
-          Comment: Comment,
-          Type: props.route.params.file.Type,
-          baseId: props.route.params.file.baseId,
-          FRsignature: FRsignature,
-          CRsignature: CRsignature,
-          Csignature: Csignature,
-          TypeExtra: props.route.params.file.TypeExtra,
-          id: props.route.params.file.id,
-          hasBeenUpdated: "yes",
-        })
-          .then(() => {
-            Alert.alert("Success");
+      if (props.route.params.file.TypeExtra == "null") {
+        if (FRsignature === null) {
+          Alert.alert("Foreman Signature Required");
+        } else if (
+          Header.Date === undefined ||
+          Header.Date == "" ||
+          Header.Date == null
+        ) {
+          Alert.alert("Date Required");
+        } else {
+          setDoc(docRef, {
+            TimesheetHeader: Header,
+            TimesheetLines: Body,
+            Comment: Comment,
+            Type: props.route.params.file.Type,
+            baseId: props.route.params.file.baseId,
+            FRsignature: FRsignature,
+            CRsignature: CRsignature,
+            Csignature: Csignature,
+            TypeExtra: props.route.params.file.TypeExtra,
+            id: props.route.params.file.id,
+            hasBeenUpdated: "yes",
           })
-          .catch((error) => {
-            Alert.alert("Submit Failed");
-          });
+            .then(() => {
+              Alert.alert("Success");
+            })
+            .catch((error) => {
+              Alert.alert("Submit Failed");
+            });
+        }
+      } else {
+        if (
+          Header.Date === undefined ||
+          Header.Date == "" ||
+          Header.Date == null
+        ) {
+          Alert.alert("Date Required");
+        } else {
+          setDoc(docRef, {
+            TimesheetHeader: Header,
+            TimesheetLines: Body,
+            Comment: Comment,
+            Type: props.route.params.file.Type,
+            baseId: props.route.params.file.baseId,
+            TypeExtra: props.route.params.file.TypeExtra,
+            FRsignature: null,
+            CRsignature: null,
+            Csignature: null,
+            id: props.route.params.file.id,
+            hasBeenUpdated: "yes",
+          })
+            .then(() => {
+              Alert.alert("Success");
+            })
+            .catch((error) => {
+              Alert.alert("Submit Failed");
+            });
+        }
       }
     }
     setIsLoading(false);
@@ -410,56 +445,108 @@ export default function Timesheet(props, jobNum) {
       </View>
       <View style={styles.footerPage}>
         <View style={styles.footerPageSig}>
-          <View style={styles.SigViewLeft}>
-            <TouchableOpacity
-              title="Signature"
-              underlayColor="#fff"
-              style={styles.SignBtn}
-              onPress={() => toggleOverlay()}
-            >
-              <Text style={styles.loginText}>Foreman</Text>
-            </TouchableOpacity>
+          {IsTemplete ? (
+            <View style={styles.SigViewLeft}>
+              <View
+                title="Signature"
+                underlayColor="#fff"
+                style={{ ...styles.SignBtn, ...{ backgroundColor: "gray" } }}
+                onPress={() => toggleOverlay()}
+              >
+                <Text style={styles.loginText}>Foreman</Text>
+              </View>
 
-            <Image
-              resizeMode={"contain"}
-              style={styles.prev}
-              source={{ uri: FRsignature }}
-            />
-          </View>
+              <Image
+                resizeMode={"contain"}
+                style={styles.prev}
+                source={{ uri: FRsignature }}
+              />
+            </View>
+          ) : (
+            <View style={styles.SigViewLeft}>
+              <TouchableOpacity
+                title="Signature"
+                underlayColor="#fff"
+                style={styles.SignBtn}
+                onPress={() => toggleOverlay()}
+              >
+                <Text style={styles.loginText}>Foreman</Text>
+              </TouchableOpacity>
 
-          <View style={styles.SigViewMiddle}>
-            <TouchableOpacity
-              title="Signature"
-              underlayColor="#fff"
-              style={styles.SignBtn}
-              onPress={() => toggleOverlay2()}
-            >
-              <Text style={styles.loginText}>Client Rep</Text>
-            </TouchableOpacity>
+              <Image
+                resizeMode={"contain"}
+                style={styles.prev}
+                source={{ uri: FRsignature }}
+              />
+            </View>
+          )}
+          {IsTemplete ? (
+            <View style={styles.SigViewMiddle}>
+              <View
+                title="Signature"
+                underlayColor="#fff"
+                style={{ ...styles.SignBtn, ...{ backgroundColor: "gray" } }}
+                onPress={() => toggleOverlay2()}
+              >
+                <Text style={styles.loginText}>Client Rep</Text>
+              </View>
 
-            <Image
-              resizeMode={"contain"}
-              style={styles.prev}
-              source={{ uri: CRsignature }}
-            />
-          </View>
+              <Image
+                resizeMode={"contain"}
+                style={styles.prev}
+                source={{ uri: CRsignature }}
+              />
+            </View>
+          ) : (
+            <View style={styles.SigViewMiddle}>
+              <TouchableOpacity
+                title="Signature"
+                underlayColor="#fff"
+                style={styles.SignBtn}
+                onPress={() => toggleOverlay2()}
+              >
+                <Text style={styles.loginText}>Client Rep</Text>
+              </TouchableOpacity>
 
-          <View style={styles.SigViewRight}>
-            <TouchableOpacity
-              title="Signature"
-              underlayColor="#fff"
-              style={styles.SignBtn}
-              onPress={() => toggleOverlay3()}
-            >
-              <Text style={styles.loginText}>Company</Text>
-            </TouchableOpacity>
-
-            <Image
-              resizeMode={"contain"}
-              style={styles.prev}
-              source={{ uri: Csignature }}
-            />
-          </View>
+              <Image
+                resizeMode={"contain"}
+                style={styles.prev}
+                source={{ uri: CRsignature }}
+              />
+            </View>
+          )}
+          {IsTemplete ? (
+            <View style={styles.SigViewRight}>
+              <View
+                title="Signature"
+                underlayColor="black"
+                style={{ ...styles.SignBtn, ...{ backgroundColor: "gray" } }}
+              >
+                <Text style={styles.loginText}>Company</Text>
+              </View>
+              <Image
+                resizeMode={"contain"}
+                style={styles.prev}
+                source={{ uri: Csignature }}
+              />
+            </View>
+          ) : (
+            <View style={styles.SigViewRight}>
+              <TouchableOpacity
+                title="Signature"
+                underlayColor="#fff"
+                style={styles.SignBtn}
+                onPress={() => toggleOverlay3()}
+              >
+                <Text style={styles.loginText}>Company</Text>
+              </TouchableOpacity>
+              <Image
+                resizeMode={"contain"}
+                style={styles.prev}
+                source={{ uri: Csignature }}
+              />
+            </View>
+          )}
         </View>
       </View>
       <TouchableOpacity

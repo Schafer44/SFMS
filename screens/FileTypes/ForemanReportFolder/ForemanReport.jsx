@@ -47,6 +47,7 @@ export default function ForemanReport(props, jobNum) {
   const [T6, setT6] = useState([]);
   const [T7, setT7] = useState([]);
   const [Id, setId] = useState("");
+  const [IsTemplete, setIsTemplete] = useState(false);
   const [User, setUser] = useState("");
   const [headerHeight] = useState(useHeaderHeight());
   const [scrollEnabled, setScrollEnabled] = useState(true);
@@ -159,6 +160,9 @@ export default function ForemanReport(props, jobNum) {
         setT6([{ Line0: {} }, { Line1: {} }]);
         setT7([{ Line0: {} }]);*/
       } else {
+        if (props.route.params.file.TypeExtra === "Template") {
+          setIsTemplete(true);
+        }
         //fetchJob();
         if (props.route.params.file.Header !== undefined) {
           setHeader(props.route.params.file.Header);
@@ -295,6 +299,7 @@ export default function ForemanReport(props, jobNum) {
             ClientSignature={ClientSignature}
             user={User}
             id={Id}
+            IsTemplete={IsTemplete}
           />
         </View>
       </ScrollView>

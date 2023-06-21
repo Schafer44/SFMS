@@ -52,6 +52,7 @@ export default function JSA(props, jobNum) {
   const [T9, setT9] = useState([]);
   const [T10, setT10] = useState([]);
   const [T11, setT11] = useState([]);
+  const [IsTemplete, setIsTemplete] = useState(false);
   const [Id, setId] = useState("");
   const [User, setUser] = useState("");
   const [scrollEnabled, setScrollEnabled] = useState(true);
@@ -175,6 +176,9 @@ export default function JSA(props, jobNum) {
         setSign(null);*/
         //_retrieveData();
       } else {
+        if (props.route.params.file.TypeExtra === "Template") {
+          setIsTemplete(true);
+        }
         //fetchJob();
         if (props.route.params.file.signature !== undefined) {
           setSign(props.route.params.file.signature);
@@ -403,6 +407,7 @@ export default function JSA(props, jobNum) {
               signature={signature}
               user={User}
               id={Id}
+              IsTemplete={IsTemplete}
             />
           </View>
         </ScrollView>
