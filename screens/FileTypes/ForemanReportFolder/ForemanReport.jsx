@@ -213,28 +213,29 @@ export default function ForemanReport(props, jobNum) {
   const SignInScroll = () => {
     setScrollEnabled(!scrollEnabled);
   };
-  return visible ? (
-    <SignatureCapture
-      visible={visible}
-      setVisible={setVisible}
-      signature={ForemanSignature}
-      setSign={setForemanSign}
-      SignInScroll={SignInScroll}
-    />
-  ) : visible2 ? (
-    <SignatureCapture
-      visible={visible2}
-      setVisible={setVisible2}
-      signature={ClientSignature}
-      setSign={setClientSign}
-      SignInScroll={SignInScroll}
-    />
-  ) : (
+  return (
     <KeyboardAvoidingView
       style={styles.globalContainer}
       behavior={Platform.OS === "ios" ? "padding" : null}
       keyboardVerticalOffset={headerHeight}
     >
+      {visible ? (
+        <SignatureCapture
+          visible={visible}
+          setVisible={setVisible}
+          signature={ForemanSignature}
+          setSign={setForemanSign}
+          SignInScroll={SignInScroll}
+        />
+      ) : visible2 ? (
+        <SignatureCapture
+          visible={visible2}
+          setVisible={setVisible2}
+          signature={ClientSignature}
+          setSign={setClientSign}
+          SignInScroll={SignInScroll}
+        />
+      ) : null}
       <ScrollView scrollEnabled={scrollEnabled} style={styles.body}>
         <View>
           {isLoading ? <Loading /> : null}

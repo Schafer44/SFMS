@@ -13,6 +13,7 @@ import React, { setState, useState, useEffect } from "react";
 import { doc, getDoc, setDoc, addDoc, collection } from "firebase/firestore";
 import { TextInput } from "react-native-paper";
 import Loading from "./Loading";
+import PopupWithInput from "./Popup";
 
 export default class NewTimesheet extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export default class NewTimesheet extends React.Component {
 
   render() {
     const DoBoth = async () => {
-      const Ref = await NewTimesheet();
+      //const Ref = await NewTimesheet();
     };
     const NewTimesheet = async () => {
       var Job = [];
@@ -194,7 +195,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#d4d4d4",
     justifyContent: "center",
     alignItems: "center",
-    flex: 1,
   },
   Text: {
     color: "white",

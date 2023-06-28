@@ -539,7 +539,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   CollectionRight: {
-    height: windowHeight / (100 / 18.5) - 10,
+    height: 250,
     backgroundColor: "white",
     margin: "2.5%",
     display: "flex",

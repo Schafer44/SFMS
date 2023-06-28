@@ -233,20 +233,21 @@ export default function JSA(props, jobNum) {
   const SignInScroll = () => {
     setScrollEnabled(!scrollEnabled);
   };
-  return visible ? (
-    <SignatureCapture
-      visible={visible}
-      setVisible={setVisible}
-      signature={signature}
-      setSign={setSign}
-      SignInScroll={SignInScroll}
-    />
-  ) : (
+  return (
     <KeyboardAvoidingView
       style={styles.globalContainer}
       behavior={Platform.OS === "ios" ? "padding" : null}
       keyboardVerticalOffset={headerHeight}
     >
+      {visible ? (
+        <SignatureCapture
+          visible={visible}
+          setVisible={setVisible}
+          signature={signature}
+          setSign={setSign}
+          SignInScroll={SignInScroll}
+        />
+      ) : null}
       {/*}
       <TouchableOpacity
         style={styles.SubBtn}

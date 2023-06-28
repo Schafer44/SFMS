@@ -18,7 +18,8 @@
     "ios": {
       "bundleIdentifier": "com.schaferfilemanagement.schaferfilemanagement",
       "infoPlist": {
-        "NSPhotoLibraryAddUsageDescription": "This app will use your photo libary to save PDFs"
+        "NSPhotoLibraryAddUsageDescription": "This app will use your photo libary to save PDFs",
+        "UIUserInterfaceStyle": "dark"
       },
       "supportsTablet": true
     },

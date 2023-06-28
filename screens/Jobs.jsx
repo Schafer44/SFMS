@@ -25,7 +25,6 @@ import { useMediaQuery } from "react-responsive";
 
 export default function Jobs(props) {
   const [Jobs, setJobs] = useState([]);
-  const [visible, setVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
   const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
@@ -121,7 +120,7 @@ export default function Jobs(props) {
                     </View>
                   </View>
                 </TouchableHighlight>
-                {visible ? (
+                {props.visible ? (
                   <View style={styles.existingJob2} key={job + "2"}>
                     <TouchableHighlight
                       underlayColor="darkred"
@@ -142,17 +141,6 @@ export default function Jobs(props) {
             );
           }
         })}
-      </View>
-      <View style={styles.Edit} key={1}>
-        <TouchableHighlight
-          underlayColor="darkgreen"
-          onPress={() => setVisible(!visible)}
-          style={styles.EditJobBtn}
-        >
-          <View style={{ justifyContent: "center" }}>
-            <Text style={styles.Text}>Edit</Text>
-          </View>
-        </TouchableHighlight>
       </View>
 
       {isLoading ? <Loading /> : null}

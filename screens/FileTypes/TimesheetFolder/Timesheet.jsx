@@ -327,32 +327,33 @@ export default function Timesheet(props, jobNum) {
   const SignInScroll = () => {
     setScrollEnabled(!scrollEnabled);
   };
-  return visible ? (
-    <SignatureCapture
-      visible={visible}
-      setVisible={setVisible}
-      Sign={FRsignature}
-      setSign={setFRSign}
-      SignInScroll={SignInScroll}
-    />
-  ) : visible2 ? (
-    <SignatureCapture
-      visible={visible2}
-      setVisible={setVisible2}
-      Sign={CRsignature}
-      setSign={setCRSign}
-      SignInScroll={SignInScroll}
-    />
-  ) : visible3 ? (
-    <SignatureCapture
-      visible={visible3}
-      setVisible={setVisible3}
-      Sign={Csignature}
-      setSign={setCSign}
-      SignInScroll={SignInScroll}
-    />
-  ) : (
+  return (
     <View style={styles.globalContainer}>
+      {visible ? (
+        <SignatureCapture
+          visible={visible}
+          setVisible={setVisible}
+          Sign={FRsignature}
+          setSign={setFRSign}
+          SignInScroll={SignInScroll}
+        />
+      ) : visible2 ? (
+        <SignatureCapture
+          visible={visible2}
+          setVisible={setVisible2}
+          Sign={CRsignature}
+          setSign={setCRSign}
+          SignInScroll={SignInScroll}
+        />
+      ) : visible3 ? (
+        <SignatureCapture
+          visible={visible3}
+          setVisible={setVisible3}
+          Sign={Csignature}
+          setSign={setCSign}
+          SignInScroll={SignInScroll}
+        />
+      ) : null}
       <KeyboardAvoidingView
         style={styles.Top}
         behavior={Platform.OS === "ios" ? "padding" : null}

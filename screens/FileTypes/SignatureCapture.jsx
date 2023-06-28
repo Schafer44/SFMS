@@ -6,6 +6,7 @@ import {
   Image,
   Button,
   TouchableWithoutFeedback,
+  Modal,
 } from "react-native";
 import Signature from "react-native-signature-canvas";
 
@@ -48,53 +49,54 @@ export const SignatureCapture = (props) => {
       height:100%;
     }`;
   return (
-    <View style={styles.GC}>
-      <View style={styles.preview}>
-        {props.signature ? (
-          <Image
-            resizeMode={"contain"}
-            style={{ left: 0, width: "100%", height: "20%" }}
-            source={{ uri: props.signature }}
-          />
-        ) : null}
-      </View>
+    <Modal>
+      <View style={styles.GC}>
+        <View style={styles.preview}>
+          {props.signature ? (
+            <Image
+              resizeMode={"contain"}
+              style={{ left: 0, width: "100%", height: "20%" }}
+              source={{ uri: props.signature }}
+            />
+          ) : null}
+        </View>
 
-      <View
-        style={{
-          left: 0,
-          width: "100%",
-          height: "100%",
-          justifyContent: "center",
-          alignContent: "center",
-        }}
-      >
-        <Signature
-          bgWidth={0}
-          bgHeight={0}
-          onOK={handleOK}
-          onEmpty={handleEmpty}
-          descriptionText="Sign"
-          clearText="Clear"
-          confirmText="Save"
-          webStyle={style}
-          resizeMode={"contain"}
-          onBegin={() => props.SignInScroll()}
-          onEnd={() => props.SignInScroll()}
-        />
-        <Button
-          title="Close"
-          color="green"
-          style={styles.SubBtn}
-          onPress={() => toggleOverlay()}
-        />
+        <View
+          style={{
+            left: 0,
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
+          <Signature
+            bgWidth={0}
+            bgHeight={0}
+            onOK={handleOK}
+            onEmpty={handleEmpty}
+            descriptionText="Sign"
+            clearText="Clear"
+            confirmText="Save"
+            webStyle={style}
+            resizeMode={"contain"}
+            onBegin={() => props.SignInScroll()}
+            onEnd={() => props.SignInScroll()}
+          />
+          <Button
+            title="Close"
+            color="green"
+            style={styles.SubBtn}
+            onPress={() => toggleOverlay()}
+          />
+        </View>
       </View>
-    </View>
+    </Modal>
   );
 };
 
 const styles = StyleSheet.create({
   GC: {
-    top: 0,
     width: "100%",
     height: "100%",
     justifyContent: "center",
