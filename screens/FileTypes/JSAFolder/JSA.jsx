@@ -143,8 +143,6 @@ export default function JSA(props, jobNum) {
             {
               text: "Start Fresh",
               style: "cancel",
-              // If the user confirmed, then we dispatch the action we blocked earlier
-              // This will continue the action that had triggered the removal of the screen
               onPress: async () => {
                 setT1([{ Table: {} }]);
                 setT2([{ Table: {} }]);
@@ -162,19 +160,6 @@ export default function JSA(props, jobNum) {
             },
           ]
         );
-        /*setT1([{ Table: {} }]);
-        setT2([{ Table: {} }]);
-        setT3([{ Table: {} }]);
-        setT4([{ Table: {} }]);
-        setT5([{ Table: {} }]);
-        setT6([{ Table: {} }]);
-        setT7([{ Table: {} }]);
-        setT8([{ Table: {} }]);
-        setT9([{ Line0: {} }]);
-        setT10([{ Line0: {} }]);
-        setT11([{ Line0: {} }]);
-        setSign(null);*/
-        //_retrieveData();
       } else {
         if (props.route.params.file.TypeExtra === "Template") {
           setIsTemplete(true);

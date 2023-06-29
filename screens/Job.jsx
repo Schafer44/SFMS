@@ -71,17 +71,29 @@ export const Job = (props) => {
   const [rotateAnimationII, setRotateAnimationII] = useState(
     new Animated.Value(0)
   );
+  const [moveAnimation, setmoveAnimation] = useState(new Animated.Value(0));
+
   const interpolateRotating = rotateAnimationII.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "180deg"],
   });
-
+  const interpolateMovement = moveAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -windowWidth / 4],
+  });
   const animatedStyleRotate = {
     color: "white",
     marginLeft: 5,
     transform: [
       {
         rotate: interpolateRotating,
+      },
+    ],
+  };
+  const animatedStyleII = {
+    transform: [
+      {
+        translateX: interpolateMovement,
       },
     ],
   };
@@ -140,6 +152,14 @@ export const Job = (props) => {
           duration: 250,
           useNativeDriver: true,
         }).start();
+
+        Animated.timing(moveAnimation, {
+          toValue: 0,
+          duration: 250,
+          useNativeDriver: true,
+        }).start(() => {
+          moveAnimation.setValue(0);
+        });
       } else {
         Animated.timing(rotateAnimation, {
           toValue: windowWidth - windowWidth / (100 / 60),
@@ -151,6 +171,13 @@ export const Job = (props) => {
           duration: 250,
           useNativeDriver: true,
         }).start();
+        Animated.timing(moveAnimation, {
+          toValue: 1,
+          duration: 250,
+          useNativeDriver: true,
+        }).start(() => {
+          moveAnimation.setValue(1);
+        });
       }
     }
   };
@@ -164,6 +191,7 @@ export const Job = (props) => {
     position: "absolute",
     height: "100%",
   };
+
   const animatedStyleSmallScreen = {
     transform: [{ translateX: rotateAnimation }],
     backgroundColor: "#272727",
@@ -246,7 +274,7 @@ export const Job = (props) => {
         <View style={styles.CollectionLeft}>
           <ScrollView style={styles.Scroll}>
             <JobTimesheetCol
-              moveMargin={isBigScreen ? windowWidth / 10 : 0}
+              moveMargin={isBigScreen ? windowWidth / 10 : windowWidth / 4}
               contentT={contentT}
               contentO={contentO}
               contentF={contentF}
@@ -262,9 +290,10 @@ export const Job = (props) => {
               sidebar={sidebar}
               setSidebar={setSidebar}
               visibleEdit={visibleEdit}
+              animatedStyleII={animatedStyleII}
             />
             <JobJSACol
-              moveMargin={isBigScreen ? windowWidth / 10 : 0}
+              moveMargin={isBigScreen ? windowWidth / 10 : windowWidth / 4}
               contentT={contentT}
               contentO={contentO}
               contentF={contentF}
@@ -280,9 +309,10 @@ export const Job = (props) => {
               sidebar={sidebar}
               setSidebar={setSidebar}
               visibleEdit={visibleEdit}
+              animatedStyleII={animatedStyleII}
             />
             <JobFRCol
-              moveMargin={isBigScreen ? windowWidth / 10 : 0}
+              moveMargin={isBigScreen ? windowWidth / 10 : windowWidth / 4}
               contentT={contentT}
               contentO={contentO}
               contentF={contentF}
@@ -298,9 +328,10 @@ export const Job = (props) => {
               sidebar={sidebar}
               setSidebar={setSidebar}
               visibleEdit={visibleEdit}
+              animatedStyleII={animatedStyleII}
             />
             <JobOQCol
-              moveMargin={isBigScreen ? windowWidth / 10 : 0}
+              moveMargin={isBigScreen ? windowWidth / 10 : windowWidth / 4}
               contentO={contentO}
               contentJ={contentJ}
               ParentAnimation={componentHideAndShowOQ}
@@ -314,6 +345,7 @@ export const Job = (props) => {
               sidebar={sidebar}
               setSidebar={setSidebar}
               visibleEdit={visibleEdit}
+              animatedStyleII={animatedStyleII}
             />
           </ScrollView>
         </View>
