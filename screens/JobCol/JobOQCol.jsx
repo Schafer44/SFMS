@@ -19,6 +19,7 @@ export const JobOQCol = (props) => {
   };
   //
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
+  const [moveAnimation, setmoveAnimation] = useState(new Animated.Value(0));
   const handleAnimation = (prop) => {
     if (prop) {
       Animated.timing(rotateAnimation, {
@@ -28,6 +29,13 @@ export const JobOQCol = (props) => {
       }).start(() => {
         rotateAnimation.setValue(0);
       });
+      Animated.timing(moveAnimation, {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: true,
+      }).start(() => {
+        moveAnimation.setValue(0);
+      });
     } else {
       Animated.timing(rotateAnimation, {
         toValue: 1,
@@ -36,6 +44,15 @@ export const JobOQCol = (props) => {
       }).start(() => {
         rotateAnimation.setValue(1);
       });
+      if (props.isBigScreen || props.sidebar) {
+        Animated.timing(moveAnimation, {
+          toValue: 1,
+          duration: 250,
+          useNativeDriver: true,
+        }).start(() => {
+          moveAnimation.setValue(1);
+        });
+      }
     }
   };
   const interpolateRotating = rotateAnimation.interpolate({

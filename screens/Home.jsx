@@ -19,6 +19,7 @@ import { doc, getDoc, setDoc, addDoc, collection } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import PopupWithInput from "./Popup";
+import { handleSignOut } from "./FirebaseLink";
 
 export default function Home(props) {
   const [count, setCount] = useState(0);
@@ -118,7 +119,6 @@ export default function Home(props) {
         });
     }
   };
-
   useEffect(() => {
     // Use `setOptions` to update the button that we previously specified
     // Now the button includes an `onPress` handler to update the count
@@ -147,6 +147,15 @@ export default function Home(props) {
             </View>
           </TouchableWithoutFeedback>
         </View>
+      ),
+      headerLeft: () => (
+        <Button
+          onPress={() => {
+            props.navigation.goBack();
+            handleSignOut();
+          }}
+          title="Logout"
+        />
       ),
     });
   });

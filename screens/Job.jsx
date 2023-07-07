@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   Animated,
   Dimensions,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { useState, useEffect } from "react";
@@ -43,6 +44,7 @@ export const Job = (props) => {
   const [visibleEdit, setVisibleEdit] = useState(false);
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
+  const [load, setLoad] = useState(false);
   const [sidebar, setSidebar] = useState(false);
   const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
 
@@ -97,9 +99,8 @@ export const Job = (props) => {
       },
     ],
   };
-  const handleAnimation = (prop) => {
+  const handleAnimation = (prop, prop2, prop3, prop4) => {
     var temp = 0;
-    console.log(isBigScreen, contentF, contentT, contentO, contentJ);
     if (isBigScreen) {
       if (prop) {
         if (contentT) {
@@ -114,7 +115,6 @@ export const Job = (props) => {
         if (contentF) {
           temp++;
         }
-        console.log(temp);
         if (temp <= 0) {
           Animated.timing(rotateAnimation, {
             toValue: windowWidth,
@@ -244,18 +244,48 @@ export const Job = (props) => {
   };
   const [fileType, setFileType] = useState("");
   const [Job, setJobs] = useState([]);
+
   useEffect(() => {
-    console.log(" ");
-    console.log(" ");
-    console.log(sidebar, "3");
+    props.navigation.setOptions({
+      headerRight: () => (
+        <View style={{ flexDirection: "row" }}>
+          <TouchableHighlight
+            onPress={() => setVisibleEdit(!visibleEdit)}
+            title="-"
+          >
+            <View
+              style={{
+                justifyContent: "center",
+                paddingLeft: 10,
+                paddingRight: 10,
+              }}
+            >
+              <Text
+                style={{
+                  color: "#007AFF",
+                }}
+              >
+                Remove
+              </Text>
+            </View>
+          </TouchableHighlight>
+        </View>
+      ),
+    });
+  });
+  useEffect(() => {
     const unsubscribe = onSnapshot(
       query(collection(db, props.route.params.job), orderBy("id", "desc")),
       (snapshot) => {
+        console.log("read");
         setJobs(snapshot.docs.map((doc) => doc.data()));
       }
     );
+    setLoad(true);
 
     return () => {
+      console.log("Close");
+      console.log("");
       unsubscribe();
     };
   }, []);
@@ -291,6 +321,7 @@ export const Job = (props) => {
               setSidebar={setSidebar}
               visibleEdit={visibleEdit}
               animatedStyleII={animatedStyleII}
+              callSetSidebar={callSetSidebar}
             />
             <JobJSACol
               moveMargin={isBigScreen ? windowWidth / 10 : windowWidth / 4}
@@ -383,7 +414,7 @@ export const Job = (props) => {
 
             <ScrollView>
               <View style={{ height: "100%" }}>
-                <View style={styles.Edit} key={1}>
+                {/*<View style={styles.Edit} key={1}>
                   <TouchableHighlight
                     activeOpacity={0.99}
                     underlayColor="darkgreen"
@@ -392,7 +423,7 @@ export const Job = (props) => {
                   >
                     <Text style={{ color: "white" }}>Edit</Text>
                   </TouchableHighlight>
-                </View>
+                </View>*/}
                 {contentT ? (
                   <View style={styles.CollectionRight}>
                     <View style={styles.CollectionRightTitleCont}>

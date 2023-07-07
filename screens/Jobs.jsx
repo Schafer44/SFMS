@@ -73,9 +73,7 @@ export default function Jobs(props) {
       (snapshot) => {
         setIsLoading(true);
         //const tempAry = snapshot.docs.map((doc) => doc.data());
-        console.log(snapshot.data().Jobs);
         setJobs(snapshot.data().Jobs);
-        console.log("2", Jobs);
         setIsLoading(false);
       }
     );

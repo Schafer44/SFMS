@@ -109,7 +109,7 @@ export default function AllTimesheet(props) {
                                 key={file.baseId + "2"}
                               >
                                 <Button
-                                  style={styles.existingJobBtn}
+                                  style={styles.DeleteBtn}
                                   onPress={() => Delete(file)}
                                   title={"-"}
                                   color="white"
@@ -151,7 +151,7 @@ export default function AllTimesheet(props) {
                               key={file.baseId + "2"}
                             >
                               <Button
-                                style={styles.existingJobBtn}
+                                style={styles.DeleteBtn}
                                 onPress={() => Delete(file)}
                                 title={"-"}
                                 color="white"
@@ -206,6 +206,7 @@ const styles = StyleSheet.create({
     borderRadius: windowWidth * 0.02,
     flex: 1,
   },
+  DeleteBtn: { color: "white", borderRadius: windowWidth * 0.02 },
   existingJob2: {
     position: "absolute",
     flexDirection: "row",

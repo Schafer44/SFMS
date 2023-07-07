@@ -113,7 +113,7 @@ export const JobTimesheetCol = (props) => {
                   style={[styles.existingJobBtnViewTextIcon1]}
                 />
               </Animated.View>
-              <Animated.View style={props.animatedStyleII}>
+              <Animated.View style={animatedStyleII}>
                 <Text style={styles.Text}>Timesheets</Text>
               </Animated.View>
             </View>
