@@ -8,6 +8,7 @@ import {
   Animated,
   Dimensions,
   TouchableWithoutFeedback,
+  TouchableOpacity,
 } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { useState, useEffect } from "react";
@@ -48,17 +49,6 @@ export const Job = (props) => {
   const [sidebar, setSidebar] = useState(false);
   const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
 
-  const componentHideAndShowTimesheet = () => {
-    if (isBigScreen) {
-      if (contentF || contentJ || contentO || contentT) {
-        setSidebar(true);
-        handleAnimation(true);
-      } else {
-        setSidebar(false);
-        handleAnimation(false);
-      }
-    }
-  };
   const callSetSidebar = () => {
     if (contentF || contentJ || contentO || contentT) {
       setSidebar(!sidebar);
@@ -203,6 +193,17 @@ export const Job = (props) => {
     height: "100%",
   };
 
+  const componentHideAndShowTimesheet = () => {
+    if (isBigScreen) {
+      if (contentF || contentJ || contentO || contentT) {
+        setSidebar(true);
+        handleAnimation(true);
+      } else {
+        setSidebar(false);
+        handleAnimation(false);
+      }
+    }
+  };
   const componentHideAndShowJSA = () => {
     if (isBigScreen) {
       if (contentF || contentJ || contentO || contentT) {
@@ -249,7 +250,7 @@ export const Job = (props) => {
     props.navigation.setOptions({
       headerRight: () => (
         <View style={{ flexDirection: "row" }}>
-          <TouchableHighlight
+          <TouchableOpacity
             onPress={() => setVisibleEdit(!visibleEdit)}
             title="-"
           >
@@ -258,6 +259,7 @@ export const Job = (props) => {
                 justifyContent: "center",
                 paddingLeft: 10,
                 paddingRight: 10,
+                padding: 5,
               }}
             >
               <Text
@@ -268,7 +270,7 @@ export const Job = (props) => {
                 Remove
               </Text>
             </View>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       ),
     });

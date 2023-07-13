@@ -100,17 +100,15 @@ export default function AllJSA(props) {
                           </View>
                           {
                             props.visible ? (
-                              <View
+                              <TouchableHighlight
+                                onPress={() => Delete(file)}
                                 style={styles.existingJob2}
                                 key={file.baseId + "2"}
                               >
-                                <Button
-                                  style={styles.existingJobBtn}
-                                  onPress={() => Delete(file)}
-                                  title={"-"}
-                                  color="white"
-                                ></Button>
-                              </View>
+                                <Text style={styles.DeleteBtn} color="white">
+                                  -
+                                </Text>
+                              </TouchableHighlight>
                             ) : null //View>
                           }
                         </View>
@@ -142,17 +140,15 @@ export default function AllJSA(props) {
                         </View>
                         {
                           props.visible ? (
-                            <View
+                            <TouchableHighlight
+                              onPress={() => Delete(file)}
                               style={styles.existingJob2}
                               key={file.baseId + "2"}
                             >
-                              <Button
-                                style={styles.existingJobBtn}
-                                onPress={() => Delete(file)}
-                                title={"-"}
-                                color="white"
-                              ></Button>
-                            </View>
+                              <Text style={styles.DeleteBtn} color="white">
+                                -
+                              </Text>
+                            </TouchableHighlight>
                           ) : null //View>
                         }
                       </View>
@@ -263,5 +259,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "flex-end",
     marginRight: "2.5%",
+  },
+  DeleteBtn: {
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

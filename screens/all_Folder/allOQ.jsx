@@ -91,17 +91,15 @@ export default function AllOQ(props) {
                     </View>
                     {
                       props.visible ? (
-                        <View
+                        <TouchableHighlight
+                          onPress={() => Delete(file)}
                           style={styles.existingJob2}
                           key={file.baseId + "2"}
                         >
-                          <Button
-                            style={styles.existingJobBtn}
-                            onPress={() => Delete(file)}
-                            title={"-"}
-                            color="white"
-                          ></Button>
-                        </View>
+                          <Text style={styles.DeleteBtn} color="white">
+                            -
+                          </Text>
+                        </TouchableHighlight>
                       ) : null //View>
                     }
                   </View>
@@ -202,6 +200,11 @@ const styles = StyleSheet.create({
   EditJobBtn: {
     height: "100%",
     width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  DeleteBtn: {
+    color: "white",
     alignItems: "center",
     justifyContent: "center",
   },

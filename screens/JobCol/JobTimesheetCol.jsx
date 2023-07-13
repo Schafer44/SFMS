@@ -20,11 +20,9 @@ export const JobTimesheetCol = (props) => {
     props.ParentAnimation();*/
 
     props.setContentTimesheet(!props.contentT);
-    //if (props.isBigScreen) props.setSidebar(!props.sidebar);
     handleAnimation(props.contentT);
     props.ParentAnimation(props.contentT);
   };
-  //
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
   const [moveAnimation, setmoveAnimation] = useState(new Animated.Value(0));
   const handleAnimation = (prop) => {
@@ -51,7 +49,6 @@ export const JobTimesheetCol = (props) => {
       }).start(() => {
         rotateAnimation.setValue(1);
       });
-
       if (props.isBigScreen || props.sidebar) {
         Animated.timing(moveAnimation, {
           toValue: 1,
@@ -68,7 +65,7 @@ export const JobTimesheetCol = (props) => {
     outputRange: ["0deg", "90deg"],
   });
 
-  const interpolateMovement = moveAnimation.interpolate({
+  const interpolateMovement = rotateAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: [0, -props.moveMargin],
   });

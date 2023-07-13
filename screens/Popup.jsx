@@ -23,7 +23,7 @@ const PopupWithInput = ({ onSubmit }) => {
 
   return (
     <View>
-      <TouchableWithoutFeedback onPress={() => setModalVisible(true)} title="-">
+      <TouchableOpacity onPress={() => setModalVisible(true)} title="-">
         <View
           style={{
             height: "100%",
@@ -32,6 +32,7 @@ const PopupWithInput = ({ onSubmit }) => {
             alignItems: "center",
             paddingLeft: 10,
             paddingRight: 10,
+            padding: 5,
           }}
         >
           <Text
@@ -46,7 +47,7 @@ const PopupWithInput = ({ onSubmit }) => {
             Add
           </Text>
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
       <Modal visible={modalVisible} animationType="fade" transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>

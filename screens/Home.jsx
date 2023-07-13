@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Alert,
   TouchableWithoutFeedback,
+  TouchableOpacity,
 } from "react-native";
 import Jobs from "./Jobs";
 import { db } from "./FirebaseLink";
@@ -126,15 +127,13 @@ export default function Home(props) {
       headerRight: () => (
         <View style={{ flexDirection: "row" }}>
           <PopupWithInput onSubmit={handleInputSubmit} />
-          <TouchableWithoutFeedback
-            onPress={() => setVisible(!visible)}
-            title="-"
-          >
+          <TouchableOpacity onPress={() => setVisible(!visible)} title="-">
             <View
               style={{
                 justifyContent: "center",
                 paddingLeft: 10,
                 paddingRight: 10,
+                padding: 5,
               }}
             >
               <Text
@@ -145,7 +144,7 @@ export default function Home(props) {
                 Remove
               </Text>
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </View>
       ),
       headerLeft: () => (
