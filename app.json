@@ -2,7 +2,7 @@
   "expo": {
     "name": "Schafer File Management",
     "slug": "schaferfilemanagement",
-    "version": "1.0.3",
+    "version": "1.1.0",
     "orientation": "portrait",
     "privacy": "unlisted",
     "icon": "./assets/SFMIconNew.png",
@@ -18,8 +18,7 @@
     "ios": {
       "bundleIdentifier": "com.schaferfilemanagement.schaferfilemanagement",
       "infoPlist": {
-        "NSPhotoLibraryAddUsageDescription": "This app will use your photo libary to save PDFs",
-        "UIUserInterfaceStyle": "dark"
+        "NSPhotoLibraryAddUsageDescription": "This app will use your photo libary to save PDFs"
       },
       "supportsTablet": true
     },
