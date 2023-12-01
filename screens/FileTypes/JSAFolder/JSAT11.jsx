@@ -12,48 +12,40 @@ import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
 export default function JSAT11(props) {
+  // State to manage the Line0 object
   const [Line0, setLine0] = useState({});
-  /*const [Line1, setLine1] = useState({});
-  const [Line2, setLine2] = useState({});
-  const [Line3, setLine3] = useState({});*/
+
+  // useEffect to synchronize Line0 state with props.T11
   useEffect(() => {
+    // Check if Line0 state is not empty
     if (Object.keys(Line0).length !== 0) {
+      // Update props.T11 using setT11 and include Line0
       props.setT11(props.T11, (props.T11[0] = { Line0 }));
-    } /*
-    if (Object.keys(Line1).length !== 0) {
-      props.setT11(props.T11, (props.T11[1] = { Line1 }));
-    }
-    if (Object.keys(Line2).length !== 0) {
-      props.setT11(props.T11, (props.T11[2] = { Line2 }));
-    }
-    if (Object.keys(Line3).length !== 0) {
-      props.setT11(props.T11, (props.T11[3] = { Line3 }));
-    }*/ else if (props.T11 !== undefined) {
+    } else if (props.T11 !== undefined) {
+      // Check if props.T11 is defined
       if (props.T11[0] !== undefined) {
+        // Set Line0 state based on props.T11[0].Line0
         setLine0(props.T11[0].Line0);
       }
-      /*if (props.T11[1] !== undefined) {
-        setLine1(props.T11[1].Line1);
-      }
-      if (props.T11[2] !== undefined) {
-        setLine2(props.T11[2].Line2);
-      }
-      if (props.T11[3] !== undefined) {
-        setLine3(props.T11[3].Line3);
-      }*/
     }
-  }, [props, Line0 /*, Line1, Line2, Line3*/]);
+  }, [props, Line0]);
+
+  // Function to add a new row to Line0
   const addRow = () => {
+    // Create a new row with empty values
     var rows = ["", "", ""];
+
+    // Calculate the index for the new row
     var temp = Object.keys(Line0).length;
     var Keys = "Rows" + temp;
+
+    // Update Line0 state by adding the new row
     setLine0({
       ...Line0,
       [Keys]: rows,
     });
-    //rows.push({ name: "", sig: "", num: temp });
-    //setRows([...rows]);
   };
+
   return (
     <View>
       <View style={styles.body}>
@@ -81,16 +73,6 @@ export default function JSAT11(props) {
                 />
               </View>
             ))}
-          {/*<View style={styles.Row}>
-            <TextInput
-              style={styles.textInputTest}
-              placeholder=""
-              value={Line0.Task}
-              onChange={(event) => {
-                setLine0({ ...Line0, Task: event.nativeEvent.text });
-              }}
-            />
-          </View>*/}
         </View>
         <View style={styles.Column}>
           <View style={styles.Row}>
@@ -116,16 +98,6 @@ export default function JSAT11(props) {
                 />
               </View>
             ))}
-          {/*<View style={styles.Row}>
-            <TextInput
-              style={styles.textInputTest}
-              placeholder=""
-              value={Line0.Hazards}
-              onChange={(event) => {
-                setLine0({ ...Line0, Hazards: event.nativeEvent.text });
-              }}
-            />
-            </View>*/}
         </View>
         <View style={styles.Column}>
           <View style={styles.Row}>
@@ -151,16 +123,6 @@ export default function JSAT11(props) {
                 />
               </View>
             ))}
-          {/*<View style={styles.Row}>
-            <TextInput
-              style={styles.textInputTest}
-              placeholder=""
-              value={Line0.Recommendations}
-              onChange={(event) => {
-                setLine0({ ...Line0, Recommendations: event.nativeEvent.text });
-              }}
-            />
-            </View>*/}
         </View>
       </View>
 

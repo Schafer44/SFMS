@@ -12,16 +12,24 @@ import React, { setState, useState, useEffect } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function JSAT7(props) {
+  // State to manage the Table object
   const [Table, setTable] = useState({});
+
+  // useEffect to synchronize Table state with props.T7
   useEffect(() => {
+    // Check if Table state is not empty
     if (Object.keys(Table).length !== 0) {
+      // Update props.T7 using setT7 and include Table
       props.setT7(props.T7, (props.T7[0] = { Table }));
     } else if (props.T7 !== undefined) {
+      // Check if props.T7 is defined
       if (props.T7[0] !== undefined) {
+        // Set Table state based on props.T7[0].Table
         setTable(props.T7[0].Table);
       }
     }
   }, [props, Table]);
+
   return (
     <View style={styles.body}>
       <View style={styles.ColumnTitle}>

@@ -38,9 +38,13 @@ import "@expo/match-media";
 import { useMediaQuery } from "react-responsive";
 
 export default function JSA(props, jobNum) {
-  //const [Job, setJob] = useState([]);
+  // State to manage the user's signature
   const [signature, setSign] = useState(null);
+
+  // State to manage the visibility of an overlay
   const [visible, setVisible] = useState(false);
+
+  // States to manage different sections of a JSA form
   const [T1, setT1] = useState([]);
   const [T2, setT2] = useState([]);
   const [T3, setT3] = useState([]);
@@ -52,44 +56,44 @@ export default function JSA(props, jobNum) {
   const [T9, setT9] = useState([]);
   const [T10, setT10] = useState([]);
   const [T11, setT11] = useState([]);
+
+  // State to track whether the JSA is a template
   const [IsTemplete, setIsTemplete] = useState(false);
+
+  // States to manage user information
   const [Id, setId] = useState("");
   const [User, setUser] = useState("");
+
+  // State to control scrollability
   const [scrollEnabled, setScrollEnabled] = useState(true);
+
+  // State to store header height information
   const [headerHeight] = useState(useHeaderHeight());
+
+  // State to manage loading state
   const [isLoading, setIsLoading] = useState(true);
+
+  // State to manage the visibility of a date overlay
   const [visibleDate, setVisibleDate] = useState(false);
+
+  // Media query hooks to determine screen size
   const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
   const isMobileDevice = useMediaQuery({
     query: "(max-device-width: 600px)",
   });
 
-  /*const fetchJob = async () => {
-    setIsLoading(true);
-    var Job = [];
-    const response = db.collection(props.route.params.file.JobNum);
-    const data = await response.get();
-    Job = data.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-      baseId: doc.id,
-    }));
-    data.docs.forEach((item) => {
-      setJob([...Job]);
-    });
-    setIsLoading(false);
-  };*/
-
+  // Function to toggle the visibility of the date overlay
   const toggleOverlayDate = () => {
     console.log(T1[0].Table.Date);
     setVisibleDate(!visibleDate);
   };
 
+  // Function to retrieve data from local storage
   const _retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem("@MySuperStore:JSA");
       if (value !== null) {
-        // We have data!!
+        // Parse and set stored data if available
         const temp = JSON.parse(value);
         setSign(temp.signature);
         setT1(temp.T1);
@@ -104,6 +108,7 @@ export default function JSA(props, jobNum) {
         setT10(temp.T10);
         setT11(temp.T11);
       } else {
+        // Initialize states with default values if no stored data is found
         setT1([{ Table: {} }]);
         setT2([{ Table: {} }]);
         setT3([{ Table: {} }]);
@@ -121,14 +126,19 @@ export default function JSA(props, jobNum) {
       console.log("Error");
     }
   };
+
+  // Effect hook to handle initialization and data fetching
   useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
       if (props.route.params.offline) {
+        // Set default date for offline mode
         setT1({
           ...T1,
           Date: new Date().toString(),
         });
+
+        // Display alert for existing offline files
         Alert.alert(
           "Existing Offline File?",
           "Do you wish to use a previously created offline file or start fresh?",
@@ -144,6 +154,7 @@ export default function JSA(props, jobNum) {
               text: "Start Fresh",
               style: "cancel",
               onPress: async () => {
+                // Reset form data for starting fresh
                 setT1([{ Table: {} }]);
                 setT2([{ Table: {} }]);
                 setT3([{ Table: {} }]);
@@ -161,13 +172,15 @@ export default function JSA(props, jobNum) {
           ]
         );
       } else {
+        // Handle data initialization for online mode
         if (props.route.params.file.TypeExtra === "Template") {
           setIsTemplete(true);
         }
-        //fetchJob();
+
         if (props.route.params.file.signature !== undefined) {
           setSign(props.route.params.file.signature);
         }
+        // Set data based on file properties
         if (props.route.params.file.T1 != undefined) {
           setT1(props.route.params.file.T1);
         }
@@ -208,16 +221,21 @@ export default function JSA(props, jobNum) {
           setId(props.route.params.file.id);
         }
       }
+      // Set loading state to false after initialization
       setIsLoading(false);
     }
+
+    // Cleanup subscription on unmount
     return () => {
-      // cancel the subscription
       isSubscribed = false;
     };
   }, []);
+
+  // Function to toggle the scrollability of the form
   const SignInScroll = () => {
     setScrollEnabled(!scrollEnabled);
   };
+
   return (
     <KeyboardAvoidingView
       style={styles.globalContainer}

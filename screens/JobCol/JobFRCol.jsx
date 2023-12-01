@@ -13,17 +13,22 @@ import AllForemanDup from "../all_Folder/AllForemanDup";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export const JobFRCol = (props) => {
+  // Function to toggle visibility of FR component and handle animations
   const componentHideAndShowFR = () => {
     props.setContentFR(!props.contentF);
     //if (props.isBigScreen) props.setSidebar(!props.sidebar);
     handleAnimation(props.contentF);
     props.ParentAnimation(props.contentF);
   };
-  //
+
+  // State variables for rotate and move animations
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
-  const [moveAnimation, setmoveAnimation] = useState(new Animated.Value(0));
+  const [moveAnimation, setMoveAnimation] = useState(new Animated.Value(0));
+
+  // Function to handle animations based on the given property
   const handleAnimation = (prop) => {
     if (prop) {
+      // Reverse animations when property is true
       Animated.timing(rotateAnimation, {
         toValue: 0,
         duration: 250,
@@ -31,6 +36,7 @@ export const JobFRCol = (props) => {
       }).start(() => {
         rotateAnimation.setValue(0);
       });
+
       Animated.timing(moveAnimation, {
         toValue: 0,
         duration: 250,
@@ -39,6 +45,7 @@ export const JobFRCol = (props) => {
         moveAnimation.setValue(0);
       });
     } else {
+      // Forward animations when property is false
       Animated.timing(rotateAnimation, {
         toValue: 1,
         duration: 250,
@@ -46,6 +53,7 @@ export const JobFRCol = (props) => {
       }).start(() => {
         rotateAnimation.setValue(1);
       });
+
       if (props.isBigScreen || props.sidebar) {
         Animated.timing(moveAnimation, {
           toValue: 1,
@@ -57,15 +65,20 @@ export const JobFRCol = (props) => {
       }
     }
   };
+
+  // Interpolation for rotating animation
   const interpolateRotating = rotateAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "90deg"],
   });
 
+  // Interpolation for movement animation
   const interpolateMovement = rotateAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, -props.moveMargin],
+    outputRange: [0, -props.moveMargin], // Assuming moveMargin is a prop
   });
+
+  // Styles for rotating animation and movement animation
   const animatedStyle = {
     backgroundColor: "red",
     alignItems: "center",
@@ -78,6 +91,7 @@ export const JobFRCol = (props) => {
       },
     ],
   };
+
   const animatedStyleII = {
     transform: [
       {
@@ -85,8 +99,8 @@ export const JobFRCol = (props) => {
       },
     ],
   };
-  //
-  //const [props.Job, setJobs] = useState([]);
+
+  // State variable for file type
   const [fileType, setFileType] = useState("");
 
   return (

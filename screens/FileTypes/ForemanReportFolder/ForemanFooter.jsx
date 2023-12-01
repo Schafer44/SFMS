@@ -17,12 +17,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../../Loading";
 
 export default function ForemanFooter(props) {
+  // State to manage loading status
   const [isLoading, setIsLoading] = useState(false);
 
+  // Function to create and save a timesheet
   const createTimesheet = async (Timesheet) => {
+    // Set loading state to true while the operation is in progress
     setIsLoading(true);
+
+    // Check if the component is offline
     if (props.route.params.offline === true) {
       try {
+        // Save data to AsyncStorage when offline
         await AsyncStorage.setItem(
           "@MySuperStore:FR",
           JSON.stringify({
@@ -38,20 +44,24 @@ export default function ForemanFooter(props) {
             T7: props.T7,
             TypeExtra: "null",
           })
-        ).then(Alert.alert("successfully saved to local device"));
+        ).then(Alert.alert("Successfully saved to local device"));
       } catch (error) {
         console.log("Error");
       }
     } else {
-      //Job.push(Timesheet);
+      // Obtain a reference to the document in Firestore
       const docRef = doc(
         db,
         props.route.params.file.JobNum,
         props.route.params.file.baseId
       );
-      //const reference = ref(db, "TestJob101");
-      const docSnap = getDoc(docRef);
+
+      // Check if the document exists
+      const docSnap = await getDoc(docRef);
+
+      // Check if the file is not a template
       if (!props.IsTemplete) {
+        // Check for required signatures and date
         if (props.ForemanSignature === null) {
           Alert.alert("Foreman Signature Required");
         } else if (props.ClientSignature === null) {
@@ -63,6 +73,7 @@ export default function ForemanFooter(props) {
         ) {
           Alert.alert("Date Required");
         } else {
+          // Set document data and update Firestore
           setDoc(docRef, {
             T1: props.T1,
             T2: props.T2,
@@ -77,7 +88,6 @@ export default function ForemanFooter(props) {
             ForemanSignature: props.ForemanSignature,
             ClientSignature: props.ClientSignature,
             TypeExtra: props.route.params.file.TypeExtra,
-            //lastUpdatedBy: props.user,
             id: props.id,
             hasBeenUpdated: "yes",
           })
@@ -89,6 +99,7 @@ export default function ForemanFooter(props) {
             });
         }
       } else {
+        // Check for required date for template files
         if (
           props.Header[0].Line0.Date === undefined ||
           props.Header[0].Line0.Date === null ||
@@ -96,6 +107,7 @@ export default function ForemanFooter(props) {
         ) {
           Alert.alert("Date Required");
         } else {
+          // Set document data and update Firestore for template files
           setDoc(docRef, {
             T1: props.T1,
             T2: props.T2,
@@ -110,7 +122,6 @@ export default function ForemanFooter(props) {
             ForemanSignature: null,
             ClientSignature: null,
             TypeExtra: props.route.params.file.TypeExtra,
-            //lastUpdatedBy: props.user,
             id: props.id,
             hasBeenUpdated: "yes",
           })
@@ -123,14 +134,21 @@ export default function ForemanFooter(props) {
         }
       }
     }
+
+    // Set loading state to false after the operation is completed
     setIsLoading(false);
   };
+
+  // Function to toggle the visibility overlay
   const toggleOverlay = () => {
     props.setVisible(!props.visible);
   };
+
+  // Function to toggle another visibility overlay
   const toggleOverlay2 = () => {
     props.setVisible2(!props.visible2);
   };
+
   return (
     <View style={styles.footerPage}>
       {isLoading ? <Loading /> : null}

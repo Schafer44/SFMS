@@ -15,6 +15,9 @@ import { TextInput } from "react-native-paper";
 import Loading from "./Loading";
 import PopupWithInput from "./Popup";
 
+// !!
+// This has all been refactored elsewhere
+// !!
 export default class NewTimesheet extends React.Component {
   constructor(props) {
     super(props);
@@ -26,9 +29,6 @@ export default class NewTimesheet extends React.Component {
   }
 
   render() {
-    const DoBoth = async () => {
-      //const Ref = await NewTimesheet();
-    };
     const NewTimesheet = async () => {
       var Job = [];
       if (this.state.jobNum === "") {
@@ -143,17 +143,7 @@ export default class NewTimesheet extends React.Component {
               Alert.alert("Job already exists");
             }
           });
-      } /*else {
-        const ref = db.collection(props.company).doc();
-        const ehehe = await db
-          .collection(props.company)
-          .doc(ref._delegate._key.path.segments[1])
-          .set({
-            JobNum: this.state.jobNum,
-            baseid: ref._delegate._key.path.segments[1],
-          });
-        db.collection(this.state.jobNum).add({});
-      }*/
+      }
     };
     const handleNum = (text) => {
       this.setState({ jobNum: text });

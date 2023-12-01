@@ -14,19 +14,22 @@ import AllTimesheetDup from "../all_Folder/allTimesheetDup";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export const JobTimesheetCol = (props) => {
+  // Function to toggle visibility of Timesheet component and handle animations
   const componentHideAndShowTimesheet = () => {
-    /*props.setContentTimesheet(!props.contentT);
-    handleAnimation(props.contentT);
-    props.ParentAnimation();*/
-
+    // Toggle visibility and trigger animations
     props.setContentTimesheet(!props.contentT);
     handleAnimation(props.contentT);
     props.ParentAnimation(props.contentT);
   };
+
+  // State variables for rotate and move animations
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
-  const [moveAnimation, setmoveAnimation] = useState(new Animated.Value(0));
+  const [moveAnimation, setMoveAnimation] = useState(new Animated.Value(0));
+
+  // Function to handle animations based on the given property
   const handleAnimation = (prop) => {
     if (prop) {
+      // Reverse animations when property is true
       Animated.timing(rotateAnimation, {
         toValue: 0,
         duration: 250,
@@ -34,6 +37,7 @@ export const JobTimesheetCol = (props) => {
       }).start(() => {
         rotateAnimation.setValue(0);
       });
+
       Animated.timing(moveAnimation, {
         toValue: 0,
         duration: 250,
@@ -42,6 +46,7 @@ export const JobTimesheetCol = (props) => {
         moveAnimation.setValue(0);
       });
     } else {
+      // Forward animations when property is false
       Animated.timing(rotateAnimation, {
         toValue: 1,
         duration: 250,
@@ -49,6 +54,7 @@ export const JobTimesheetCol = (props) => {
       }).start(() => {
         rotateAnimation.setValue(1);
       });
+
       if (props.isBigScreen || props.sidebar) {
         Animated.timing(moveAnimation, {
           toValue: 1,
@@ -60,15 +66,20 @@ export const JobTimesheetCol = (props) => {
       }
     }
   };
+
+  // Interpolation for rotating animation
   const interpolateRotating = rotateAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "90deg"],
   });
 
-  const interpolateMovement = rotateAnimation.interpolate({
+  // Interpolation for movement animation
+  const interpolateMovement = moveAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, -props.moveMargin],
+    outputRange: [0, -props.moveMargin], // Assuming moveMargin is a prop
   });
+
+  // Styles for rotating animation and movement animation
   const animatedStyle = {
     backgroundColor: "red",
     alignItems: "center",
@@ -89,8 +100,8 @@ export const JobTimesheetCol = (props) => {
       },
     ],
   };
-  //
-  //const [props.Job, setJobs] = useState([]);
+
+  // State variable for file type
   const [fileType, setFileType] = useState("");
 
   return (

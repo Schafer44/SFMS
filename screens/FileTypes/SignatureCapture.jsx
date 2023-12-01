@@ -11,43 +11,56 @@ import {
 import Signature from "react-native-signature-canvas";
 
 export const SignatureCapture = (props) => {
+  // Function to handle OK button click
   const handleOK = (signature) => {
+    // Check if setSign prop is provided and call it with the signature
     if (props.setSign !== undefined) {
       props.setSign(signature);
     }
+
+    // Check if setTable prop is provided and update the table state accordingly
     if (props.setTable !== undefined) {
       var temp = props.Table[props.Keys][0];
       var temp2;
       temp2 = [temp];
       temp2[1] = signature;
+
+      // Update the table state using setTable prop and spread operator
       props.setTable({
         ...props.Table,
         [props.Keys]: temp2,
       });
     }
+
+    // Check if setLine prop is provided and update the line state accordingly
     if (props.setLine !== undefined) {
+      // Update the line state with the signature
       props.setLine({ ...props.Line, signature: signature });
-      //props.setLine(signature);
-      //props.setLine({ ...props.Line, signature: "" });
     }
+
+    // Close the overlay by toggling visibility
     toggleOverlay();
   };
 
+  // Function to handle empty action (no implementation provided)
   const handleEmpty = () => {};
+
+  // Function to toggle the overlay visibility using the setVisible prop
   const toggleOverlay = () => {
     props.setVisible(!props.visible);
   };
+
+  // Styles for the signature pad, including CSS rules
   const style = `.m-signature-pad {margin-left: 0%;} 
   .m-signature-pad--body {width: 90%; height: 70%;margin-top:10%;margin-left: 5%;}
-  body,html {width: 100%; height: 100%;margin-left: 0%;
- }
-  .m-signature-pad--footer
-    .button {
-      background-color: green;
-      color: #FFF;
-      width:30%;
-      height:100%;
-    }`;
+  body,html {width: 100%; height: 100%;margin-left: 0%;}
+  .m-signature-pad--footer .button {
+    background-color: green;
+    color: #FFF;
+    width:30%;
+    height:100%;
+  }`;
+
   return (
     <Modal>
       <View style={styles.GC}>

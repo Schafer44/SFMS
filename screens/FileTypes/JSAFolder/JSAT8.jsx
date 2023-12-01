@@ -9,27 +9,40 @@ import T8Sig from "./T8Sig";
 import React, { useState, useEffect } from "react";
 
 export default function JSAT8(props) {
+  // State to manage the Table object
   const [Table, setTable] = useState({});
+
+  // useEffect to synchronize Table state with props.T8
   useEffect(() => {
+    // Check if Table state is not empty
     if (Object.keys(Table).length !== 0) {
+      // Update props.T8 using setT8 and include Table
       props.setT8(props.T8, (props.T8[0] = { Table }));
     } else if (props.T8 !== undefined) {
+      // Check if props.T8 is defined
       if (props.T8[0] !== undefined) {
+        // Set Table state based on props.T8[0].Table
         setTable(props.T8[0].Table);
       }
     }
   }, [props, Table]);
+
+  // Function to add a new row to Table
   const addRow = () => {
+    // Create a new row with empty values
     var rows = ["", ""];
+
+    // Calculate the index for the new row
     var temp = Object.keys(Table).length;
     var Keys = "Rows" + temp;
+
+    // Update Table state by adding the new row
     setTable({
       ...Table,
       [Keys]: rows,
     });
-    //rows.push({ name: "", sig: "", num: temp });
-    //setRows([...rows]);
   };
+
   return (
     <View View style={styles.body}>
       <View style={styles.Column}>

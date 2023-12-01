@@ -17,80 +17,100 @@ import "@expo/match-media";
 import { useMediaQuery } from "react-responsive";
 
 export default function TimesheetBody(props) {
+  // State for the Table data
   const [Table, setTable] = useState({});
+
+  // State for Rows
   const [Rows, setRows] = useState([]);
+
+  // State for signature
   const [signature, setSign] = useState(null);
+
+  // State for the visibility of an overlay
   const [visible, setVisible] = useState(false);
+
+  // Media query for checking if the screen is a big screen
   const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
+
+  // Media query for checking if the screen is a mobile screen
   const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
 
+  // useEffect to synchronize the Table state with props.T8
   useEffect(() => {
     if (Object.keys(Table).length !== 0) {
+      // If Table state is not empty, update the props.T8
       props.setT8(Table);
     } else if (props.T8 !== undefined) {
+      // If props.T8 is provided, update the Table state
       setTable(props.T8);
     }
   }, [props, Table]);
-  const addRow = () => {
-    var rows = ["", "", "", "", "", "", "", ""];
-    var temp = Object.keys(Table).length;
 
+  // Function to add a new row to the Table state
+  const addRow = () => {
+    // Create a new row with empty values
+    var rows = ["", "", "", "", "", "", "", ""];
+
+    // Calculate the new key for the row based on the current length of Table
+    var temp = Object.keys(Table).length;
     var Keys = "Line" + temp;
+
+    // Update the Table state with the new row
     setTable({
       ...Table,
       [Keys]: rows,
     });
-    //rows.push({ name: "", sig: "", num: temp });
-    //setRows([...rows]);
   };
+
   return (
     <View View style={styles.body}>
-      {isBigScreen ? (
-        <View style={styles.bodyHeaderBodyWeb}>
-          <View style={styles.bGridLarge}>
-            <View>
-              <Text style={styles.textInputHeaderHeader}>Name</Text>
+      {
+        isBigScreen ? (
+          <View style={styles.bodyHeaderBodyWeb}>
+            <View style={styles.bGridLarge}>
+              <View>
+                <Text style={styles.textInputHeaderHeader}>Name</Text>
+              </View>
+            </View>
+            <View style={styles.bGridSmall}>
+              <View>
+                <Text style={styles.textInputHeaderHeader}>Occ</Text>
+              </View>
+            </View>
+            <View style={styles.bGridSmall}>
+              <View>
+                <Text style={styles.textInputHeaderHeader}>Hrs.</Text>
+              </View>
+            </View>
+            <View style={styles.bGridSmall}>
+              <View>
+                <Text style={styles.textInputHeaderHeader}>P/U</Text>
+              </View>
+            </View>
+            <View style={styles.bGridSmall}>
+              <View>
+                <Text style={styles.textInputHeaderHeader}>Rig</Text>
+              </View>
+            </View>
+            <View style={styles.bGridSmall}>
+              <View>
+                <Text style={styles.textInputHeaderHeader}>P/D</Text>
+              </View>
+            </View>
+            <View style={styles.bGridMedium}>
+              <View>
+                <Text style={styles.textInputHeaderHeader}>Equip No.</Text>
+              </View>
+            </View>
+            <View style={styles.bGridLarge}>
+              <View>
+                <Text style={styles.textInputHeaderHeader}>
+                  Equip Description
+                </Text>
+              </View>
             </View>
           </View>
-          <View style={styles.bGridSmall}>
-            <View>
-              <Text style={styles.textInputHeaderHeader}>Occ</Text>
-            </View>
-          </View>
-          <View style={styles.bGridSmall}>
-            <View>
-              <Text style={styles.textInputHeaderHeader}>Hrs.</Text>
-            </View>
-          </View>
-          <View style={styles.bGridSmall}>
-            <View>
-              <Text style={styles.textInputHeaderHeader}>P/U</Text>
-            </View>
-          </View>
-          <View style={styles.bGridSmall}>
-            <View>
-              <Text style={styles.textInputHeaderHeader}>Rig</Text>
-            </View>
-          </View>
-          <View style={styles.bGridSmall}>
-            <View>
-              <Text style={styles.textInputHeaderHeader}>P/D</Text>
-            </View>
-          </View>
-          <View style={styles.bGridMedium}>
-            <View>
-              <Text style={styles.textInputHeaderHeader}>Equip No.</Text>
-            </View>
-          </View>
-          <View style={styles.bGridLarge}>
-            <View>
-              <Text style={styles.textInputHeaderHeader}>
-                Equip Description
-              </Text>
-            </View>
-          </View>
-        </View>
-      ) : null //View>
+        ) : null //View>
       }
 
       <TouchableOpacity

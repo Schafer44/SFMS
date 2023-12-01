@@ -4,37 +4,57 @@ import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
 export default function FRT1(props) {
+  // States to manage Line0, Line1, Line2, and Line3 data
   const [Line0, setLine0] = useState({});
   const [Line1, setLine1] = useState({});
   const [Line2, setLine2] = useState({});
   const [Line3, setLine3] = useState({});
+
+  // Effect hook to synchronize Line0, Line1, Line2, and Line3 with T1 in props
   useEffect(() => {
+    // Check if Line0 has data
     if (Object.keys(Line0).length !== 0) {
+      // Update T1 in props with Line0 data
       props.setT1(props.T1, (props.T1[0] = { Line0 }));
     }
+
+    // Check if Line1 has data
     if (Object.keys(Line1).length !== 0) {
+      // Update T1 in props with Line1 data
       props.setT1(props.T1, (props.T1[1] = { Line1 }));
     }
+
+    // Check if Line2 has data
     if (Object.keys(Line2).length !== 0) {
+      // Update T1 in props with Line2 data
       props.setT1(props.T1, (props.T1[2] = { Line2 }));
     }
+
+    // Check if Line3 has data
     if (Object.keys(Line3).length !== 0) {
+      // Update T1 in props with Line3 data
       props.setT1(props.T1, (props.T1[3] = { Line3 }));
     } else if (props.T1 !== undefined) {
+      // Check if T1 in props has data
       if (props.T1[0] !== undefined) {
+        // Set Line0 state with data from T1 in props
         setLine0(props.T1[0].Line0);
       }
       if (props.T1[1] !== undefined) {
+        // Set Line1 state with data from T1 in props
         setLine1(props.T1[1].Line1);
       }
       if (props.T1[2] !== undefined) {
+        // Set Line2 state with data from T1 in props
         setLine2(props.T1[2].Line2);
       }
       if (props.T1[3] !== undefined) {
+        // Set Line3 state with data from T1 in props
         setLine3(props.T1[3].Line3);
       }
     }
   }, [props, Line0, Line1, Line2, Line3]);
+
   return (
     <View style={styles.GC}>
       <View style={styles.ColumnTitle}>

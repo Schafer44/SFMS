@@ -20,20 +20,28 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 const LoginScreen = (props) => {
+  // State variables for email, password, activity indicator, and stay logged in checkbox
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [active, setActive] = useState(false);
   const [stayLoggedIn, setStayLoggedIn] = useState(false);
+
+  // Toggle overlay activity indicator
   const toggleOverlay = () => {
     setActive(!active);
   };
+
+  // Handle stay logged in checkbox
   const handleStay = () => {
     setStayLoggedIn(!stayLoggedIn);
   };
+
+  // Function to retrieve stored login information from AsyncStorage
   const getItem = async () => {
     try {
       const value = await AsyncStorage.getItem("@MySuperStore:Login");
 
+      // Check if stored login information exists
       if (value !== null) {
         setEmail(value);
         setStayLoggedIn(true);
@@ -45,18 +53,29 @@ const LoginScreen = (props) => {
       return null;
     }
   };
+
+  // useEffect hook to run getItem function on component mount
   useEffect(() => {
     getItem();
   }, []);
+
+  // Handle login process
   const handleLogin = async () => {
     signInWithEmailAndPassword(authentication, email, password)
       .then(async (userCredentials) => {
+        // Fetch user's company information
         const item = await fetchUsersCompany(email);
         const company = item.Company;
         const Admin = item.Admin;
         const user = userCredentials.user;
+
+        // Create an array with relevant user information
         const tempArr = [email, company, Admin];
+
+        // Navigate to the Home screen with user information
         props.navigation.navigate("Home", tempArr);
+
+        // Store login information if "Stay Logged In" is checked
         if (stayLoggedIn) {
           await AsyncStorage.setItem("@MySuperStore:Login", email);
         } else {

@@ -30,13 +30,18 @@ export default class NewTimesheetFE extends React.Component {
     };
   }
   render() {
+    // Asynchronously retrieve data from AsyncStorage and update Firestore
     const _retrieveData = async () => {
       try {
+        // Attempt to retrieve data from AsyncStorage using the specified key
         const value = await AsyncStorage.getItem("@MySuperStore:TS");
 
+        // Check if retrieved data exists
         if (value !== null) {
-          // We have data!!
+          // Parse the retrieved JSON data
           const temp = JSON.parse(value);
+
+          // Update component state with the retrieved data
           this.state.TimesheetLines = temp.TimesheetLines;
           this.state.Header = temp.TimesheetHeader;
           this.state.Comment = temp.Comment;
@@ -44,8 +49,12 @@ export default class NewTimesheetFE extends React.Component {
           this.state.CSig = temp.Csignature;
           this.state.FRSig = temp.FRsignature;
         }
+
+        // Create a reference to a new document in the specified Firestore collection
         var Job = [];
         const ref = db.collection(this.props.jobNum).doc();
+
+        // Use the reference to update Firestore with the retrieved data
         const ehehe = await db
           .collection(this.props.jobNum)
           .doc(ref._delegate._key.path.segments[1])
@@ -62,6 +71,7 @@ export default class NewTimesheetFE extends React.Component {
             Comment: this.state.Comment,
           });
       } catch (error) {
+        // Handle the case where no local save is found in AsyncStorage
         Alert.alert("No local save found");
       }
     };
@@ -94,10 +104,6 @@ export default class NewTimesheetFE extends React.Component {
       this.setState({
         isLoading: false,
       });
-      /*const ehehe = await response.add({
-        Type: "Timesheet",
-        baseId: ref._delegate._key.path.segments[1],
-      });*/
     };
     return (
       <View style={styles.container} key={1}>

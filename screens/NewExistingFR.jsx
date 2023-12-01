@@ -36,12 +36,18 @@ export default class NewForemanReportFE extends React.Component {
   }
 
   render() {
+    // Asynchronously retrieve data from AsyncStorage and update Firestore for Foreman Report
     const _retrieveData = async () => {
       try {
+        // Attempt to retrieve data from AsyncStorage using the specified key
         const value = await AsyncStorage.getItem("@MySuperStore:FR");
+
+        // Check if retrieved data exists
         if (value !== null) {
-          // We have data!!
+          // Parse the retrieved JSON data
           const temp = JSON.parse(value);
+
+          // Update component state with the retrieved data
           this.state.Header = temp.Header;
           this.state.ClientSignature = temp.ClientSignature;
           this.state.ForemanSignature = temp.ForemanSignature;
@@ -53,9 +59,12 @@ export default class NewForemanReportFE extends React.Component {
           this.state.T6 = temp.T6;
           this.state.T7 = temp.T7;
         }
+
+        // Create a reference to a new document in the specified Firestore collection
         var Job = [];
         const ref = db.collection(this.props.jobNum).doc();
 
+        // Use the reference to update Firestore with the retrieved data
         const ehehe = await db
           .collection(this.props.jobNum)
           .doc(ref._delegate._key.path.segments[1])
@@ -76,9 +85,11 @@ export default class NewForemanReportFE extends React.Component {
             ClientSignature: this.state.ClientSignature,
           });
       } catch (error) {
+        // Handle the case where no local save is found in AsyncStorage
         Alert.alert("No local save found");
       }
     };
+
     const DoBoth = async () => {
       await _retrieveData();
       //const Ref = await NewFR();

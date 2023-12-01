@@ -33,6 +33,7 @@ import "@expo/match-media";
 import { useMediaQuery } from "react-responsive";
 
 export default function ForemanReport(props, jobNum) {
+  // States to manage various data related to the form
   const [Job, setJob] = useState([]);
   const [ForemanSignature, setForemanSign] = useState(null);
   const [ClientSignature, setClientSign] = useState(null);
@@ -58,31 +59,17 @@ export default function ForemanReport(props, jobNum) {
     query: "(max-device-width: 600px)",
   });
 
-  /*const fetchJob = async () => {
-    setIsLoading(true);
-    var Job = [];
-    const response = db.collection(props.route.params.file.JobNum);
-    const data = await response.get();
-    Job = data.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-      baseId: doc.id,
-    }));
-    data.docs.forEach((item) => {
-      setJob([...Job]);
-    });
-    setIsLoading(false);
-  };*/
-
+  // Function to toggle the date overlay
   const toggleOverlayDate = () => {
     setVisibleDate(!visibleDate);
   };
 
+  // Function to retrieve data from AsyncStorage
   const _retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem("@MySuperStore:FR");
       if (value !== null) {
-        // We have data!!
+        // Data exists, parse and set various states
         const temp = JSON.parse(value);
         setHeader(temp.Header);
         setClientSign(temp.ClientSignature);
@@ -95,6 +82,7 @@ export default function ForemanReport(props, jobNum) {
         setT6(temp.T6);
         setT7(temp.T7);
       } else {
+        // No data found, initialize states with default values
         setHeader([{ Line0: {} }], [{ Line1: {} }], [{ Line2: {} }]);
         setForemanSign(null);
         setClientSign(null);
@@ -110,15 +98,23 @@ export default function ForemanReport(props, jobNum) {
       console.log("Error");
     }
   };
+
+  // Effect hook to handle component initialization and data fetching
   useEffect(() => {
     console.log(2);
+    // Flag to track component subscription
     let isSubscribed = true;
+
     if (isSubscribed) {
+      // Check if the component is offline
       if (props.route.params.offline) {
+        // Set date in T1 if offline
         setT1({
           ...T1,
           Date: new Date().toString(),
         });
+
+        // Alert the user about existing offline file and options
         Alert.alert(
           "Existing Offline File?",
           "Do you wish to use a previously created offline file or start fresh?",
@@ -133,9 +129,8 @@ export default function ForemanReport(props, jobNum) {
             {
               text: "Start Fresh",
               style: "cancel",
-              // If the user confirmed, then we dispatch the action we blocked earlier
-              // This will continue the action that had triggered the removal of the screen
               onPress: async () => {
+                // Reset various states if the user chooses to start fresh
                 setForemanSign(null);
                 setClientSign(null);
                 setT1([{ Line0: {} }, { Line1: {} }]);
@@ -149,21 +144,13 @@ export default function ForemanReport(props, jobNum) {
             },
           ]
         );
-        /*setHeader([{ Line0: {} }]);
-        setForemanSign(null);
-        setClientSign(null);
-        setT1([{ Line0: {} }, { Line1: {} }]);
-        setT2([{ Line0: {} }]);
-        setT3([{ Line0: {} }]);
-        setT4([{ Line0: {} }]);
-        setT5([{ Line0: {} }]);
-        setT6([{ Line0: {} }, { Line1: {} }]);
-        setT7([{ Line0: {} }]);*/
       } else {
+        // Check if the file is a template
         if (props.route.params.file.TypeExtra === "Template") {
           setIsTemplete(true);
         }
-        //fetchJob();
+
+        // Check if various properties exist in the file and set states accordingly
         if (props.route.params.file.Header !== undefined) {
           setHeader(props.route.params.file.Header);
         }
@@ -191,11 +178,11 @@ export default function ForemanReport(props, jobNum) {
         if (props.route.params.file.T6 != undefined) {
           setT6(props.route.params.file.T6);
         }
-
         if (props.route.params.file.T7 != undefined) {
           setT7(props.route.params.file.T7);
         }
 
+        // Set user and id states if they exist in the file
         if (props.route.params.file.user != undefined) {
           setUser(props.route.params.file.user);
         }
@@ -204,15 +191,18 @@ export default function ForemanReport(props, jobNum) {
         }
       }
     }
+
+    // Cleanup function to cancel the subscription
     return () => {
-      // cancel the subscription
       isSubscribed = false;
     };
   }, []);
 
+  // Function to toggle the scrollability of the screen
   const SignInScroll = () => {
     setScrollEnabled(!scrollEnabled);
   };
+
   return (
     <KeyboardAvoidingView
       style={styles.globalContainer}

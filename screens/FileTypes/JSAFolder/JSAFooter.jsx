@@ -17,12 +17,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../../Loading";
 
 export default function JSAFooter(props) {
+  // State to manage the loading state
   const [isLoading, setIsLoading] = useState(false);
 
+  // Function to create and submit a timesheet
   const createTimesheet = async (Timesheet) => {
+    // Set loading state to true
     setIsLoading(true);
+
+    // Check if offline mode is enabled
     if (props.route.params.offline === true) {
       try {
+        // Save timesheet data to local storage
         await AsyncStorage.setItem(
           "@MySuperStore:JSA",
           JSON.stringify({
@@ -40,30 +46,32 @@ export default function JSAFooter(props) {
             T11: props.T11,
             TypeExtra: "null",
           })
-        ).then(Alert.alert("successfully saved to local device"));
+        ).then(Alert.alert("Successfully saved to local device"));
       } catch (error) {
         console.log(error);
       }
     } else {
-      //Job.push(Timesheet);
+      // Retrieve the document reference based on JobNum and baseId
       const docRef = doc(
         db,
         props.route.params.file.JobNum,
         props.route.params.file.baseId
       );
-      //const reference = ref(db, "TestJob101");
-      const docSnap = getDoc(docRef);
 
+      // Check if the timesheet is not a template
       if (!props.IsTemplete) {
+        // Check if signature is null
         if (props.signature === null) {
           Alert.alert("Signature Required");
         } else if (
+          // Check if Date is undefined, null, or an empty string
           props.T1[0].Table.Date === undefined ||
           props.T1[0].Table.Date === null ||
           props.T1[0].Table.Date === ""
         ) {
           Alert.alert("Date Required");
         } else {
+          // Update the document with timesheet data
           setDoc(docRef, {
             T1: props.T1,
             T2: props.T2,
@@ -80,7 +88,6 @@ export default function JSAFooter(props) {
             baseId: props.route.params.file.baseId,
             signature: props.signature,
             TypeExtra: props.route.params.file.TypeExtra,
-            //lastUpdatedBy: props.user,
             id: props.id,
             hasBeenUpdated: "yes",
           })
@@ -92,6 +99,7 @@ export default function JSAFooter(props) {
             });
         }
       } else {
+        // Check if Date is undefined, null, or an empty string
         if (
           props.T1[0].Table.Date === undefined ||
           props.T1[0].Table.Date === null ||
@@ -99,6 +107,7 @@ export default function JSAFooter(props) {
         ) {
           Alert.alert("Date Required");
         } else {
+          // Update the document with timesheet data for a template
           setDoc(docRef, {
             T1: props.T1,
             T2: props.T2,
@@ -115,7 +124,6 @@ export default function JSAFooter(props) {
             baseId: props.route.params.file.baseId,
             signature: null,
             TypeExtra: props.route.params.file.TypeExtra,
-            //lastUpdatedBy: props.user,
             id: props.id,
             hasBeenUpdated: "yes",
           })
@@ -128,11 +136,16 @@ export default function JSAFooter(props) {
         }
       }
     }
+
+    // Set loading state to false
     setIsLoading(false);
   };
+
+  // Function to toggle the overlay visibility
   const toggleOverlay = () => {
     props.setVisible(!props.visible);
   };
+
   return (
     <View style={styles.footerPage}>
       {isLoading ? <Loading /> : null}

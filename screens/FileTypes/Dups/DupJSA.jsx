@@ -19,13 +19,20 @@ export default class DupJSA extends React.Component {
     };
   }
   render() {
+    // Async function to perform both NewJSA and set isLoading state
     const DoBoth = async () => {
+      // Call the NewJSA function
       const Ref = await NewJSA();
     };
+
+    // Async function to create a new Job Safety Analysis (JSA) and update Firestore
     const NewJSA = async () => {
+      // Set isLoading state to true during the operation
       this.setState({
         isLoading: true,
       });
+
+      // Create a new Firestore document for the Job Safety Analysis (JSA)
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
       const ehehe = await db
@@ -50,10 +57,13 @@ export default class DupJSA extends React.Component {
           id: this.props.job.length,
           hasBeenUpdated: "dup",
         });
+
+      // Set isLoading state to false after the operation is completed
       this.setState({
         isLoading: false,
       });
     };
+
     return (
       <View style={styles.container} key={1}>
         {this.state.isLoading ? <Loading /> : null}

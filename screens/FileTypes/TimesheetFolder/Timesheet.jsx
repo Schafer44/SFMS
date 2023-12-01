@@ -24,50 +24,63 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../../Loading";
 
 export default function Timesheet(props, jobNum) {
+  // State for Foreman's Signature
   const [FRsignature, setFRSign] = useState(null);
+
+  // State for Customer's Representative Signature
   const [CRsignature, setCRSign] = useState(null);
+
+  // State for Customer's Signature
   const [Csignature, setCSign] = useState(null);
+
+  // State for Comment
   const [Comment, setComment] = useState("");
-  //const [Lines, setLines] = useState([]);
+
+  // State for Timesheet Header
   const [Header, setHeader] = useState([]);
+
+  // State for enabling or disabling scroll
   const [scrollEnabled, setScrollEnabled] = useState(true);
+
+  // State for Timesheet Body
   const [Body, setBody] = useState([]);
-  //const [Job, setJob] = useState([]);
+
+  // State for headerHeight
   const [headerHeight] = useState(useHeaderHeight());
+
+  // State for loading state
   const [isLoading, setIsLoading] = useState(false);
+
+  // State for visibility of different overlays
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
   const [visible3, setVisible3] = useState(false);
   const [visibleDate, setVisibleDate] = useState(false);
+
+  // State to track if the file is a template
   const [IsTemplete, setIsTemplete] = useState(false);
 
+  // Function to toggle the visibility of the overlay
   const toggleOverlay = () => {
     setVisible(!visible);
   };
+
+  // Function to toggle the visibility of the second overlay
   const toggleOverlay2 = () => {
     setVisible2(!visible2);
   };
+
+  // Function to toggle the visibility of the third overlay
   const toggleOverlay3 = () => {
     setVisible3(!visible3);
   };
+
+  // Function to toggle the visibility of the date overlay
   const toggleOverlayDate = () => {
     setVisibleDate(!visibleDate);
   };
-  const setDate = (event, date) => {};
-  /*const fetchJob = async () => {
-    var Job = [];
-    const response = db.collection(props.route.params.file.JobNum);
-    const data = await response.get();
-    Job = data.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-      baseId: doc.id,
-    }));
-    data.docs.forEach((item) => {
-      setJob([...Job]);
-    });
-    //setLines({ Line: props.route.params.file.Timesheet });
-  };*/
+
+  // Function to retrieve data from AsyncStorage
   const _retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem("@MySuperStore:TS");
@@ -96,14 +109,18 @@ export default function Timesheet(props, jobNum) {
       console.log(error);
     }
   };
+
+  // useEffect to handle the initial setup based on route parameters
   useEffect(() => {
     let isSubscribed = true;
     if (isSubscribed) {
+      // Check if offline mode is enabled
       if (props.route.params.offline) {
         setHeader({
           ...Header,
           Date: new Date().toString(),
         });
+        // Prompt the user to choose between existing offline file or starting fresh
         Alert.alert(
           "Existing Offline File?",
           "Do you wish to use a previously created offline file or start fresh?",
@@ -118,8 +135,6 @@ export default function Timesheet(props, jobNum) {
             {
               text: "Start Fresh",
               style: "cancel",
-              // If the user confirmed, then we dispatch the action we blocked earlier
-              // This will continue the action that had triggered the removal of the screen
               onPress: async () => {
                 setBody({ line0: ["", "", "", "", "", "", ""] });
                 setComment("");
@@ -131,10 +146,12 @@ export default function Timesheet(props, jobNum) {
           ]
         );
       } else {
+        // Check if the file is a template
         if (props.route.params.file.TypeExtra === "Template") {
           setIsTemplete(true);
         }
-        //fetchJob();
+
+        // Initialize state based on route parameters
         if (props.route.params.file.TimesheetLines !== undefined) {
           setBody(props.route.params.file.TimesheetLines);
         }
@@ -161,81 +178,18 @@ export default function Timesheet(props, jobNum) {
         }
       }
     }
+
     return () => {
-      // cancel the subscription
+      // cleanup function to unsubscribe
       isSubscribed = false;
     };
   }, []);
-  /*useEffect(() => {
-    let isSubscribed = true;
-    if (isSubscribed) {
-      if (props.route.params.offline) {
-        setHeader({
-          ...Header,
-          Date: new Date().toString(),
-        });
-        Alert.alert(
-          "Existing Offline File?",
-          "Do you wish to use a previously created offline file or start fresh?",
-          [
-            {
-              text: "Edit Existing",
-              style: "cancel",
-              onPress: async () => {
-                _retrieveData();
-              },
-            },
-            {
-              text: "Start Fresh",
-              style: "cancel",
-              // If the user confirmed, then we dispatch the action we blocked earlier
-              // This will continue the action that had triggered the removal of the screen
-              onPress: async () => {
-                setBody({ line0: ["", "", "", "", "", "", ""] });
-                setComment("");
-                setFRSign(null);
-                setCSign(null);
-                setCRSign(null);
-              },
-            },
-          ]
-        );
-      } else {
-        fetchJob();
-        if (props.route.params.file.TimesheetLines !== undefined) {
-          setBody(props.route.params.file.TimesheetLines);
-        }
-        if (props.route.params.file.TimesheetHeader !== undefined) {
-          setHeader(props.route.params.file.TimesheetHeader);
-          if (props.route.params.file.TimesheetHeader.Date === undefined) {
-            setHeader({
-              ...Header,
-              Date: new Date().toString(),
-            });
-          }
-        }
-        if (props.route.params.file.Comment !== undefined) {
-          setComment(props.route.params.file.Comment);
-        }
-        if (props.route.params.file.FRsignature !== undefined) {
-          setFRSign(props.route.params.file.FRsignature);
-        }
-        if (props.route.params.file.CRsignature !== undefined) {
-          setCRSign(props.route.params.file.CRsignature);
-        }
-        if (props.route.params.file.Csignature !== undefined) {
-          setCSign(props.route.params.file.Csignature);
-        }
-      }
-    }
-    return () => {
-      // cancel the subscription
-      isSubscribed = false;
-    };
-  }, []);*/
+
+  // Function to create or update a Timesheet
   const createTimesheet = async (Timesheet) => {
     setIsLoading(true);
     if (props.route.params.offline) {
+      // Save data to AsyncStorage in offline mode
       try {
         await AsyncStorage.setItem(
           "@MySuperStore:TS",
@@ -254,13 +208,12 @@ export default function Timesheet(props, jobNum) {
         console.log("Error");
       }
     } else {
-      //Job.push(Timesheet);
+      // Update the document in Firestore in online mode
       const docRef = doc(
         db,
         props.route.params.file.JobNum,
         props.route.params.file.baseId
       );
-      //const reference = ref(db, "TestJob101");
       const docSnap = getDoc(docRef);
       if (props.route.params.file.TypeExtra == "null") {
         if (FRsignature === null) {
@@ -324,9 +277,12 @@ export default function Timesheet(props, jobNum) {
     }
     setIsLoading(false);
   };
+
+  // Function to toggle the scroll of the sign-in screen
   const SignInScroll = () => {
     setScrollEnabled(!scrollEnabled);
   };
+
   return (
     <View style={styles.globalContainer}>
       {visible ? (
@@ -433,14 +389,6 @@ export default function Timesheet(props, jobNum) {
           />
         </View>
       </KeyboardAvoidingView>
-      {/*<View style={styles.footerDoc}>
-        <View style={styles.footerViewTitle}>
-          <Text style={styles.footerDocTitle}>Additional Comments</Text>
-        </View>
-        <View style={styles.footerViewContent}>
-          <TimesheetLineComment Comment={Comment} setComment={setComment} />
-        </View>
-      </View>*/}
       <View style={styles.TitleTextBox}>
         <Text style={styles.TitleText}>Signatures</Text>
       </View>

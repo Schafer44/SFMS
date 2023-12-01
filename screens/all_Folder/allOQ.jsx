@@ -23,32 +23,42 @@ import {
 import { db, firebaseApp } from "../FirebaseLink";
 
 export default function AllOQ(props) {
+  // State variable to manage the color of a button
   const [BtnColor, setBtnColor] = useState("black");
+
+  // Async function to delete an OQ (Operational Qualification)
   const Delete = async (temp) => {
+    // Display an alert to confirm the deletion
     Alert.alert("Delete OQ?", "Are you sure you wish to delete this OQ?", [
       {
+        // If the user chooses to delete
         text: "Delete",
         style: "destructive",
         onPress: async () => {
+          // Delete the OQ document from the Firestore collection
           await db.collection(props.jobNum).doc(temp.baseId).delete();
+
+          // Access Firebase Storage and create a reference to the OQ file
           const FBstorage = getStorage(
             firebaseApp,
             "gs://sfms-ce695.appspot.com"
           );
           const Ref = ref(FBstorage, temp.JobNum + "/" + temp.name);
+
+          // Delete the OQ file from Firebase Storage
           deleteObject(Ref);
         },
       },
       {
+        // If the user cancels the deletion
         text: "Cancel",
         style: "cancel",
-        // If the user confirmed, then we dispatch the action we blocked earlier
-        // This will continue the action that had triggered the removal of the screen
         onPress: async () => {},
       },
     ]);
-    //const ehehe = await db.collection(props.jobNum).doc(temp.baseId).delete();
+    // Note: The actual deletion (e.g., 'await db.collection(props.jobNum).doc(temp.baseId).delete();') is commented out.
   };
+
   if (props.job != undefined) {
     return (
       <View

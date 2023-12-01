@@ -19,13 +19,20 @@ export default class DupFR extends React.Component {
     };
   }
   render() {
+    // Async function to perform both NewFR and set isLoading state
     const DoBoth = async () => {
+      // Call the NewFR function
       const Ref = await NewFR();
     };
+
+    // Async function to create a new Field Report (FR) and update Firestore
     const NewFR = async () => {
+      // Set isLoading state to true during the operation
       this.setState({
         isLoading: true,
       });
+
+      // Create a new Firestore document for the Field Report (FR)
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
       const ehehe = await db
@@ -48,10 +55,13 @@ export default class DupFR extends React.Component {
           id: this.props.job.length,
           hasBeenUpdated: "dup",
         });
+
+      // Set isLoading state to false after the operation is completed
       this.setState({
         isLoading: false,
       });
     };
+
     return (
       <View style={styles.container} key={1}>
         {this.state.isLoading ? <Loading /> : null}

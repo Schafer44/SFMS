@@ -23,11 +23,13 @@ import PopupWithInput from "./Popup";
 import { handleSignOut } from "./FirebaseLink";
 
 export default function Home(props) {
+  // State variables for count and visibility
   const [count, setCount] = useState(0);
   const [visible, setVisible] = useState(false);
 
+  // Function to create a new Timesheet with validation
   const NewTimesheet = async (jobNum) => {
-    var Job = [];
+    // Validation checks for job number
     if (jobNum === "") {
       Alert.alert("Please Insert Job Number");
     } else if (jobNum.includes("/")) {
@@ -37,15 +39,19 @@ export default function Home(props) {
     } else if (jobNum.includes("_")) {
       Alert.alert("Job number cannot include any _");
     } else {
+      // Initialize temporary variables for JSA, FR, and Timesheet IDs
       let TempJSA = "";
       let TempFR = "";
       let TempTS = "";
+
+      // Check if the job already exists
       await db
         .collection(props.route.params[1] + "_" + jobNum)
         .limit(1)
         .get()
         .then(async (snapshot) => {
           if (snapshot.size === 0) {
+            // Create a new Timesheet
             await db
               .collection(props.route.params[1] + "_" + jobNum)
               .add({})
@@ -63,6 +69,7 @@ export default function Home(props) {
                 });
               });
 
+            // Create a new Foreman Report
             await db
               .collection(props.route.params[1] + "_" + jobNum)
               .add({})
@@ -84,6 +91,7 @@ export default function Home(props) {
                 });
               });
 
+            // Create a new JSA
             await db
               .collection(props.route.params[1] + "_" + jobNum)
               .add({})
@@ -107,12 +115,12 @@ export default function Home(props) {
                   id: 2,
                 });
               });
+
+            // Update the Jobs array in the master document
             const docRef = doc(db, props.route.params[1], "master");
             var temp = await getDoc(docRef);
-            console.log("Test 1", temp.data());
             let tempAry = temp.data().Jobs;
             tempAry.push(props.route.params[1] + "_" + jobNum);
-            console.log("Test 2", tempAry);
             setDoc(docRef, { Jobs: tempAry });
           } else {
             Alert.alert("Job already exists");
@@ -120,13 +128,15 @@ export default function Home(props) {
         });
     }
   };
+
+  // useEffect to set navigation options and update count on component mount
   useEffect(() => {
-    // Use `setOptions` to update the button that we previously specified
-    // Now the button includes an `onPress` handler to update the count
     props.navigation.setOptions({
       headerRight: () => (
         <View style={{ flexDirection: "row" }}>
+          {/* PopupWithInput component with handleInputSubmit function */}
           <PopupWithInput onSubmit={handleInputSubmit} />
+          {/* Toggle visibility of the component */}
           <TouchableOpacity onPress={() => setVisible(!visible)} title="-">
             <View
               style={{
@@ -147,6 +157,7 @@ export default function Home(props) {
           </TouchableOpacity>
         </View>
       ),
+      // Logout button in the headerLeft
       headerLeft: () => (
         <Button
           onPress={() => {
@@ -157,7 +168,9 @@ export default function Home(props) {
         />
       ),
     });
-  });
+  }, []);
+
+  // Additional state variables and functions
   const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
@@ -165,6 +178,7 @@ export default function Home(props) {
   const handleInputSubmit = (value) => {
     NewTimesheet(value);
   };
+
   return (
     <View style={{ height: "100%" }}>
       <KeyboardAvoidingView

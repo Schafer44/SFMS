@@ -22,12 +22,18 @@ export default class NewTimesheet extends React.Component {
     const DoBoth = async () => {
       const Ref = await NewTimesheet();
     };
+    // Asynchronously create a new timesheet
     const NewTimesheet = async () => {
+      // Set isLoading to true to indicate that the operation is in progress
       this.setState({
         isLoading: true,
       });
+
+      // Create a reference to a new document in the specified collection
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
+
+      // Use the reference to set initial data for the new timesheet
       const ehehe = await db
         .collection(this.props.jobNum)
         .doc(ref._delegate._key.path.segments[1])
@@ -40,14 +46,12 @@ export default class NewTimesheet extends React.Component {
           id: this.props.job.length,
           hasBeenUpdated: "no",
         });
-      /*const ehehe = await response.add({
-        Type: "Timesheet",
-        baseId: ref._delegate._key.path.segments[1],
-      });*/
+      // Set isLoading to false after the operation is complete
       this.setState({
         isLoading: false,
       });
     };
+
     return (
       <View style={styles.container} key={1}>
         {this.state.isLoading ? <Loading /> : null}

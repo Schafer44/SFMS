@@ -11,21 +11,35 @@ import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
 export default function JSAT1(props) {
+  // State to manage the Table object
   const [Table, setTable] = useState({});
+
+  // State to manage the onLoad flag
   const [onLoad, setOnLoad] = useState(true);
+
+  // useEffect to synchronize Table state with props.T1
   useEffect(() => {
+    // Check if offline mode is enabled and it is the initial load
     if (props.offline === true && onLoad) {
+      // Set initial values for Table, including the current date
       setTable({
         ...Table,
         Date: new Date().toString(),
       });
+      // Update onLoad flag to prevent subsequent updates
       setOnLoad(false);
     }
+
+    // Check if Table state is not empty
     if (Object.keys(Table).length !== 0) {
+      // Update props.T1 using setT1 and include Table
       props.setT1(props.T1, (props.T1[0] = { Table }));
     } else if (props.T1 !== undefined) {
+      // Check if props.T1 is defined
       if (props.T1[0] !== undefined) {
+        // Set Table state based on props.T1[0].Table
         setTable(props.T1[0].Table);
+        // Check if Date property is undefined and set the current date
         if (props.T1[0].Table.Date === undefined) {
           setTable({
             ...Table,
@@ -35,6 +49,7 @@ export default function JSAT1(props) {
       }
     }
   }, [props, Table]);
+
   return (
     <View style={styles.body}>
       <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>

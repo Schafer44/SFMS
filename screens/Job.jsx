@@ -36,9 +36,11 @@ import { useHeaderHeight } from "@react-navigation/elements";
 const windowHeight = Dimensions.get("window").height;
 
 export const Job = (props) => {
+  // Retrieve the width of the device window
   const windowWidth = Dimensions.get("window").width;
-  const [contentT, setContentTimesheet] = useState(false);
 
+  // State variables for managing content visibility, editing mode, and animation
+  const [contentT, setContentTimesheet] = useState(false);
   const [contentJ, setContentJSA] = useState(false);
   const [contentO, setContentOQ] = useState(false);
   const [contentF, setContentFR] = useState(false);
@@ -49,22 +51,24 @@ export const Job = (props) => {
   const [sidebar, setSidebar] = useState(false);
   const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
 
+  // Function to toggle the sidebar and handle animation
   const callSetSidebar = () => {
     if (contentF || contentJ || contentO || contentT) {
       setSidebar(!sidebar);
       handleAnimation(sidebar);
     }
   };
-  //
+
+  // Animated values for rotation and movement animations
   const [rotateAnimation, setRotateAnimation] = useState(
     new Animated.Value(windowWidth)
   );
-
   const [rotateAnimationII, setRotateAnimationII] = useState(
     new Animated.Value(0)
   );
   const [moveAnimation, setmoveAnimation] = useState(new Animated.Value(0));
 
+  // Interpolation for rotation and movement animations
   const interpolateRotating = rotateAnimationII.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "180deg"],
@@ -73,6 +77,8 @@ export const Job = (props) => {
     inputRange: [0, 1],
     outputRange: [0, -windowWidth / 4],
   });
+
+  // Animated styles based on interpolation
   const animatedStyleRotate = {
     color: "white",
     marginLeft: 5,
@@ -89,22 +95,16 @@ export const Job = (props) => {
       },
     ],
   };
+
+  // Function to handle animation based on screen size and content visibility
   const handleAnimation = (prop, prop2, prop3, prop4) => {
     var temp = 0;
     if (isBigScreen) {
       if (prop) {
-        if (contentT) {
-          temp++;
-        }
-        if (contentJ) {
-          temp++;
-        }
-        if (contentO) {
-          temp++;
-        }
-        if (contentF) {
-          temp++;
-        }
+        if (contentT) temp++;
+        if (contentJ) temp++;
+        if (contentO) temp++;
+        if (contentF) temp++;
         if (temp <= 0) {
           Animated.timing(rotateAnimation, {
             toValue: windowWidth,
@@ -171,6 +171,8 @@ export const Job = (props) => {
       }
     }
   };
+
+  // Animated styles for the sidebar based on screen size
   const animatedStyle = {
     transform: [{ translateX: rotateAnimation }],
     backgroundColor: "#272727",
@@ -193,6 +195,7 @@ export const Job = (props) => {
     height: "100%",
   };
 
+  // Function to show or hide the Timesheet component based on screen size
   const componentHideAndShowTimesheet = () => {
     if (isBigScreen) {
       if (contentF || contentJ || contentO || contentT) {
@@ -204,6 +207,8 @@ export const Job = (props) => {
       }
     }
   };
+
+  // Functions to show or hide JSA, OQ, and FR components based on screen size
   const componentHideAndShowJSA = () => {
     if (isBigScreen) {
       if (contentF || contentJ || contentO || contentT) {
@@ -214,9 +219,8 @@ export const Job = (props) => {
         handleAnimation(false);
       }
     }
-    //handleAnimation(contentJ);
-    //setContentJSA(!contentJ);
   };
+
   const componentHideAndShowOQ = () => {
     if (isBigScreen) {
       if (contentF || contentJ || contentO || contentT) {
@@ -227,9 +231,8 @@ export const Job = (props) => {
         handleAnimation(false);
       }
     }
-    //handleAnimation(contentO);
-    //setContentOQ(!contentO);
   };
+
   const componentHideAndShowFR = () => {
     if (isBigScreen) {
       if (contentF || contentJ || contentO || contentT) {
@@ -240,12 +243,13 @@ export const Job = (props) => {
         handleAnimation(false);
       }
     }
-    //handleAnimation(contentF);
-    //setContentFR(!contentF);
   };
+
+  // State variables for file type and job information
   const [fileType, setFileType] = useState("");
   const [Job, setJobs] = useState([]);
 
+  // useEffect to set navigation options and fetch job information on component mount
   useEffect(() => {
     props.navigation.setOptions({
       headerRight: () => (
@@ -274,7 +278,9 @@ export const Job = (props) => {
         </View>
       ),
     });
-  });
+  }, []);
+
+  // useEffect to subscribe to changes in the Firestore collection of jobs
   useEffect(() => {
     const unsubscribe = onSnapshot(
       query(collection(db, props.route.params.job), orderBy("id", "desc")),
@@ -285,6 +291,7 @@ export const Job = (props) => {
     );
     setLoad(true);
 
+    // Cleanup function to unsubscribe from the snapshot listener
     return () => {
       console.log("Close");
       console.log("");

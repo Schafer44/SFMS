@@ -11,17 +11,22 @@ import NewOQ from "../NewOQ";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export const JobOQCol = (props) => {
+  // Function to toggle visibility of OQ component and handle animations
   const componentHideAndShowOQ = () => {
+    // Toggle visibility and trigger animations
     props.setContentOQ(!props.contentO);
-    //if (props.isBigScreen) props.setSidebar(!props.sidebar);
     handleAnimation(props.contentO);
     props.ParentAnimation(props.contentO);
   };
-  //
+
+  // State variables for rotate and move animations
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
-  const [moveAnimation, setmoveAnimation] = useState(new Animated.Value(0));
+  const [moveAnimation, setMoveAnimation] = useState(new Animated.Value(0));
+
+  // Function to handle animations based on the given property
   const handleAnimation = (prop) => {
     if (prop) {
+      // Reverse animations when property is true
       Animated.timing(rotateAnimation, {
         toValue: 0,
         duration: 250,
@@ -29,6 +34,7 @@ export const JobOQCol = (props) => {
       }).start(() => {
         rotateAnimation.setValue(0);
       });
+
       Animated.timing(moveAnimation, {
         toValue: 0,
         duration: 250,
@@ -37,6 +43,7 @@ export const JobOQCol = (props) => {
         moveAnimation.setValue(0);
       });
     } else {
+      // Forward animations when property is false
       Animated.timing(rotateAnimation, {
         toValue: 1,
         duration: 250,
@@ -44,6 +51,7 @@ export const JobOQCol = (props) => {
       }).start(() => {
         rotateAnimation.setValue(1);
       });
+
       if (props.isBigScreen || props.sidebar) {
         Animated.timing(moveAnimation, {
           toValue: 1,
@@ -55,16 +63,20 @@ export const JobOQCol = (props) => {
       }
     }
   };
+
+  // Interpolation for rotating animation
   const interpolateRotating = rotateAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "90deg"],
   });
 
-  const interpolateMovement = rotateAnimation.interpolate({
+  // Interpolation for movement animation
+  const interpolateMovement = moveAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, -props.moveMargin],
+    outputRange: [0, -props.moveMargin], // Assuming moveMargin is a prop
   });
 
+  // Styles for rotating animation and movement animation
   const animatedStyle = {
     backgroundColor: "red",
     alignItems: "center",
@@ -77,6 +89,7 @@ export const JobOQCol = (props) => {
       },
     ],
   };
+
   const animatedStyleII = {
     transform: [
       {
@@ -84,8 +97,8 @@ export const JobOQCol = (props) => {
       },
     ],
   };
-  //
-  //const [props.props.Job, setJobs] = useState([]);
+
+  // State variable for file type
   const [fileType, setFileType] = useState("");
 
   return (
@@ -121,12 +134,6 @@ export const JobOQCol = (props) => {
               visable={props.visibleEdit}
               isBigScreen={props.isBigScreen}
             />
-
-            {/*<NewOQ
-              jobNum={props.route.params.job}
-              tempKey={1}
-              job={props.Job}
-        />*/}
           </View>
         ) : null}
       </View>

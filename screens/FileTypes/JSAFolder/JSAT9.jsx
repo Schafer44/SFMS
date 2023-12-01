@@ -9,27 +9,43 @@ import T8Sig from "./T8Sig";
 import React, { useState, useEffect } from "react";
 
 export default function JSAT9(props) {
+  // State to manage the Line0 object
   const [Line0, setLine0] = useState({});
+
+  // useEffect to synchronize Line0 state with props.T9
   useEffect(() => {
+    // Check if Line0 state is not empty
     if (Object.keys(Line0).length !== 0) {
+      // Update props.T9 using setT9 and include Line0
       props.setT9(props.T9, (props.T9[0] = { Line0 }));
     } else if (props.T9 !== undefined) {
+      // Check if props.T9 is defined
       if (props.T9[0] !== undefined) {
+        // Set Line0 state based on props.T9[0].Line0
         setLine0(props.T9[0].Line0);
       }
     }
   }, [props, Line0]);
+
+  // Function to add a new row to Line0
   const addRow = () => {
+    // Create a new row with empty values
     var rows = ["", ""];
+
+    // Calculate the index for the new row
     var temp = Object.keys(Line0).length;
     var Keys = "Rows" + temp;
+
+    // Update Line0 state by adding the new row
     setLine0({
       ...Line0,
       [Keys]: rows,
     });
-    //rows.push({ name: "", sig: "", num: temp });
-    //setRows([...rows]);
+    // Additional commented-out code (not included in the current functionality)
+    // rows.push({ name: "", sig: "", num: temp });
+    // setRows([...rows]);
   };
+
   return (
     <View View style={styles.body}>
       <View style={styles.Column}>

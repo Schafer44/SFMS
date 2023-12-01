@@ -21,13 +21,18 @@ export default class NewJSA extends React.Component {
   render() {
     const DoBoth = async () => {
       const Ref = await NewJSA();
-    };
+    }; // Asynchronously create a new JSA (Job Safety Analysis) document
     const NewJSA = async () => {
+      // Set isLoading to true to indicate that the operation is in progress
       this.setState({
         isLoading: true,
       });
+
+      // Create a reference to a new document in the specified Firestore collection
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
+
+      // Use the reference to set initial data for the new JSA document
       const ehehe = await db
         .collection(this.props.jobNum)
         .doc(ref._delegate._key.path.segments[1])
@@ -49,14 +54,13 @@ export default class NewJSA extends React.Component {
           id: this.props.job.length,
           hasBeenUpdated: "no",
         });
+
+      // Set isLoading to false after the operation is complete
       this.setState({
         isLoading: false,
       });
-      /*const ehehe = await response.add({
-        Type: "Timesheet",
-        baseId: ref._delegate._key.path.segments[1],
-      });*/
     };
+
     return (
       <View style={styles.container} key={1}>
         {this.state.isLoading ? <Loading /> : null}

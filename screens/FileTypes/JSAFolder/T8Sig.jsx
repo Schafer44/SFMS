@@ -4,15 +4,6 @@ import { SignatureCapture } from "../SignatureCapture";
 
 export default function T8Sig(props) {
   const [visible, setVisible] = useState(false);
-  /*useEffect(() => {
-    if (Object.keys(props.Table).length !== 0) {
-      props.setT8(props.T8, (props.T8[0] = { props.Table }));
-    } else if (props.T8 !== undefined) {
-      if (props.T8[0] !== undefined) {
-        props.setTable(props.T8[0].props.Table);
-      }
-    }
-  }, [props, props.Table]);*/
   return visible ? (
     <View style={styles.body2JSA8}>
       <SignatureCapture

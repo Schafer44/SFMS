@@ -4,44 +4,68 @@ import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
 export default function FRT4(props) {
+  // States to manage Line0, Line1, Line2, Line3, and Line4 data
   const [Line0, setLine0] = useState({});
   const [Line1, setLine1] = useState({});
   const [Line2, setLine2] = useState({});
   const [Line3, setLine3] = useState({});
   const [Line4, setLine4] = useState({});
+
+  // Effect hook to synchronize Line0, Line1, Line2, Line3, and Line4 with T4 in props
   useEffect(() => {
+    // Check if Line0 has data
     if (Object.keys(Line0).length !== 0) {
+      // Update T4 in props with Line0 data
       props.setT4(props.T4, (props.T4[0] = { Line0 }));
     }
+
+    // Check if Line1 has data
     if (Object.keys(Line1).length !== 0) {
+      // Update T4 in props with Line1 data
       props.setT4(props.T4, (props.T4[1] = { Line1 }));
     }
+
+    // Check if Line2 has data
     if (Object.keys(Line2).length !== 0) {
+      // Update T4 in props with Line2 data
       props.setT4(props.T4, (props.T4[2] = { Line2 }));
     }
+
+    // Check if Line3 has data
     if (Object.keys(Line3).length !== 0) {
+      // Update T4 in props with Line3 data
       props.setT4(props.T4, (props.T4[3] = { Line3 }));
     }
+
+    // Check if Line4 has data
     if (Object.keys(Line4).length !== 0) {
+      // Update T4 in props with Line4 data
       props.setT4(props.T4, (props.T4[4] = { Line4 }));
     } else if (props.T4 !== undefined) {
+      // Check if T4 in props has data
       if (props.T4[0] !== undefined) {
+        // Set Line0 state with data from T4 in props
         setLine0(props.T4[0].Line0);
       }
       if (props.T4[1] !== undefined) {
+        // Set Line1 state with data from T4 in props
         setLine1(props.T4[1].Line1);
       }
       if (props.T4[2] !== undefined) {
+        // Set Line2 state with data from T4 in props
         setLine2(props.T4[2].Line2);
       }
       if (props.T4[3] !== undefined) {
+        // Set Line3 state with data from T4 in props
         setLine3(props.T4[3].Line3);
       }
       if (props.T4[4] !== undefined) {
+        // Set Line4 state with data from T4 in props
         setLine4(props.T4[4].Line4);
       }
     }
   }, [props, Line0, Line1, Line2, Line3, Line4]);
+
   return (
     <View style={styles.body}>
       <View style={styles.ColumnTitle}>

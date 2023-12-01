@@ -24,63 +24,78 @@ import "@expo/match-media";
 import { useMediaQuery } from "react-responsive";
 
 export default function Jobs(props) {
+  // State variables for Jobs, loading indicator, and media query for screen size
   const [Jobs, setJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
   const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
+
+  // Function to delete a job
   const Delete = async (temp) => {
-    // here Need user baseID
+    // Check if the user has admin privileges
     if (props.Admin === true) {
       Alert.alert("Delete Job", "Are you sure you want to delete this job?", [
         {
           text: "Delete",
           style: "destructive",
+          // Handle job deletion
           onPress: async () => {
+            // Filter out the deleted job from the Jobs array
             const updatedJobs = Jobs.filter((job) => job !== temp);
-            // Updating the Jobs state with the updatedJobs array
+            // Update the Jobs state with the updatedJobs array
             setJobs(updatedJobs);
 
+            // Update the Firestore document with the updatedJobs array
             const docRef = doc(db, props.company, "master");
             setDoc(docRef, { Jobs: updatedJobs });
-            //await db.collection(props.company).doc(temp.baseid).delete();
+
+            // Delete the entire collection associated with the job
             await deleteCollection(temp);
           },
         },
         {
           text: "Cancel",
           style: "cancel",
-          // If the user confirmed, then we dispatch the action we blocked earlier
-          // This will continue the action that had triggered the removal of the screen
+          // If the user cancels, do nothing
           onPress: async () => {},
         },
       ]);
     }
-    //await db.collection("PLEnerserv").doc(temp.baseid).delete();
-    //await db.collection().delete();
   };
+
+  // Function to delete an entire Firestore collection
   const deleteCollection = async (jobNum) => {
     db.collection(jobNum)
       .get()
       .then((querySnapshot) => {
+        // Delete each document in the collection
         querySnapshot.docs.forEach((snapshot) => {
           snapshot.ref.delete();
         });
       });
   };
+
+  // useEffect hook to subscribe to changes in the Firestore document
   useEffect(() => {
+    // Subscribe to changes in the "master" document of the specified company
     const unsubscribe = onSnapshot(
       query(doc(db, props.company, "master")),
       (snapshot) => {
+        // Set loading indicator to true
         setIsLoading(true);
-        //const tempAry = snapshot.docs.map((doc) => doc.data());
+
+        // Update the Jobs state with the Jobs array from the document
         setJobs(snapshot.data().Jobs);
+
+        // Set loading indicator to false
         setIsLoading(false);
       }
     );
+
+    // Cleanup function to unsubscribe from the snapshot listener
     return () => {
       unsubscribe();
     };
-    //fetchJobs();
   }, []);
 
   return (

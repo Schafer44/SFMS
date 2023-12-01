@@ -15,30 +15,36 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export default function AllForeman(props) {
+  // State variable to manage the color of a button
   const [BtnColor, setBtnColor] = useState("black");
+
+  // Async function to delete a Foreman Report
   const Delete = async (temp) => {
+    // Display an alert to confirm the deletion
     Alert.alert(
       "Delete Report?",
       "Are you sure you wish to delete this Foreman Report?",
       [
         {
+          // If the user chooses to delete
           text: "Delete",
           style: "destructive",
           onPress: async () => {
+            // Delete the Foreman Report from the Firestore collection
             await db.collection(props.jobNum).doc(temp.baseId).delete();
           },
         },
         {
+          // If the user cancels the deletion
           text: "Cancel",
           style: "cancel",
-          // If the user confirmed, then we dispatch the action we blocked earlier
-          // This will continue the action that had triggered the removal of the screen
           onPress: async () => {},
         },
       ]
     );
-    //const ehehe = await db.collection(props.jobNum).doc(temp.baseId).delete();
+    // Note: The actual deletion (e.g., 'await db.collection(props.jobNum).doc(temp.baseId).delete();') is commented out.
   };
+
   if (props.job != undefined) {
     return (
       <View

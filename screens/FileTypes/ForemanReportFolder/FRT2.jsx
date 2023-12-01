@@ -12,30 +12,46 @@ import React, { setState, useState, useEffect } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function FRT2(props) {
+  // States to manage Line0, Line1, and Line2 data
   const [Line0, setLine0] = useState({});
   const [Line1, setLine1] = useState({});
   const [Line2, setLine2] = useState({});
+
+  // Effect hook to synchronize Line0, Line1, and Line2 with T2 in props
   useEffect(() => {
+    // Check if Line0 has data
     if (Object.keys(Line0).length !== 0) {
+      // Update T2 in props with Line0 data
       props.setT2(props.T2, (props.T2[0] = { Line0 }));
     }
+
+    // Check if Line1 has data
     if (Object.keys(Line1).length !== 0) {
+      // Update T2 in props with Line1 data
       props.setT2(props.T2, (props.T2[1] = { Line1 }));
     }
+
+    // Check if Line2 has data
     if (Object.keys(Line2).length !== 0) {
+      // Update T2 in props with Line2 data
       props.setT2(props.T2, (props.T2[2] = { Line2 }));
     } else if (props.T2 !== undefined) {
+      // Check if T2 in props has data
       if (props.T2[0] !== undefined) {
+        // Set Line0 state with data from T2 in props
         setLine0(props.T2[0].Line0);
       }
       if (props.T2[1] !== undefined) {
+        // Set Line1 state with data from T2 in props
         setLine1(props.T2[1].Line1);
       }
       if (props.T2[2] !== undefined) {
+        // Set Line2 state with data from T2 in props
         setLine2(props.T2[2].Line2);
       }
     }
   }, [props, Line0, Line1, Line2]);
+
   return (
     <View style={styles.GC}>
       <View style={styles.ColumnTitle}>

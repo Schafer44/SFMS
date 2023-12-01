@@ -12,16 +12,24 @@ import React, { setState, useState, useEffect } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function JSAT5(props) {
+  // State to manage the Table object
   const [Table, setTable] = useState({});
+
+  // useEffect to synchronize Table state with props.T5
   useEffect(() => {
+    // Check if Table state is not empty
     if (Object.keys(Table).length !== 0) {
+      // Update props.T5 using setT5 and include Table
       props.setT5(props.T5, (props.T5[0] = { Table }));
     } else if (props.T5 !== undefined) {
+      // Check if props.T5 is defined
       if (props.T5[0] !== undefined) {
+        // Set Table state based on props.T5[0].Table
         setTable(props.T5[0].Table);
       }
     }
   }, [props, Table]);
+
   return (
     <View style={styles.body}>
       <View style={styles.ColumnTitle}>
@@ -35,9 +43,7 @@ export default function JSAT5(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={
-                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
-                  }
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (
@@ -79,9 +85,7 @@ export default function JSAT5(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={
-                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
-                  }
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (
@@ -123,9 +127,7 @@ export default function JSAT5(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={
-                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
-                  }
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (
@@ -167,9 +169,7 @@ export default function JSAT5(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={
-                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
-                  }
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (
@@ -213,9 +213,7 @@ export default function JSAT5(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={
-                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
-                  }
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (
@@ -257,9 +255,7 @@ export default function JSAT5(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={
-                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
-                  }
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (Table.Excavation !== null || Table.Excavation !== undefined) {
@@ -298,9 +294,7 @@ export default function JSAT5(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={
-                    props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone
-                  }
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (Table.Other !== null || Table.Other !== undefined) {

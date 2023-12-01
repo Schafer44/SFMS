@@ -18,14 +18,22 @@ export default class Duplicate extends React.Component {
       isLoading: false,
     };
   }
+  // Render function for the component
   render() {
+    // Async function to perform both NewTimesheet and set isLoading state
     const DoBoth = async () => {
+      // Call the NewTimesheet function
       const Ref = await NewTimesheet();
     };
+
+    // Async function to create a new timesheet and update Firestore
     const NewTimesheet = async () => {
+      // Set isLoading state to true during the operation
       this.setState({
         isLoading: true,
       });
+
+      // Create a new Firestore document for the timesheet
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
       const ehehe = await db
@@ -45,10 +53,13 @@ export default class Duplicate extends React.Component {
           id: this.props.job.length,
           hasBeenUpdated: "dup",
         });
+
+      // Set isLoading state to false after the operation is completed
       this.setState({
         isLoading: false,
       });
     };
+
     return (
       <View style={styles.container} key={1}>
         {this.state.isLoading ? <Loading /> : null}

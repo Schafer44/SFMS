@@ -12,29 +12,47 @@ import React, { setState, useState, useEffect } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function FRHeader(props) {
+  // States to manage Line0, Line1, and Line2 data, and onLoad flag
   const [Line0, setLine0] = useState({});
   const [Line1, setLine1] = useState({});
   const [Line2, setLine2] = useState({});
   const [onLoad, setOnLoad] = useState(true);
+
+  // Effect hook to handle initialization and synchronization with Header in props
   useEffect(() => {
+    // Check if the component is offline and onLoad is true
     if (props.offline === true && onLoad) {
+      // Set Line0 state with the current date if offline and onLoad
       setLine0({
         ...Line0,
         Date: new Date().toString(),
       });
+      // Set onLoad to false after initializing Line0
       setOnLoad(false);
     }
+
+    // Check if Line0 has data
     if (Object.keys(Line0).length !== 0) {
+      // Update Header in props with Line0 data at index 0
       props.setHeader(props.Header, (props.Header[0] = { Line0 }));
     }
+
+    // Check if Line1 has data
     if (Object.keys(Line1).length !== 0) {
+      // Update Header in props with Line1 data at index 1
       props.setHeader(props.Header, (props.Header[1] = { Line1 }));
     }
+
+    // Check if Line2 has data
     if (Object.keys(Line2).length !== 0) {
+      // Update Header in props with Line2 data at index 2
       props.setHeader(props.Header, (props.Header[2] = { Line2 }));
     } else if (props.Header !== undefined) {
+      // Check if Header in props has data
       if (props.Header[0] !== undefined) {
+        // Set Line0 state with data from Header at index 0
         setLine0(props.Header[0].Line0);
+        // Check if Line0 in Header has Date undefined, and set it to the current date
         if (props.Header[0].Line0.Date === undefined) {
           setLine0({
             ...Line0,
@@ -42,14 +60,21 @@ export default function FRHeader(props) {
           });
         }
       }
+
+      // Check if Header at index 1 has data and is not null
       if (props.Header[1] !== undefined && props.Header[1] !== null) {
+        // Set Line1 state with data from Header at index 1
         setLine1(props.Header[1].Line1);
       }
+
+      // Check if Header at index 2 has data and is not null
       if (props.Header[2] !== undefined && props.Header[2] !== null) {
+        // Set Line2 state with data from Header at index 2
         setLine2(props.Header[2].Line2);
       }
     }
-  }, [props, Line0, Line1, Line2]);
+  }, [props, Line0, Line1, Line2, onLoad]);
+
   return (
     <View style={styles.body}>
       <View style={props.isBigScreen ? styles.Column2 : styles.ColumnPhone}>
@@ -90,27 +115,6 @@ export default function FRHeader(props) {
                   : null}
               </Text>
             </TouchableOpacity>
-            {/*<TextInput
-            style={styles.TextInput}
-            placeholder=""
-            value={Line0.Date}
-            onChange={(event) => {
-              setLine0({ ...Line0, Date: event.nativeEvent.text });
-            }}
-          />
-            <DateTimePicker
-              display="spinner"
-              dateFormat="dayofweek month day year"
-              value={new Date(Line0.Date !== undefined ? Line0.Date : 1)}
-              themeVariant="light"
-              style={styles.DatePicker}
-              onChange={(event) => {
-                setLine0({
-                  ...Line0,
-                  Date: new Date(event.nativeEvent.timestamp).toString(),
-                });
-              }}
-            />*/}
           </View>
         </View>
         <View style={props.isBigScreen ? styles.Row : styles.RowPhone}>

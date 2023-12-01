@@ -21,13 +21,18 @@ export default class NewForemanReport extends React.Component {
   render() {
     const DoBoth = async () => {
       const Ref = await NewFR();
-    };
+    }; // Asynchronously create a new Foreman Report document
     const NewFR = async () => {
+      // Set isLoading to true to indicate that the operation is in progress
       this.setState({
         isLoading: true,
       });
+
+      // Create a reference to a new document in the specified Firestore collection
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
+
+      // Use the reference to set initial data for the new Foreman Report document
       const ehehe = await db
         .collection(this.props.jobNum)
         .doc(ref._delegate._key.path.segments[1])
@@ -46,14 +51,13 @@ export default class NewForemanReport extends React.Component {
           id: this.props.job.length,
           hasBeenUpdated: "no",
         });
+
+      // Set isLoading to false after the operation is complete
       this.setState({
         isLoading: false,
       });
-      /*const ehehe = await response.add({
-        Type: "Timesheet",
-        baseId: ref._delegate._key.path.segments[1],
-      });*/
     };
+
     return (
       <View style={styles.container} key={1}>
         {this.state.isLoading ? <Loading /> : null}

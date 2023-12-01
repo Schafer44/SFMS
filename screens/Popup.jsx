@@ -12,12 +12,20 @@ import {
 } from "react-native";
 
 const PopupWithInput = ({ onSubmit }) => {
+  // State to manage the visibility of a modal
   const [modalVisible, setModalVisible] = useState(false);
+  // State to store the current value of an input field
   const [inputValue, setInputValue] = useState("");
 
+  // Handle form submission
   const handleSubmit = () => {
+    // Call the provided onSubmit callback with the current input value
     onSubmit(inputValue);
+
+    // Close the modal by setting modalVisible to false
     setModalVisible(false);
+
+    // Reset the input value to an empty string after submission
     setInputValue("");
   };
 

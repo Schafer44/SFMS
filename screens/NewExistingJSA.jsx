@@ -40,12 +40,18 @@ export default class NewJSAFE extends React.Component {
     };
   }
   render() {
+    // Asynchronously retrieve data from AsyncStorage and update Firestore for JSA (Job Safety Analysis)
     const _retrieveData = async () => {
       try {
+        // Attempt to retrieve data from AsyncStorage using the specified key
         const value = await AsyncStorage.getItem("@MySuperStore:JSA");
+
+        // Check if retrieved data exists
         if (value !== null) {
-          // We have data!!
+          // Parse the retrieved JSON data
           const temp = JSON.parse(value);
+
+          // Update component state with the retrieved data
           this.state.sig = temp.signature;
           this.state.T1 = temp.T1;
           this.state.T2 = temp.T2;
@@ -59,8 +65,12 @@ export default class NewJSAFE extends React.Component {
           this.state.T10 = temp.T10;
           this.state.T11 = temp.T11;
         }
+
+        // Create a reference to a new document in the specified Firestore collection
         var Job = [];
         const ref = db.collection(this.props.jobNum).doc();
+
+        // Use the reference to update Firestore with the retrieved data
         const ehehe = await db
           .collection(this.props.jobNum)
           .doc(ref._delegate._key.path.segments[1])
@@ -83,9 +93,11 @@ export default class NewJSAFE extends React.Component {
             signature: this.state.sig,
           });
       } catch (error) {
+        // Handle the case where no local save is found in AsyncStorage
         Alert.alert("No local save found");
       }
     };
+
     const DoBoth = async () => {
       await _retrieveData();
       //const Ref = await NewJSA();
@@ -120,10 +132,6 @@ export default class NewJSAFE extends React.Component {
       this.setState({
         isLoading: false,
       });
-      /*const ehehe = await response.add({
-        Type: "Timesheet",
-        baseId: ref._delegate._key.path.segments[1],
-      });*/
     };
     return (
       <View style={styles.container} key={1}>

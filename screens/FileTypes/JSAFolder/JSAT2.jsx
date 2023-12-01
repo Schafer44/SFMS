@@ -4,16 +4,24 @@ import { db } from "../../FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
 
 export default function JSAT2(props) {
+  // State to manage the Table object
   const [Table, setTable] = useState({});
+
+  // useEffect to synchronize Table state with props.T2
   useEffect(() => {
+    // Check if Table state is not empty
     if (Object.keys(Table).length !== 0) {
+      // Update props.T2 using setT2 and include Table
       props.setT2(props.T2, (props.T2[0] = { Table }));
     } else if (props.T2 !== undefined) {
+      // Check if props.T2 is defined
       if (props.T2[0] !== undefined) {
+        // Set Table state based on props.T2[0].Table
         setTable(props.T2[0].Table);
       }
     }
   }, [props, Table]);
+
   return (
     <View style={styles.body}>
       <View style={styles.Column}>
