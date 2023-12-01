@@ -39,7 +39,12 @@ export default function FRT6(props) {
     <View style={styles.GC}>
       <View style={styles.ColumnTitle}>
         <View style={styles.Title}>
-          <Text style={styles.TitleText1}>Unit Items</Text>
+          <Text style={styles.TitleText1}>General Unit Items</Text>
+          <Text style={styles.TitleText2}>
+            (Ex: Silt Fence, Hay Bales, Mats, Concrete, Site Rock, Site Fill,
+            Excavation Amount, Construction Entrances, Orange Fence, Goal Post,
+            Test Stations, etc.)
+          </Text>
         </View>
       </View>
       <View style={styles.body}>
@@ -335,9 +340,17 @@ const styles = StyleSheet.create({
   Column1: { flex: 2 },
   Column2: { flex: 1 },
   TitleText1: {
+    paddingTop: 5,
     justifyContent: "center",
     alignContent: "center",
     textAlign: "center",
+  },
+  TitleText2: {
+    fontSize: 12,
+    justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
+    paddingBottom: 5,
   },
   ColumnTitle: { flex: 0.45, borderStyle: "solid", borderWidth: 1 },
 });

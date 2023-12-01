@@ -16,31 +16,54 @@ export const JobJSACol = (props) => {
   const componentHideAndShowJSA = () => {
     props.setContentJSA(!props.contentJ);
     handleAnimation(props.contentJ);
+    props.ParentAnimation(props.contentJ);
   };
   //
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
+  const [moveAnimation, setmoveAnimation] = useState(new Animated.Value(0));
   const handleAnimation = (prop) => {
     if (prop) {
       Animated.timing(rotateAnimation, {
         toValue: 0,
-        duration: 400,
+        duration: 250,
         useNativeDriver: true,
       }).start(() => {
         rotateAnimation.setValue(0);
       });
+      Animated.timing(moveAnimation, {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: true,
+      }).start(() => {
+        moveAnimation.setValue(0);
+      });
     } else {
       Animated.timing(rotateAnimation, {
         toValue: 1,
-        duration: 400,
+        duration: 250,
         useNativeDriver: true,
       }).start(() => {
         rotateAnimation.setValue(1);
       });
+      if (props.isBigScreen || props.sidebar) {
+        Animated.timing(moveAnimation, {
+          toValue: 1,
+          duration: 250,
+          useNativeDriver: true,
+        }).start(() => {
+          moveAnimation.setValue(1);
+        });
+      }
     }
   };
   const interpolateRotating = rotateAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "90deg"],
+  });
+
+  const interpolateMovement = rotateAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -props.moveMargin],
   });
   const animatedStyle = {
     backgroundColor: "red",
@@ -51,6 +74,13 @@ export const JobJSACol = (props) => {
     transform: [
       {
         rotate: interpolateRotating,
+      },
+    ],
+  };
+  const animatedStyleII = {
+    transform: [
+      {
+        translateX: interpolateMovement,
       },
     ],
   };
@@ -70,12 +100,15 @@ export const JobJSACol = (props) => {
               <Animated.View style={animatedStyle}>
                 <Ionicons
                   name="menu"
-                  size={32}
+                  size={24}
                   color="white"
                   style={[styles.existingJobBtnViewTextIcon1]}
                 />
               </Animated.View>
-              <Text style={styles.Text}>JSAs</Text>
+
+              <Animated.View style={animatedStyleII}>
+                <Text style={styles.Text}>JSAs</Text>
+              </Animated.View>
             </View>
           </TouchableHighlight>
         </View>
@@ -84,25 +117,27 @@ export const JobJSACol = (props) => {
             <AllJSA
               job={props.Job}
               navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
               user={props.route.params.job.user}
               searchPhrase={props.searchPhrase}
+              visible={props.visibleEdit}
+              isBigScreen={props.isBigScreen}
             />
-            <NewJSA
-              jobNum={props.route.params.job.JobNum}
+            {/*<NewJSA
+              jobNum={props.route.params.job}
               tempKey={2}
               job={props.Job}
             />
             <NewJSAFE
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
               tempKey={2}
               job={props.Job}
             />
             <AllJSADup
               job={props.Job}
               navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
-            />
+              jobNum={props.route.params.job}
+        />*/}
           </View>
         ) : null}
       </View>

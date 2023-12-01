@@ -5,6 +5,7 @@ import {
   View,
   Button,
   TouchableHighlight,
+  Alert,
 } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
@@ -20,7 +21,7 @@ export default class NewForemanReportFE extends React.Component {
       jobNum: "",
       company: props.company,
       Type: "Foreman Report",
-      TypeExtra: null,
+      TypeExtra: "null",
       Header: [{ Line0: {} }],
       T1: [{ Line0: {} }, { Line1: {} }],
       T2: [{ Line0: {} }],
@@ -52,13 +53,35 @@ export default class NewForemanReportFE extends React.Component {
           this.state.T6 = temp.T6;
           this.state.T7 = temp.T7;
         }
+        var Job = [];
+        const ref = db.collection(this.props.jobNum).doc();
+
+        const ehehe = await db
+          .collection(this.props.jobNum)
+          .doc(ref._delegate._key.path.segments[1])
+          .set({
+            Type: "Foreman Report",
+            TypeExtra: "null",
+            baseId: ref._delegate._key.path.segments[1],
+            Header: this.state.Header,
+            T1: this.state.T1,
+            T2: this.state.T2,
+            T3: this.state.T3,
+            T4: this.state.T4,
+            T5: this.state.T5,
+            T6: this.state.T6,
+            T7: this.state.T7,
+            id: this.props.job.length,
+            ForemanSignature: this.state.ForemanSignature,
+            ClientSignature: this.state.ClientSignature,
+          });
       } catch (error) {
-        console.log("Error");
+        Alert.alert("No local save found");
       }
     };
     const DoBoth = async () => {
       await _retrieveData();
-      const Ref = await NewFR();
+      //const Ref = await NewFR();
     };
     const NewFR = async () => {
       this.setState({
@@ -96,7 +119,7 @@ export default class NewForemanReportFE extends React.Component {
     };
     return (
       <View style={styles.container} key={1}>
-        {this.state.isLoading ? <Loading /> : <View></View>}
+        {this.state.isLoading ? <Loading /> : null}
         <View style={styles.newJob} key={1}>
           <TouchableHighlight
             activeOpacity={0.99}
@@ -104,8 +127,16 @@ export default class NewForemanReportFE extends React.Component {
             style={styles.EditJobBtn}
             onPress={() => DoBoth()}
           >
-            <Text style={{ color: "white" }}>
-              New Foreman Report From Offline File
+            <Text
+              style={{
+                color: "white",
+                flexWrap: "wrap",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "1%",
+              }}
+            >
+              Copy Offline Foreman Report
             </Text>
           </TouchableHighlight>
         </View>
@@ -119,24 +150,21 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "flex-end",
     alignItems: "center",
+    flex: 1,
   },
   Text: {
     color: "white",
   },
   newJob: {
-    flexDirection: "row",
-    height: 40,
     width: "95%",
     backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 5,
-    flex: 1,
-    alignSelf: "flex-end",
-    marginRight: "2.5%",
+    marginBottom: "1%",
+    borderRadius: 10,
   },
   EditJobBtn: {
-    height: "100%",
+    minHeight: "100%",
     width: "100%",
     alignItems: "center",
     justifyContent: "center",

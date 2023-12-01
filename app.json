@@ -1,10 +1,11 @@
 {
   "expo": {
-    "name": "SFMS",
-    "slug": "SFMS",
-    "version": "1.0.0",
+    "name": "Schafer File Management",
+    "slug": "schaferfilemanagement",
+    "version": "1.1.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "privacy": "unlisted",
+    "icon": "./assets/SFMIconNew.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -13,10 +14,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
+      "bundleIdentifier": "com.schaferfilemanagement.schaferfilemanagement",
       "infoPlist": {
         "NSPhotoLibraryAddUsageDescription": "This app will use your photo libary to save PDFs"
       },
@@ -31,6 +31,11 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "",
+    "extra": {
+      "eas": {
+        "projectId": "65c916fc-ea2d-4575-9c85-c58b4163addd"
+      }
+    }
   }
 }

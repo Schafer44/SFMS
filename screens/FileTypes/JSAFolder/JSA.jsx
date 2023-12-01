@@ -10,12 +10,15 @@ import {
   Image,
   Alert,
   KeyboardAvoidingView,
+  ActivityIndicator,
+  Dimensions,
 } from "react-native";
 import { db } from "../../FirebaseLink";
-import React, { setState, useState, useEffect } from "react";
+import React, { setState, useState, useEffect, useMemo } from "react";
 import { SignatureCapture } from "../SignatureCapture";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import JSAT1 from "./JSAT1";
 import JSAT2 from "./JSAT2";
@@ -31,9 +34,11 @@ import JSAT11 from "./JSAT11";
 import JSAFooter from "./JSAFooter";
 import { useHeaderHeight } from "@react-navigation/elements";
 import Loading from "../../Loading";
+import "@expo/match-media";
+import { useMediaQuery } from "react-responsive";
 
 export default function JSA(props, jobNum) {
-  const [Job, setJob] = useState([]);
+  //const [Job, setJob] = useState([]);
   const [signature, setSign] = useState(null);
   const [visible, setVisible] = useState(false);
   const [T1, setT1] = useState([]);
@@ -47,13 +52,19 @@ export default function JSA(props, jobNum) {
   const [T9, setT9] = useState([]);
   const [T10, setT10] = useState([]);
   const [T11, setT11] = useState([]);
+  const [IsTemplete, setIsTemplete] = useState(false);
   const [Id, setId] = useState("");
   const [User, setUser] = useState("");
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [headerHeight] = useState(useHeaderHeight());
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [visibleDate, setVisibleDate] = useState(false);
+  const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
+  const isMobileDevice = useMediaQuery({
+    query: "(max-device-width: 600px)",
+  });
 
-  const fetchJob = async () => {
+  /*const fetchJob = async () => {
     setIsLoading(true);
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
@@ -67,6 +78,11 @@ export default function JSA(props, jobNum) {
       setJob([...Job]);
     });
     setIsLoading(false);
+  };*/
+
+  const toggleOverlayDate = () => {
+    console.log(T1[0].Table.Date);
+    setVisibleDate(!visibleDate);
   };
 
   const _retrieveData = async () => {
@@ -114,8 +130,8 @@ export default function JSA(props, jobNum) {
           Date: new Date().toString(),
         });
         Alert.alert(
-          "Existing File Detected",
-          "We found an existing offline JSA, do you wish to edit it or start fresh?",
+          "Existing Offline File?",
+          "Do you wish to use a previously created offline file or start fresh?",
           [
             {
               text: "Edit Existing",
@@ -127,8 +143,6 @@ export default function JSA(props, jobNum) {
             {
               text: "Start Fresh",
               style: "cancel",
-              // If the user confirmed, then we dispatch the action we blocked earlier
-              // This will continue the action that had triggered the removal of the screen
               onPress: async () => {
                 setT1([{ Table: {} }]);
                 setT2([{ Table: {} }]);
@@ -146,21 +160,11 @@ export default function JSA(props, jobNum) {
             },
           ]
         );
-        /*setT1([{ Table: {} }]);
-        setT2([{ Table: {} }]);
-        setT3([{ Table: {} }]);
-        setT4([{ Table: {} }]);
-        setT5([{ Table: {} }]);
-        setT6([{ Table: {} }]);
-        setT7([{ Table: {} }]);
-        setT8([{ Table: {} }]);
-        setT9([{ Line0: {} }]);
-        setT10([{ Line0: {} }]);
-        setT11([{ Line0: {} }]);
-        setSign(null);*/
-        //_retrieveData();
       } else {
-        fetchJob();
+        if (props.route.params.file.TypeExtra === "Template") {
+          setIsTemplete(true);
+        }
+        //fetchJob();
         if (props.route.params.file.signature !== undefined) {
           setSign(props.route.params.file.signature);
         }
@@ -204,30 +208,31 @@ export default function JSA(props, jobNum) {
           setId(props.route.params.file.id);
         }
       }
+      setIsLoading(false);
     }
     return () => {
       // cancel the subscription
       isSubscribed = false;
     };
   }, []);
-
   const SignInScroll = () => {
     setScrollEnabled(!scrollEnabled);
   };
-  return visible ? (
-    <SignatureCapture
-      visible={visible}
-      setVisible={setVisible}
-      signature={signature}
-      setSign={setSign}
-      SignInScroll={SignInScroll}
-    />
-  ) : (
+  return (
     <KeyboardAvoidingView
       style={styles.globalContainer}
       behavior={Platform.OS === "ios" ? "padding" : null}
       keyboardVerticalOffset={headerHeight}
     >
+      {visible ? (
+        <SignatureCapture
+          visible={visible}
+          setVisible={setVisible}
+          signature={signature}
+          setSign={setSign}
+          SignInScroll={SignInScroll}
+        />
+      ) : null}
       {/*}
       <TouchableOpacity
         style={styles.SubBtn}
@@ -237,117 +242,212 @@ export default function JSA(props, jobNum) {
       >
         <Text style={styles.LockText}>Lock Scroll</Text>
   </TouchableOpacity>*/}
-      <ScrollView scrollEnabled={scrollEnabled} style={styles.body}>
-        <View>
-          {isLoading ? <Loading /> : <View></View>}
-          <View style={styles.RowOne}>
-            <View style={styles.Header}>
-              <JSAT1
-                T1={T1}
-                setT1={setT1}
-                offline={props.route.params.offline}
-                id={0}
-              />
-            </View>
-          </View>
-          <View style={styles.RowTwo}>
-            <View style={styles.BJSAT1}>
-              <JSAT2 T2={T2} setT2={setT2} id={1} />
-            </View>
-          </View>
-          <View style={styles.RowThree}>
-            <View style={styles.BJSAT2}>
-              <JSAT3 T3={T3} setT3={setT3} id={2} />
-            </View>
-          </View>
-          <View style={styles.RowFour}>
-            <View style={styles.BJSAT3}>
-              <JSAT4 T4={T4} setT4={setT4} id={3} />
-            </View>
-          </View>
-          <View style={styles.RowFive}>
-            <View style={styles.BJSAT4}>
-              <JSAT5 T5={T5} setT5={setT5} id={4} />
-            </View>
-          </View>
-
-          <View style={styles.RowSix}>
-            <View style={styles.BJSAT5}>
-              <JSAT6 T6={T6} setT6={setT6} id={5} />
-            </View>
-          </View>
-          <View style={styles.RowSeven}>
-            <View style={styles.BJSAT6}>
-              <JSAT7 T7={T7} setT7={setT7} id={6} />
-            </View>
-          </View>
-          <View style={styles.RowEight}>
-            <View style={styles.BJSAT7}>
-              <JSAT8
-                T8={T8}
-                setT8={setT8}
-                id={7}
-                setSign={setSign}
-                SignInScroll={SignInScroll}
-              />
-            </View>
-          </View>
-          <View style={styles.RowNine}>
-            <View style={styles.BJSAT8}>
-              <JSAT9
-                T9={T9}
-                setT9={setT9}
-                id={8}
-                setSign={setSign}
-                SignInScroll={SignInScroll}
-              />
-            </View>
-          </View>
-
-          <View style={styles.RowTen}>
-            <View style={styles.BJSAT9}>
-              <JSAT10
-                T10={T10}
-                setT10={setT10}
-                id={9}
-                setSign={setSign}
-                SignInScroll={SignInScroll}
-              />
-            </View>
-          </View>
-          <View style={styles.RowEleven}>
-            <View style={styles.BJSAT10}>
-              <JSAT11
-                T11={T11}
-                setT11={setT11}
-                id={10}
-                setSign={setSign}
-                SignInScroll={SignInScroll}
-              />
-            </View>
-          </View>
-
-          <JSAFooter
-            T1={T1}
-            T2={T2}
-            T3={T3}
-            T4={T4}
-            T5={T5}
-            T6={T6}
-            T7={T7}
-            T8={T8}
-            T9={T9}
-            T10={T10}
-            T11={T11}
-            route={props.route}
-            visible={visible}
-            setVisible={setVisible}
-            signature={signature}
-            user={User}
-            id={Id}
+      {isLoading ? (
+        <View
+          style={{
+            height: "100%",
+            flex: 1,
+          }}
+        >
+          <ActivityIndicator
+            color={"black"}
+            size="large"
+            style={{
+              height: "100%",
+              flex: 1,
+            }}
           />
         </View>
-      </ScrollView>
+      ) : (
+        <ScrollView scrollEnabled={scrollEnabled} style={styles.body}>
+          <View>
+            <View style={styles.RowOne}>
+              <View style={styles.Header}>
+                <JSAT1
+                  T1={T1}
+                  setT1={setT1}
+                  offline={props.route.params.offline}
+                  id={0}
+                  isBigScreen={isBigScreen}
+                  isMobileDevice={isMobileDevice}
+                  toggleOverlayDate={toggleOverlayDate}
+                />
+              </View>
+            </View>
+            <View style={styles.RowTwo}>
+              <View style={styles.BJSAT1}>
+                <JSAT2 T2={T2} setT2={setT2} id={1} />
+              </View>
+            </View>
+            <View style={styles.RowThree}>
+              <View style={styles.BJSAT2}>
+                <JSAT3 T3={T3} setT3={setT3} id={2} />
+              </View>
+            </View>
+            <View style={styles.RowFour}>
+              <View style={styles.BJSAT3}>
+                <JSAT4
+                  T4={T4}
+                  setT4={setT4}
+                  id={3}
+                  isBigScreen={isBigScreen}
+                  isMobileDevice={isMobileDevice}
+                />
+              </View>
+            </View>
+            <View style={styles.RowFive}>
+              <View style={styles.BJSAT4}>
+                <JSAT5
+                  T5={T5}
+                  setT5={setT5}
+                  id={4}
+                  isBigScreen={isBigScreen}
+                  isMobileDevice={isMobileDevice}
+                />
+              </View>
+            </View>
+
+            <View style={styles.RowSix}>
+              <View style={styles.BJSAT5}>
+                <JSAT6
+                  T6={T6}
+                  setT6={setT6}
+                  id={5}
+                  isBigScreen={isBigScreen}
+                  isMobileDevice={isMobileDevice}
+                />
+              </View>
+            </View>
+            <View style={styles.RowSeven}>
+              <View style={styles.BJSAT6}>
+                <JSAT7
+                  T7={T7}
+                  setT7={setT7}
+                  id={6}
+                  isBigScreen={isBigScreen}
+                  isMobileDevice={isMobileDevice}
+                />
+              </View>
+            </View>
+            <View style={styles.RowEight}>
+              <View style={styles.BJSAT7}>
+                <JSAT8
+                  T8={T8}
+                  setT8={setT8}
+                  id={7}
+                  setSign={setSign}
+                  SignInScroll={SignInScroll}
+                />
+              </View>
+            </View>
+            <View style={styles.RowNine}>
+              <View style={styles.BJSAT8}>
+                <JSAT9
+                  T9={T9}
+                  setT9={setT9}
+                  id={8}
+                  setSign={setSign}
+                  SignInScroll={SignInScroll}
+                />
+              </View>
+            </View>
+
+            <View style={styles.RowTen}>
+              <View style={styles.BJSAT9}>
+                <JSAT10
+                  T10={T10}
+                  setT10={setT10}
+                  id={9}
+                  setSign={setSign}
+                  SignInScroll={SignInScroll}
+                />
+              </View>
+            </View>
+            <View style={styles.RowEleven}>
+              <View style={styles.BJSAT10}>
+                <JSAT11
+                  T11={T11}
+                  setT11={setT11}
+                  id={10}
+                  setSign={setSign}
+                  SignInScroll={SignInScroll}
+                />
+              </View>
+            </View>
+
+            <JSAFooter
+              T1={T1}
+              T2={T2}
+              T3={T3}
+              T4={T4}
+              T5={T5}
+              T6={T6}
+              T7={T7}
+              T8={T8}
+              T9={T9}
+              T10={T10}
+              T11={T11}
+              route={props.route}
+              visible={visible}
+              setVisible={setVisible}
+              signature={signature}
+              user={User}
+              id={Id}
+              IsTemplete={IsTemplete}
+            />
+          </View>
+        </ScrollView>
+      )}
+      {visibleDate ? (
+        <View
+          style={{
+            position: "absolute",
+            bottom: 0,
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              width: "100%",
+              flex: 2,
+              opacity: 0.2,
+              backgroundColor: "grey",
+            }}
+            onPress={() => {
+              toggleOverlayDate();
+            }}
+          />
+          <View
+            style={{
+              width: "100%",
+              flex: 1,
+              backgroundColor: "lightgrey",
+            }}
+          >
+            <DateTimePicker
+              display="spinner"
+              dateFormat="dayofweek month day year"
+              themeVariant="light"
+              value={
+                new Date(T1[0].Table.Date !== undefined ? T1[0].Table.Date : 1)
+              }
+              onChange={(event) => {
+                /*setT1({
+                  ...T1,
+                  Date: new Date(event.nativeEvent.timestamp).toString(),
+                });*/
+                setT1(
+                  T1,
+                  (T1[0].Table.Date = new Date(
+                    event.nativeEvent.timestamp
+                  ).toString())
+                );
+              }}
+            />
+          </View>
+        </View>
+      ) : null}
     </KeyboardAvoidingView>
   );
 }
@@ -359,7 +459,7 @@ const styles = StyleSheet.create({
     paddingBottom: "4.2%",
     height: "100%",
   },
-  body: { height: "100%" },
+  body: { height: "100%", flex: 1 },
   RowOne: { flex: 1.2 },
   Header: {
     flex: 1,

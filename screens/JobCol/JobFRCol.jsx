@@ -15,32 +15,56 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 export const JobFRCol = (props) => {
   const componentHideAndShowFR = () => {
     props.setContentFR(!props.contentF);
+    //if (props.isBigScreen) props.setSidebar(!props.sidebar);
     handleAnimation(props.contentF);
+    props.ParentAnimation(props.contentF);
   };
   //
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
+  const [moveAnimation, setmoveAnimation] = useState(new Animated.Value(0));
   const handleAnimation = (prop) => {
     if (prop) {
       Animated.timing(rotateAnimation, {
         toValue: 0,
-        duration: 400,
+        duration: 250,
         useNativeDriver: true,
       }).start(() => {
         rotateAnimation.setValue(0);
       });
+      Animated.timing(moveAnimation, {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: true,
+      }).start(() => {
+        moveAnimation.setValue(0);
+      });
     } else {
       Animated.timing(rotateAnimation, {
         toValue: 1,
-        duration: 400,
+        duration: 250,
         useNativeDriver: true,
       }).start(() => {
         rotateAnimation.setValue(1);
       });
+      if (props.isBigScreen || props.sidebar) {
+        Animated.timing(moveAnimation, {
+          toValue: 1,
+          duration: 250,
+          useNativeDriver: true,
+        }).start(() => {
+          moveAnimation.setValue(1);
+        });
+      }
     }
   };
   const interpolateRotating = rotateAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "90deg"],
+  });
+
+  const interpolateMovement = rotateAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -props.moveMargin],
   });
   const animatedStyle = {
     backgroundColor: "red",
@@ -51,6 +75,13 @@ export const JobFRCol = (props) => {
     transform: [
       {
         rotate: interpolateRotating,
+      },
+    ],
+  };
+  const animatedStyleII = {
+    transform: [
+      {
+        translateX: interpolateMovement,
       },
     ],
   };
@@ -70,12 +101,15 @@ export const JobFRCol = (props) => {
               <Animated.View style={animatedStyle}>
                 <Ionicons
                   name="menu"
-                  size={32}
+                  size={24}
                   color="white"
                   style={[styles.existingJobBtnViewTextIcon1]}
                 />
               </Animated.View>
-              <Text style={styles.Text}>Foreman Reports</Text>
+
+              <Animated.View style={animatedStyleII}>
+                <Text style={styles.Text}>Foreman Reports</Text>
+              </Animated.View>
             </View>
           </TouchableHighlight>
         </View>
@@ -84,25 +118,27 @@ export const JobFRCol = (props) => {
             <AllForeman
               job={props.Job}
               navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
               user={props.route.params.job.user}
               searchPhrase={props.searchPhrase}
+              visible={props.visibleEdit}
+              isBigScreen={props.isBigScreen}
             />
-            <NewForemanReport
-              jobNum={props.route.params.job.JobNum}
+            {/*<NewForemanReport
+              jobNum={props.route.params.job}
               tempKey={3}
               job={props.Job}
             />
             <NewForemanReportFE
-              jobNum={props.route.params.job.JobNum}
+              jobNum={props.route.params.job}
               tempKey={3}
               job={props.Job}
             />
             <AllForemanDup
               job={props.Job}
               navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
-            />
+              jobNum={props.route.params.job}
+        />*/}
           </View>
         ) : null}
       </View>

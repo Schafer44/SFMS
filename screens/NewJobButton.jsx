@@ -13,6 +13,7 @@ import React, { setState, useState, useEffect } from "react";
 import { doc, getDoc, setDoc, addDoc, collection } from "firebase/firestore";
 import { TextInput } from "react-native-paper";
 import Loading from "./Loading";
+import PopupWithInput from "./Popup";
 
 export default class NewTimesheet extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export default class NewTimesheet extends React.Component {
 
   render() {
     const DoBoth = async () => {
-      const Ref = await NewTimesheet();
+      //const Ref = await NewTimesheet();
     };
     const NewTimesheet = async () => {
       var Job = [];
@@ -45,7 +46,7 @@ export default class NewTimesheet extends React.Component {
         let TempJSA = "";
         let TempFR = "";
         let TempTS = "";
-        const ref = db.collection(this.state.company).doc();
+        //const ref = db.collection(this.state.company).doc();
         /*await db
           .collection(props.company)
           .doc(ref._delegate._key.path.segments[1])
@@ -121,13 +122,20 @@ export default class NewTimesheet extends React.Component {
                     id: 2,
                   });
                 });
-              await db
+              /*await db
                 .collection(this.state.company)
                 .doc(ref._delegate._key.path.segments[1])
                 .set({
                   JobNum: this.state.company + "_" + this.state.jobNum,
                   baseid: ref._delegate._key.path.segments[1],
-                });
+                });*/
+              const docRef = doc(db, this.state.company, "master");
+              temp = await getDoc(docRef);
+              console.log("Test 1", temp.data());
+              let tempAry = temp.data().Jobs;
+              tempAry.push(this.state.company + "_" + this.state.jobNum);
+              console.log("Test 2", tempAry);
+              setDoc(docRef, { Jobs: tempAry });
               this.setState({
                 isLoading: false,
               });
@@ -152,7 +160,7 @@ export default class NewTimesheet extends React.Component {
     };
     return (
       <View style={styles.container} key={1}>
-        {this.state.isLoading ? <Loading /> : <View></View>}
+        {this.state.isLoading ? <Loading /> : null}
         <View style={styles.newJob} key={1}>
           <TouchableOpacity
             key={1}
@@ -182,11 +190,11 @@ export default class NewTimesheet extends React.Component {
 }
 const styles = StyleSheet.create({
   container: {
+    height: "100%",
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: "#d4d4d4",
     justifyContent: "center",
     alignItems: "center",
-    flex: 0.15,
   },
   Text: {
     color: "white",
@@ -204,11 +212,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   newJob: {
-    width: "95%",
+    width: "100%",
     flex: 1,
-    marginTop: 5,
+    marginTop: 1,
     alignItems: "center",
-    marginBottom: 5,
     backgroundColor: "green",
     flexDirection: "row",
   },

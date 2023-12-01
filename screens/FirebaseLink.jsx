@@ -3,7 +3,7 @@ import { getFirestore } from "firebase/firestore";
 import "firebase/auth";
 import { doc, onSnapshot, getDocs, querySnapshot } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
@@ -33,6 +33,16 @@ export const FBstorage = getStorage(firebaseApp, "gs://sfms-ce695.appspot.com");
 const PLECollection = db.collection("PLEnerserv");
 const authentication = getAuth(firebaseApp);
 
+export const handleSignOut = () => {
+  authentication.signOut().then(
+    function () {
+      console.log("Signed Out");
+    },
+    function (error) {
+      console.error("Sign Out Error", error);
+    }
+  );
+};
 export default authentication;
 
 export const fetchUsersCompany = async (email) => {

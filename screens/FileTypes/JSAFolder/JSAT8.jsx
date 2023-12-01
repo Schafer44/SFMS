@@ -1,23 +1,15 @@
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
   TextInput,
   View,
-  ScrollView,
   TouchableOpacity,
-  Image,
 } from "react-native";
 import T8Sig from "./T8Sig";
-import { db } from "../../FirebaseLink";
-import React, { setState, useState, useEffect } from "react";
-import { SignatureCapture } from "../SignatureCapture";
+import React, { useState, useEffect } from "react";
 
 export default function JSAT8(props) {
   const [Table, setTable] = useState({});
-  const [Rows, setRows] = useState([]);
-  const [signature, setSign] = useState(null);
-  const [visible, setVisible] = useState(false);
   useEffect(() => {
     if (Object.keys(Table).length !== 0) {
       props.setT8(props.T8, (props.T8[0] = { Table }));
@@ -27,9 +19,6 @@ export default function JSAT8(props) {
       }
     }
   }, [props, Table]);
-  const toggleOverlay = () => {
-    setVisible(!visible);
-  };
   const addRow = () => {
     var rows = ["", ""];
     var temp = Object.keys(Table).length;

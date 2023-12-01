@@ -16,14 +16,18 @@ import {
   collection,
   query,
   orderBy,
+  setDoc,
 } from "firebase/firestore";
 import Loading from "./Loading";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import "@expo/match-media";
+import { useMediaQuery } from "react-responsive";
 
 export default function Jobs(props) {
   const [Jobs, setJobs] = useState([]);
-  const [visible, setVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
   const Delete = async (temp) => {
     // here Need user baseID
     if (props.Admin === true) {
@@ -32,8 +36,14 @@ export default function Jobs(props) {
           text: "Delete",
           style: "destructive",
           onPress: async () => {
-            await db.collection(props.company).doc(temp.baseid).delete();
-            await deleteCollection(temp.JobNum);
+            const updatedJobs = Jobs.filter((job) => job !== temp);
+            // Updating the Jobs state with the updatedJobs array
+            setJobs(updatedJobs);
+
+            const docRef = doc(db, props.company, "master");
+            setDoc(docRef, { Jobs: updatedJobs });
+            //await db.collection(props.company).doc(temp.baseid).delete();
+            await deleteCollection(temp);
           },
         },
         {
@@ -48,8 +58,8 @@ export default function Jobs(props) {
     //await db.collection("PLEnerserv").doc(temp.baseid).delete();
     //await db.collection().delete();
   };
-  const deleteCollection = async (path) => {
-    db.collection(path)
+  const deleteCollection = async (jobNum) => {
+    db.collection(jobNum)
       .get()
       .then((querySnapshot) => {
         querySnapshot.docs.forEach((snapshot) => {
@@ -58,12 +68,12 @@ export default function Jobs(props) {
       });
   };
   useEffect(() => {
-    console.log("2", props);
     const unsubscribe = onSnapshot(
-      query(collection(db, props.company), orderBy("JobNum")),
+      query(doc(db, props.company, "master")),
       (snapshot) => {
         setIsLoading(true);
-        setJobs(snapshot.docs.map((doc) => doc.data()));
+        //const tempAry = snapshot.docs.map((doc) => doc.data());
+        setJobs(snapshot.data().Jobs);
         setIsLoading(false);
       }
     );
@@ -74,82 +84,95 @@ export default function Jobs(props) {
   }, []);
 
   return (
-    <View>
-      {Jobs.map((job) => {
-        if (
-          job.JobNum.toLowerCase()
-            .split("_")[0]
-            .includes(props.searchPhrase.toLowerCase())
-        ) {
-          job.user = props.user;
-          return (
-            <View style={styles.existingJob} key={job.JobNum}>
-              <TouchableHighlight
-                onPress={() => props.navigation("Job", { job })}
-                style={styles.existingJobBtn}
-              >
-                <View style={styles.existingJobBtnView}>
-                  <Ionicons
-                    name="menu"
-                    size={32}
-                    color="white"
-                    style={styles.existingJobBtnViewTextIcon}
-                  />
-                  <Text style={styles.Text}>
-                    {job.JobNum.split(props.company + "_")}
-                  </Text>
-                </View>
-              </TouchableHighlight>
-              {visible ? (
-                <View style={styles.existingJob2} key={job + "2"}>
-                  <TouchableHighlight
-                    underlayColor="darkred"
-                    onPress={() => Delete(job)}
-                    style={styles.existingJob2}
-                  >
-                    <Text style={styles.Text}>X</Text>
-                  </TouchableHighlight>
-                </View>
-              ) : (
-                <View></View>
-              )}
-            </View>
-          );
-        }
-      })}
-      <View style={styles.Edit} key={1}>
-        <TouchableHighlight
-          underlayColor="darkgreen"
-          onPress={() => setVisible(!visible)}
-          style={styles.EditJobBtn}
-        >
-          <Text style={styles.Text}>Edit</Text>
-        </TouchableHighlight>
+    <View style={styles.GlobalCont}>
+      <View style={styles.JobCont}>
+        {Jobs.map((job) => {
+          if (
+            job
+              .toLowerCase()
+              .split("_")[0]
+              .includes(props.searchPhrase.toLowerCase())
+          ) {
+            job.user = props.user;
+            return (
+              <View style={styles.existingJob} key={job}>
+                <TouchableHighlight
+                  onPress={() => props.navigation("Job", { job })}
+                  style={styles.existingJobBtn}
+                >
+                  <View style={styles.existingJobBtnView}>
+                    <Ionicons
+                      name="menu"
+                      size={24}
+                      color="white"
+                      style={styles.existingJobBtnViewTextIcon}
+                    />
+                    <View
+                      style={{
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Text style={styles.Text}>
+                        {job.split(props.company + "_")}
+                      </Text>
+                    </View>
+                  </View>
+                </TouchableHighlight>
+                {props.visible ? (
+                  <View style={styles.existingJob2} key={job + "2"}>
+                    <TouchableHighlight
+                      underlayColor="darkred"
+                      onPress={() => Delete(job)}
+                      style={styles.existingJob2}
+                    >
+                      <View
+                        style={{
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Text style={styles.Text}>X</Text>
+                      </View>
+                    </TouchableHighlight>
+                  </View>
+                ) : null}
+              </View>
+            );
+          }
+        })}
       </View>
 
-      {isLoading ? <Loading /> : <View></View>}
+      {isLoading ? <Loading /> : null}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  GlobalCont: {
+    width: "100%",
+    height: "100%",
+  },
   existingJob: {
     width: "100%",
     height: 70,
     backgroundColor: "#272727",
     alignItems: "center",
     justifyContent: "center",
+    textAlign: "center",
+    textAlignVertical: "center",
     marginBottom: 5,
     display: "flex",
     flexDirection: "row",
   },
+  JobCont: { height: "100%", flex: 10 },
   existingJob2: {
     flex: 1,
     width: "100%",
     height: "100%",
-    backgroundColor: "red",
+    backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
+    textAlign: "center",
+    textAlignVertical: "center",
   },
   existingJobBtn: {
     flex: 10,
@@ -159,6 +182,8 @@ const styles = StyleSheet.create({
     color: "white",
     alignItems: "center",
     justifyContent: "center",
+    textAlign: "center",
+    textAlignVertical: "center",
   },
   existingJobBtnView: {
     width: "100%",
@@ -167,26 +192,30 @@ const styles = StyleSheet.create({
     color: "white",
     alignItems: "center",
     justifyContent: "center",
+    textAlign: "center",
+    textAlignVertical: "center",
   },
   Text: {
-    marginTop: 27,
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1,
     color: "white",
     fontSize: 16,
   },
   existingJobBtnViewTextIcon: {
     position: "absolute",
     left: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    textAlignVertical: "center",
   },
   Edit: {
     flexDirection: "row",
-    height: 70,
+    height: 50,
     width: "95%",
     backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
+    textAlign: "center",
+    textAlignVertical: "center",
     marginBottom: 5,
     flex: 1,
     alignSelf: "flex-end",
@@ -197,5 +226,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
+    textAlign: "center",
+    textAlignVertical: "center",
   },
 });

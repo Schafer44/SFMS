@@ -4,6 +4,7 @@ import {
   View,
   TouchableHighlight,
   Animated,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import AllTimesheet from "../all_Folder/allTimesheet";
@@ -14,33 +15,59 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 export const JobTimesheetCol = (props) => {
   const componentHideAndShowTimesheet = () => {
+    /*props.setContentTimesheet(!props.contentT);
+    handleAnimation(props.contentT);
+    props.ParentAnimation();*/
+
     props.setContentTimesheet(!props.contentT);
     handleAnimation(props.contentT);
+    props.ParentAnimation(props.contentT);
   };
-  //
   const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
+  const [moveAnimation, setmoveAnimation] = useState(new Animated.Value(0));
   const handleAnimation = (prop) => {
     if (prop) {
       Animated.timing(rotateAnimation, {
         toValue: 0,
-        duration: 400,
+        duration: 250,
         useNativeDriver: true,
       }).start(() => {
         rotateAnimation.setValue(0);
       });
+      Animated.timing(moveAnimation, {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: true,
+      }).start(() => {
+        moveAnimation.setValue(0);
+      });
     } else {
       Animated.timing(rotateAnimation, {
         toValue: 1,
-        duration: 400,
+        duration: 250,
         useNativeDriver: true,
       }).start(() => {
         rotateAnimation.setValue(1);
       });
+      if (props.isBigScreen || props.sidebar) {
+        Animated.timing(moveAnimation, {
+          toValue: 1,
+          duration: 250,
+          useNativeDriver: true,
+        }).start(() => {
+          moveAnimation.setValue(1);
+        });
+      }
     }
   };
   const interpolateRotating = rotateAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "90deg"],
+  });
+
+  const interpolateMovement = rotateAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -props.moveMargin],
   });
   const animatedStyle = {
     backgroundColor: "red",
@@ -51,6 +78,14 @@ export const JobTimesheetCol = (props) => {
     transform: [
       {
         rotate: interpolateRotating,
+      },
+    ],
+  };
+
+  const animatedStyleII = {
+    transform: [
+      {
+        translateX: interpolateMovement,
       },
     ],
   };
@@ -70,39 +105,30 @@ export const JobTimesheetCol = (props) => {
               <Animated.View style={animatedStyle}>
                 <Ionicons
                   name="menu"
-                  size={32}
+                  size={24}
                   color="white"
                   style={[styles.existingJobBtnViewTextIcon1]}
                 />
               </Animated.View>
-              <Text style={styles.Text}>Timesheets</Text>
+              <Animated.View style={animatedStyleII}>
+                <Text style={styles.Text}>Timesheets</Text>
+              </Animated.View>
             </View>
           </TouchableHighlight>
         </View>
         {props.contentT ? (
-          <View>
-            <AllTimesheet
-              job={props.Job}
-              navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
-              user={props.route.params.job.user}
-              searchPhrase={props.searchPhrase}
-            />
-            <NewTimesheet
-              jobNum={props.route.params.job.JobNum}
-              tempKey={1}
-              job={props.Job}
-            />
-            <NewTimesheetFE
-              jobNum={props.route.params.job.JobNum}
-              tempKey={1}
-              job={props.Job}
-            />
-            <AllTimesheetDup
-              job={props.Job}
-              navigation={props.navigation}
-              jobNum={props.route.params.job.JobNum}
-            />
+          <View style={styles.Collection}>
+            <View style={styles.CollectionRight}>
+              <AllTimesheet
+                job={props.Job}
+                navigation={props.navigation}
+                jobNum={props.route.params.job}
+                user={props.route.params.job.user}
+                searchPhrase={props.searchPhrase}
+                visible={props.visibleEdit}
+                isBigScreen={props.isBigScreen}
+              />
+            </View>
           </View>
         ) : null}
       </View>
@@ -169,4 +195,10 @@ const styles = StyleSheet.create({
     maxHeight: "100%",
   },
   GC: {},
+  Collection: { display: "flex", flexDirection: "row-reverse" },
+  CollectionRight: { flex: 3 },
+  CollectionLeft: {
+    flex: 1,
+  },
+  CollectionLeftCont: {},
 });

@@ -10,9 +10,10 @@ import {
   Image,
   Alert,
   KeyboardAvoidingView,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { db } from "../../FirebaseLink";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { SignatureCapture } from "../SignatureCapture";
 import TimesheetLineComment from "./TimesheetComment";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -27,16 +28,18 @@ export default function Timesheet(props, jobNum) {
   const [CRsignature, setCRSign] = useState(null);
   const [Csignature, setCSign] = useState(null);
   const [Comment, setComment] = useState("");
-  const [Lines, setLines] = useState([]);
+  //const [Lines, setLines] = useState([]);
   const [Header, setHeader] = useState([]);
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [Body, setBody] = useState([]);
-  const [Job, setJob] = useState([]);
+  //const [Job, setJob] = useState([]);
   const [headerHeight] = useState(useHeaderHeight());
   const [isLoading, setIsLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
   const [visible3, setVisible3] = useState(false);
+  const [visibleDate, setVisibleDate] = useState(false);
+  const [IsTemplete, setIsTemplete] = useState(false);
 
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -47,10 +50,11 @@ export default function Timesheet(props, jobNum) {
   const toggleOverlay3 = () => {
     setVisible3(!visible3);
   };
-  const setDate = (event, date) => {
-    console.log(date);
+  const toggleOverlayDate = () => {
+    setVisibleDate(!visibleDate);
   };
-  const fetchJob = async () => {
+  const setDate = (event, date) => {};
+  /*const fetchJob = async () => {
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
     const data = await response.get();
@@ -63,11 +67,11 @@ export default function Timesheet(props, jobNum) {
       setJob([...Job]);
     });
     //setLines({ Line: props.route.params.file.Timesheet });
-  };
+  };*/
   const _retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem("@MySuperStore:TS");
-      console.log(value);
+
       if (value !== null) {
         // We have data!!
         const temp = JSON.parse(value);
@@ -101,8 +105,8 @@ export default function Timesheet(props, jobNum) {
           Date: new Date().toString(),
         });
         Alert.alert(
-          "Existing File Detected",
-          "We found an existing offline timesheet, do you wish to edit it or start fresh?",
+          "Existing Offline File?",
+          "Do you wish to use a previously created offline file or start fresh?",
           [
             {
               text: "Edit Existing",
@@ -126,16 +130,76 @@ export default function Timesheet(props, jobNum) {
             },
           ]
         );
-        /*setHeader({
+      } else {
+        if (props.route.params.file.TypeExtra === "Template") {
+          setIsTemplete(true);
+        }
+        //fetchJob();
+        if (props.route.params.file.TimesheetLines !== undefined) {
+          setBody(props.route.params.file.TimesheetLines);
+        }
+        if (props.route.params.file.TimesheetHeader !== undefined) {
+          setHeader(props.route.params.file.TimesheetHeader);
+          if (props.route.params.file.TimesheetHeader.Date === undefined) {
+            setHeader({
+              ...Header,
+              Date: new Date().toString(),
+            });
+          }
+        }
+        if (props.route.params.file.Comment !== undefined) {
+          setComment(props.route.params.file.Comment);
+        }
+        if (props.route.params.file.FRsignature !== undefined) {
+          setFRSign(props.route.params.file.FRsignature);
+        }
+        if (props.route.params.file.CRsignature !== undefined) {
+          setCRSign(props.route.params.file.CRsignature);
+        }
+        if (props.route.params.file.Csignature !== undefined) {
+          setCSign(props.route.params.file.Csignature);
+        }
+      }
+    }
+    return () => {
+      // cancel the subscription
+      isSubscribed = false;
+    };
+  }, []);
+  /*useEffect(() => {
+    let isSubscribed = true;
+    if (isSubscribed) {
+      if (props.route.params.offline) {
+        setHeader({
           ...Header,
           Date: new Date().toString(),
         });
-        setBody({});
-        setComment("");
-        setFRSign(null);
-        setCSign(null);
-        setCRSign(null);*/
-        //_retrieveData();
+        Alert.alert(
+          "Existing Offline File?",
+          "Do you wish to use a previously created offline file or start fresh?",
+          [
+            {
+              text: "Edit Existing",
+              style: "cancel",
+              onPress: async () => {
+                _retrieveData();
+              },
+            },
+            {
+              text: "Start Fresh",
+              style: "cancel",
+              // If the user confirmed, then we dispatch the action we blocked earlier
+              // This will continue the action that had triggered the removal of the screen
+              onPress: async () => {
+                setBody({ line0: ["", "", "", "", "", "", ""] });
+                setComment("");
+                setFRSign(null);
+                setCSign(null);
+                setCRSign(null);
+              },
+            },
+          ]
+        );
       } else {
         fetchJob();
         if (props.route.params.file.TimesheetLines !== undefined) {
@@ -168,7 +232,7 @@ export default function Timesheet(props, jobNum) {
       // cancel the subscription
       isSubscribed = false;
     };
-  }, []);
+  }, []);*/
   const createTimesheet = async (Timesheet) => {
     setIsLoading(true);
     if (props.route.params.offline) {
@@ -183,8 +247,9 @@ export default function Timesheet(props, jobNum) {
             CRsignature: CRsignature,
             Csignature: Csignature,
             FRsignature: FRsignature,
+            TypeExtra: "null",
           })
-        );
+        ).then(Alert.alert("successfully saved to local device"));
       } catch (error) {
         console.log("Error");
       }
@@ -197,35 +262,64 @@ export default function Timesheet(props, jobNum) {
       );
       //const reference = ref(db, "TestJob101");
       const docSnap = getDoc(docRef);
-      if (FRsignature === null) {
-        Alert.alert("Foreman Signature Required");
-      } else if (
-        Header.Date === undefined ||
-        Header.Date == "" ||
-        Header.Date == null
-      ) {
-        Alert.alert("Date Required");
-      } else {
-        setDoc(docRef, {
-          TimesheetHeader: Header,
-          TimesheetLines: Body,
-          Comment: Comment,
-          Type: props.route.params.file.Type,
-          baseId: props.route.params.file.baseId,
-          FRsignature: FRsignature,
-          CRsignature: CRsignature,
-          Csignature: Csignature,
-          lastUpdatedBy: props.route.params.file.user,
-          TypeExtra: props.route.params.file.TypeExtra,
-          id: props.route.params.file.id,
-          hasBeenUpdated: "yes",
-        })
-          .then(() => {
-            Alert.alert("Success");
+      if (props.route.params.file.TypeExtra == "null") {
+        if (FRsignature === null) {
+          Alert.alert("Foreman Signature Required");
+        } else if (
+          Header.Date === undefined ||
+          Header.Date == "" ||
+          Header.Date == null
+        ) {
+          Alert.alert("Date Required");
+        } else {
+          setDoc(docRef, {
+            TimesheetHeader: Header,
+            TimesheetLines: Body,
+            Comment: Comment,
+            Type: props.route.params.file.Type,
+            baseId: props.route.params.file.baseId,
+            FRsignature: FRsignature,
+            CRsignature: CRsignature,
+            Csignature: Csignature,
+            TypeExtra: props.route.params.file.TypeExtra,
+            id: props.route.params.file.id,
+            hasBeenUpdated: "yes",
           })
-          .catch((error) => {
-            Alert.alert("Submit Failed");
-          });
+            .then(() => {
+              Alert.alert("Success");
+            })
+            .catch((error) => {
+              Alert.alert("Submit Failed");
+            });
+        }
+      } else {
+        if (
+          Header.Date === undefined ||
+          Header.Date == "" ||
+          Header.Date == null
+        ) {
+          Alert.alert("Date Required");
+        } else {
+          setDoc(docRef, {
+            TimesheetHeader: Header,
+            TimesheetLines: Body,
+            Comment: Comment,
+            Type: props.route.params.file.Type,
+            baseId: props.route.params.file.baseId,
+            TypeExtra: props.route.params.file.TypeExtra,
+            FRsignature: null,
+            CRsignature: null,
+            Csignature: null,
+            id: props.route.params.file.id,
+            hasBeenUpdated: "yes",
+          })
+            .then(() => {
+              Alert.alert("Success");
+            })
+            .catch((error) => {
+              Alert.alert("Submit Failed");
+            });
+        }
       }
     }
     setIsLoading(false);
@@ -233,212 +327,227 @@ export default function Timesheet(props, jobNum) {
   const SignInScroll = () => {
     setScrollEnabled(!scrollEnabled);
   };
-  return visible ? (
-    <SignatureCapture
-      visible={visible}
-      setVisible={setVisible}
-      Sign={FRsignature}
-      setSign={setFRSign}
-      SignInScroll={SignInScroll}
-    />
-  ) : visible2 ? (
-    <SignatureCapture
-      visible={visible2}
-      setVisible={setVisible2}
-      Sign={CRsignature}
-      setSign={setCRSign}
-      SignInScroll={SignInScroll}
-    />
-  ) : visible3 ? (
-    <SignatureCapture
-      visible={visible3}
-      setVisible={setVisible3}
-      Sign={Csignature}
-      setSign={setCSign}
-      SignInScroll={SignInScroll}
-    />
-  ) : (
-    <KeyboardAvoidingView
-      style={styles.globalContainer}
-      behavior={Platform.OS === "ios" ? "padding" : null}
-      keyboardVerticalOffset={headerHeight}
-    >
-      <View style={styles.header}>
-        {isLoading ? <Loading /> : <View></View>}
-        <View style={styles.hGridTitles}>
-          <View style={styles.TextInputTwo}>
-            <Text style={styles.textInputHeader}>Project: </Text>
+  return (
+    <View style={styles.globalContainer}>
+      {visible ? (
+        <SignatureCapture
+          visible={visible}
+          setVisible={setVisible}
+          Sign={FRsignature}
+          setSign={setFRSign}
+          SignInScroll={SignInScroll}
+        />
+      ) : visible2 ? (
+        <SignatureCapture
+          visible={visible2}
+          setVisible={setVisible2}
+          Sign={CRsignature}
+          setSign={setCRSign}
+          SignInScroll={SignInScroll}
+        />
+      ) : visible3 ? (
+        <SignatureCapture
+          visible={visible3}
+          setVisible={setVisible3}
+          Sign={Csignature}
+          setSign={setCSign}
+          SignInScroll={SignInScroll}
+        />
+      ) : null}
+      <KeyboardAvoidingView
+        style={styles.Top}
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        keyboardVerticalOffset={headerHeight + 40}
+      >
+        <View style={styles.header}>
+          {isLoading ? <Loading /> : null}
+          <View style={styles.hGridTitles}>
+            <View style={styles.TextInputTwo}>
+              <Text style={styles.textInputHeader}>Project: </Text>
+            </View>
+            <View style={styles.TextInputTwo}>
+              <Text style={styles.textInputHeader}>Date: </Text>
+            </View>
+            <View style={styles.TextInputTwo}>
+              <Text style={styles.textInputHeader}>Day: </Text>
+            </View>
+            <View style={styles.TextInputTwo}>
+              <Text style={styles.textInputHeader}>Crew #: </Text>
+            </View>
           </View>
-          <View style={styles.TextInputTwo}>
-            <Text style={styles.textInputHeader}>Date: </Text>
-          </View>
-          <View style={styles.TextInputTwo}>
-            <Text style={styles.textInputHeader}>Day: </Text>
-          </View>
-          <View style={styles.TextInputTwo}>
-            <Text style={styles.textInputHeader}>Crew #: </Text>
-          </View>
-        </View>
 
-        <View style={styles.hGridInputs}>
-          <View style={styles.TextInputOne}>
-            <TextInput
-              style={styles.textInputTest}
-              placeholder=""
-              value={Header.Project}
-              onChange={(event) => {
-                setHeader({ ...Header, Project: event.nativeEvent.text });
-              }}
-            />
-          </View>
-          <View style={styles.DatePickerCont}>
-            <View style={styles.DatePicker}>
-              <DateTimePicker
-                dateFormat="dayofweek month day year"
-                themeVariant="light"
-                value={new Date(Header.Date)}
+          <View style={styles.hGridInputs}>
+            <View style={styles.TextInputOne}>
+              <TextInput
+                style={styles.textInputTest}
+                placeholder=""
+                value={Header.Project}
                 onChange={(event) => {
-                  setHeader({
-                    ...Header,
-                    Date: new Date(event.nativeEvent.timestamp).toString(),
-                  });
+                  setHeader({ ...Header, Project: event.nativeEvent.text });
+                }}
+              />
+            </View>
+            <View style={styles.DatePickerCont}>
+              <View style={styles.DatePicker}>
+                <TouchableOpacity onPress={() => toggleOverlayDate()}>
+                  <Text>
+                    {Header.Date !== undefined
+                      ? Header.Date.split(" ")[1] +
+                        " " +
+                        Header.Date.split(" ")[2] +
+                        " " +
+                        Header.Date.split(" ")[3]
+                      : null}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.TextInputOne}>
+              <TextInput
+                style={styles.textInputTest}
+                placeholder=""
+                value={Header.Day}
+                onChange={(event) => {
+                  setHeader({ ...Header, Day: event.nativeEvent.text });
+                }}
+              />
+            </View>
+            <View style={styles.TextInputOne}>
+              <TextInput
+                style={styles.textInputTest}
+                placeholder=""
+                value={Header.Crew}
+                onChange={(event) => {
+                  setHeader({ ...Header, Crew: event.nativeEvent.text });
                 }}
               />
             </View>
           </View>
-          <View style={styles.TextInputOne}>
-            <TextInput
-              style={styles.textInputTest}
-              placeholder=""
-              value={Header.Day}
-              onChange={(event) => {
-                setHeader({ ...Header, Day: event.nativeEvent.text });
-              }}
-            />
-          </View>
-          <View style={styles.TextInputOne}>
-            <TextInput
-              style={styles.textInputTest}
-              placeholder=""
-              value={Header.Crew}
-              onChange={(event) => {
-                setHeader({ ...Header, Crew: event.nativeEvent.text });
-              }}
-            />
-          </View>
         </View>
-      </View>
-      <View style={styles.bodyHeader}>
-        <View style={styles.bodyHeaderBody}>
-          <View style={styles.bGridLarge}>
-            <View style={styles.bGridColumns}>
-              <Text style={styles.textInputHeaderHeader}>Name</Text>
-            </View>
-          </View>
-          <View style={styles.bGridSmall}>
-            <View style={styles.bGridColumns}>
-              <Text style={styles.textInputHeaderHeader}>Occ</Text>
-            </View>
-          </View>
-          <View style={styles.bGridSmall}>
-            <View style={styles.bGridColumns}>
-              <Text style={styles.textInputHeaderHeader}>Hrs.</Text>
-            </View>
-          </View>
-          <View style={styles.bGridSmall}>
-            <View style={styles.bGridColumns}>
-              <Text style={styles.textInputHeaderHeader}>P/U</Text>
-            </View>
-          </View>
-          <View style={styles.bGridSmall}>
-            <View style={styles.bGridColumns}>
-              <Text style={styles.textInputHeaderHeader}>Rig</Text>
-            </View>
-          </View>
-          <View style={styles.bGridSmall}>
-            <View style={styles.bGridColumns}>
-              <Text style={styles.textInputHeaderHeader}>P/D</Text>
-            </View>
-          </View>
-          <View style={styles.bGridMedium}>
-            <View style={styles.bGridColumns}>
-              <Text style={styles.textInputHeaderHeader}>Equip No.</Text>
-            </View>
-          </View>
-          <View style={styles.bGridLarge}>
-            <View style={styles.bGridColumns}>
-              <Text style={styles.textInputHeaderHeader}>
-                Equip Description
-              </Text>
-            </View>
-          </View>
+        <View style={styles.body}>
+          <TimesheetBody
+            T8={Body}
+            setT8={setBody}
+            Comment={Comment}
+            setComment={setComment}
+          />
         </View>
-      </View>
-      <View style={styles.body}>
-        <TimesheetBody T8={Body} setT8={setBody} />
-      </View>
-      <View style={styles.footerDoc}>
+      </KeyboardAvoidingView>
+      {/*<View style={styles.footerDoc}>
         <View style={styles.footerViewTitle}>
           <Text style={styles.footerDocTitle}>Additional Comments</Text>
         </View>
         <View style={styles.footerViewContent}>
           <TimesheetLineComment Comment={Comment} setComment={setComment} />
         </View>
+      </View>*/}
+      <View style={styles.TitleTextBox}>
+        <Text style={styles.TitleText}>Signatures</Text>
       </View>
       <View style={styles.footerPage}>
         <View style={styles.footerPageSig}>
-          <View style={styles.SigView}>
-            <TouchableOpacity
-              title="Signature"
-              underlayColor="#fff"
-              style={styles.SubBtn}
-              onPress={() => toggleOverlay()}
-            >
-              <Text style={styles.loginText}>Foreman Signature</Text>
-            </TouchableOpacity>
+          {IsTemplete ? (
+            <View style={styles.SigViewLeft}>
+              <View
+                title="Signature"
+                underlayColor="#fff"
+                style={{ ...styles.SignBtn, ...{ backgroundColor: "gray" } }}
+                onPress={() => toggleOverlay()}
+              >
+                <Text style={styles.loginText}>Foreman</Text>
+              </View>
 
-            <Image
-              resizeMode={"contain"}
-              style={styles.prev}
-              source={{ uri: FRsignature }}
-            />
-          </View>
+              <Image
+                resizeMode={"contain"}
+                style={styles.prev}
+                source={{ uri: FRsignature }}
+              />
+            </View>
+          ) : (
+            <View style={styles.SigViewLeft}>
+              <TouchableOpacity
+                title="Signature"
+                underlayColor="#fff"
+                style={styles.SignBtn}
+                onPress={() => toggleOverlay()}
+              >
+                <Text style={styles.loginText}>Foreman</Text>
+              </TouchableOpacity>
 
-          <View style={styles.SigView}>
-            <TouchableOpacity
-              title="Signature"
-              underlayColor="#fff"
-              style={styles.SubBtn}
-              onPress={() => toggleOverlay2()}
-            >
-              <Text style={styles.loginText}>
-                Client Representative Signature
-              </Text>
-            </TouchableOpacity>
+              <Image
+                resizeMode={"contain"}
+                style={styles.prev}
+                source={{ uri: FRsignature }}
+              />
+            </View>
+          )}
+          {IsTemplete ? (
+            <View style={styles.SigViewMiddle}>
+              <View
+                title="Signature"
+                underlayColor="#fff"
+                style={{ ...styles.SignBtn, ...{ backgroundColor: "gray" } }}
+                onPress={() => toggleOverlay2()}
+              >
+                <Text style={styles.loginText}>Client Rep</Text>
+              </View>
 
-            <Image
-              resizeMode={"contain"}
-              style={styles.prev}
-              source={{ uri: CRsignature }}
-            />
-          </View>
+              <Image
+                resizeMode={"contain"}
+                style={styles.prev}
+                source={{ uri: CRsignature }}
+              />
+            </View>
+          ) : (
+            <View style={styles.SigViewMiddle}>
+              <TouchableOpacity
+                title="Signature"
+                underlayColor="#fff"
+                style={styles.SignBtn}
+                onPress={() => toggleOverlay2()}
+              >
+                <Text style={styles.loginText}>Client Rep</Text>
+              </TouchableOpacity>
 
-          <View style={styles.SigView}>
-            <TouchableOpacity
-              title="Signature"
-              underlayColor="#fff"
-              style={styles.SubBtn}
-              onPress={() => toggleOverlay3()}
-            >
-              <Text style={styles.loginText}>Company Signature</Text>
-            </TouchableOpacity>
-
-            <Image
-              resizeMode={"contain"}
-              style={styles.prev}
-              source={{ uri: Csignature }}
-            />
-          </View>
+              <Image
+                resizeMode={"contain"}
+                style={styles.prev}
+                source={{ uri: CRsignature }}
+              />
+            </View>
+          )}
+          {IsTemplete ? (
+            <View style={styles.SigViewRight}>
+              <View
+                title="Signature"
+                underlayColor="black"
+                style={{ ...styles.SignBtn, ...{ backgroundColor: "gray" } }}
+              >
+                <Text style={styles.loginText}>Company</Text>
+              </View>
+              <Image
+                resizeMode={"contain"}
+                style={styles.prev}
+                source={{ uri: Csignature }}
+              />
+            </View>
+          ) : (
+            <View style={styles.SigViewRight}>
+              <TouchableOpacity
+                title="Signature"
+                underlayColor="#fff"
+                style={styles.SignBtn}
+                onPress={() => toggleOverlay3()}
+              >
+                <Text style={styles.loginText}>Company</Text>
+              </TouchableOpacity>
+              <Image
+                resizeMode={"contain"}
+                style={styles.prev}
+                source={{ uri: Csignature }}
+              />
+            </View>
+          )}
         </View>
       </View>
       <TouchableOpacity
@@ -455,7 +564,49 @@ export default function Timesheet(props, jobNum) {
       >
         <Text style={styles.loginText}>Submit</Text>
       </TouchableOpacity>
-    </KeyboardAvoidingView>
+      {visibleDate ? (
+        <View
+          style={{
+            position: "absolute",
+            bottom: 0,
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              width: "100%",
+              flex: 2,
+              opacity: 0.2,
+              backgroundColor: "grey",
+            }}
+            onPress={() => {
+              toggleOverlayDate();
+            }}
+          />
+          <View
+            style={{
+              width: "100%",
+              flex: 1,
+              backgroundColor: "lightgrey",
+            }}
+          >
+            <DateTimePicker
+              display="spinner"
+              dateFormat="dayofweek month day year"
+              themeVariant="light"
+              value={new Date(Header.Date !== undefined ? Header.Date : 1)}
+              onChange={(event) => {
+                setHeader({
+                  ...Header,
+                  Date: new Date(event.nativeEvent.timestamp).toString(),
+                });
+              }}
+            />
+          </View>
+        </View>
+      ) : null}
+    </View>
   );
 }
 
@@ -463,6 +614,16 @@ const styles = StyleSheet.create({
   globalContainer: {
     width: "100%",
     flex: 1,
+  },
+  Top: { flex: 8 },
+  TitleTextBox: {
+    justifyContent: "center",
+    backgroundColor: "white",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  TitleText: {
+    color: "black",
   },
   header: {
     width: "100%",
@@ -491,7 +652,7 @@ const styles = StyleSheet.create({
   DatePicker: {
     flex: 1,
     justifyContent: "center",
-    width: 75,
+    width: "100%",
   },
   DatePickerCont: {
     backgroundColor: "white",
@@ -545,6 +706,13 @@ const styles = StyleSheet.create({
   SubBtn: {
     width: "100%",
     flex: 0.75,
+    backgroundColor: "green",
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  SignBtn: {
+    width: "100%",
+    flex: 1,
     backgroundColor: "green",
     justifyContent: "center",
     alignContent: "center",
@@ -676,9 +844,26 @@ const styles = StyleSheet.create({
   footerPageSig: {
     flex: 3,
     flexDirection: "row",
+    justifyContent: "space-between",
   },
-  SigView: {
+  SigViewLeft: {
     height: "100%",
-    flex: 2,
+    flex: 1,
+    borderWidth: 1,
+    borderLeftWidth: 0,
+    borderColor: "#d4d4d4",
+  },
+  SigViewMiddle: {
+    height: "100%",
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "#d4d4d4",
+  },
+  SigViewRight: {
+    height: "100%",
+    flex: 1,
+    borderWidth: 1,
+    borderRightWidth: 0,
+    borderColor: "#d4d4d4",
   },
 });

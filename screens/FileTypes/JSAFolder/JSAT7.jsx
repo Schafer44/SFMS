@@ -29,13 +29,13 @@ export default function JSAT7(props) {
           <Text style={styles.TitleText1}>ROW Conditions:</Text>
         </View>
       </View>
-      <View style={styles.Column}>
+      <View style={props.isBigScreen ? styles.Column : styles.ColumnPhone}>
         <View style={styles.Row}>
           <Text>Dry</Text>
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (Table.Dry !== null || Table.Dry !== undefined) {
@@ -73,7 +73,7 @@ export default function JSAT7(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (Table.Rocky !== null || Table.Rocky !== undefined) {
@@ -112,7 +112,7 @@ export default function JSAT7(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (Table.Muddy !== null || Table.Muddy !== undefined) {
@@ -151,7 +151,7 @@ export default function JSAT7(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (Table.Sandy !== null || Table.Sandy !== undefined) {
@@ -190,7 +190,7 @@ export default function JSAT7(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (Table.Ice_Snow !== null || Table.Ice_Snow !== undefined) {
@@ -229,7 +229,7 @@ export default function JSAT7(props) {
         </View>
         <View style={styles.Row}>
           <TouchableOpacity
-            style={styles.SubBtn}
+            style={props.isBigScreen ? styles.SubBtn : styles.SubBtnPhone}
             title="Lock"
             onPress={() => {
               if (Table.SteepSlope !== null || Table.SteepSlope !== undefined) {
@@ -288,6 +288,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   Column: { flex: 1, flexDirection: "row" },
+  ColumnPhone: { flex: 1, flexDirection: "column" },
   ColumnTitle: {
     flex: 2,
     borderStyle: "solid",
@@ -321,4 +322,5 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "white",
   },
+  SubBtnPhone: { height: 20 },
 });

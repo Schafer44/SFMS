@@ -16,6 +16,7 @@ import React, { setState, useState, useEffect } from "react";
 import { SignatureCapture } from "../SignatureCapture";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import FRHeader from "./FRHeader";
 import FRT1 from "./FRT1";
@@ -28,6 +29,8 @@ import FRT7 from "./FRT7";
 import ForemanFooter from "./ForemanFooter";
 import { useHeaderHeight } from "@react-navigation/elements";
 import Loading from "../../Loading";
+import "@expo/match-media";
+import { useMediaQuery } from "react-responsive";
 
 export default function ForemanReport(props, jobNum) {
   const [Job, setJob] = useState([]);
@@ -44,12 +47,18 @@ export default function ForemanReport(props, jobNum) {
   const [T6, setT6] = useState([]);
   const [T7, setT7] = useState([]);
   const [Id, setId] = useState("");
+  const [IsTemplete, setIsTemplete] = useState(false);
   const [User, setUser] = useState("");
   const [headerHeight] = useState(useHeaderHeight());
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [visibleDate, setVisibleDate] = useState(false);
+  const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
+  const isMobileDevice = useMediaQuery({
+    query: "(max-device-width: 600px)",
+  });
 
-  const fetchJob = async () => {
+  /*const fetchJob = async () => {
     setIsLoading(true);
     var Job = [];
     const response = db.collection(props.route.params.file.JobNum);
@@ -63,7 +72,12 @@ export default function ForemanReport(props, jobNum) {
       setJob([...Job]);
     });
     setIsLoading(false);
+  };*/
+
+  const toggleOverlayDate = () => {
+    setVisibleDate(!visibleDate);
   };
+
   const _retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem("@MySuperStore:FR");
@@ -81,7 +95,7 @@ export default function ForemanReport(props, jobNum) {
         setT6(temp.T6);
         setT7(temp.T7);
       } else {
-        setHeader([{ Line0: {} }]);
+        setHeader([{ Line0: {} }], [{ Line1: {} }], [{ Line2: {} }]);
         setForemanSign(null);
         setClientSign(null);
         setT1([{ Line0: {} }, { Line1: {} }]);
@@ -97,6 +111,7 @@ export default function ForemanReport(props, jobNum) {
     }
   };
   useEffect(() => {
+    console.log(2);
     let isSubscribed = true;
     if (isSubscribed) {
       if (props.route.params.offline) {
@@ -105,8 +120,8 @@ export default function ForemanReport(props, jobNum) {
           Date: new Date().toString(),
         });
         Alert.alert(
-          "Existing File Detected",
-          "We found an existing offline JSA, do you wish to edit it or start fresh?",
+          "Existing Offline File?",
+          "Do you wish to use a previously created offline file or start fresh?",
           [
             {
               text: "Edit Existing",
@@ -145,7 +160,10 @@ export default function ForemanReport(props, jobNum) {
         setT6([{ Line0: {} }, { Line1: {} }]);
         setT7([{ Line0: {} }]);*/
       } else {
-        fetchJob();
+        if (props.route.params.file.TypeExtra === "Template") {
+          setIsTemplete(true);
+        }
+        //fetchJob();
         if (props.route.params.file.Header !== undefined) {
           setHeader(props.route.params.file.Header);
         }
@@ -195,37 +213,40 @@ export default function ForemanReport(props, jobNum) {
   const SignInScroll = () => {
     setScrollEnabled(!scrollEnabled);
   };
-  return visible ? (
-    <SignatureCapture
-      visible={visible}
-      setVisible={setVisible}
-      signature={ForemanSignature}
-      setSign={setForemanSign}
-      SignInScroll={SignInScroll}
-    />
-  ) : visible2 ? (
-    <SignatureCapture
-      visible={visible2}
-      setVisible={setVisible2}
-      signature={ClientSignature}
-      setSign={setClientSign}
-      SignInScroll={SignInScroll}
-    />
-  ) : (
+  return (
     <KeyboardAvoidingView
       style={styles.globalContainer}
       behavior={Platform.OS === "ios" ? "padding" : null}
       keyboardVerticalOffset={headerHeight}
     >
+      {visible ? (
+        <SignatureCapture
+          visible={visible}
+          setVisible={setVisible}
+          signature={ForemanSignature}
+          setSign={setForemanSign}
+          SignInScroll={SignInScroll}
+        />
+      ) : visible2 ? (
+        <SignatureCapture
+          visible={visible2}
+          setVisible={setVisible2}
+          signature={ClientSignature}
+          setSign={setClientSign}
+          SignInScroll={SignInScroll}
+        />
+      ) : null}
       <ScrollView scrollEnabled={scrollEnabled} style={styles.body}>
         <View>
-          {isLoading ? <Loading /> : <View></View>}
+          {isLoading ? <Loading /> : null}
           <View style={styles.RowOne}>
             <View style={styles.Header}>
               <FRHeader
                 Header={Header}
                 setHeader={setHeader}
                 offline={props.route.params.offline}
+                isBigScreen={isBigScreen}
+                toggleOverlayDate={toggleOverlayDate}
               />
             </View>
           </View>
@@ -240,7 +261,7 @@ export default function ForemanReport(props, jobNum) {
               <FRT2 T2={T2} setT2={setT2} id={1} />
             </View>
           </View>
-          <View style={styles.RowFour}>
+          <View style={isBigScreen ? styles.RowFour : styles.RowFourPhone}>
             <View style={styles.BT3}>
               <FRT3 T3={T3} setT3={setT3} id={2} />
             </View>
@@ -279,9 +300,63 @@ export default function ForemanReport(props, jobNum) {
             ClientSignature={ClientSignature}
             user={User}
             id={Id}
+            IsTemplete={IsTemplete}
           />
         </View>
       </ScrollView>
+
+      {visibleDate ? (
+        <View
+          style={{
+            position: "absolute",
+            bottom: 0,
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              width: "100%",
+              flex: 2,
+              opacity: 0.2,
+              backgroundColor: "grey",
+            }}
+            onPress={() => {
+              toggleOverlayDate();
+            }}
+          />
+          <View
+            style={{
+              width: "100%",
+              flex: 1,
+              backgroundColor: "lightgrey",
+            }}
+          >
+            <DateTimePicker
+              display="spinner"
+              dateFormat="dayofweek month day year"
+              themeVariant="light"
+              value={
+                new Date(
+                  Header[0].Line0.Date !== undefined ? Header[0].Line0.Date : 1
+                )
+              }
+              onChange={(event) => {
+                /*setT1({
+                  ...T1,
+                  Date: new Date(event.nativeEvent.timestamp).toString(),
+                });*/
+                setHeader(
+                  Header,
+                  (Header[0].Line0.Date = new Date(
+                    event.nativeEvent.timestamp
+                  ).toString())
+                );
+              }}
+            />
+          </View>
+        </View>
+      ) : null}
     </KeyboardAvoidingView>
   );
 }
@@ -315,6 +390,7 @@ const styles = StyleSheet.create({
   },
 
   RowFour: { flex: 2.4, flexDirection: "row" },
+  RowFourPhone: { flex: 2.4, flexDirection: "column" },
   BT3: {
     flex: 1,
     margin: "1%",

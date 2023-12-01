@@ -24,7 +24,6 @@ import { db, firebaseApp } from "../FirebaseLink";
 
 export default function AllOQ(props) {
   const [BtnColor, setBtnColor] = useState("black");
-  const [visible, setVisible] = useState(false);
   const Delete = async (temp) => {
     Alert.alert("Delete OQ?", "Are you sure you wish to delete this OQ?", [
       {
@@ -52,7 +51,24 @@ export default function AllOQ(props) {
   };
   if (props.job != undefined) {
     return (
-      <View style={styles.Cont} key={1}>
+      <View
+        style={
+          props.isBigScreen
+            ? [
+                styles.Cont,
+                {
+                  marginRight: "25%",
+                },
+              ]
+            : [
+                styles.Cont,
+                {
+                  marginRight: "0%",
+                },
+              ]
+        }
+        key={1}
+      >
         <View style={styles.globalFiles} key={2}>
           {props.job.map((file) => {
             file.JobNum = props.jobNum;
@@ -73,32 +89,23 @@ export default function AllOQ(props) {
                         <Text style={{ color: BtnColor }}>{file.name}</Text>
                       </TouchableHighlight>
                     </View>
-                    {visible ? (
-                      <View style={styles.existingJob2} key={file.baseId + "2"}>
-                        <Button
-                          style={styles.existingJobBtn}
+                    {
+                      props.visible ? (
+                        <TouchableHighlight
                           onPress={() => Delete(file)}
-                          title={"-"}
-                          color="white"
-                        ></Button>
-                      </View>
-                    ) : (
-                      <View></View>
-                    )}
+                          style={styles.existingJob2}
+                          key={file.baseId + "2"}
+                        >
+                          <Text style={styles.DeleteBtn} color="white">
+                            -
+                          </Text>
+                        </TouchableHighlight>
+                      ) : null //View>
+                    }
                   </View>
                 </View>
               );
           })}
-        </View>
-        <View style={styles.Edit} key={1}>
-          <TouchableHighlight
-            activeOpacity={0.99}
-            underlayColor="darkgreen"
-            style={styles.EditJobBtn}
-            onPress={() => setVisible(!visible)}
-          >
-            <Text style={{ color: "white" }}>Edit</Text>
-          </TouchableHighlight>
         </View>
       </View>
     );
@@ -116,6 +123,7 @@ const styles = StyleSheet.create({
   },
   Cont: {
     flexDirection: "column",
+    marginRight: "20%",
   },
   globalFiles: {
     flex: 1,
@@ -192,6 +200,11 @@ const styles = StyleSheet.create({
   EditJobBtn: {
     height: "100%",
     width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  DeleteBtn: {
+    color: "white",
     alignItems: "center",
     justifyContent: "center",
   },

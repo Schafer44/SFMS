@@ -17,7 +17,7 @@ export default function AllForemanReportDup(props) {
       if (file.Type === "Foreman Report") {
         if (file.TypeExtra === "Template") {
           return (
-            <View key={1}>
+            <View key={1} style={{ flex: 2 }}>
               <View style={styles.container} key={file.baseId}>
                 <View style={styles.existingJob} key={file.baseId}>
                   <TouchableHighlight
@@ -26,18 +26,16 @@ export default function AllForemanReportDup(props) {
                       props.navigation.navigate("Foreman Report", { file })
                     }
                   >
-                    <Text style={{ color: "white" }}>{file.TypeExtra}</Text>
+                    <Text style={{ color: "#272727" }}>{file.TypeExtra}</Text>
                   </TouchableHighlight>
                 </View>
               </View>
-              <View key={2}>
-                <Duplicate
-                  jobNum={file.JobNum}
-                  tempKey={file.baseId}
-                  file={file}
-                  job={props.job}
-                />
-              </View>
+              <Duplicate
+                jobNum={file.JobNum}
+                tempKey={file.baseId}
+                file={file}
+                job={props.job}
+              />
             </View>
           );
         }
@@ -47,29 +45,29 @@ export default function AllForemanReportDup(props) {
     return null;
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     width: "100%",
     backgroundColor: "white",
     justifyContent: "flex-end",
     alignItems: "center",
+    flex: 1,
+    marginBottom: "1%",
   },
   existingJob: {
     width: "95%",
-    height: 70,
-    backgroundColor: "#272727",
+    height: "100%",
+    backgroundColor: "lightgrey",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 5,
+    borderRadius: "10%",
   },
   fileTypeBtn: {
     width: "100%",
-    height: 70,
+    height: "100%",
     backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 5,
     color: "white",
   },
   btn: {

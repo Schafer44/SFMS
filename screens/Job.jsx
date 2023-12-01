@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -6,21 +5,15 @@ import {
   ScrollView,
   Button,
   TouchableHighlight,
+  Animated,
+  Dimensions,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
 } from "react-native";
 import { db } from "./FirebaseLink";
-import React, { setState, useState, useEffect } from "react";
-import {
-  onSnapshot,
-  doc,
-  collection,
-  orderBy,
-  query,
-} from "firebase/firestore";
-import Timesheet from "./FileTypes/TimesheetFolder/Timesheet";
-import AllTimesheet from "./all_Folder/allTimesheet";
-import AllForeman from "./all_Folder/allForeman";
-import AllJSA from "./all_Folder/allJSA";
-import AllOQ from "./all_Folder/allOQ";
+import React, { useState, useEffect } from "react";
+import { onSnapshot, collection, orderBy, query } from "firebase/firestore";
+
 import NewForemanReport from "./NewForemanReport";
 import NewJSA from "./NewJSA";
 import NewTimesheet from "./NewTimesheet";
@@ -32,310 +25,502 @@ import AllTimesheetDup from "./all_Folder/allTimesheetDup";
 import AllForemanDup from "./all_Folder/AllForemanDup";
 import AllJSADup from "./all_Folder/allJSADup";
 import Search from "./Search";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { JobTimesheetCol } from "./JobCol/JobTimesheetCol";
 import { JobOQCol } from "./JobCol/JobOQCol";
 import { JobJSACol } from "./JobCol/JobJSACol";
 import { JobFRCol } from "./JobCol/JobFRCol";
+import { useMediaQuery } from "react-responsive";
+import { AntDesign } from "@expo/vector-icons";
+import { useHeaderHeight } from "@react-navigation/elements";
+
+const windowHeight = Dimensions.get("window").height;
 
 export const Job = (props) => {
+  const windowWidth = Dimensions.get("window").width;
   const [contentT, setContentTimesheet] = useState(false);
+
   const [contentJ, setContentJSA] = useState(false);
   const [contentO, setContentOQ] = useState(false);
   const [contentF, setContentFR] = useState(false);
+  const [visibleEdit, setVisibleEdit] = useState(false);
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
+  const [load, setLoad] = useState(false);
+  const [sidebar, setSidebar] = useState(false);
+  const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
 
-  const componentHideAndShowJSA = () => {
-    setContentJSA(!contentJ);
-    //handleAnimation(contentJ);
-  };
-  const componentHideAndShowOQ = () => {
-    setContentOQ(!contentO);
-    // handleAnimation(contentO);
-  };
-  const componentHideAndShowFR = () => {
-    setContentFR(!contentF);
-    // handleAnimation(contentF);
-  };
-  //
-  /*const [rotateAnimation, setRotateAnimation] = useState(new Animated.Value(0));
-  const handleAnimation = (prop) => {
-    if (prop) {
-      Animated.timing(rotateAnimation, {
-        toValue: 0,
-        duration: 400,
-        useNativeDriver: true,
-      }).start(() => {
-        rotateAnimation.setValue(0);
-      });
-    } else {
-      Animated.timing(rotateAnimation, {
-        toValue: 1,
-        duration: 400,
-        useNativeDriver: true,
-      }).start(() => {
-        rotateAnimation.setValue(1);
-      });
+  const callSetSidebar = () => {
+    if (contentF || contentJ || contentO || contentT) {
+      setSidebar(!sidebar);
+      handleAnimation(sidebar);
     }
   };
-  const interpolateRotating = rotateAnimation.interpolate({
+  //
+  const [rotateAnimation, setRotateAnimation] = useState(
+    new Animated.Value(windowWidth)
+  );
+
+  const [rotateAnimationII, setRotateAnimationII] = useState(
+    new Animated.Value(0)
+  );
+  const [moveAnimation, setmoveAnimation] = useState(new Animated.Value(0));
+
+  const interpolateRotating = rotateAnimationII.interpolate({
     inputRange: [0, 1],
-    outputRange: ["0deg", "90deg"],
+    outputRange: ["0deg", "180deg"],
   });
-  const animatedStyle = {
-    backgroundColor: "red",
-    alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    left: 20,
+  const interpolateMovement = moveAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -windowWidth / 4],
+  });
+  const animatedStyleRotate = {
+    color: "white",
+    marginLeft: 5,
     transform: [
       {
         rotate: interpolateRotating,
       },
     ],
-  };*/
-  //
-  //const [Job, setJobs] = useState([]);
+  };
+  const animatedStyleII = {
+    transform: [
+      {
+        translateX: interpolateMovement,
+      },
+    ],
+  };
+  const handleAnimation = (prop, prop2, prop3, prop4) => {
+    var temp = 0;
+    if (isBigScreen) {
+      if (prop) {
+        if (contentT) {
+          temp++;
+        }
+        if (contentJ) {
+          temp++;
+        }
+        if (contentO) {
+          temp++;
+        }
+        if (contentF) {
+          temp++;
+        }
+        if (temp <= 0) {
+          Animated.timing(rotateAnimation, {
+            toValue: windowWidth,
+            duration: 250,
+            useNativeDriver: true,
+          }).start();
+
+          Animated.timing(rotateAnimationII, {
+            toValue: 0,
+            duration: 250,
+            useNativeDriver: true,
+          }).start();
+        }
+      } else {
+        Animated.timing(rotateAnimation, {
+          toValue: windowWidth - windowWidth / 4,
+          duration: 250,
+          useNativeDriver: true,
+        }).start();
+        Animated.timing(rotateAnimationII, {
+          toValue: 1,
+          duration: 250,
+          useNativeDriver: true,
+        }).start();
+      }
+    } else {
+      if (prop) {
+        Animated.timing(rotateAnimation, {
+          toValue: windowWidth,
+          duration: 250,
+          useNativeDriver: true,
+        }).start();
+        Animated.timing(rotateAnimationII, {
+          toValue: 0,
+          duration: 250,
+          useNativeDriver: true,
+        }).start();
+
+        Animated.timing(moveAnimation, {
+          toValue: 0,
+          duration: 250,
+          useNativeDriver: true,
+        }).start(() => {
+          moveAnimation.setValue(0);
+        });
+      } else {
+        Animated.timing(rotateAnimation, {
+          toValue: windowWidth - windowWidth / (100 / 60),
+          duration: 250,
+          useNativeDriver: true,
+        }).start();
+        Animated.timing(rotateAnimationII, {
+          toValue: 1,
+          duration: 250,
+          useNativeDriver: true,
+        }).start();
+        Animated.timing(moveAnimation, {
+          toValue: 1,
+          duration: 250,
+          useNativeDriver: true,
+        }).start(() => {
+          moveAnimation.setValue(1);
+        });
+      }
+    }
+  };
+  const animatedStyle = {
+    transform: [{ translateX: rotateAnimation }],
+    backgroundColor: "#272727",
+    borderColor: "white",
+    borderLeftWidth: 1,
+    padding: "1%",
+    width: "25%",
+    position: "absolute",
+    height: "100%",
+  };
+
+  const animatedStyleSmallScreen = {
+    transform: [{ translateX: rotateAnimation }],
+    backgroundColor: "#272727",
+    borderColor: "white",
+    borderLeftWidth: 1,
+    padding: "1%",
+    width: "60%",
+    position: "absolute",
+    height: "100%",
+  };
+
+  const componentHideAndShowTimesheet = () => {
+    if (isBigScreen) {
+      if (contentF || contentJ || contentO || contentT) {
+        setSidebar(true);
+        handleAnimation(true);
+      } else {
+        setSidebar(false);
+        handleAnimation(false);
+      }
+    }
+  };
+  const componentHideAndShowJSA = () => {
+    if (isBigScreen) {
+      if (contentF || contentJ || contentO || contentT) {
+        setSidebar(true);
+        handleAnimation(true);
+      } else {
+        setSidebar(false);
+        handleAnimation(false);
+      }
+    }
+    //handleAnimation(contentJ);
+    //setContentJSA(!contentJ);
+  };
+  const componentHideAndShowOQ = () => {
+    if (isBigScreen) {
+      if (contentF || contentJ || contentO || contentT) {
+        setSidebar(true);
+        handleAnimation(true);
+      } else {
+        setSidebar(false);
+        handleAnimation(false);
+      }
+    }
+    //handleAnimation(contentO);
+    //setContentOQ(!contentO);
+  };
+  const componentHideAndShowFR = () => {
+    if (isBigScreen) {
+      if (contentF || contentJ || contentO || contentT) {
+        setSidebar(true);
+        handleAnimation(true);
+      } else {
+        setSidebar(false);
+        handleAnimation(false);
+      }
+    }
+    //handleAnimation(contentF);
+    //setContentFR(!contentF);
+  };
   const [fileType, setFileType] = useState("");
   const [Job, setJobs] = useState([]);
+
+  useEffect(() => {
+    props.navigation.setOptions({
+      headerRight: () => (
+        <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity
+            onPress={() => setVisibleEdit(!visibleEdit)}
+            title="-"
+          >
+            <View
+              style={{
+                justifyContent: "center",
+                paddingLeft: 10,
+                paddingRight: 10,
+                padding: 5,
+              }}
+            >
+              <Text
+                style={{
+                  color: "#007AFF",
+                }}
+              >
+                Remove
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      ),
+    });
+  });
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(
-        collection(db, props.route.params.job.JobNum),
-        orderBy("id", "desc")
-      ),
+      query(collection(db, props.route.params.job), orderBy("id", "desc")),
       (snapshot) => {
+        console.log("read");
         setJobs(snapshot.docs.map((doc) => doc.data()));
       }
     );
+    setLoad(true);
 
     return () => {
+      console.log("Close");
+      console.log("");
       unsubscribe();
     };
-    //fetchJobs();
   }, []);
 
   return (
     <View style={styles.GC}>
-      <Search
-        searchPhrase={searchPhrase}
-        setSearchPhrase={setSearchPhrase}
-        clicked={clicked}
-        setClicked={setClicked}
-      />
-      <ScrollView style={styles.Scroll}>
-        <JobTimesheetCol
-          contentT={contentT}
-          setContentTimesheet={setContentTimesheet}
+      <View style={{ flex: 1 }}>
+        <Search
           searchPhrase={searchPhrase}
           setSearchPhrase={setSearchPhrase}
-          navigation={props.navigation}
-          route={props.route}
-          Job={Job}
+          clicked={clicked}
+          setClicked={setClicked}
         />
-        <JobJSACol
-          contentJ={contentJ}
-          setContentJSA={setContentJSA}
-          searchPhrase={searchPhrase}
-          setSearchPhrase={setSearchPhrase}
-          navigation={props.navigation}
-          route={props.route}
-          Job={Job}
-        />
-        <JobFRCol
-          contentF={contentF}
-          setContentFR={setContentFR}
-          searchPhrase={searchPhrase}
-          setSearchPhrase={setSearchPhrase}
-          navigation={props.navigation}
-          route={props.route}
-          Job={Job}
-        />
-        <JobOQCol
-          contentO={contentO}
-          setContentOQ={setContentOQ}
-          searchPhrase={searchPhrase}
-          setSearchPhrase={setSearchPhrase}
-          navigation={props.navigation}
-          route={props.route}
-          Job={Job}
-        />
-        {/*
-        <View>
-          <View style={styles.existingJob}>
-            <TouchableHighlight
-              onPress={componentHideAndShowTimesheet}
-              style={styles.existingJobBtn}
-            >
-              <View style={styles.existingJobBtnView}>
-                <Ionicons
-                  name="menu"
-                  size={32}
-                  color="white"
-                  style={[styles.existingJobBtnViewTextIcon1]}
-                />
-                <Text style={styles.Text}>Timesheets</Text>
-              </View>
-            </TouchableHighlight>
-          </View>
-          {contentT ? (
-            <View>
-              <AllTimesheet
-                job={Job}
-                navigation={props.navigation}
-                jobNum={props.route.params.job.JobNum}
-                user={props.route.params.job.user}
-                searchPhrase={searchPhrase}
-              />
-              <NewTimesheet
-                jobNum={props.route.params.job.JobNum}
-                tempKey={1}
-                job={Job}
-              />
-              <NewTimesheetFE
-                jobNum={props.route.params.job.JobNum}
-                tempKey={1}
-                job={Job}
-              />
-              <AllTimesheetDup
-                job={Job}
-                navigation={props.navigation}
-                jobNum={props.route.params.job.JobNum}
-              />
-            </View>
-          ) : null}
-          </View>
-        <View>
-          <View style={styles.existingJob}>
-            <TouchableHighlight
-              onPress={componentHideAndShowJSA}
-              style={styles.existingJobBtn}
-            >
-              <View style={styles.existingJobBtnView}>
-                <Ionicons
-                  name="menu"
-                  size={32}
-                  color="white"
-                  style={[styles.existingJobBtnViewTextIcon1]}
-                />
-                <Text style={styles.Text}>JSAs</Text>
-              </View>
-            </TouchableHighlight>
-          </View>
-          {contentJ ? (
-            <View>
-              <AllJSA
-                job={Job}
-                navigation={props.navigation}
-                jobNum={props.route.params.job.JobNum}
-                user={props.route.params.job.user}
-                searchPhrase={searchPhrase}
-              />
-              <NewJSA
-                jobNum={props.route.params.job.JobNum}
-                tempKey={2}
-                job={Job}
-              />
-              <NewJSAFE
-                jobNum={props.route.params.job.JobNum}
-                tempKey={2}
-                job={Job}
-              />
-              <AllJSADup
-                job={Job}
-                navigation={props.navigation}
-                jobNum={props.route.params.job.JobNum}
-              />
-            </View>
-          ) : null}
+      </View>
+      <View style={styles.Cont}>
+        <View style={styles.CollectionLeft}>
+          <ScrollView style={styles.Scroll}>
+            <JobTimesheetCol
+              moveMargin={isBigScreen ? windowWidth / 10 : windowWidth / 4}
+              contentT={contentT}
+              contentO={contentO}
+              contentF={contentF}
+              contentJ={contentJ}
+              ParentAnimation={componentHideAndShowTimesheet}
+              setContentTimesheet={setContentTimesheet}
+              searchPhrase={searchPhrase}
+              setSearchPhrase={setSearchPhrase}
+              navigation={props.navigation}
+              route={props.route}
+              Job={Job}
+              isBigScreen={isBigScreen}
+              sidebar={sidebar}
+              setSidebar={setSidebar}
+              visibleEdit={visibleEdit}
+              animatedStyleII={animatedStyleII}
+              callSetSidebar={callSetSidebar}
+            />
+            <JobJSACol
+              moveMargin={isBigScreen ? windowWidth / 10 : windowWidth / 4}
+              contentT={contentT}
+              contentO={contentO}
+              contentF={contentF}
+              contentJ={contentJ}
+              ParentAnimation={componentHideAndShowJSA}
+              setContentJSA={setContentJSA}
+              searchPhrase={searchPhrase}
+              setSearchPhrase={setSearchPhrase}
+              navigation={props.navigation}
+              route={props.route}
+              Job={Job}
+              isBigScreen={isBigScreen}
+              sidebar={sidebar}
+              setSidebar={setSidebar}
+              visibleEdit={visibleEdit}
+              animatedStyleII={animatedStyleII}
+            />
+            <JobFRCol
+              moveMargin={isBigScreen ? windowWidth / 10 : windowWidth / 4}
+              contentT={contentT}
+              contentO={contentO}
+              contentF={contentF}
+              contentJ={contentJ}
+              ParentAnimation={componentHideAndShowFR}
+              setContentFR={setContentFR}
+              searchPhrase={searchPhrase}
+              setSearchPhrase={setSearchPhrase}
+              navigation={props.navigation}
+              route={props.route}
+              Job={Job}
+              isBigScreen={isBigScreen}
+              sidebar={sidebar}
+              setSidebar={setSidebar}
+              visibleEdit={visibleEdit}
+              animatedStyleII={animatedStyleII}
+            />
+            <JobOQCol
+              moveMargin={isBigScreen ? windowWidth / 10 : windowWidth / 4}
+              contentO={contentO}
+              contentJ={contentJ}
+              ParentAnimation={componentHideAndShowOQ}
+              setContentOQ={setContentOQ}
+              searchPhrase={searchPhrase}
+              setSearchPhrase={setSearchPhrase}
+              navigation={props.navigation}
+              route={props.route}
+              Job={Job}
+              isBigScreen={isBigScreen}
+              sidebar={sidebar}
+              setSidebar={setSidebar}
+              visibleEdit={visibleEdit}
+              animatedStyleII={animatedStyleII}
+            />
+          </ScrollView>
         </View>
-        <View>
-          <View style={styles.existingJob}>
-            <TouchableHighlight
-              onPress={componentHideAndShowFR}
-              style={styles.existingJobBtn}
-            >
-              <View style={styles.existingJobBtnView}>
-                <Ionicons
-                  name="menu"
-                  size={32}
-                  color="white"
-                  style={[
-                    contentF
-                      ? styles.existingJobBtnViewTextIcon2
-                      : styles.existingJobBtnViewTextIcon1,
-                  ]}
-                />
-                <Text style={styles.Text}>Foreman Reports</Text>
-              </View>
-            </TouchableHighlight>
-          </View>
-          {contentF ? (
-            <View>
-              <AllForeman
-                job={Job}
-                navigation={props.navigation}
-                jobNum={props.route.params.job.JobNum}
-                user={props.route.params.job.user}
-                searchPhrase={searchPhrase}
-              />
-              <NewForemanReport
-                jobNum={props.route.params.job.JobNum}
-                tempKey={3}
-                job={Job}
-              />
-              <NewForemanReportFE
-                jobNum={props.route.params.job.JobNum}
-                tempKey={3}
-                job={Job}
-              />
-              <AllForemanDup
-                job={Job}
-                navigation={props.navigation}
-                jobNum={props.route.params.job.JobNum}
-              />
-            </View>
-          ) : null}
-        </View>
-        <View>
-          <View style={styles.existingJob}>
-            <TouchableHighlight
-              onPress={componentHideAndShowOQ}
-              style={styles.existingJobBtn}
-            >
-              <View style={styles.existingJobBtnView}>
-                <Ionicons
-                  name="menu"
-                  size={32}
-                  color="white"
-                  style={[
-                    contentO
-                      ? styles.existingJobBtnViewTextIcon2
-                      : styles.existingJobBtnViewTextIcon1,
-                  ]}
-                />
-                <Text style={styles.Text}>OQs</Text>
-              </View>
-            </TouchableHighlight>
-          </View>
-          {contentO ? (
-            <View>
-              <AllOQ
-                job={Job}
-                navigation={props.navigation}
-                jobNum={props.route.params.job.JobNum}
-              />
+        {contentF || contentJ || contentO || contentT ? (
+          <Animated.View
+            style={isBigScreen ? animatedStyle : animatedStyleSmallScreen}
+          >
+            {!isBigScreen ? (
+              <TouchableHighlight
+                style={{
+                  color: "white",
+                  position: "absolute",
+                  left: -50,
+                  width: 50,
+                  height: 50,
+                  top: -1,
+                  backgroundColor: "red",
+                  borderTopLeftRadius: "100%",
+                  borderBottomLeftRadius: "100%",
+                  borderColor: "white",
+                  borderLeftWidth: 1,
+                  borderBottomWidth: 1,
+                  borderTopWidth: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#272727",
+                }}
+                onPress={() => callSetSidebar()}
+              >
+                <Animated.View style={animatedStyleRotate}>
+                  <AntDesign name="doubleleft" size={24} color="white" />
+                </Animated.View>
+              </TouchableHighlight>
+            ) : null}
 
-              <NewOQ
-                jobNum={props.route.params.job.JobNum}
-                tempKey={1}
-                job={Job}
-              />
-            </View>
-          ) : null}
-          </View>*/}
-      </ScrollView>
+            <ScrollView>
+              <View style={{ height: "100%" }}>
+                {/*<View style={styles.Edit} key={1}>
+                  <TouchableHighlight
+                    activeOpacity={0.99}
+                    underlayColor="darkgreen"
+                    style={styles.EditJobBtn}
+                    onPress={() => setVisibleEdit(!visibleEdit)}
+                  >
+                    <Text style={{ color: "white" }}>Edit</Text>
+                  </TouchableHighlight>
+                </View>*/}
+                {contentT ? (
+                  <View style={styles.CollectionRight}>
+                    <View style={styles.CollectionRightTitleCont}>
+                      <View style={styles.CollectionRightTitleContTwo}>
+                        <Text style={styles.CollectionRightTitle}>
+                          Timesheet
+                        </Text>
+                      </View>
+                    </View>
+                    <NewTimesheet
+                      jobNum={props.route.params.job}
+                      tempKey={1}
+                      job={Job}
+                    />
+                    <NewTimesheetFE
+                      jobNum={props.route.params.job}
+                      tempKey={1}
+                      job={Job}
+                    />
+                    <AllTimesheetDup
+                      job={Job}
+                      navigation={props.navigation}
+                      jobNum={props.route.params.job}
+                    />
+                  </View>
+                ) : null}
+                {contentJ ? (
+                  <View style={styles.CollectionRight}>
+                    <View style={styles.CollectionRightTitleCont}>
+                      <View style={styles.CollectionRightTitleContTwo}>
+                        <Text style={styles.CollectionRightTitle}>JSA</Text>
+                      </View>
+                    </View>
+                    <NewJSA
+                      jobNum={props.route.params.job}
+                      tempKey={1}
+                      job={Job}
+                    />
+                    <NewJSAFE
+                      jobNum={props.route.params.job}
+                      tempKey={1}
+                      job={Job}
+                    />
+                    <AllJSADup
+                      job={Job}
+                      navigation={props.navigation}
+                      jobNum={props.route.params.job}
+                    />
+                  </View>
+                ) : null}
+                {contentF ? (
+                  <View style={styles.CollectionRight}>
+                    <View style={styles.CollectionRightTitleCont}>
+                      <View style={styles.CollectionRightTitleContTwo}>
+                        <Text style={styles.CollectionRightTitle}>
+                          Foreman Report
+                        </Text>
+                      </View>
+                    </View>
+                    <NewForemanReport
+                      jobNum={props.route.params.job}
+                      tempKey={1}
+                      job={Job}
+                    />
+                    <NewForemanReportFE
+                      jobNum={props.route.params.job}
+                      tempKey={1}
+                      job={Job}
+                    />
+                    <AllForemanDup
+                      job={Job}
+                      navigation={props.navigation}
+                      jobNum={props.route.params.job}
+                    />
+                  </View>
+                ) : null}
+                {contentO ? (
+                  <View style={styles.CollectionRight}>
+                    <View style={styles.CollectionRightTitleCont}>
+                      <View style={styles.CollectionRightTitleContTwo}>
+                        <Text style={styles.CollectionRightTitle}>OQ</Text>
+                      </View>
+                    </View>
+                    <NewOQ
+                      jobNum={props.route.params.job}
+                      tempKey={1}
+                      job={Job}
+                    />
+                  </View>
+                ) : null}
+              </View>
+            </ScrollView>
+          </Animated.View>
+        ) : null}
+      </View>
     </View>
   );
 };
@@ -378,6 +563,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  Edit: {
+    flexDirection: "row",
+    height: 40,
+    width: "95%",
+    backgroundColor: "green",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 5,
+    alignSelf: "flex-end",
+    marginRight: "2.5%",
+  },
   Text: {
     marginTop: 27,
     alignItems: "center",
@@ -396,8 +592,69 @@ const styles = StyleSheet.create({
   },
   Scroll: {
     maxHeight: "100%",
+    height: "100%",
   },
   GC: {
+    height: "100%",
     maxHeight: "100%",
+  },
+  Cont: {
+    display: "flex",
+    flex: 8,
+    flexDirection: "row",
+  },
+  CollectionRight: {
+    height: 250,
+    backgroundColor: "white",
+    margin: "2.5%",
+    display: "flex",
+    borderRadius: "10%",
+    padding: "3%",
+  },
+  CollectionRightTitleCont: {
+    flex: 1,
+    width: "100%",
+    padding: "0%",
+    alignItems: "center",
+    textAlign: "center",
+    justifyContent: "center",
+    alignContent: "center",
+  },
+
+  CollectionRightTitleContTwo: {
+    width: "95%",
+    flex: 1,
+    padding: "0%",
+    margin: "1%",
+    backgroundColor: "#272727",
+    marginBottom: "1%",
+    alignItems: "center",
+    textAlign: "center",
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  CollectionRightTitle: {
+    color: "white",
+  },
+  CollectionRightCont: {
+    flex: 1,
+    borderLeftWidth: 1,
+    backgroundColor: "#272727",
+    padding: "1%",
+  },
+  CollectionLeft: {
+    flex: 4,
+    maxHeight: "100%",
+    height: "100%",
+  },
+  CollectionRightContEmpty: {
+    flex: 0,
+  },
+
+  EditJobBtn: {
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

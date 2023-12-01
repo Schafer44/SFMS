@@ -59,7 +59,7 @@ export default function JSAT11(props) {
       <View style={styles.body}>
         <View style={styles.Column}>
           <View style={styles.Row}>
-            <Text>Task / Job Steps</Text>
+            <Text>Task/ Job Steps</Text>
           </View>
           {Object.keys(Line0)
             .sort()
@@ -212,8 +212,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
 
-  textInputTest: {
-    paddingLeft: 5,
+  textInputTestSig: {
+    marginLeft: 5,
     width: "100%",
     height: "100%",
     flex: 1,
@@ -223,6 +223,9 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 1,
     height: 50,
+    justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
   },
   TitleText1: {
     justifyContent: "center",

@@ -15,7 +15,6 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export default function AllForeman(props) {
-  const [visible, setVisible] = useState(false);
   const [BtnColor, setBtnColor] = useState("black");
   const Delete = async (temp) => {
     Alert.alert(
@@ -42,7 +41,24 @@ export default function AllForeman(props) {
   };
   if (props.job != undefined) {
     return (
-      <View style={styles.Cont} key={1}>
+      <View
+        style={
+          props.isBigScreen
+            ? [
+                styles.Cont,
+                {
+                  marginRight: "25%",
+                },
+              ]
+            : [
+                styles.Cont,
+                {
+                  marginRight: "0%",
+                },
+              ]
+        }
+        key={1}
+      >
         <View style={styles.globalFiles} key={2}>
           {props.job.map((file) => {
             file.JobNum = props.jobNum;
@@ -90,26 +106,24 @@ export default function AllForeman(props) {
                               </Text>
                             </TouchableHighlight>
                           </View>
-                          {visible ? (
-                            <View
-                              style={styles.existingJob2}
-                              key={file.baseId + "2"}
-                            >
-                              <Button
-                                style={styles.existingJobBtn}
+                          {
+                            props.visible ? (
+                              <TouchableHighlight
                                 onPress={() => Delete(file)}
-                                title={"-"}
-                                color="white"
-                              ></Button>
-                            </View>
-                          ) : (
-                            <View></View>
-                          )}
+                                style={styles.existingJob2}
+                                key={file.baseId + "2"}
+                              >
+                                <Text style={styles.DeleteBtn} color="white">
+                                  -
+                                </Text>
+                              </TouchableHighlight>
+                            ) : null //
+                          }
                         </View>
                       </View>
                     );
                   } else {
-                    <View></View>;
+                    null; //View>;
                   }
                 } else {
                   return (
@@ -134,21 +148,19 @@ export default function AllForeman(props) {
                             </Text>
                           </TouchableHighlight>
                         </View>
-                        {visible ? (
-                          <View
-                            style={styles.existingJob2}
-                            key={file.baseId + "2"}
-                          >
-                            <Button
-                              style={styles.existingJobBtn}
+                        {
+                          props.visible ? (
+                            <TouchableHighlight
                               onPress={() => Delete(file)}
-                              title={"-"}
-                              color="white"
-                            ></Button>
-                          </View>
-                        ) : (
-                          <View></View>
-                        )}
+                              style={styles.existingJob2}
+                              key={file.baseId + "2"}
+                            >
+                              <Text style={styles.DeleteBtn} color="white">
+                                -
+                              </Text>
+                            </TouchableHighlight>
+                          ) : null //View>
+                        }
                       </View>
                     </View>
                   );
@@ -156,16 +168,6 @@ export default function AllForeman(props) {
               }
             }
           })}
-        </View>
-        <View style={styles.Edit} key={1}>
-          <TouchableHighlight
-            activeOpacity={0.99}
-            underlayColor="darkgreen"
-            style={styles.EditJobBtn}
-            onPress={() => setVisible(!visible)}
-          >
-            <Text style={{ color: "white" }}>Edit</Text>
-          </TouchableHighlight>
         </View>
       </View>
     );
@@ -183,6 +185,7 @@ const styles = StyleSheet.create({
   },
   Cont: {
     flexDirection: "column",
+    marginRight: "20%",
   },
 
   globalFiles: {
@@ -251,6 +254,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "stretch",
     borderRadius: windowWidth * 0.02,
+    color: "white",
   },
   Text: {
     color: "white",
@@ -270,6 +274,11 @@ const styles = StyleSheet.create({
   EditJobBtn: {
     height: "100%",
     width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  DeleteBtn: {
+    color: "white",
     alignItems: "center",
     justifyContent: "center",
   },

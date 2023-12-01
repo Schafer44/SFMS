@@ -35,7 +35,7 @@ export default class NewTimesheet extends React.Component {
           Type: "Timesheet",
           TypeExtra: "null",
           baseId: ref._delegate._key.path.segments[1],
-          TimesheetLines: { line0: ["", "", "", "", "", "", ""] },
+          TimesheetLines: { Line0: ["", "", "", "", "", "", ""] },
           TimesheetHeader: {},
           id: this.props.job.length,
           hasBeenUpdated: "no",
@@ -50,7 +50,7 @@ export default class NewTimesheet extends React.Component {
     };
     return (
       <View style={styles.container} key={1}>
-        {this.state.isLoading ? <Loading /> : <View></View>}
+        {this.state.isLoading ? <Loading /> : null}
         <View style={styles.newJob} key={1}>
           <TouchableHighlight
             activeOpacity={0.99}
@@ -71,17 +71,18 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "flex-end",
     alignItems: "center",
+    flex: 1,
   },
   Text: {
     color: "white",
   },
   newJob: {
     width: "95%",
-    height: 40,
     backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 5,
+    marginBottom: "1%",
+    borderRadius: 10,
   },
   EditJobBtn: {
     height: "100%",

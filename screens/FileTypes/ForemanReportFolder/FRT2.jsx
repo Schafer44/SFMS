@@ -44,11 +44,14 @@ export default function FRT2(props) {
         </View>
       </View>
       <View style={styles.body}>
-        <View style={styles.Column}>
-          <View style={styles.TitleLeftRow}>
+        <View style={styles.ColumnBig}>
+          {/*<View style={styles.TitleLeftRow}>
             <Text style={styles.TitleText2}> </Text>
-          </View>
+          </View>*/}
           <View style={styles.Rows}>
+            <View style={styles.Row}>
+              <Text style={styles.textInputTest}>Mainline</Text>
+            </View>
             <View style={styles.Row}>
               {/*<TextInput
                 style={styles.textInputTest}
@@ -174,10 +177,10 @@ export default function FRT2(props) {
           </View>
         </View>
 
-        <View style={styles.Column2}>
+        {/* <View style={styles.Column2}>
           <View style={styles.TitleRow}>
             <Text style={styles.TitleText2}> </Text>
-          </View>
+                </View>
           <View style={styles.Rows}>
             <View style={styles.Row}>
               <Text style={styles.textInputTest}>Mainline</Text>
@@ -189,13 +192,16 @@ export default function FRT2(props) {
               <Text style={styles.textInputTest}>Mainline</Text>
             </View>
           </View>
-        </View>
+        </View>*/}
 
         <View style={styles.Column}>
-          <View style={styles.TitleRow}>
+          {/*<View style={styles.TitleRow}>
             <Text style={styles.TitleText2}> </Text>
-          </View>
+          </View>*/}
           <View style={styles.Rows}>
+            <View style={styles.Row}>
+              <Text style={styles.textInputTest}>HDD/Bore</Text>
+            </View>
             <View style={styles.Row}>
               {/*<TextInput
                 style={styles.textInputTest}
@@ -319,10 +325,10 @@ export default function FRT2(props) {
           </View>
         </View>
 
-        <View style={styles.Column2}>
+        {/*<View style={styles.Column2}>
           <View style={styles.TitleRow}>
             <Text style={styles.TitleText2}> TY</Text>
-          </View>
+                </View>
           <View style={styles.Rows}>
             <View style={styles.Row}>
               <Text style={styles.textInputTest}>HDD/Bore</Text>
@@ -334,13 +340,16 @@ export default function FRT2(props) {
               <Text style={styles.textInputTest}>HDD/Bore</Text>
             </View>
           </View>
-        </View>
+                </View>*/}
 
-        <View style={styles.Column}>
-          <View style={styles.TitleRow}>
+        <View style={styles.ColumnBig}>
+          {/*<View style={styles.TitleRow}>
             <Text style={styles.TitleText3}>PE</Text>
-          </View>
+              </View>*/}
           <View style={styles.Rows}>
+            <View style={styles.Row}>
+              <Text style={styles.textInputTest}>Fabrication</Text>
+            </View>
             <View style={styles.Row}>
               {/*<TextInput
                 style={styles.textInputTest}
@@ -464,7 +473,7 @@ export default function FRT2(props) {
           </View>
         </View>
 
-        <View style={styles.Column2}>
+        {/*<View style={styles.Column2}>
           <View style={styles.TitleRow}>
             <Text style={styles.TitleText}> </Text>
           </View>
@@ -479,13 +488,16 @@ export default function FRT2(props) {
               <Text style={styles.textInputTest}>Fabrication</Text>
             </View>
           </View>
-        </View>
+                </View>*/}
 
         <View style={styles.Column}>
-          <View style={styles.TitleRow}>
+          {/*<View style={styles.TitleRow}>
             <Text style={styles.TitleText2}> </Text>
-          </View>
+                </View>*/}
           <View style={styles.Rows}>
+            <View style={styles.Row}>
+              <Text style={styles.textInputTest}>Fitting</Text>
+            </View>
             <View style={styles.Row}>
               {/*} <TextInput
                 style={styles.textInputTest}
@@ -609,7 +621,7 @@ export default function FRT2(props) {
           </View>
         </View>
 
-        <View style={styles.Column2}>
+        {/*<View style={styles.Column2}>
           <View style={styles.TitleRight2Row}>
             <Text style={styles.TitleText2}> </Text>
           </View>
@@ -624,13 +636,13 @@ export default function FRT2(props) {
               <Text style={styles.textInputTest}>Fitting</Text>
             </View>
           </View>
-        </View>
+                </View>*/}
 
-        <View style={styles.Column2}>
-          <View style={styles.TitleRightRow}>
-            <Text style={styles.TitleText1}>QUANTITY</Text>
-          </View>
+        <View style={styles.Column}>
           <View style={styles.Rows}>
+            <View style={styles.Row}>
+              <Text style={styles.TitleText1}>Qty.</Text>
+            </View>
             <View style={styles.Row}>
               <TextInput
                 style={styles.textInputTest}
@@ -663,11 +675,11 @@ export default function FRT2(props) {
             </View>
           </View>
         </View>
-        <View style={styles.Column2}>
-          <View style={styles.TitleRightRow}>
-            <Text style={styles.TitleText1}>DIAMETER</Text>
-          </View>
+        <View style={styles.Column}>
           <View style={styles.Rows}>
+            <View style={styles.Row}>
+              <Text style={styles.TitleText1}>Dia.</Text>
+            </View>
             <View style={styles.Row}>
               <TextInput
                 style={styles.textInputTest}
@@ -715,6 +727,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   Rows: { flex: 3 },
+  RowsBig: { flex: 10 },
   Row: {
     height: 40,
     flex: 1,
@@ -723,7 +736,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   Column: { flex: 1, flexDirection: "column" },
-  Column2: { flex: 4, flexDirection: "column" },
+  ColumnBig: { flex: 1.75, flexDirection: "column" },
   ColumnTitle: {
     flex: 0.3,
   },
@@ -791,4 +804,6 @@ const styles = StyleSheet.create({
     height: "100%",
     flex: 1,
   },
+  ColumnPhone: { flex: 1, flexDirection: "column" },
+  SubBtnPhone: { height: 20 },
 });

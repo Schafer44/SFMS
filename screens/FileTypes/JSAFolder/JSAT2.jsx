@@ -19,7 +19,7 @@ export default function JSAT2(props) {
       <View style={styles.Column}>
         <View style={styles.Row}>
           <Text style={styles.TitleText2}>
-            Description or work to be performed:
+            Description of work to be performed:
           </Text>
         </View>
       </View>

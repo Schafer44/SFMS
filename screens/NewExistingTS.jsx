@@ -5,6 +5,7 @@ import {
   View,
   Button,
   TouchableHighlight,
+  Alert,
 } from "react-native";
 import { db } from "./FirebaseLink";
 import React, { setState, useState, useEffect } from "react";
@@ -43,13 +44,30 @@ export default class NewTimesheetFE extends React.Component {
           this.state.CSig = temp.Csignature;
           this.state.FRSig = temp.FRsignature;
         }
+        var Job = [];
+        const ref = db.collection(this.props.jobNum).doc();
+        const ehehe = await db
+          .collection(this.props.jobNum)
+          .doc(ref._delegate._key.path.segments[1])
+          .set({
+            Type: "Timesheet",
+            TypeExtra: null,
+            baseId: ref._delegate._key.path.segments[1],
+            TimesheetLines: this.state.TimesheetLines,
+            TimesheetHeader: this.state.Header,
+            id: this.props.job.length,
+            CRsignature: this.state.CRSig,
+            Csignature: this.state.CSig,
+            FRsignature: this.state.FRSig,
+            Comment: this.state.Comment,
+          });
       } catch (error) {
-        console.log(error);
+        Alert.alert("No local save found");
       }
     };
     const DoBoth = async () => {
       await _retrieveData();
-      const Ref = await NewTimesheet();
+      //const Ref = await NewTimesheet();
     };
 
     const NewTimesheet = async () => {
@@ -58,7 +76,6 @@ export default class NewTimesheetFE extends React.Component {
       });
       var Job = [];
       const ref = db.collection(this.props.jobNum).doc();
-      console.log(this.state);
       const ehehe = await db
         .collection(this.props.jobNum)
         .doc(ref._delegate._key.path.segments[1])
@@ -84,7 +101,7 @@ export default class NewTimesheetFE extends React.Component {
     };
     return (
       <View style={styles.container} key={1}>
-        {this.state.isLoading ? <Loading /> : <View></View>}
+        {this.state.isLoading ? <Loading /> : null}
         <View style={styles.newJob} key={1}>
           <TouchableHighlight
             activeOpacity={0.99}
@@ -92,9 +109,7 @@ export default class NewTimesheetFE extends React.Component {
             style={styles.EditJobBtn}
             onPress={() => DoBoth()}
           >
-            <Text style={{ color: "white" }}>
-              New Timesheet From Offline File
-            </Text>
+            <Text style={{ color: "white" }}>Copy Offline Timesheet</Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -107,17 +122,18 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "flex-end",
     alignItems: "center",
+    flex: 1,
   },
   Text: {
     color: "white",
   },
   newJob: {
     width: "95%",
-    height: 40,
     backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 5,
+    marginBottom: "1%",
+    borderRadius: 10,
   },
   EditJobBtn: {
     height: "100%",
