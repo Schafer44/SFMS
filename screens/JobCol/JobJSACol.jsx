@@ -7,9 +7,6 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import AllJSA from "../all_Folder/allJSA";
-import NewJSA from "../NewJSA";
-import NewJSAFE from "../NewExistingJSA";
-import AllJSADup from "../all_Folder/allJSADup";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export const JobJSACol = (props) => {

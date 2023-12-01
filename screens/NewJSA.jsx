@@ -1,14 +1,6 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TouchableHighlight,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
 import { db } from "./FirebaseLink";
-import React, { setState, useState, useEffect } from "react";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import React from "react";
 import Loading from "./Loading";
 
 export default class NewJSA extends React.Component {

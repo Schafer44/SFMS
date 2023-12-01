@@ -7,9 +7,6 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import AllForeman from "../all_Folder/allForeman";
-import NewForemanReport from "../NewForemanReport";
-import NewForemanReportFE from "../NewExistingFR";
-import AllForemanDup from "../all_Folder/AllForemanDup";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export const JobFRCol = (props) => {

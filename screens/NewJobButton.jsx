@@ -1,19 +1,9 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TouchableOpacity,
-  alert,
-  Alert,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { db } from "./FirebaseLink";
-import React, { setState, useState, useEffect } from "react";
-import { doc, getDoc, setDoc, addDoc, collection } from "firebase/firestore";
+import React from "react";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { TextInput } from "react-native-paper";
 import Loading from "./Loading";
-import PopupWithInput from "./Popup";
 
 // !!
 // This has all been refactored elsewhere

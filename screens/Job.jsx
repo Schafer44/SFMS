@@ -3,11 +3,9 @@ import {
   Text,
   View,
   ScrollView,
-  Button,
   TouchableHighlight,
   Animated,
   Dimensions,
-  TouchableWithoutFeedback,
   TouchableOpacity,
 } from "react-native";
 import { db } from "./FirebaseLink";
@@ -31,7 +29,6 @@ import { JobJSACol } from "./JobCol/JobJSACol";
 import { JobFRCol } from "./JobCol/JobFRCol";
 import { useMediaQuery } from "react-responsive";
 import { AntDesign } from "@expo/vector-icons";
-import { useHeaderHeight } from "@react-navigation/elements";
 
 const windowHeight = Dimensions.get("window").height;
 

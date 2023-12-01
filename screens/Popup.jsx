@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import {
   View,
-  Button,
   Modal,
   TextInput,
   StyleSheet,
   Text,
-  TouchableHighlight,
   TouchableOpacity,
-  TouchableWithoutFeedback,
 } from "react-native";
 
 const PopupWithInput = ({ onSubmit }) => {

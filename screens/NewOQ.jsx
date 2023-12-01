@@ -2,11 +2,10 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   Alert,
   TouchableHighlight,
 } from "react-native";
-import React, { setState, useState, useEffect } from "react";
+import React from "react";
 import * as DocumentPicker from "expo-document-picker";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getStorage } from "firebase/storage";

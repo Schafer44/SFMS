@@ -11,13 +11,11 @@ import {
   TouchableHighlight,
   Alert,
 } from "react-native";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import authentication from "./FirebaseLink";
 import Logo from "../assets/LoginLogo.png";
 import { fetchUsersCompany } from "./FirebaseLink";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Ionicons from "@expo/vector-icons/Ionicons";
 
 const LoginScreen = (props) => {
   // State variables for email, password, activity indicator, and stay logged in checkbox

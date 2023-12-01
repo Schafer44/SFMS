@@ -4,13 +4,9 @@ import {
   View,
   TouchableHighlight,
   Animated,
-  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import AllTimesheet from "../all_Folder/allTimesheet";
-import NewTimesheet from "../NewTimesheet";
-import NewTimesheetFE from "../NewExistingTS";
-import AllTimesheetDup from "../all_Folder/allTimesheetDup";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export const JobTimesheetCol = (props) => {

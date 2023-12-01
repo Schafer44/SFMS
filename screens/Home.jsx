@@ -1,22 +1,18 @@
-import { StatusBar } from "expo-status-bar";
 import {
   ScrollView,
   StyleSheet,
   Text,
   View,
-  Image,
   Button,
   KeyboardAvoidingView,
   Alert,
-  TouchableWithoutFeedback,
   TouchableOpacity,
 } from "react-native";
 import Jobs from "./Jobs";
 import { db } from "./FirebaseLink";
-import NewJob from "./NewJobButton";
 import Search from "./Search";
 import { useHeaderHeight } from "@react-navigation/elements";
-import { doc, getDoc, setDoc, addDoc, collection } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import PopupWithInput from "./Popup";
@@ -24,7 +20,6 @@ import { handleSignOut } from "./FirebaseLink";
 
 export default function Home(props) {
   // State variables for count and visibility
-  const [count, setCount] = useState(0);
   const [visible, setVisible] = useState(false);
 
   // Function to create a new Timesheet with validation
@@ -169,7 +164,6 @@ export default function Home(props) {
       ),
     });
   }, []);
-
   // Additional state variables and functions
   const isBigScreen = useMediaQuery({ query: "(min-device-width: 600px)" });
   const [searchPhrase, setSearchPhrase] = useState("");

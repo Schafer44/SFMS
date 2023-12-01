@@ -1,15 +1,12 @@
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
   View,
-  Button,
   TouchableHighlight,
   Alert,
 } from "react-native";
 import { db } from "./FirebaseLink";
-import React, { setState, useState, useEffect } from "react";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "./Loading";
 

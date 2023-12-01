@@ -1,23 +1,13 @@
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
   View,
-  ScrollView,
-  Button,
   Alert,
   TouchableHighlight,
 } from "react-native";
 import { db } from "./FirebaseLink";
-import React, { setState, useState, useEffect } from "react";
-import {
-  onSnapshot,
-  doc,
-  collection,
-  query,
-  orderBy,
-  setDoc,
-} from "firebase/firestore";
+import React, { useState, useEffect } from "react";
+import { onSnapshot, doc, query, setDoc } from "firebase/firestore";
 import Loading from "./Loading";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import "@expo/match-media";
